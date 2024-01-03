@@ -1,0 +1,49 @@
+@startuml
+interface Player {
+	
+}
+interface Enemy {
+
+}
+interface Inventory {
+
+}
+interface Item {
+
+}
+interface MagicMove {
+	
+}
+interface Battle {
+	+start()
+	+end()
+}
+enum ElementalType {
+
+}
+interface TypeTable {
+	
+}
+interface MoveSet {
+
+}
+interface Attributes {
+	+getHealth()
+	+getAttackModifier()
+}
+
+Player *-- ElementalType
+Enemy *-- ElementalType
+Battle *-- Enemy
+Battle *-- Player
+TypeTable o-- ElementalType
+Inventory o-- Item
+Player *-- Inventory
+Player *-- MoveSet
+MagicMove *-- ElementalType
+Enemy *-- MoveSet
+MoveSet o-- MagicMove
+Player *-- Attributes
+Enemy *-- Attributes
+
+@enduml
