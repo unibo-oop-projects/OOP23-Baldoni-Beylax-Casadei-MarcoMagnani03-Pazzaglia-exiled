@@ -32,3 +32,6 @@ replay_pid*
 
 # gradle #
 .gradle
+
+# Documentation #
+docs
