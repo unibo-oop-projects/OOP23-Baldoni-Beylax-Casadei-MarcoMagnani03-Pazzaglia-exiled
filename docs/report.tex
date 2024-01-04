@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{tikz}
 
 % Questo commentalo se vuoi scrivere in inglese.
 \usepackage[italian]{babel}
@@ -56,14 +57,10 @@ Ci sono diverse classi di nemico, alcuni più deboli e altri più forti, come i 
 
 \subsection*{Tipi elementali}
 I seguenti sono i tipi elementali presenti, ognuno è efficace rispetto ad un altro, quindi quando vengono usate mosse di un certo tipo che risulta essere efficace rispetto al tipo di un nemico, si avranno dei moltiplicatori del danno. Lo stesso vale per i nemici che usano mosse di un tipo efficace rispetto a quello scelto dal giocatore all'inizio.
-\\
-\\
+\\\\
 Ad esempio, nel seguente schema si vede che Fulmine è efficace contro Acqua.
-\\
 
-\begingroup
-\setlength{\tabcolsep}{10pt} 
-\renewcommand{\arraystretch}{1.5} 
+
 \begin{center}
 \begin{tabular}{ c c c }
     Fulmine & $\rightarrow$ & Acqua \\
@@ -72,13 +69,12 @@ Ad esempio, nel seguente schema si vede che Fulmine è efficace contro Acqua.
     Fuoco & $\rightarrow$ & Erba \\
 \end{tabular}
 \end{center}
-\endgroup
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{the-exiled-uml.png}
-    \caption{Schema UML del modello di dominio}
-    \label{fig:enter-label}
+\subsection{UML}
+\begin{figure}[H]
+	\centering
+	\input{the-exiled-uml.tex}
+	\caption{Schema UML del dominio.} \label{fig:Schema UML del dominio.}
 \end{figure}
 
 \chapter{Design}
