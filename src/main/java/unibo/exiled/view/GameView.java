@@ -5,16 +5,19 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameView extends JFrame {
-    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final double widthScreen = screenSize.getWidth();
-    private final double heightScreen = screenSize.getHeight();
+public class GameView {
+    private final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    private final double SCREEN_WIDTH = SCREEN_SIZE.getWidth();
+    private final double HEIGHT_SCREEN = SCREEN_SIZE.getHeight();
 
-    public GameView(){
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize((int)(widthScreen/2), (int)(heightScreen/1.5));
-
-        this.setVisible(true);
+    public void startView() {
+        JFrame frame = new JFrame();
+        
+        frame.setSize((int)(SCREEN_WIDTH/2), (int)(HEIGHT_SCREEN));
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setTitle("The Exiled");
+        
+        frame.setVisible(true);
     }
 
 }
