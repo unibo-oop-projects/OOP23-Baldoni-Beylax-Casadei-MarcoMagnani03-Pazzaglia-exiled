@@ -6,7 +6,7 @@ plugins {
 }
 
 application {
-	mainClass.set("unibo.exiled.view.Exiled")
+	mainClass.set("unibo.exiled.Main")
 }
 
 repositories {
