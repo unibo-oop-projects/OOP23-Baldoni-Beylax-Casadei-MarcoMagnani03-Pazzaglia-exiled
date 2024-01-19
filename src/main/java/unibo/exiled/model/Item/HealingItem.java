@@ -1,12 +1,11 @@
-package unibo.exiled.model.Item;
+package unibo.exiled.model.item;
+
+import java.util.Optional;
 
 public class HealingItem extends ItemBase implements UsableItem{
 
-    private final double healingAmount;
-
-    public HealingItem(String name, String description,double healingAmount) {
-        super(name, description);
-        this.healingAmount=healingAmount;
+    public HealingItem(String name, String description,Double healingAmount) {
+        super(name, description,Optional.of(healingAmount), ItemType.HEALING);
     }
 
     @Override

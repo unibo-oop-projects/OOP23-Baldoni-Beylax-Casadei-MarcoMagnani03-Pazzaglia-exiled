@@ -1,8 +1,8 @@
-package unibo.exiled.model.Item;
+package unibo.exiled.model.item;
 
 /**
  * Documentazione da effettuare una volta definita la classe Player
  */
-public interface UsableItem extends Item{
+interface UsableItem extends Item{
     public void use(/*Player player*/);
 }

@@ -1,4 +1,4 @@
-package unibo.exiled.model.Move;
+package unibo.exiled.model.move;
 
 import java.util.List;
 

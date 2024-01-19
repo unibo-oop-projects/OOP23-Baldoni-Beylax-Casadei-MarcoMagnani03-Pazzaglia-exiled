@@ -1,4 +1,4 @@
-package unibo.exiled.model.Item;
+package unibo.exiled.model.item;
 /**
  * Questa interfaccia modella un oggetto presente nel gioco.
  * Un oggetto rappresenta un elemento fondamentale del contesto di gioco.
@@ -6,7 +6,7 @@ package unibo.exiled.model.Item;
  * L'implementazione di questa interfaccia consente di definire comportamenti specifici
  * per ciascun tipo di oggetto nel gioco.
  */
-public interface Item {
+interface Item {
     /**
      * Restituisce il nome dell'oggetto.
      *

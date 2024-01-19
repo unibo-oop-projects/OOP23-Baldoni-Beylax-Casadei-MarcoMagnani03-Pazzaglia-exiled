@@ -1,4 +1,4 @@
-package unibo.exiled.model.Item;
+package unibo.exiled.model.item;
 
 import java.util.HashMap;
 import java.util.Map;

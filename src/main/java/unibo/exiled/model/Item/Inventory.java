@@ -1,8 +1,8 @@
-package unibo.exiled.model.Item;
+package unibo.exiled.model.item;
 
-public interface Inventory {
-    public void addItem(Item item);
-    public Integer getQuantity(Item item);
-    public void removeItem(Item position);
-    public boolean containsItem(UsableItem item);
+interface Inventory {
+    public void addItem(final Item item);
+    public Integer getQuantity(final Item item);
+    public void removeItem(final Item position);
+    public boolean containsItem(final UsableItem item);
 }
