@@ -1,8 +1,7 @@
 package unibo.exiled.model.item;
 
-import java.util.Optional;
-
 interface ItemFactory {
-
-    Item createItem(final String name,final String description,final Optional<Double> value,final ItemType itemType);
+    Item createHealingItem(final String name,final String description,final double healingValue);
+    Item createPowerUpItem(final String name,final String description,final double powerUpValue,final int duration);
+    Item createUnUsableItem(final String name,final String description);
 }
