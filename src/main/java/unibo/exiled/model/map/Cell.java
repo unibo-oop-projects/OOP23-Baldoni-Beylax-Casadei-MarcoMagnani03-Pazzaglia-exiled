@@ -1,5 +1,5 @@
 package unibo.exiled.model.map;
 
-public interface Map {
+public class Cell {
 
 }
