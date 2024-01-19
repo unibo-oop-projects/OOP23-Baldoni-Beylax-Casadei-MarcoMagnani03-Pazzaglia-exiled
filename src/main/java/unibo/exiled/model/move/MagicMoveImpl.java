@@ -1,6 +1,6 @@
 package unibo.exiled.model.move;
 
-import unibo.exiled.model.ElementalType;
+import unibo.exiled.model.utilities.ElementalType;
 
 public class MagicMoveImpl implements MagicMove {
     private final String name;

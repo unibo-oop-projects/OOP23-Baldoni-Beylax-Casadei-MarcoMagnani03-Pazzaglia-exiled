@@ -1,4 +1,4 @@
-package unibo.exiled.model.map;
+package unibo.exiled.model.utilities;
 
 /**
  * The (x,y) position of a cartesian map.
