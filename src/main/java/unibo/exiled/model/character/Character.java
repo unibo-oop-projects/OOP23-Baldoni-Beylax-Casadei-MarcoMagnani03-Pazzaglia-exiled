@@ -1,5 +1,6 @@
 package unibo.exiled.model.character;
 
+import unibo.exiled.model.map.Direction;
 import unibo.exiled.model.move.MoveSet;
 
 /**
@@ -11,5 +12,10 @@ public interface Character {
      * @return The MoveSet of the current character.
      */
     MoveSet getMoveSet();
-    void move();
+
+    /**
+     * Moves the character by the selected direction.
+     * @param direction
+     */
+    void move(final Direction direction);
 }
