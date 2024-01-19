@@ -1,21 +1,21 @@
 package unibo.exiled.model;
 
 public enum ElementalType {
-    FUOCO,
-    FULMINE,
-    ACQUA,
-    ERBA;
+    FIRE,
+    BOLT,
+    WATER,
+    GRASS;
 
     public boolean isStrongAgainst(ElementalType secondMoveType){
         switch (this) {
-            case FUOCO:
-                return secondMoveType.equals(ERBA);
-            case FULMINE:
-                return secondMoveType.equals(ACQUA);
-            case ERBA:
-                return secondMoveType.equals(FULMINE);
-            case ACQUA:
-                return secondMoveType.equals(FUOCO);
+            case FIRE:
+                return secondMoveType.equals(GRASS);
+            case BOLT:
+                return secondMoveType.equals(WATER);
+            case GRASS:
+                return secondMoveType.equals(BOLT);
+            case WATER:
+                return secondMoveType.equals(FIRE);
             default:
                 throw new IllegalArgumentException("Tipo elementale non valido: " + this);
         }
