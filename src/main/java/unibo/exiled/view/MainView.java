@@ -1,6 +1,8 @@
 package unibo.exiled.view;
-public class Exiled {
+import javax.swing.*;
+import java.awt.*;
+
+public class MainView {
     public static void main(String[] args) {
-        System.out.println("Ciao!");
     }
 }
