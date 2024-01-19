@@ -1,4 +1,4 @@
-package unibo.exiled.model;
+package unibo.exiled.model.utilities;
 
 public enum ElementalType {
     FIRE,
