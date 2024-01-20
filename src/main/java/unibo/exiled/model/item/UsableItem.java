@@ -1,7 +1,7 @@
 package unibo.exiled.model.item;
 
 /**
- * Documentazione da effettuare una volta definita la classe Player
+ * This interface represent an usable item by the player.
  */
 interface UsableItem extends Item{
     public void use(/*Player player*/);
