@@ -1,11 +1,13 @@
 package unibo.exiled.model.map;
 
 public class GameMapImpl implements  GameMap{
-    private final int size;
+    private final int height;
+    private final int width;
 
     public GameMapImpl(final int size){
         if(size % 2 == 0) {
-            this.size = size;
+            this.height = size;
+            this.width = size;
         }
         else{
             throw new IllegalArgumentException("The size of the map should be an even number.");
@@ -13,7 +15,12 @@ public class GameMapImpl implements  GameMap{
     }
 
     @Override
-    public int getSize() {
-        return this.size;
+    public int getWidth() {
+        return this.width;
+    }
+
+    @Override
+    public int getHeight(){
+        return  this.height;
     }
 }

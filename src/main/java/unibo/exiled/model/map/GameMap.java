@@ -1,5 +1,6 @@
 package unibo.exiled.model.map;
 
 public interface GameMap {
-    int getSize();
+    int getHeight();
+    int getWidth();
 }
