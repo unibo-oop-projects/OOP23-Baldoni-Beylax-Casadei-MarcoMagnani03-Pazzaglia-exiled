@@ -8,6 +8,9 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * This class represent the Game Over view.
+ */
 public class GameOverView {
     //Screen constants
     private static final int SIZE = 10;
@@ -58,10 +61,8 @@ public class GameOverView {
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] options = { "Quit", "Cancel" };
-                var selection = JOptionPane.showOptionDialog(null, "Are you sure to quit the game?", "ATTENTION", 
-                                                                0, 3, null, options, options[0]);
-                if (selection == 0) {
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to quit the game?", "Warning", JOptionPane.YES_NO_OPTION);
+                if(dialogResult == JOptionPane.YES_OPTION){
                     mainFrame.dispose();
                 }
             }
