@@ -6,17 +6,17 @@ package unibo.exiled.model.item;
  * Implementing this interface allows you to define specific behaviors
  * for each type of item in the game.
  */
-interface Item {
+public interface Item {
     /**
      * Returns the name of the item.
      *
      * @return the name of the item.
      */
-    public String getName();
+    String getName();
     /**
      * Returns the description of the item
      *
      * @return the description of the item.
      */
-    public String getDescription();
+    String getDescription();
 }

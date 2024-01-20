@@ -1,5 +1,6 @@
 package unibo.exiled.model.item;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +28,17 @@ public class InventoryImpl implements Inventory{
     }
 
     @Override
-    public Integer getQuantity(Item item) {
+    public Integer getItemQuantity(Item item) {
         return itemsList.get(item);
     }
 
     @Override
     public boolean containsItem(UsableItem item) {
         return itemsList.containsKey(item);
+    }
+
+    @Override
+    public Map<Item, Integer> getItems() {
+        return Collections.unmodifiableMap(itemsList);
     }
 }
