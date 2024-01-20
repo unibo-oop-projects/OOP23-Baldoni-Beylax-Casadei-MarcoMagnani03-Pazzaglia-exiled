@@ -1,17 +1,13 @@
 package unibo.exiled.model.character.player;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import unibo.exiled.controller.InventoryController;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
-import unibo.exiled.model.item.UsableItem;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.Pair;
 import unibo.exiled.model.utilities.Position;
 
 /**
@@ -41,10 +37,9 @@ public class PlayerImpl implements Player {
         Position positionSpanDirection = direction.getPosition();
         position = new Position(position.x()+positionSpanDirection.x(), position.y()+positionSpanDirection.y());
     }
-    
+
     @Override
-    public void useItem(UsableItem selectedItem) {
-        InventoryController ic = new InventoryController(inventory);
-        ic.useItem(selectedItem);
+    public Inventory getInventory() {
+        return this.inventory;
     }
 }
