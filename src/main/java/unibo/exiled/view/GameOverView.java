@@ -20,37 +20,53 @@ public class GameOverView {
     private final Controller controller;
 
     //The buttons to restart or exit the game.
-    private final JButton buttonRestart = new JButton("Restart");
-    private final JButton buttonExit = new JButton("Exit");
+    private final JButton restartButton = new JButton("Restart");
+    private final JButton quitButton = new JButton("Quit");
 
     public GameOverView(){
         this.controller = new Controller(SIZE);
         this.mainFrame = new JFrame();
         mainFrame.setSize((int)SCREEN_WIDTH / 3,(int)SCREEN_HEIGHT / 2);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        mainFrame.setTitle("The Exiled - Game Over");
+        mainFrame.setTitle("The Exiled");
         mainFrame.setLocationByPlatform(true);
-        this.initializeGridComponents();
+        this.initializeComponents();
         this.initializeHud();
     }
 
     private void initializeHud(){
-        JPanel flowButtonPanel = new JPanel(new FlowLayout());
-        this.mainFrame.getContentPane().add(flowButtonPanel);
-        flowButtonPanel.add(buttonRestart);
-        flowButtonPanel.add(buttonExit);
+        JPanel gameOverPanel = new JPanel(new BorderLayout());
+
+        JLabel gameOverLabel = new JLabel("Game Over!", JLabel.CENTER);
+        gameOverLabel.setFont(new Font("Arial", Font.PLAIN, 24)); 
+        gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
+
+        JPanel flowPanel = new JPanel(new FlowLayout());
+        gameOverPanel.add(flowPanel, BorderLayout.SOUTH);
+
+        flowPanel.add(restartButton);
+        flowPanel.add(quitButton);
+
+        this.mainFrame.getContentPane().add(gameOverPanel);
     }
 
-    private void initializeGridComponents(){
+    private void initializeComponents(){
         final JPanel externalPanel = new JPanel(new BorderLayout());
         this.mainFrame.setContentPane(externalPanel);
-        final JPanel gridPanel = new JPanel(new GridLayout(controller.getMapWidth(),controller.getMapHeight()));
 
         //Listener initialization
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] options = { "Quit", "Cancel" };
+                var selection = JOptionPane.showOptionDialog(null, "Are you sure to quit the game?", "ATTENTION", 
+                                                                0, 3, null, options, options[0]);
+                if (selection == 0) {
+                    mainFrame.dispose();
+                }
+            }
+        });
 
-        
-
-        this.mainFrame.getContentPane().add(gridPanel,BorderLayout.CENTER);
     }
 
     public void display() {
