@@ -42,4 +42,9 @@ public class PlayerImpl implements Player {
     public Inventory getInventory() {
         return this.inventory;
     }
+
+    @Override
+    public Position getPosition() {
+        return this.getPosition();
+    }
 }
