@@ -24,6 +24,7 @@ public class GameView {
     private final JFrame mainFrame;
     private final Controller controller;
     private InventoryView inventoryView; // Added
+    private GameOverView gameOverView;
 
     // The cells of the grid.
     private final Map<JButton, Position> cells = new HashMap<>();
@@ -53,6 +54,7 @@ public class GameView {
         JButton inventoryButton = new JButton("Inventory");
         inventoryButton.addActionListener(e -> showInventory());
         flowButtonPanelNorth.add(inventoryButton);
+
     }
 
     private void initializeGridComponents() {
@@ -84,6 +86,13 @@ public class GameView {
             inventoryView = new InventoryView();
         }
         inventoryView.display();
+    }
+
+    private void gameOver(){
+        if(this.gameOverView == null){
+            this.gameOverView = new GameOverView();
+        }
+        gameOverView.display();
     }
 
     public void display() {
