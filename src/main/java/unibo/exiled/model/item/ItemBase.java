@@ -1,6 +1,6 @@
 package unibo.exiled.model.item;
 /**
- * This abstract class implements the {@code Item} interface by providing
+ * This abstract class implements the Item interface by providing
  * a common core implementation for items in the game.
  * Objects can extend this class to inherit this base implementation and add
  * specific features.
