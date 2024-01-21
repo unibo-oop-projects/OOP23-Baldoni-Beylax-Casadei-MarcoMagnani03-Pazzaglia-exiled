@@ -36,8 +36,7 @@ public class PlayerImpl implements Player {
         inventory.addItem(factoryItem.createPowerUpItem("Power up potion", "A potion that gives a power up to the player", 20,2));
         inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
         inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
-        this.health = new StatsImpl();
-        this.health.setDefaultValue(STARTING_HEALTH);
+        this.health = new StatsImpl(STARTING_HEALTH);
         this.moveSet = new MoveSetImpl();
         this.position = STARTING_POSITION;
     }

@@ -5,8 +5,7 @@ public class StatsImpl implements Stats {
     private double value;
     private int multiplier;
 
-    @Override
-    public void setDefaultValue(double value) {
+    public StatsImpl(double value){
         this.value = value;
     }
 
