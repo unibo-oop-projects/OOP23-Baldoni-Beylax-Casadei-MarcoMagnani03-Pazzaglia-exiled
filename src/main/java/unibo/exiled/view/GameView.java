@@ -7,10 +7,9 @@ import unibo.exiled.model.utilities.Position;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -46,6 +45,11 @@ public class GameView {
         mainFrame.setTitle("The Exiled");
         mainFrame.setLocationByPlatform(true);
         mainFrame.setFocusable(true);
+        mainFrame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                playerView.updateSize(cells.keySet().stream().toList().get(0).getSize());
+            }
+        });
         this.initializeGridComponents();
         this.initializeHud();
     }

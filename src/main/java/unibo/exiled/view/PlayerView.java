@@ -11,4 +11,9 @@ public class PlayerView extends ImageIcon{
                     .getImage()
                     .getScaledInstance(30, 30, Image.SCALE_DEFAULT));
     }
+
+    public void updateSize(Dimension size) {
+        Image image = getImage();
+        setImage(image.getScaledInstance(size.width, size.height, Image.SCALE_FAST));
+    }
 }
