@@ -1,5 +1,6 @@
 package unibo.exiled.model.character.player;
 
+import unibo.exiled.model.character.Attributes;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.ItemFactoryImpl;
@@ -21,9 +22,6 @@ public class PlayerImpl implements Player {
     private final MoveSetImpl moveSet;
     private int level;
     private double exp;
-    private Stats health;
-    private Stats attack;
-    private Stats defense;
     private Position position;
     
 
@@ -36,7 +34,6 @@ public class PlayerImpl implements Player {
         inventory.addItem(factoryItem.createPowerUpItem("Power up potion", "A potion that gives a power up to the player", 20,2));
         inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
         inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
-        this.health = new StatsImpl(STARTING_HEALTH);
         this.moveSet = new MoveSetImpl();
         this.position = STARTING_POSITION;
     }
@@ -67,11 +64,6 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public Stats getHealth() {
-        return this.health;
-    }
-
-    @Override
     public Inventory getInventory() {
         return this.inventory;
     }
@@ -81,6 +73,10 @@ public class PlayerImpl implements Player {
         return this.position;
     }
 
+    @Override
+    public Attributes getAttributes() {
+        return null;
+    }
 
 
 }

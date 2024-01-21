@@ -25,4 +25,10 @@ public interface Character {
      * @return The position of the current character.
      */
     Position getPosition();
+
+    /**
+     * Returns the attributes of the current character.
+     * @return The attributes of the current character.
+     */
+    Attributes getAttributes();
 }
