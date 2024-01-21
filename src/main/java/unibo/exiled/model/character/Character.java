@@ -2,6 +2,7 @@ package unibo.exiled.model.character;
 
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.move.MoveSet;
+import unibo.exiled.model.utilities.Position;
 
 /**
  * A character that can move.
@@ -18,4 +19,10 @@ public interface Character {
      * @param direction
      */
     void move(final Direction direction);
+
+    /**
+     * Returns the position of the current character.
+     * @return The position of the current character.
+     */
+    Position getPosition();
 }

@@ -1,5 +1,7 @@
 package unibo.exiled.model.character.enemy;
 
-public interface Enemy {
+import unibo.exiled.model.character.Character;
 
+public interface Enemy extends Character {
+    String getName();
 }

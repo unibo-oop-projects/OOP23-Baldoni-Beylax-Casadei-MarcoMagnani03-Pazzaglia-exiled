@@ -37,7 +37,7 @@ public class GameMapImpl implements  GameMap{
             this.height = size;
             this.width = size;
             this.cellStates = new HashMap<>();
-            final int startingSize = size / 3;
+            final int startingSize = (size / 2) - 3;
             this.fillCells(startingSize);
         }
         else{
@@ -45,14 +45,16 @@ public class GameMapImpl implements  GameMap{
         }
     }
 
-    @Override
-    public int getWidth() {
-        return this.width;
-    }
-
+    //Gets the type of cell.
     @Override
     public CellType getCellType(Position cell) {
         return this.cellStates.get(cell);
+    }
+
+    //Dimensions getters
+    @Override
+    public int getWidth() {
+        return this.width;
     }
 
     @Override
