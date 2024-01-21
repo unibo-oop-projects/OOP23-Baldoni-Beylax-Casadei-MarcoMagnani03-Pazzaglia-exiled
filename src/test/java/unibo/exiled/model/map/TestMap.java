@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import unibo.exiled.model.utilities.Position;
 
 public class TestMap {
     private GameMap map;
@@ -20,5 +21,10 @@ public class TestMap {
     public void testGetSize(){
         assertEquals(map.getHeight(),DEFAULT_SIZE);
         assertEquals(map.getWidth(),DEFAULT_SIZE);
+    }
+
+    @Test
+    public void testAreas(){
+
     }
 }

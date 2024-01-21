@@ -6,7 +6,7 @@ plugins {
 }
 
 application {
-	mainClass.set("unibo.exiled.Main")
+	mainClass.set("unibo.exiled.view.GameView")
 }
 
 repositories {
