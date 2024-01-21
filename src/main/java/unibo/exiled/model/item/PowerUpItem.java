@@ -1,5 +1,8 @@
 package unibo.exiled.model.item;
 
+import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.character.player.PlayerAttribute.AttributeType;
+
 /**
  * This class represents a usable power up item, 
  * the use class allows the character to power up a certain statistic(for example the attack), 
@@ -8,24 +11,24 @@ package unibo.exiled.model.item;
  */
 public class PowerUpItem extends ItemBase implements ItemWithDuration{
 
-    /*private final Statistic boostedStatistic es. attacco, difesa */
-
+    private final AttributeType boostedAttribute;
     private final int duration;
+    private final double powerUpValue;
 
-    public PowerUpItem(final String name,final String description,final double powerUpValue,final int duration) {
+    public PowerUpItem(final String name,final String description,final double powerUpValue,final int duration,final AttributeType boostedAttribute) {
         super(name, description);
         this.duration=duration;
+        this.boostedAttribute = boostedAttribute;
+        this.powerUpValue=powerUpValue;
     }
 
     @Override
-    public void use() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'applyItem'");
+    public void use(Player player) {
+        player.getAttributes().increase(boostedAttribute, powerUpValue);
     }
 
     @Override
     public int getDuration() {
         return this.duration;
     }
-    
 }

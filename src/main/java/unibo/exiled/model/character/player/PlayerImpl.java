@@ -1,6 +1,7 @@
 package unibo.exiled.model.character.player;
 
 import unibo.exiled.model.character.Attributes;
+import unibo.exiled.model.character.player.PlayerAttribute.AttributeType;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.ItemFactoryImpl;
@@ -30,8 +31,8 @@ public class PlayerImpl implements Player {
         ItemFactoryImpl factoryItem= new ItemFactoryImpl();
         inventory.addItem(factoryItem.createHealingItem("Healing Potion", "A potion that gives healing to the player", 20));
         inventory.addItem(factoryItem.createHealingItem("Healing Potion", "A potion that gives healing to the player", 20));
-        inventory.addItem(factoryItem.createPowerUpItem("Power up potion", "A potion that gives a power up to the player", 20,2));
-        inventory.addItem(factoryItem.createPowerUpItem("Power up potion", "A potion that gives a power up to the player", 20,2));
+        inventory.addItem(factoryItem.createPowerUpItem("Power up attack potion", "A potion that gives a power up to the player", 20,2,AttributeType.ATTACK));
+        inventory.addItem(factoryItem.createPowerUpItem("Power up defense potion", "A potion that gives a power up to the player", 20,2,AttributeType.DEFENSE));
         inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
         inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
         this.attributes = new PlayerAttribute(STARTING_HEALTH);

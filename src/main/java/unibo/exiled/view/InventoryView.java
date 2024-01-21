@@ -53,7 +53,7 @@ public class InventoryView extends JFrame {
             if (value instanceof Item) {
                 Item item = (Item) value;
                 int quantity = inventoryController.getItems().get(item);
-                setText(item.getName() + " - Quantity: " + quantity+" - Description: "+item.getDescription());
+                setText(" "+item.getName() + " - Quantity: " + quantity+" - Description: "+item.getDescription());
                 
                 setPreferredSize(new Dimension(getWidth(), LIST_ITEM_HEIGHT));
 
