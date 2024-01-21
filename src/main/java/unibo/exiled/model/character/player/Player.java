@@ -19,11 +19,6 @@ public interface Player extends Character{
     double getExperience();
 
     /**
-     * @return the player health.
-     */
-    Stats getHealth();
-
-    /**
      * @return the inventory of the player.
      */
     Inventory getInventory();

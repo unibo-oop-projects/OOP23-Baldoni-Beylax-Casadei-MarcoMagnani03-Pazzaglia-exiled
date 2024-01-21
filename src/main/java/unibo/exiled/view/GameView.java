@@ -53,7 +53,7 @@ public class GameView {
         mainFrame.setFocusable(true);
         mainFrame.addComponentListener(new ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                playerView.updateSize(cells.keySet().stream().toList().get(0).getSize());
+               playerView.updateSize(cells.keySet().stream().toList().get(0).getSize());
             }
         });
         this.initializeGridComponents();
@@ -120,6 +120,7 @@ public class GameView {
                     default:
                         break;
                 }
+                redraw();
             }
             
             @Override
@@ -136,10 +137,23 @@ public class GameView {
                 gridPanel.add(cell);
                 cells.put(cell, new Position(j, i));
                 this.setAreas(cell);
+                if(j == playerController.getPlayerPosition().x() && i == playerController.getPlayerPosition().y()){
+                    cell.add(playerView);
+                }
             }
         }
 
         this.mainFrame.getContentPane().add(gridPanel, BorderLayout.CENTER);
+    }
+
+    private void redraw(){
+        for (var cell: cells.entrySet()) {
+            if(cell.getValue().equals(playerController.getPlayerPosition())){
+
+            }else{
+                
+            }
+        }
     }
 
     private void showInventory() {
