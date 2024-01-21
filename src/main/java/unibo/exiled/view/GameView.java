@@ -59,12 +59,10 @@ public class GameView {
         JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
         this.mainFrame.getContentPane().add(flowButtonPanelSouth, BorderLayout.SOUTH);
         JButton buttonSouth = new JButton("Template");
-        this.mainFrame.getContentPane().add(flowButtonPanelNorth, BorderLayout.NORTH);
-        JButton buttonNorth = new JButton("Poppolo");
         flowButtonPanelSouth.add(buttonSouth);
-        flowButtonPanelNorth.add(buttonNorth);
 
         // Inventory button
+        this.mainFrame.getContentPane().add(flowButtonPanelNorth, BorderLayout.NORTH);
         JButton inventoryButton = new JButton("Inventory");
         inventoryButton.addActionListener(e -> showInventory());
         flowButtonPanelNorth.add(inventoryButton);
@@ -171,7 +169,7 @@ public class GameView {
 
     private void showInventory() {
         if (inventoryView == null) {
-            inventoryView = new InventoryView();
+            inventoryView = new InventoryView(controller.getInventoryController());
         }
         inventoryView.display();
     }
