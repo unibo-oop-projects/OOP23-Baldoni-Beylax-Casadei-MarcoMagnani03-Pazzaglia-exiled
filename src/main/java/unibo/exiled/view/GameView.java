@@ -144,7 +144,7 @@ public class GameView {
             for (int j = 0; j < controller.getMapWidth(); j++) {
                 final JButton cell = new JButton();
                 if(j == playerController.getPlayerPosition().x() && i == playerController.getPlayerPosition().y()){
-                    cell.setText("P");
+                    cell.setIcon(playerView);
                 }
                 gridPanel.add(cell);
                 cells.put(cell, new Position(j, i));
@@ -158,9 +158,9 @@ public class GameView {
     private void redraw(){
         for (Entry<JButton, Position> cell : cells.entrySet()) {
             if(cell.getValue().equals(playerController.getPlayerPosition())){
-                cell.getKey().setText("P");
+                cell.getKey().setIcon(playerView);
             }else{
-                cell.getKey().setText(" ");
+                cell.getKey().setIcon(null);
             }
         }
     }
