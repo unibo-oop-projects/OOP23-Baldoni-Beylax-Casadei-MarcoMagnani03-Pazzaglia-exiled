@@ -9,11 +9,11 @@ public class PlayerView extends ImageIcon{
     public PlayerView(){
         super(new ImageIcon(IMAGE_PATH)
                     .getImage()
-                    .getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+                    .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
     }
 
     public void updateSize(Dimension size) {
         Image image = getImage();
-        setImage(image.getScaledInstance(size.width, size.height, Image.SCALE_FAST));
+        setImage(image.getScaledInstance(size.width, size.height, Image.SCALE_DEFAULT));
     }
 }

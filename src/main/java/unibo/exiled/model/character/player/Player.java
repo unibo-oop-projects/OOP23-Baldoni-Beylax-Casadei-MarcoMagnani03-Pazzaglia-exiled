@@ -9,6 +9,21 @@ import unibo.exiled.model.utilities.Position;
  */
 public interface Player extends Character{
     /**
+     * @return the player level.
+     */
+    int getLevel();
+
+    /**
+     * @return the player experience.
+     */
+    double getExperience();
+
+    /**
+     * @return the player health.
+     */
+    Stats getHealth();
+
+    /**
      * @return the inventory of the player.
      */
     Inventory getInventory();
