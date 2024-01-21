@@ -1,11 +1,8 @@
 package unibo.exiled.model.character.player;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
-import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.model.item.ItemFactoryImpl;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetImpl;
 import unibo.exiled.model.utilities.Direction;
@@ -32,6 +29,14 @@ public class PlayerImpl implements Player {
 
     public PlayerImpl(){
         this.inventory = new InventoryImpl();
+        ItemFactoryImpl factoryItem= new ItemFactoryImpl();
+        inventory.addItem(factoryItem.createHealingItem("Healing Potion", "A potion that gives healing to the player", 20));
+        inventory.addItem(factoryItem.createHealingItem("Healing Potion", "A potion that gives healing to the player", 20));
+        inventory.addItem(factoryItem.createPowerUpItem("Power up potion", "A potion that gives a power up to the player", 20,2));
+        inventory.addItem(factoryItem.createPowerUpItem("Power up potion", "A potion that gives a power up to the player", 20,2));
+        inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
+        inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
+        this.health = new StatsImpl();
         this.health.setDefaultValue(STARTING_HEALTH);
         this.moveSet = new MoveSetImpl();
         this.position = STARTING_POSITION;
