@@ -1,13 +1,14 @@
 package unibo.exiled.view;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 
-public class PlayerView extends JPanel {
-    //TODO
+
+public class PlayerView extends ImageIcon{
+    private static final String IMAGE_PATH = "src\\main\\java\\unibo\\exiled\\resources\\playerImage.png";
+
+    public PlayerView(){
+        super(new ImageIcon(IMAGE_PATH)
+                    .getImage()
+                    .getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+    }
 }
