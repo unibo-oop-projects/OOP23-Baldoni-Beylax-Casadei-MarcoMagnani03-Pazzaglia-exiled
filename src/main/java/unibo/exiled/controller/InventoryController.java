@@ -2,6 +2,7 @@ package unibo.exiled.controller;
 
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.Item;
+import unibo.exiled.model.item.ItemFactoryImpl;
 import unibo.exiled.model.item.UsableItem;
 
 import java.util.Map;

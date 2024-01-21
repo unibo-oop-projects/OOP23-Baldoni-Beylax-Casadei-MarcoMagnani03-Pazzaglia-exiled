@@ -1,6 +1,7 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.Controller;
+import unibo.exiled.controller.InventoryController;
 import unibo.exiled.controller.PlayerController;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
@@ -25,6 +26,7 @@ public class GameView {
     private final JFrame mainFrame;
     private final Controller controller;
     private final PlayerController playerController;
+    private final InventoryController inventoryController;
     private InventoryView inventoryView;
     private final PlayerView playerView;
     private GameOverView gameOverView;
@@ -40,6 +42,7 @@ public class GameView {
 
         this.controller = new Controller(SIZE);
         this.playerController = new PlayerController();
+        this.inventoryController=controller.getInventoryController();
         this.playerView = new PlayerView();
         this.mainFrame = new JFrame();
 
@@ -141,7 +144,7 @@ public class GameView {
 
     private void showInventory() {
         if (inventoryView == null) {
-            inventoryView = new InventoryView(controller.getInventoryController());
+            inventoryView = new InventoryView(inventoryController);
         }
         inventoryView.display();
     }

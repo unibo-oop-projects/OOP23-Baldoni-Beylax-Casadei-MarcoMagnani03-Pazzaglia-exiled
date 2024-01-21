@@ -10,6 +10,10 @@ import java.util.Map;
 
 public class InventoryView extends JFrame {
     private InventoryController inventoryController;
+    private final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
+    private final double SCREEN_WIDTH = SCREEN.getWidth();
+    private final double SCREEN_HEIGHT = SCREEN.getHeight();
+    private final static int SCALING=4;
 
     public InventoryView(InventoryController inventoryController) {
         this.inventoryController = inventoryController;
@@ -18,7 +22,7 @@ public class InventoryView extends JFrame {
         setLayout(new FlowLayout());
 
         updateInventoryButtons();
-
+        setSize((int)SCREEN_WIDTH/SCALING, (int)SCREEN_HEIGHT/SCALING);
         setLocationRelativeTo(null);
     }
 
@@ -40,6 +44,9 @@ public class InventoryView extends JFrame {
                 add(itemButton);
             }
         }
+        invalidate(); 
+        validate(); 
+        repaint();    
         revalidate();
     }
 
