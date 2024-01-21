@@ -1,14 +1,19 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.Controller;
+import unibo.exiled.controller.PlayerController;
+import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The main view of the game.
@@ -23,7 +28,9 @@ public class GameView {
     // MVC Components (MC)
     private final JFrame mainFrame;
     private final Controller controller;
-    private InventoryView inventoryView; // Added
+    private final PlayerController playerController;
+    private InventoryView inventoryView;
+    private PlayerView playerView;
     private GameOverView gameOverView;
 
     // The cells of the grid.
@@ -31,11 +38,14 @@ public class GameView {
 
     public GameView() {
         this.controller = new Controller(SIZE);
+        this.playerController = new PlayerController();
+        this.playerView = new PlayerView();
         this.mainFrame = new JFrame();
         mainFrame.setSize((int) SCREEN_WIDTH / 3, (int) SCREEN_HEIGHT / 2);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setTitle("The Exiled");
         mainFrame.setLocationByPlatform(true);
+        mainFrame.setFocusable(true);
         this.initializeGridComponents();
         this.initializeHud();
     }
@@ -63,22 +73,62 @@ public class GameView {
         final JPanel gridPanel = new JPanel(new GridLayout(controller.getMapWidth(), controller.getMapHeight()));
 
         // Listener initialization
-        ActionListener al = e -> {
-            final JButton button = (JButton) e.getSource();
-            button.setText(String.valueOf(cells.get(button)));
+        KeyListener kl = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_W:
+                        playerController.move(Direction.NORTH);
+                        break;
+                    case KeyEvent.VK_S:
+                        playerController.move(Direction.SOUTH);
+                        break;
+                    case KeyEvent.VK_A:
+                        playerController.move(Direction.WEST);
+                    break;
+                    case KeyEvent.VK_D:
+                        playerController.move(Direction.EAST);
+                    break;
+                    default:
+                        break;
+                }
+                redraw();
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
         };
+
+        this.mainFrame.addKeyListener(kl);
 
         // Grid initialization
         for (int i = 0; i < controller.getMapHeight(); i++) {
             for (int j = 0; j < controller.getMapWidth(); j++) {
                 final JButton cell = new JButton();
-                cell.addActionListener(al);
+                if(j == playerController.getPlayerPosition().x() && i == playerController.getPlayerPosition().y()){
+                    cell.setText("P");
+                }
                 gridPanel.add(cell);
                 cells.put(cell, new Position(j, i));
             }
         }
 
         this.mainFrame.getContentPane().add(gridPanel, BorderLayout.CENTER);
+    }
+
+    private void redraw(){
+        for (Entry<JButton, Position> cell : cells.entrySet()) {
+            if(cell.getValue().equals(playerController.getPlayerPosition())){
+                cell.getKey().setText("P");
+            }else{
+                cell.getKey().setText(" ");
+            }
+        }
     }
 
     private void showInventory() {

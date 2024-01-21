@@ -29,7 +29,7 @@ public class PlayerImpl implements Player {
 
     @Override
     public MoveSet getMoveSet() {
-        throw new IllegalStateException();
+        throw new IllegalStateException(); // TODO
     }
 
     @Override
@@ -45,6 +45,6 @@ public class PlayerImpl implements Player {
 
     @Override
     public Position getPosition() {
-        return this.getPosition();
+        return this.position;
     }
 }
