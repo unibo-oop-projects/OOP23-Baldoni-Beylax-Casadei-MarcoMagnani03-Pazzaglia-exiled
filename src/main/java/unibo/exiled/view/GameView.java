@@ -7,10 +7,8 @@ import unibo.exiled.model.utilities.Position;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -53,14 +51,13 @@ public class GameView {
     private void initializeHud() {
         JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
         JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
+        
         this.mainFrame.getContentPane().add(flowButtonPanelSouth, BorderLayout.SOUTH);
         JButton buttonSouth = new JButton("Template");
-        this.mainFrame.getContentPane().add(flowButtonPanelNorth, BorderLayout.NORTH);
-        JButton buttonNorth = new JButton("Poppolo");
         flowButtonPanelSouth.add(buttonSouth);
-        flowButtonPanelNorth.add(buttonNorth);
-
+        
         // Inventory button
+        this.mainFrame.getContentPane().add(flowButtonPanelNorth, BorderLayout.NORTH);
         JButton inventoryButton = new JButton("Inventory");
         inventoryButton.addActionListener(e -> showInventory());
         flowButtonPanelNorth.add(inventoryButton);
@@ -167,7 +164,7 @@ public class GameView {
 
     private void showInventory() {
         if (inventoryView == null) {
-            inventoryView = new InventoryView();
+            inventoryView = new InventoryView(controller.getInventoryController());
         }
         inventoryView.display();
     }
