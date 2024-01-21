@@ -31,12 +31,12 @@ public interface Inventory {
     void removeItem(final Item item);
 
     /**
-     * Checks if the inventory contains the specified usable item.
+     * Checks if the inventory contains the specified item.
      *
-     * @param item The usable item to check for in the inventory.
+     * @param item The item to check for in the inventory.
      * @return true if the inventory contains the item, false otherwise.
      */
-    boolean containsItem(final UsableItem item);
+    boolean containsItem(final Item item);
 
     /**
      * returns a map of the objects, the integer specifies the number of that specific item in the inventory

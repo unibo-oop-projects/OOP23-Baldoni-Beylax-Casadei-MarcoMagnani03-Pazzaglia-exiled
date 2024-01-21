@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import unibo.exiled.model.utilities.Position;
 
 public class TestMap {
     private GameMap map;

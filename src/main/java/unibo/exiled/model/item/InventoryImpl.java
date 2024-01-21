@@ -14,7 +14,12 @@ public class InventoryImpl implements Inventory{
 
     @Override
     public void addItem(Item item) {
-        itemsList.put(item, itemsList.getOrDefault(item, 0) + 1);
+        if(containsItem(item)){
+            itemsList.put(item, itemsList.get(item) + 1);
+        }
+        else{
+            itemsList.putIfAbsent(item, 1);
+        }
     }
 
     @Override
@@ -33,7 +38,7 @@ public class InventoryImpl implements Inventory{
     }
 
     @Override
-    public boolean containsItem(UsableItem item) {
+    public boolean containsItem(Item item) {
         return itemsList.containsKey(item);
     }
 
