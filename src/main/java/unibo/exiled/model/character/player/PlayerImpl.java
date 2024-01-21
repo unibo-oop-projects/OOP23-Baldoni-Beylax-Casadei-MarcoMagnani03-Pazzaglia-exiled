@@ -17,9 +17,9 @@ public class PlayerImpl implements Player {
     private static final double STARTING_HEALTH = 100.0;
     private static final Position STARTING_POSITION = new Position(3, 3);
 
-
     private final Inventory inventory;
     private final MoveSetImpl moveSet;
+    private PlayerAttribute attributes;
     private int level;
     private double exp;
     private Position position;
@@ -34,6 +34,7 @@ public class PlayerImpl implements Player {
         inventory.addItem(factoryItem.createPowerUpItem("Power up potion", "A potion that gives a power up to the player", 20,2));
         inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
         inventory.addItem(factoryItem.createUnUsableItem("Redemption crystal", "A crystal"));
+        this.attributes = new PlayerAttribute(STARTING_HEALTH);
         this.moveSet = new MoveSetImpl();
         this.position = STARTING_POSITION;
     }
