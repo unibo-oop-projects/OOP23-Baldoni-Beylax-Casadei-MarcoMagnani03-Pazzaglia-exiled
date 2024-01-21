@@ -32,7 +32,7 @@ public class GameView {
     private GameOverView gameOverView;
 
     // The cells of the grid.
-    private final Map<JPanel, Position> cells = new HashMap<>();
+    private final Map<Position, JPanel> cells = new HashMap<>();
 
     public GameView() {
         //Screen size initialization.
@@ -51,11 +51,6 @@ public class GameView {
         mainFrame.setTitle("The Exiled");
         mainFrame.setLocationByPlatform(true);
         mainFrame.setFocusable(true);
-        mainFrame.addComponentListener(new ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-               playerView.updateSize(cells.keySet().stream().toList().get(0).getSize());
-            }
-        });
         this.initializeGridComponents();
         this.initializeHud();
     }
@@ -79,16 +74,17 @@ public class GameView {
      * Colors the map areas based on the respective type.
      * @param cell The JButton cell to set its background.
      */
-    private void setAreas(final JPanel cell){
-        switch (controller.getCellType(cells.get(cell))){
-            case VOLCANO -> cell.setBackground(Color.ORANGE);
-            case PLAINS -> cell.setBackground(Color.yellow);
-            case FOREST -> cell.setBackground(Color.green);
-            case STORM -> cell.setBackground(Color.darkGray);
-            case SWAMP -> cell.setBackground(Color.blue);
-            default -> cell.setBackground(Color.white);
+    private void setAreas(final Position cell){
+        final JPanel pane = cells.get(cell);
+        switch (controller.getCellType(cell)){
+            case VOLCANO -> pane.setBackground(Color.ORANGE);
+            case PLAINS -> pane.setBackground(Color.yellow);
+            case FOREST -> pane.setBackground(Color.green);
+            case STORM -> pane.setBackground(Color.darkGray);
+            case SWAMP -> pane.setBackground(Color.blue);
+            default -> pane.setBackground(Color.white);
         }
-        cell.setBorder(new LineBorder(Color.black));
+        pane.setBorder(new LineBorder(Color.black));
     }
 
     private void initializeGridComponents() {
@@ -104,6 +100,7 @@ public class GameView {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                final Position previousPosition = playerController.getPlayerPosition();
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_W:
                         playerController.move(Direction.NORTH);
@@ -120,9 +117,8 @@ public class GameView {
                     default:
                         break;
                 }
-                redraw();
             }
-            
+
             @Override
             public void keyReleased(KeyEvent e) {
             }
@@ -134,9 +130,10 @@ public class GameView {
         for (int i = 0; i < controller.getMapHeight(); i++) {
             for (int j = 0; j < controller.getMapWidth(); j++) {
                 final JPanel cell = new JPanel();
+                final Position pos = new Position(j,i);
                 gridPanel.add(cell);
-                cells.put(cell, new Position(j, i));
-                this.setAreas(cell);
+                cells.put(pos,cell);
+                this.setAreas(pos);
                 if(j == playerController.getPlayerPosition().x() && i == playerController.getPlayerPosition().y()){
                     cell.add(playerView);
                 }
@@ -144,16 +141,6 @@ public class GameView {
         }
 
         this.mainFrame.getContentPane().add(gridPanel, BorderLayout.CENTER);
-    }
-
-    private void redraw(){
-        for (var cell: cells.entrySet()) {
-            if(cell.getValue().equals(playerController.getPlayerPosition())){
-
-            }else{
-                
-            }
-        }
     }
 
     private void showInventory() {
