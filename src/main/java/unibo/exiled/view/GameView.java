@@ -20,7 +20,7 @@ import java.util.Map.Entry;
  */
 public class GameView {
     // Screen constants
-    private static final int SIZE = 10;
+    private static final int SIZE = 20;
     private final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
     private final double SCREEN_WIDTH = SCREEN.getWidth();
     private final double SCREEN_HEIGHT = SCREEN.getHeight();
@@ -65,6 +65,39 @@ public class GameView {
         inventoryButton.addActionListener(e -> showInventory());
         flowButtonPanelNorth.add(inventoryButton);
 
+    }
+
+    /**
+     * Colors the map areas based on the respective type.
+     * @param cell The JButton cell to set its background.
+     */
+    private void setAreas(final JButton cell){
+        switch (controller.getCellType(cells.get(cell))){
+            case VOLCANO -> {
+                cell.setBackground(Color.ORANGE);
+                break;
+            }
+            case PLAINS -> {
+                cell.setBackground(Color.yellow);
+                break;
+            }
+            case FOREST -> {
+                cell.setBackground(Color.green);
+                break;
+            }
+            case STORM -> {
+                cell.setBackground(Color.darkGray);
+                break;
+            }
+            case SWAMP -> {
+                cell.setBackground(Color.blue);
+                break;
+            }
+            default -> {
+                cell.setBackground(Color.white);
+                break;
+            }
+        }
     }
 
     private void initializeGridComponents() {
@@ -115,6 +148,7 @@ public class GameView {
                 }
                 gridPanel.add(cell);
                 cells.put(cell, new Position(j, i));
+                this.setAreas(cell);
             }
         }
 
