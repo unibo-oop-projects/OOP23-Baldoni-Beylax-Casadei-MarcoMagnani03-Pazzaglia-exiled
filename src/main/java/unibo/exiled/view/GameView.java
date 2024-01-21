@@ -6,13 +6,13 @@ import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * The main view of the game.
@@ -20,26 +20,29 @@ import java.util.Map.Entry;
 public class GameView {
     // Screen constants
     private static final int SIZE = 20;
-    private final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
-    private final double SCREEN_WIDTH = SCREEN.getWidth();
-    private final double SCREEN_HEIGHT = SCREEN.getHeight();
 
     // MVC Components (MC)
     private final JFrame mainFrame;
     private final Controller controller;
     private final PlayerController playerController;
     private InventoryView inventoryView;
-    private PlayerView playerView;
+    private final PlayerView playerView;
     private GameOverView gameOverView;
 
     // The cells of the grid.
-    private final Map<JButton, Position> cells = new HashMap<>();
+    private final Map<JPanel, Position> cells = new HashMap<>();
 
     public GameView() {
+        //Screen size initialization.
+        Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
+        double SCREEN_WIDTH = SCREEN.getWidth();
+        double SCREEN_HEIGHT = SCREEN.getHeight();
+
         this.controller = new Controller(SIZE);
         this.playerController = new PlayerController();
         this.playerView = new PlayerView();
         this.mainFrame = new JFrame();
+
         mainFrame.setSize((int) SCREEN_WIDTH / 3, (int) SCREEN_HEIGHT / 2);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setTitle("The Exiled");
@@ -73,33 +76,16 @@ public class GameView {
      * Colors the map areas based on the respective type.
      * @param cell The JButton cell to set its background.
      */
-    private void setAreas(final JButton cell){
+    private void setAreas(final JPanel cell){
         switch (controller.getCellType(cells.get(cell))){
-            case VOLCANO -> {
-                cell.setBackground(Color.ORANGE);
-                break;
-            }
-            case PLAINS -> {
-                cell.setBackground(Color.yellow);
-                break;
-            }
-            case FOREST -> {
-                cell.setBackground(Color.green);
-                break;
-            }
-            case STORM -> {
-                cell.setBackground(Color.darkGray);
-                break;
-            }
-            case SWAMP -> {
-                cell.setBackground(Color.blue);
-                break;
-            }
-            default -> {
-                cell.setBackground(Color.white);
-                break;
-            }
+            case VOLCANO -> cell.setBackground(Color.ORANGE);
+            case PLAINS -> cell.setBackground(Color.yellow);
+            case FOREST -> cell.setBackground(Color.green);
+            case STORM -> cell.setBackground(Color.darkGray);
+            case SWAMP -> cell.setBackground(Color.blue);
+            default -> cell.setBackground(Color.white);
         }
+        cell.setBorder(new LineBorder(Color.black));
     }
 
     private void initializeGridComponents() {
@@ -131,7 +117,6 @@ public class GameView {
                     default:
                         break;
                 }
-                redraw();
             }
             
             @Override
@@ -144,10 +129,7 @@ public class GameView {
         // Grid initialization
         for (int i = 0; i < controller.getMapHeight(); i++) {
             for (int j = 0; j < controller.getMapWidth(); j++) {
-                final JButton cell = new JButton();
-                if(j == playerController.getPlayerPosition().x() && i == playerController.getPlayerPosition().y()){
-                    cell.setIcon(playerView);
-                }
+                final JPanel cell = new JPanel();
                 gridPanel.add(cell);
                 cells.put(cell, new Position(j, i));
                 this.setAreas(cell);
@@ -155,16 +137,6 @@ public class GameView {
         }
 
         this.mainFrame.getContentPane().add(gridPanel, BorderLayout.CENTER);
-    }
-
-    private void redraw(){
-        for (Entry<JButton, Position> cell : cells.entrySet()) {
-            if(cell.getValue().equals(playerController.getPlayerPosition())){
-                cell.getKey().setIcon(playerView);
-            }else{
-                cell.getKey().setIcon(null);
-            }
-        }
     }
 
     private void showInventory() {
@@ -186,8 +158,6 @@ public class GameView {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new GameView().display();
-        });
+        SwingUtilities.invokeLater(() -> new GameView().display());
     }
 }
