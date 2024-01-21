@@ -1,10 +1,8 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.Controller;
-import unibo.exiled.model.utilities.Position;
 
 import javax.swing.*;
-import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 

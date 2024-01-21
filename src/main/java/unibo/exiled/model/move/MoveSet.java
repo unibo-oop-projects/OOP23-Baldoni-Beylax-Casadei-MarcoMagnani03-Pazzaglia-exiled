@@ -1,8 +1,8 @@
 package unibo.exiled.model.move;
 
-import java.util.List;
+import java.util.Set;
 
 public interface MoveSet {
-    public List<MagicMove> getMagicMoves();
-    public void changeMoves(MagicMove oldMove, MagicMove newMove);
+    Set<MagicMove> getMagicMoves();
+    void changeMoves(MagicMove oldMove, MagicMove newMove);
 }

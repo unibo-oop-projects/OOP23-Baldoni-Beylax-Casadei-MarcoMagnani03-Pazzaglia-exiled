@@ -1,28 +1,18 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.InventoryController;
-import unibo.exiled.model.item.Inventory;
-import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.Item;
-import unibo.exiled.model.item.ItemFactoryImpl;
 import unibo.exiled.model.item.UsableItem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Map;
 
 public class InventoryView extends JFrame {
-    private InventoryController controller;
+    private InventoryController inventoryController;
 
-    public InventoryView() {
-        Inventory inventory = new InventoryImpl();
-        ItemFactoryImpl itemFactory = new ItemFactoryImpl();
-        inventory.addItem(itemFactory.createHealingItem("Healing Potion", "A potion that gives healing to the player", 20));
-        inventory.addItem(itemFactory.createPowerUpItem("Power up potion", "A potion that gives a power up to the player", 20,2));
-        inventory.addItem(itemFactory.createUnUsableItem("Redemption crystal", "A crystal"));
-        controller = new InventoryController(inventory);
+    public InventoryView(InventoryController inventoryController) {
+        this.inventoryController = inventoryController;
         setTitle("Inventory");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
@@ -35,7 +25,7 @@ public class InventoryView extends JFrame {
     public void updateInventoryButtons() {
         getContentPane().removeAll();
 
-        Map<Item, Integer> itemsList = controller.getItems();
+        Map<Item, Integer> itemsList = inventoryController.getItems();
 
         if (itemsList.isEmpty()) {
             add(new JLabel("Inventory is empty."));
@@ -63,7 +53,7 @@ public class InventoryView extends JFrame {
             );
 
             if (confirmation == JOptionPane.YES_OPTION) {
-                controller.useItem(usableItem);
+                inventoryController.useItem(usableItem);
                 updateInventoryButtons();
             }
         });
