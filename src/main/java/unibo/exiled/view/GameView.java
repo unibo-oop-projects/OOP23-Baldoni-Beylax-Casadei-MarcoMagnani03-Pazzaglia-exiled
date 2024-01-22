@@ -56,7 +56,6 @@ public class GameView {
                 playerView.updateSize(cells.get(playerController.getPlayerPosition()).getSize());
             }
         });
-        JLabel prova = new JLabel();
         this.initializeGridComponents();
         this.initializeHud();
     }
@@ -109,25 +108,25 @@ public class GameView {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_W:
                         playerController.move(Direction.NORTH);
-                        playerView.changeImage(Direction.NORTH);
+                        playerView.changeImage(Direction.NORTH, cells.get(playerController.getPlayerPosition()).getSize());
                         redraw();
                         break;
 
                     case KeyEvent.VK_S:
                         playerController.move(Direction.SOUTH);
-                        playerView.changeImage(Direction.SOUTH);
+                        playerView.changeImage(Direction.SOUTH, cells.get(playerController.getPlayerPosition()).getSize());
                         redraw();
                         break;
 
                     case KeyEvent.VK_A:
                         playerController.move(Direction.WEST);
-                        playerView.changeImage(Direction.WEST);
+                        playerView.changeImage(Direction.WEST, cells.get(playerController.getPlayerPosition()).getSize());
                         redraw();
                         break;
 
                     case KeyEvent.VK_D:
                         playerController.move(Direction.EAST);
-                        playerView.changeImage(Direction.EAST);
+                        playerView.changeImage(Direction.EAST, cells.get(playerController.getPlayerPosition()).getSize());
                         redraw();
                         break;
 

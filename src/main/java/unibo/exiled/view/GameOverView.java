@@ -18,14 +18,12 @@ public class GameOverView {
 
     //MVC Components (MC)
     private final JFrame mainFrame;
-    private final Controller controller;
 
     //The buttons to restart or exit the game.
     private final JButton restartButton = new JButton("Restart");
     private final JButton quitButton = new JButton("Quit");
 
     public GameOverView(){
-        this.controller = new Controller(SIZE);
         this.mainFrame = new JFrame();
         mainFrame.setSize((int)SCREEN_WIDTH / 3,(int)SCREEN_HEIGHT / 2);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

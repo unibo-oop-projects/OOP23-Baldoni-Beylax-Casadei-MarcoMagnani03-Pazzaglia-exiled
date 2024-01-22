@@ -77,8 +77,10 @@ public class PlayerImpl implements Player {
 
     @Override
     public Attributes getAttributes() {
-        return null;
+        return this.attributes;
     }
 
-
+    public void levelUp(){
+        this.level += 1;
+    }
 }
