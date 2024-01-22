@@ -56,7 +56,6 @@ public class GameView {
                 playerView.updateSize(cells.get(playerController.getPlayerPosition()).getSize());
             }
         });
-        JLabel prova = new JLabel();
         this.initializeGridComponents();
         this.initializeHud();
     }
