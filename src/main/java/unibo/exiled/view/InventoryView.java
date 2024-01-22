@@ -25,6 +25,7 @@ public class InventoryView extends JFrame {
 
     private DefaultListModel<Item> listModel;
     private JList<Item> itemList;
+    private JLabel emptyInventoryLabel;
 
     public InventoryView(InventoryController inventoryController) {
         this.inventoryController = inventoryController;
@@ -38,6 +39,13 @@ public class InventoryView extends JFrame {
         itemList.setCellRenderer(new ItemListRenderer());
         JScrollPane scrollPane = new JScrollPane(itemList);
         add(scrollPane, BorderLayout.CENTER);
+        emptyInventoryLabel = new JLabel("The inventory is empty");
+        emptyInventoryLabel.setHorizontalAlignment(JLabel.CENTER); 
+        
+        Font labelFont = emptyInventoryLabel.getFont();
+        emptyInventoryLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 20));
+
+        add(emptyInventoryLabel, BorderLayout.NORTH);
 
         updateInventoryList();
 
@@ -72,10 +80,19 @@ public class InventoryView extends JFrame {
         listModel.clear();
 
         Map<Item, Integer> itemsList = inventoryController.getItems();
-        for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
-            Item item = entry.getKey();
-            listModel.addElement(item);
+        
+        if (itemsList.isEmpty()) {
+            emptyInventoryLabel.setVisible(true);
+        } else {
+            for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
+                Item item = entry.getKey();
+                listModel.addElement(item);
+            }
+            emptyInventoryLabel.setVisible(false);
         }
+
+        revalidate();
+        repaint();
     }
 
     private class ItemListSelectionListener implements ListSelectionListener {

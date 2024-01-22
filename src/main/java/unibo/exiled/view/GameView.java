@@ -2,9 +2,11 @@ package unibo.exiled.view;
 
 import unibo.exiled.controller.Controller;
 import unibo.exiled.controller.InventoryController;
+import unibo.exiled.controller.MenuController;
 import unibo.exiled.controller.PlayerController;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
+import unibo.exiled.view.Menu.MenuView;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -27,9 +29,11 @@ public class GameView {
     private final Controller controller;
     private final PlayerController playerController;
     private final InventoryController inventoryController;
+    private final MenuController menuController;
     private InventoryView inventoryView;
     private final PlayerView playerView;
     private GameOverView gameOverView;
+    private MenuView menuView;
 
     // The cells of the grid.
     private final Map<Position, JPanel> cells = new HashMap<>();
@@ -43,7 +47,9 @@ public class GameView {
         this.controller = new Controller(SIZE);
         this.playerController = new PlayerController();
         this.inventoryController=new InventoryController(playerController.getInventory());
+        this.menuController = new MenuController();
         this.playerView = new PlayerView();
+        this.menuView = new MenuView(menuController, this);
         this.mainFrame = new JFrame();
 
         mainFrame.setSize((int) SCREEN_WIDTH / 3, (int) SCREEN_HEIGHT / 2);
@@ -56,11 +62,12 @@ public class GameView {
                 playerView.updateSize(cells.get(playerController.getPlayerPosition()).getSize());
             }
         });
-        this.initializeGridComponents();
-        this.initializeHud();
+
+        // Visualize the menu
+        mainFrame.add(menuView);
     }
 
-    private void initializeHud() {
+    public void initializeHud() {
         JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
         JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
 
@@ -71,13 +78,23 @@ public class GameView {
         flowButtonPanelNorth.add(inventoryButton);
         
         //Player information
+        Font labelFont = new Font("Arial", Font.PLAIN, 16);
         this.mainFrame.getContentPane().add(flowButtonPanelSouth, BorderLayout.SOUTH);
-        JLabel lifeLabel = new JLabel("Health: " + playerController.getHealth());
+        JLabel lifeLabel = new JLabel("Health: " + playerController.getHealth()+" / " +playerController.getHealthCap());
+        lifeLabel.setFont(labelFont);
         JLabel levelLabel = new JLabel("Level: " + playerController.getLevel());
+        levelLabel.setFont(labelFont);
 
-        flowButtonPanelSouth.add(lifeLabel);
-        flowButtonPanelSouth.add(levelLabel);
+        JPanel statusPanel = new JPanel(new FlowLayout());
+        statusPanel.setBorder(BorderFactory.createEtchedBorder());
 
+        statusPanel.add(lifeLabel);
+        statusPanel.add(levelLabel);
+
+        flowButtonPanelSouth.add(statusPanel);
+
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
     }
 
     /**
@@ -97,7 +114,7 @@ public class GameView {
         pane.setBorder(new LineBorder(Color.black));
     }
 
-    private void initializeGridComponents() {
+    public void initializeGridComponents() {
         final JPanel externalPanel = new JPanel(new BorderLayout());
         this.mainFrame.setContentPane(externalPanel);
         final JPanel gridPanel = new JPanel(new GridLayout(controller.getMapWidth(), controller.getMapHeight()));
@@ -162,6 +179,9 @@ public class GameView {
         }
 
         this.mainFrame.getContentPane().add(gridPanel, BorderLayout.CENTER);
+
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
     }
 
     private void redraw(){

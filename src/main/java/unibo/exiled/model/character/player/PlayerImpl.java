@@ -3,6 +3,7 @@ package unibo.exiled.model.character.player;
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
+import unibo.exiled.model.character.attributes.AttributeType;
 import unibo.exiled.model.character.attributes.Attributes;
 import unibo.exiled.model.character.attributes.AttributesImpl;
 import unibo.exiled.model.item.Inventory;
@@ -20,12 +21,14 @@ import java.util.Collections;
  */
 public class PlayerImpl implements Player {
 
-    private final Inventory inventory;
-    private final MoveSetImpl moveSet;
+    private final int levelInc;
     private int level;
     private double exp;
+
     private Position position;
+    private final MoveSetImpl moveSet;
     private final Attributes attributes;
+    private final Inventory inventory;
 
     public PlayerImpl(){
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
@@ -33,6 +36,8 @@ public class PlayerImpl implements Player {
         this.inventory = new InventoryImpl();
         this.moveSet = new MoveSetImpl();
         this.attributes = new AttributeFactoryImpl().basicPlayerAttributes();
+        this.exp = Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE");
+        this.levelInc = (int)Constants.getConstantOf("PLAYER_LEVEL_INCREASE");
     }
 
     @Override
@@ -53,7 +58,7 @@ public class PlayerImpl implements Player {
 
     @Override
     public double getExperience() {
-        return this.level;
+        return this.exp;
     }
 
     @Override
@@ -72,6 +77,12 @@ public class PlayerImpl implements Player {
     }
 
     public void levelUp(){
+        this.attributes.getAttributeOfType(AttributeType.ATTACK)
+        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+levelInc);
+        this.attributes.getAttributeOfType(AttributeType.DEFENSE)
+        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+levelInc);
+        this.attributes.getAttributeOfType(AttributeType.HEALTHCAP)
+        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+levelInc);
         this.level += 1;
     }
 }
