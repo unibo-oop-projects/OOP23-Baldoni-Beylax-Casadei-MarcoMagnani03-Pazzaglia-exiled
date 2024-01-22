@@ -51,6 +51,11 @@ public class GameView {
         mainFrame.setTitle("The Exiled");
         mainFrame.setLocationByPlatform(true);
         mainFrame.setFocusable(true);
+        mainFrame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                playerView.updateSize(cells.get(playerController.getPlayerPosition()).getSize());
+            }
+        });
         this.initializeGridComponents();
         this.initializeHud();
     }
@@ -100,20 +105,27 @@ public class GameView {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                final Position previousPosition = playerController.getPlayerPosition();
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_W:
                         playerController.move(Direction.NORTH);
+                        redraw();
                         break;
+
                     case KeyEvent.VK_S:
                         playerController.move(Direction.SOUTH);
+                        redraw();
                         break;
+
                     case KeyEvent.VK_A:
                         playerController.move(Direction.WEST);
-                    break;
+                        redraw();
+                        break;
+
                     case KeyEvent.VK_D:
                         playerController.move(Direction.EAST);
-                    break;
+                        redraw();
+                        break;
+
                     default:
                         break;
                 }
@@ -141,6 +153,17 @@ public class GameView {
         }
 
         this.mainFrame.getContentPane().add(gridPanel, BorderLayout.CENTER);
+    }
+
+    private void redraw(){
+        for (var cell: cells.entrySet()) {
+            if(cell.getKey().equals(playerController.getPlayerPosition())){
+                cell.getValue().add(playerView);
+            }else{
+                cell.getValue().remove(playerView);
+            }
+            cell.getValue().repaint();
+        }
     }
 
     private void showInventory() {
