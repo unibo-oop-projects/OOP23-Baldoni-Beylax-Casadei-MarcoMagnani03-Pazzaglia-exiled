@@ -56,6 +56,7 @@ public class GameView {
                 playerView.updateSize(cells.get(playerController.getPlayerPosition()).getSize());
             }
         });
+        JLabel prova = new JLabel();
         this.initializeGridComponents();
         this.initializeHud();
     }
@@ -108,21 +109,25 @@ public class GameView {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_W:
                         playerController.move(Direction.NORTH);
+                        playerView.changeImage(Direction.NORTH);
                         redraw();
                         break;
 
                     case KeyEvent.VK_S:
                         playerController.move(Direction.SOUTH);
+                        playerView.changeImage(Direction.SOUTH);
                         redraw();
                         break;
 
                     case KeyEvent.VK_A:
                         playerController.move(Direction.WEST);
+                        playerView.changeImage(Direction.WEST);
                         redraw();
                         break;
 
                     case KeyEvent.VK_D:
                         playerController.move(Direction.EAST);
+                        playerView.changeImage(Direction.EAST);
                         redraw();
                         break;
 
@@ -141,12 +146,12 @@ public class GameView {
         // Grid initialization
         for (int i = 0; i < controller.getMapHeight(); i++) {
             for (int j = 0; j < controller.getMapWidth(); j++) {
-                final JPanel cell = new JPanel();
+                final JPanel cell = new JPanel(new FlowLayout());
                 final Position pos = new Position(j,i);
                 gridPanel.add(cell);
                 cells.put(pos,cell);
                 this.setAreas(pos);
-                if(j == playerController.getPlayerPosition().x() && i == playerController.getPlayerPosition().y()){
+                if(pos.equals(playerController.getPlayerPosition())){
                     cell.add(playerView);
                 }
             }
