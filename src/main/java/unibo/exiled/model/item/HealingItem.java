@@ -1,7 +1,6 @@
 package unibo.exiled.model.item;
 
 import unibo.exiled.model.character.player.Player;
-import unibo.exiled.model.character.player.PlayerAttribute.AttributeType;
 
 /**
  * This class represents a usable healing item, 
@@ -17,6 +16,5 @@ public class HealingItem extends ItemBase implements UsableItem{
 
     @Override
     public void use(Player player) {
-        player.getAttributes().increase(AttributeType.HEALTH, healingAmount);
     }
 }

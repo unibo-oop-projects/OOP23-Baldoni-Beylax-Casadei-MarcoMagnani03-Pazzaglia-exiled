@@ -42,7 +42,7 @@ public class GameView {
 
         this.controller = new Controller(SIZE);
         this.playerController = new PlayerController();
-        this.inventoryController=controller.getInventoryController();
+        this.inventoryController=new InventoryController(playerController.getPlayer().getInventory());
         this.playerView = new PlayerView();
         this.mainFrame = new JFrame();
 

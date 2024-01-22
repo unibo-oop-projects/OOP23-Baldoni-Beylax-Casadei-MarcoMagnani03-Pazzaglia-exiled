@@ -1,6 +1,6 @@
 package unibo.exiled.model.item;
 
-import unibo.exiled.model.character.player.PlayerAttribute.AttributeType;
+import unibo.exiled.model.character.attributes.AttributeType;
 
 public class ItemFactoryImpl implements ItemFactory{
 

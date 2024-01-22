@@ -22,9 +22,4 @@ public interface Player extends Character{
      * @return the inventory of the player.
      */
     Inventory getInventory();
-
-    /**
-     * @return the actual position of the player.
-     */
-    Position getPosition();
 }
