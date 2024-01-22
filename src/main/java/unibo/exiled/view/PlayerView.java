@@ -15,7 +15,7 @@ public class PlayerView extends JLabel{
         this.setIcon(new ImageIcon(imagePath));
     }
 
-    public void changeImage(Direction dir){
+    public void changeImage(Direction dir, Dimension size){
         switch (dir) {
             case NORTH:
                 if(animationNumber == 1){
@@ -60,10 +60,10 @@ public class PlayerView extends JLabel{
             default:
                 break;
         }
-        this.setIcon(new ImageIcon(imagePath));
+        this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
     }
 
     public void updateSize(Dimension size){
-        //this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
+        this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
     }
 }

@@ -24,11 +24,13 @@ public class InventoryImpl implements Inventory{
 
     @Override
     public void removeItem(Item item) {
-        int quantity = itemsList.get(item);
-        if (quantity > 1) {
-            itemsList.put(item, quantity - 1);
-        } else if(quantity == 1){
-            itemsList.remove(item);
+        if(containsItem(item)){
+            int quantity = itemsList.get(item);
+            if (quantity > 1) {
+                itemsList.put(item, quantity - 1);
+            } else if(quantity == 1){
+                itemsList.remove(item);
+            }
         }
     }
 

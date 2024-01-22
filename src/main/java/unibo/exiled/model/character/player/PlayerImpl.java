@@ -65,5 +65,7 @@ public class PlayerImpl implements Player {
         return this.attributes;
     }
 
-
+    public void levelUp(){
+        this.level += 1;
+    }
 }
