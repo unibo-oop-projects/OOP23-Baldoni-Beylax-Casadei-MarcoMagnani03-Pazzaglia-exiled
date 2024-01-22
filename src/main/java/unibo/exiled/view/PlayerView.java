@@ -1,8 +1,7 @@
 package unibo.exiled.view;
-import javax.swing.*;
 
 import unibo.exiled.model.utilities.Direction;
-
+import javax.swing.*;
 import java.awt.*;
 
 

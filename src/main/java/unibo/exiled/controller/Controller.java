@@ -14,8 +14,8 @@ public class Controller {
 
     public Controller(final int mapSize) {
         this.map = new GameMapImpl(mapSize);
-        this.player=new PlayerImpl();
-        this.inventoryController=new InventoryController(this.player.getInventory());
+        this.player = new PlayerImpl();
+        this.inventoryController = new InventoryController(this.player.getInventory());
     }
 
     public int getMapHeight(){
