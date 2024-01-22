@@ -15,14 +15,12 @@ public class MenuItemActionListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Command.NEW_GAME.getCommandString())) {
-            // Handle new game
-            game.initializeGridComponents();
-            game.initializeHud();
-        }
-        else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
+            game.hideMenu();
+        } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
+            game.hideMenu();
+        } else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
             System.exit(0);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Command is not valid");
         }
     }

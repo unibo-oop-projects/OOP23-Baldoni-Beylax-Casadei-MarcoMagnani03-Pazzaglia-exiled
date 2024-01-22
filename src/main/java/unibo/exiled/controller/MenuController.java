@@ -17,6 +17,7 @@ public class MenuController {
         this.menu = new MenuImpl();
 
         this.menu.addMenuItem(new MenuItem(STANDARD_MENU_ITEM_WIDTH, STANDARD_MENU_ITEM_HEIGHT, "NEW GAME", Command.NEW_GAME));
+        this.menu.addMenuItem(new MenuItem(STANDARD_MENU_ITEM_WIDTH, STANDARD_MENU_ITEM_HEIGHT, "CLOSE MENU", Command.CLOSE_MENU));
         this.menu.addMenuItem(new MenuItem(STANDARD_MENU_ITEM_WIDTH, STANDARD_MENU_ITEM_HEIGHT, "QUIT", Command.QUIT));
     }
 

@@ -59,10 +59,14 @@ public class PlayerView extends JLabel{
             default:
                 break;
         }
-        this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
+        // this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
+        // TODO: Da guardare con BALDO e KEKKO
+        this.setIcon(new ImageIcon(imagePath));
     }
 
     public void updateSize(Dimension size){
-        this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
+        // this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
+        // TODO: Da guardare con BALDO e KEKKO
+        this.setIcon(new ImageIcon(imagePath));
     }
 }

@@ -38,6 +38,9 @@ public class GameView {
     // The cells of the grid.
     private final Map<Position, JPanel> cells = new HashMap<>();
 
+    private JPanel gamePanel;
+    private JPanel menuPanel;
+
     public GameView() {
         //Screen size initialization.
         Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
@@ -52,34 +55,53 @@ public class GameView {
         this.menuView = new MenuView(menuController, this);
         this.mainFrame = new JFrame();
 
-        mainFrame.setSize((int) SCREEN_WIDTH / 3, (int) SCREEN_HEIGHT / 2);
-        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        mainFrame.setTitle("The Exiled");
-        mainFrame.setLocationByPlatform(true);
-        mainFrame.setFocusable(true);
-        mainFrame.addComponentListener(new ComponentAdapter() {
+        // mainFrame.setSize((int) SCREEN_WIDTH, (int) SCREEN_HEIGHT);
+        this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.mainFrame.setTitle("The Exiled");
+        this.mainFrame.setLocationByPlatform(true);
+        this.mainFrame.setFocusable(true);
+        
+        this.mainFrame.addComponentListener(new ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 playerView.updateSize(cells.get(playerController.getPlayerPosition()).getSize());
             }
         });
 
-        // Visualize the menu
-        mainFrame.add(menuView);
+        this.menuPanel = new JPanel();
+        this.gamePanel = new JPanel(new BorderLayout());
+
+        Container contentPanel = this.mainFrame.getContentPane();
+        
+        GroupLayout mainLayout = new GroupLayout(contentPanel);
+        contentPanel.setLayout(mainLayout);
+
+        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel));
+        mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(menuPanel).addComponent(gamePanel));
+        
+        initializeGridComponents();
+        initializeHud();
+
+        this.showMenu();
     }
 
-    public void initializeHud() {
+    private void initializeHud() {
         JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
         JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
 
         // Inventory button
-        this.mainFrame.getContentPane().add(flowButtonPanelNorth, BorderLayout.NORTH);
+        this.gamePanel.add(flowButtonPanelNorth, BorderLayout.NORTH);
+
         JButton inventoryButton = new JButton("Inventory");
         inventoryButton.addActionListener(e -> showInventory());
+        JButton menuButton = new JButton("Menu");
+        menuButton.addActionListener(e -> showMenu());
         flowButtonPanelNorth.add(inventoryButton);
+        flowButtonPanelNorth.add(menuButton);
         
         //Player information
         Font labelFont = new Font("Arial", Font.PLAIN, 16);
-        this.mainFrame.getContentPane().add(flowButtonPanelSouth, BorderLayout.SOUTH);
+        this.gamePanel.add(flowButtonPanelSouth, BorderLayout.SOUTH);
         JLabel lifeLabel = new JLabel("Health: " + playerController.getHealth()+" / " +playerController.getHealthCap());
         lifeLabel.setFont(labelFont);
         JLabel levelLabel = new JLabel("Level: " + playerController.getLevel());
@@ -114,9 +136,9 @@ public class GameView {
         pane.setBorder(new LineBorder(Color.black));
     }
 
-    public void initializeGridComponents() {
-        final JPanel externalPanel = new JPanel(new BorderLayout());
-        this.mainFrame.setContentPane(externalPanel);
+    private void initializeGridComponents() {
+        menuPanel.add(menuView);
+
         final JPanel gridPanel = new JPanel(new GridLayout(controller.getMapWidth(), controller.getMapHeight()));
 
         // Listener initialization
@@ -178,7 +200,7 @@ public class GameView {
             }
         }
 
-        this.mainFrame.getContentPane().add(gridPanel, BorderLayout.CENTER);
+        this.gamePanel.add(gridPanel, BorderLayout.CENTER);
 
         this.mainFrame.revalidate();
         this.mainFrame.repaint();
@@ -200,6 +222,22 @@ public class GameView {
             inventoryView = new InventoryView(inventoryController);
         }
         inventoryView.display();
+    }
+
+    public void showMenu() {
+        this.gamePanel.setVisible(false);
+        this.menuPanel.setVisible(true);
+
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
+    }
+
+    public void hideMenu() {
+        this.gamePanel.setVisible(true);
+        this.menuPanel.setVisible(false);
+
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
     }
 
     private void gameOver(){
