@@ -42,7 +42,7 @@ public class GameView {
 
         this.controller = new Controller(SIZE);
         this.playerController = new PlayerController();
-        this.inventoryController=new InventoryController(playerController.getPlayer().getInventory());
+        this.inventoryController=new InventoryController(playerController.getInventory());
         this.playerView = new PlayerView();
         this.mainFrame = new JFrame();
 
@@ -63,15 +63,20 @@ public class GameView {
     private void initializeHud() {
         JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
         JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
-        this.mainFrame.getContentPane().add(flowButtonPanelSouth, BorderLayout.SOUTH);
-        JButton buttonSouth = new JButton("Template");
-        flowButtonPanelSouth.add(buttonSouth);
 
         // Inventory button
         this.mainFrame.getContentPane().add(flowButtonPanelNorth, BorderLayout.NORTH);
         JButton inventoryButton = new JButton("Inventory");
         inventoryButton.addActionListener(e -> showInventory());
         flowButtonPanelNorth.add(inventoryButton);
+        
+        //Player information
+        this.mainFrame.getContentPane().add(flowButtonPanelSouth, BorderLayout.SOUTH);
+        JLabel lifeLabel = new JLabel("Health: " + playerController.getHealth());
+        JLabel levelLabel = new JLabel("Level: " + playerController.getLevel());
+
+        flowButtonPanelSouth.add(lifeLabel);
+        flowButtonPanelSouth.add(levelLabel);
 
     }
 
