@@ -47,8 +47,13 @@ public class GameMapImpl implements  GameMap{
 
     //Gets the type of cell.
     @Override
-    public CellType getCellType(Position cell) {
+    public CellType getCellType(final Position cell) {
         return this.cellStates.get(cell);
+    }
+
+    @Override
+    public boolean isInBoundaries(final Position cell) {
+        return this.cellStates.containsKey(cell);
     }
 
     //Dimensions getters
