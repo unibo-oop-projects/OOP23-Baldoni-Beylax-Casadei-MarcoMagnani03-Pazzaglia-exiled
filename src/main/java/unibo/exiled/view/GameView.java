@@ -92,6 +92,9 @@ public class GameView {
         statusPanel.add(levelLabel);
 
         flowButtonPanelSouth.add(statusPanel);
+
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
     }
 
     /**
@@ -112,8 +115,6 @@ public class GameView {
     }
 
     public void initializeGridComponents() {
-        this.mainFrame.remove(menuView);
-        this.mainFrame.repaint();
         final JPanel externalPanel = new JPanel(new BorderLayout());
         this.mainFrame.setContentPane(externalPanel);
         final JPanel gridPanel = new JPanel(new GridLayout(controller.getMapWidth(), controller.getMapHeight()));
@@ -178,6 +179,9 @@ public class GameView {
         }
 
         this.mainFrame.getContentPane().add(gridPanel, BorderLayout.CENTER);
+
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
     }
 
     private void redraw(){
