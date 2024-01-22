@@ -1,7 +1,10 @@
 package unibo.exiled.model.character.player;
 
+import unibo.exiled.config.Constants;
+import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.Attributes;
+import unibo.exiled.model.character.attributes.AttributesImpl;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.ItemFactoryImpl;
@@ -21,12 +24,15 @@ public class PlayerImpl implements Player {
     private final MoveSetImpl moveSet;
     private int level;
     private double exp;
-    private Position position = new Position(10,10);
-    private final Attributes attributes = AttributeFactoryImpl.basicAttributes();
+    private Position position;
+    private final Attributes attributes;
 
     public PlayerImpl(){
+        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
+        this.position = new Position((int)Constants.getConstantOf("PLAYER_STARTING_POSITION_X"), (int)(Constants.getConstantOf("PLAYER_STARTING_POSITION_Y")));
         this.inventory = new InventoryImpl();
         this.moveSet = new MoveSetImpl();
+        this.attributes = new AttributeFactoryImpl().basicPlayerAttributes();
     }
 
     @Override
