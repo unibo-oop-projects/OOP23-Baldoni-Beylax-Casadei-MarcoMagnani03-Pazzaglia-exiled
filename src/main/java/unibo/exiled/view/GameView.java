@@ -71,13 +71,20 @@ public class GameView {
         flowButtonPanelNorth.add(inventoryButton);
         
         //Player information
+        Font labelFont = new Font("Arial", Font.PLAIN, 16);
         this.mainFrame.getContentPane().add(flowButtonPanelSouth, BorderLayout.SOUTH);
-        JLabel lifeLabel = new JLabel("Health: " + playerController.getHealth());
+        JLabel lifeLabel = new JLabel("Health: " + playerController.getHealth()+" / " +playerController.getHealthCap());
+        lifeLabel.setFont(labelFont);
         JLabel levelLabel = new JLabel("Level: " + playerController.getLevel());
+        levelLabel.setFont(labelFont);
 
-        flowButtonPanelSouth.add(lifeLabel);
-        flowButtonPanelSouth.add(levelLabel);
+        JPanel statusPanel = new JPanel(new FlowLayout());
+        statusPanel.setBorder(BorderFactory.createEtchedBorder());
 
+        statusPanel.add(lifeLabel);
+        statusPanel.add(levelLabel);
+
+        flowButtonPanelSouth.add(statusPanel);
     }
 
     /**

@@ -29,9 +29,14 @@ public class PlayerController {
         return player.getAttributes().getAttributeOfType(AttributeType.HEALTH).getValue();
     }
 
-    public double getAttack(){return player.getAttributes().getAttributeOfType(AttributeType.ATTACK).getValue();}
+    public double getAttack(){
+        return player.getAttributes().getAttributeOfType(AttributeType.ATTACK).getValue();
+    }
     public double getDefense(){
         return player.getAttributes().getAttributeOfType(AttributeType.DEFENSE).getValue();
+    }
+    public double getHealthCap(){
+        return player.getAttributes().getAttributeOfType(AttributeType.HEALTHCAP).getValue();
     }
     public Inventory getInventory(){
         return player.getInventory();
