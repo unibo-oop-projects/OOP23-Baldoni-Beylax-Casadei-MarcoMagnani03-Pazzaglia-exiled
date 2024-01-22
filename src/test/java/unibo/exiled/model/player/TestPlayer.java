@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import unibo.exiled.model.character.attributes.AttributeType;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 
@@ -19,15 +20,14 @@ public class TestPlayer {
     @BeforeEach
     public void testInitialize(){
         player = new PlayerImpl();
-
         assertNotNull(player);
     }
 
     @Test
     public void testDefaultField(){
-        assertEquals(player.getAttributes().getHealth(), DEFAULT_HEALTH);
-        assertEquals(player.getAttributes().getAttack(), DEFAULT_ATTACK);
-        assertEquals(player.getAttributes().getDefense(), DEFAULT_DEFENSE);
+        assertEquals(player.getAttributes().getAttributeOfType(AttributeType.HEALTH).getValue(), DEFAULT_HEALTH);
+        assertEquals(player.getAttributes().getAttributeOfType(AttributeType.ATTACK).getValue(), DEFAULT_ATTACK);
+        assertEquals(player.getAttributes().getAttributeOfType(AttributeType.DEFENSE).getValue(), DEFAULT_DEFENSE);
         assertEquals(player.getLevel(), DEFAULT_LEVEL);
         assertEquals(player.getExperience(), DEFAULT_EXPERIENCE);
 

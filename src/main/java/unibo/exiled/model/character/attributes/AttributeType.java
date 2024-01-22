@@ -3,7 +3,8 @@ package unibo.exiled.model.character.attributes;
 public enum AttributeType {
     HEALTH("Health"),
     DEFENSE("Defense"),
-    ATTACK("Attack");
+    ATTACK("Attack"),
+    HEALTHCAP("Health Cap.");
 
     private final String localization;
 

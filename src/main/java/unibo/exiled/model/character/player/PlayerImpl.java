@@ -21,7 +21,7 @@ public class PlayerImpl implements Player {
     private final MoveSetImpl moveSet;
     private int level;
     private double exp;
-    private Position position;
+    private Position position = new Position(10,10);
     private final Attributes attributes = AttributeFactoryImpl.basicAttributes();
 
     public PlayerImpl(){

@@ -13,6 +13,7 @@ public class AttributeFactoryImpl {
         attributes.addAttribute(AttributeType.HEALTH, new StatImpl(100,1));
         attributes.addAttribute(AttributeType.DEFENSE,new StatImpl(100,1));
         attributes.addAttribute(AttributeType.ATTACK,new StatImpl(1,1));
+        attributes.addAttribute(AttributeType.HEALTHCAP, new StatImpl(200,1));
         return attributes;
     }
 }

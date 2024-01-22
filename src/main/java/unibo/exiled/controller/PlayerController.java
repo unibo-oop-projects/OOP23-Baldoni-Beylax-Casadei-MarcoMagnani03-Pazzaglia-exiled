@@ -1,5 +1,6 @@
 package unibo.exiled.controller;
 
+import unibo.exiled.model.character.attributes.AttributeType;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.item.Inventory;
@@ -25,14 +26,12 @@ public class PlayerController {
     }
 
     public double getHealth(){
-        return player.getAttributes().getHealth();
+        return player.getAttributes().getAttributeOfType(AttributeType.HEALTH).getValue();
     }
 
-    public double getAttack(){
-        return player.getAttributes().getAttack();
-    }
+    public double getAttack(){return player.getAttributes().getAttributeOfType(AttributeType.ATTACK).getValue();}
     public double getDefense(){
-        return player.getAttributes().getDefense();
+        return player.getAttributes().getAttributeOfType(AttributeType.DEFENSE).getValue();
     }
     public Inventory getInventory(){
         return player.getInventory();
