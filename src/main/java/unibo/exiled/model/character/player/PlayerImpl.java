@@ -1,6 +1,7 @@
 package unibo.exiled.model.character.player;
 
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
+import unibo.exiled.model.character.attributes.AttributeType;
 import unibo.exiled.model.character.attributes.Attributes;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
@@ -23,6 +24,7 @@ public class PlayerImpl implements Player {
     private double exp;
     private Position position = new Position(10,10);
     private final Attributes attributes = AttributeFactoryImpl.basicAttributes();
+    private final static int ATTRIBUTE_LEVEL_INCREMENTATION=5;
 
     public PlayerImpl(){
         this.inventory = new InventoryImpl();
@@ -47,7 +49,7 @@ public class PlayerImpl implements Player {
 
     @Override
     public double getExperience() {
-        return this.level;
+        return this.exp;
     }
 
     @Override
@@ -66,6 +68,12 @@ public class PlayerImpl implements Player {
     }
 
     public void levelUp(){
+        this.attributes.getAttributeOfType(AttributeType.ATTACK)
+        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+ATTRIBUTE_LEVEL_INCREMENTATION);
+        this.attributes.getAttributeOfType(AttributeType.DEFENSE)
+        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+ATTRIBUTE_LEVEL_INCREMENTATION);
+        this.attributes.getAttributeOfType(AttributeType.HEALTHCAP)
+        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+ATTRIBUTE_LEVEL_INCREMENTATION);
         this.level += 1;
     }
 }
