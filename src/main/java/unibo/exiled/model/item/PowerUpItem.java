@@ -1,7 +1,7 @@
 package unibo.exiled.model.item;
 
+import unibo.exiled.model.character.attributes.AttributeType;
 import unibo.exiled.model.character.player.Player;
-import unibo.exiled.model.character.player.PlayerAttribute.AttributeType;
 
 /**
  * This class represents a usable power up item, 
@@ -24,7 +24,7 @@ public class PowerUpItem extends ItemBase implements ItemWithDuration{
 
     @Override
     public void use(Player player) {
-        player.getAttributes().increase(boostedAttribute, powerUpValue);
+
     }
 
     @Override
