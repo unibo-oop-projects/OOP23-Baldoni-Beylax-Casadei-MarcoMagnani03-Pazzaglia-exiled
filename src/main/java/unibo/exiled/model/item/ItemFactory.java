@@ -1,6 +1,6 @@
 package unibo.exiled.model.item;
 
-import unibo.exiled.model.character.player.PlayerAttribute.AttributeType;
+import unibo.exiled.model.character.attributes.AttributeType;
 
 /**
  * The ItemFactory interface provides a set of methods for creating different types of items
