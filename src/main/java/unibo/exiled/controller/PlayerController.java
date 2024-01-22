@@ -6,7 +6,7 @@ import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 public class PlayerController {
-    private Player player;
+    private final Player player;
     
     public PlayerController(){
         this.player = new PlayerImpl();
@@ -18,6 +18,10 @@ public class PlayerController {
 
     public Position getPlayerPosition(){
         return player.getPosition();
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
 }
