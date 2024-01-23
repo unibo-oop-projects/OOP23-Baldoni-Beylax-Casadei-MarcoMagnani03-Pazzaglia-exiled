@@ -3,7 +3,6 @@ package unibo.exiled.view;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-import ch.qos.logback.core.util.COWArrayList;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.character.attributes.AttributeType;
@@ -15,7 +14,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Flow;
 
 
 public class GameView extends JFrame{
@@ -23,16 +21,16 @@ public class GameView extends JFrame{
     private static final int SIZE = 20;
 
     // Views
-    private final PlayerView playerView;
+    private PlayerView playerView;
     private InventoryView inventoryView;
-    private final MenuView menuView;
+    private MenuView menuView;
     private GameOverView gameOverView;
 
     // MVC Components(MC)
     private final JFrame mainFrame; 
     private final JPanel gamePanel;
     private final JPanel menuPanel;
-    private final JPanel gridPanel;
+    private JPanel gridPanel;
     private final GameController gameController;
 
     // The cells of the grid
@@ -116,7 +114,7 @@ public class GameView extends JFrame{
      */
     private void setAreas(final Position cell){
         final JPanel pane = cells.get(cell);
-        switch (/* TODO */) {
+        switch (gameController.getMapController().getMap().getCellType(cell)) {
             case VOLCANO -> pane.setBackground(Color.ORANGE);
             case PLAINS -> pane.setBackground(Color.YELLOW);
             case FOREST -> pane.setBackground(Color.GREEN);
@@ -131,7 +129,7 @@ public class GameView extends JFrame{
     private void initializeGridComponents(){
         menuPanel.add(menuView);
 
-        gridPanel = new JPanel(new GridLayout(/*gameController.getMapController().getWidth(), gameController.getMapController().getHeight()*/))
+        gridPanel = new JPanel(new GridLayout(gameController.getMapController().getMap().getWidth(), gameController.getMapController().getMap().getHeight()));
     
         // Listener initialization
         KeyListener keyListener = new KeyListener() {
@@ -142,7 +140,7 @@ public class GameView extends JFrame{
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_D){
-                    Direction directionPressed;
+                    Direction directionPressed = null;
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_W -> directionPressed = Direction.NORTH;
                         case KeyEvent.VK_A -> directionPressed = Direction.WEST;
@@ -151,7 +149,7 @@ public class GameView extends JFrame{
     
                         default -> {}
                     }
-                    gameController.getPlayerController().move(directionPressed);
+                    gameController.movePlayer(directionPressed);
                     playerView.changeImage(directionPressed, cells.get(gameController.getPlayerController().getPlayer().getPosition()).getSize());
                 }
             }
@@ -172,8 +170,8 @@ public class GameView extends JFrame{
      
     private void draw(){
         gridPanel.removeAll();
-        for (int i = 0; i < gameController.getMap().getHeight(); i++) {
-            for (int j = 0; j < gameController.getMap().getWidth(); j++) {
+        for (int i = 0; i < gameController.getMapController().getMap().getHeight(); i++) {
+            for (int j = 0; j < gameController.getMapController().getMap().getHeight(); j++) {
                 final JPanel cell;
                 final Position pos = new Position(j, i);
 
@@ -222,7 +220,7 @@ public class GameView extends JFrame{
     public void display() {
         setVisible(true);
     }
-    
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new GameView().display());
     }
