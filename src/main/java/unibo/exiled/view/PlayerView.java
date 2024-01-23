@@ -6,7 +6,7 @@ import unibo.exiled.model.utilities.Direction;
 import java.awt.*;
 import javax.swing.*;
 
-public class PlayerView extends JPanel{
+public class PlayerView extends JLabel{
     private static String imagePath = "src\\main\\java\\unibo\\exiled\\resources\\";
 
     private Image img;
@@ -68,14 +68,6 @@ public class PlayerView extends JPanel{
             default:
                 break;
         }
-        // this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
-        // TODO: Da guardare con BALDO e KEKKO
-        img = (new ImageIcon(imagePath+imgAnimationName).getImage());
-    }
-
-    public void updateSize(Dimension size){
-        // this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
-        // TODO: Da guardare con BALDO e KEKKO
         img = (new ImageIcon(imagePath+imgAnimationName).getImage());
     }
 
