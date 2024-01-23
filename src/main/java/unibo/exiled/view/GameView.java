@@ -153,25 +153,25 @@ public class GameView {
                     case KeyEvent.VK_W:
                         playerController.move(Direction.NORTH);
                         playerView.changeImage(Direction.NORTH, cells.get(playerController.getPlayerPosition()).getSize());
-                        redraw();
+                        draw(gridPanel);
                         break;
 
                     case KeyEvent.VK_S:
                         playerController.move(Direction.SOUTH);
                         playerView.changeImage(Direction.SOUTH, cells.get(playerController.getPlayerPosition()).getSize());
-                        redraw();
+                        draw(gridPanel);
                         break;
 
                     case KeyEvent.VK_A:
                         playerController.move(Direction.WEST);
                         playerView.changeImage(Direction.WEST, cells.get(playerController.getPlayerPosition()).getSize());
-                        redraw();
+                        draw(gridPanel);
                         break;
 
                     case KeyEvent.VK_D:
                         playerController.move(Direction.EAST);
                         playerView.changeImage(Direction.EAST, cells.get(playerController.getPlayerPosition()).getSize());
-                        redraw();
+                        draw(gridPanel);
                         break;
 
                     default:
@@ -187,18 +187,7 @@ public class GameView {
         this.mainFrame.addKeyListener(kl);
 
         // Grid initialization
-        for (int i = 0; i < controller.getMapHeight(); i++) {
-            for (int j = 0; j < controller.getMapWidth(); j++) {
-                final JPanel cell = new JPanel(new FlowLayout());
-                final Position pos = new Position(j,i);
-                gridPanel.add(cell);
-                cells.put(pos,cell);
-                this.setAreas(pos);
-                if(pos.equals(playerController.getPlayerPosition())){
-                    cell.add(playerView);
-                }
-            }
-        }
+        draw(gridPanel);
 
         this.gamePanel.add(gridPanel, BorderLayout.CENTER);
 
@@ -206,14 +195,21 @@ public class GameView {
         this.mainFrame.repaint();
     }
 
-    private void redraw(){
-        for (var cell: cells.entrySet()) {
-            if(cell.getKey().equals(playerController.getPlayerPosition())){
-                cell.getValue().add(playerView);
-            }else{
-                cell.getValue().remove(playerView);
+    private void draw(JPanel gridPanel){
+        gridPanel.removeAll();
+        for (int i = 0; i < controller.getMapHeight(); i++) {
+            for (int j = 0; j < controller.getMapWidth(); j++) {
+                final JPanel cell;
+                final Position pos = new Position(j,i);
+                if(pos.equals(playerController.getPlayerPosition())){
+                    cell = playerView;
+                }else{
+                    cell = new JPanel(new FlowLayout());
+                }
+                cells.put(pos,cell);
+                this.setAreas(pos);
+                gridPanel.add(cell);
             }
-            cell.getValue().repaint();
         }
     }
 

@@ -1,57 +1,66 @@
 package unibo.exiled.view;
 
+import unibo.exiled.config.Constants;
 import unibo.exiled.model.utilities.Direction;
-import javax.swing.*;
+
 import java.awt.*;
+import javax.swing.*;
 
+public class PlayerView extends JPanel{
+    private static String imagePath = "src\\main\\java\\unibo\\exiled\\resources\\";
 
-public class PlayerView extends JLabel{
-    private static String imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_down_1.png";
+    private Image img;
+    private Image scaled;
+    private String imgAnimationName;
+
     private int animationNumber = 1;
 
     public PlayerView(){
-        super();
-        this.setIcon(new ImageIcon(imagePath));
+        this(new ImageIcon(imagePath + Constants.getCostantOf("STARTING_PLAYER_ANIMATION")).getImage());
+    }
+
+    public PlayerView(Image img){
+        this.img = img;
     }
 
     public void changeImage(Direction dir, Dimension size){
         switch (dir) {
             case NORTH:
                 if(animationNumber == 1){
-                    imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_up_1.png";
+                    imgAnimationName = "boy_up_1.png";
                     animationNumber = 2;
                 }else{
-                    imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_up_2.png";
+                    imgAnimationName = "boy_up_2.png";
                     animationNumber = 1;
                 }
                 break;
 
             case SOUTH:
                 if(animationNumber == 1){
-                    imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_down_1.png";
+                    imgAnimationName = "boy_down_1.png";
                     animationNumber = 2;
                 }else{
-                    imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_down_2.png";
+                    imgAnimationName = "boy_down_2.png";
                     animationNumber = 1;
                 }
                 break;
 
             case WEST:
                 if(animationNumber == 1){
-                    imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_left_1.png";
+                    imgAnimationName = "boy_left_1.png";
                     animationNumber = 2;
                 }else{
-                    imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_left_2.png";
+                    imgAnimationName = "boy_left_2.png";
                     animationNumber = 1;
                 }
                 break;
 
             case EAST:
                 if(animationNumber == 1){
-                    imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_right_1.png";
+                    imgAnimationName = "boy_right_1.png";
                     animationNumber = 2;
                 }else{
-                    imagePath = "src\\main\\java\\unibo\\exiled\\resources\\boy_right_2.png";
+                    imgAnimationName = "boy_right_2.png";
                     animationNumber = 1;
                 }
                 break;
@@ -61,12 +70,36 @@ public class PlayerView extends JLabel{
         }
         // this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
         // TODO: Da guardare con BALDO e KEKKO
-        this.setIcon(new ImageIcon(imagePath));
+        img = (new ImageIcon(imagePath+imgAnimationName).getImage());
     }
 
     public void updateSize(Dimension size){
         // this.setIcon(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance((int)size.getWidth(),(int)size.getHeight(), Image.SCALE_DEFAULT)));
         // TODO: Da guardare con BALDO e KEKKO
-        this.setIcon(new ImageIcon(imagePath));
+        img = (new ImageIcon(imagePath+imgAnimationName).getImage());
+    }
+
+    @Override
+    public void invalidate() {
+      super.invalidate();
+      int width = getWidth();
+      int height = getHeight();
+  
+      if (width > 0 && height > 0) {
+        scaled = img.getScaledInstance(getWidth(), getHeight(),
+            Image.SCALE_SMOOTH);
+      }
+    }
+  
+    @Override
+    public Dimension getPreferredSize() {
+      return img == null ? new Dimension(200, 200) : new Dimension(
+          img.getWidth(this), img.getHeight(this));
+    }
+  
+    @Override
+    public void paintComponent(Graphics g) {
+      super.paintComponent(g);
+      g.drawImage(scaled, 0, 0, null);
     }
 }

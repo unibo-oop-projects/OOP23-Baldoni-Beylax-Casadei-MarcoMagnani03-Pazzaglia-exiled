@@ -1,20 +1,15 @@
 package unibo.exiled.model.character.player;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeType;
 import unibo.exiled.model.character.attributes.Attributes;
-import unibo.exiled.model.character.attributes.AttributesImpl;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
-import unibo.exiled.model.item.ItemFactoryImpl;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetImpl;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
-
-import java.util.Collections;
 
 /**
  * This class represent the implementation of the player.
