@@ -3,7 +3,6 @@ package unibo.exiled.controller;
 import java.util.List;
 
 import unibo.exiled.model.menu.Menu;
-import unibo.exiled.model.menu.MenuImpl;
 import unibo.exiled.model.menu.MenuItem;
 import unibo.exiled.model.menu.Command;
 

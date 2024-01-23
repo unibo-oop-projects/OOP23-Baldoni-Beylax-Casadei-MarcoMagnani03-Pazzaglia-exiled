@@ -1,6 +1,5 @@
 package unibo.exiled.controller;
 
-import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 public interface CharacterController {

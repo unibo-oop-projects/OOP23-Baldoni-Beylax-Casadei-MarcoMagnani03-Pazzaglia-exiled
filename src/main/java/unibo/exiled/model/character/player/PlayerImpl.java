@@ -1,6 +1,5 @@
 package unibo.exiled.model.character.player;
 
-import unibo.exiled.config.Constants;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeType;
 import unibo.exiled.model.character.attributes.Attributes;

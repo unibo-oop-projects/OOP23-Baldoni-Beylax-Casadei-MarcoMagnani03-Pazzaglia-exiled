@@ -1,7 +1,5 @@
 package unibo.exiled.model.character.attributes;
 
-import unibo.exiled.model.character.attributes.Stat;
-
 public class StatImpl implements Stat {
 
     private double value;

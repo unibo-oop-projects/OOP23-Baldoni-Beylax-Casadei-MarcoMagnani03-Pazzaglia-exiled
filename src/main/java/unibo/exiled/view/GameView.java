@@ -3,6 +3,7 @@ package unibo.exiled.view;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.character.attributes.AttributeType;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 public class GameView extends JFrame{
     // Screen constants
-    private static final int SIZE = 20;
+    private final int SIZE;
 
     // Views
     private PlayerView playerView;
@@ -42,9 +43,13 @@ public class GameView extends JFrame{
         double SCREEN_WIDTH = SCREEN.getWidth();
         double SCREEN_HEIGHT = SCREEN.getHeight();
 
+        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
+        SIZE = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
+
         this.gameController = new GameControllerImpl(SIZE);
         
         this.mainFrame = new JFrame();
+        this.mainFrame.setSize((int) SCREEN_WIDTH, (int) SCREEN_HEIGHT);
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled");
@@ -59,17 +64,18 @@ public class GameView extends JFrame{
         GroupLayout mainLayout = new GroupLayout(contentPanel);
         contentPanel.setLayout(mainLayout);
 
-        setTitle("The exiled");
+        setTitle("The Exiled");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(menuPanel).addComponent(gamePanel));
         
+        this.showMenu();
+        this.showPlayer();
+        
         initializeGridComponents();
         initializeHUD();
-
-        this.showMenu();
     }
 
     private void initializeHUD(){
@@ -171,7 +177,7 @@ public class GameView extends JFrame{
     private void draw(){
         gridPanel.removeAll();
         for (int i = 0; i < gameController.getMapController().getMap().getHeight(); i++) {
-            for (int j = 0; j < gameController.getMapController().getMap().getHeight(); j++) {
+            for (int j = 0; j < gameController.getMapController().getMap().getWidth(); j++) {
                 final JPanel cell;
                 final Position pos = new Position(j, i);
 
@@ -187,6 +193,12 @@ public class GameView extends JFrame{
         }
     }
 
+    private void showPlayer() {
+        if(playerView == null){
+            playerView = new PlayerView();
+        }
+    }
+
     private void showInventory(){
         if(inventoryView == null){
             inventoryView = new InventoryView(gameController.getInventoryController());
@@ -195,6 +207,9 @@ public class GameView extends JFrame{
     }
 
     private void showMenu(){
+        if(menuView == null){
+            menuView = new MenuView(gameController.getMenuController());
+        }
         this.gamePanel.setVisible(false);
         this.menuPanel.setVisible(true);
 
@@ -218,7 +233,7 @@ public class GameView extends JFrame{
     }
 
     public void display() {
-        setVisible(true);
+        this.mainFrame.setVisible(true);
     }
 
     public static void main(String[] args) {

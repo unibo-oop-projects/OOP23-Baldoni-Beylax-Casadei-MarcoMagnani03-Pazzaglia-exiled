@@ -1,7 +1,6 @@
 package unibo.exiled.model.character;
 
 import unibo.exiled.model.character.attributes.Attributes;
-import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Position;
 
