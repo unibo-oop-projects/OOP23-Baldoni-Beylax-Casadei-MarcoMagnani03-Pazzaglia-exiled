@@ -1,14 +1,17 @@
 package unibo.exiled.model.character.player;
 
+import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
-import unibo.exiled.model.character.attributes.AttributeType;
-import unibo.exiled.model.character.attributes.Attributes;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetImpl;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * This class represent the implementation of the player.
@@ -22,14 +25,14 @@ public class PlayerImpl implements Player {
 
     private Position position;
     private final MoveSetImpl moveSet;
-    private final Attributes attributes;
+    private final Map<AttributeIdentifier, Attribute> attributes;
     private final Inventory inventory;
 
     public PlayerImpl(final Position startingPosition, final double experience, final int levelIncrease){
         this.position = startingPosition;
         this.inventory = new InventoryImpl();
         this.moveSet = new MoveSetImpl();
-        this.attributes = new AttributeFactoryImpl().basicPlayerAttributes();
+        this.attributes = new AttributeFactoryImpl().createBasicAttributes();
         this.exp = experience;
         this.levelInc = levelIncrease;
     }
@@ -76,17 +79,17 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public Attributes getAttributes() {
-        return this.attributes;
+    public Map<AttributeIdentifier, Attribute> getAttributes() {
+        return Collections.unmodifiableMap(this.attributes);
     }
 
     public void levelUp(){
-        this.attributes.getAttributeOfType(AttributeType.ATTACK)
-        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+levelInc);
-        this.attributes.getAttributeOfType(AttributeType.DEFENSE)
-        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+levelInc);
-        this.attributes.getAttributeOfType(AttributeType.HEALTHCAP)
-        .setValue(this.attributes.getAttributeOfType(AttributeType.ATTACK).getValue()+levelInc);
+        this.attributes.get(AttributeIdentifier.ATTACK)
+        .setValue(this.attributes.get(AttributeIdentifier.ATTACK).getValue().get() + levelInc);
+        this.attributes.get(AttributeIdentifier.DEFENSE)
+        .setValue(this.attributes.get(AttributeIdentifier.DEFENSE).getModifier().get()+ levelInc / 10);
+        this.attributes.get(AttributeIdentifier.HEALTHCAP)
+        .setValue(this.attributes.get(AttributeIdentifier.HEALTHCAP).getValue().get() + levelInc);
         this.level += 1;
     }
 }

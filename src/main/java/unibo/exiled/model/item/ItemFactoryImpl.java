@@ -1,6 +1,6 @@
 package unibo.exiled.model.item;
 
-import unibo.exiled.model.character.attributes.AttributeType;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 
 public class ItemFactoryImpl implements ItemFactory{
 
@@ -10,7 +10,7 @@ public class ItemFactoryImpl implements ItemFactory{
     }
 
     @Override
-    public Item createPowerUpItem(final String name,final String description,final double powerUpValue,final int duration,final AttributeType boostedAttribute) {
+    public Item createPowerUpItem(final String name,final String description,final double powerUpValue,final int duration,final AttributeIdentifier boostedAttribute) {
         return new PowerUpItem(name,description,powerUpValue,duration,boostedAttribute);
     }
 

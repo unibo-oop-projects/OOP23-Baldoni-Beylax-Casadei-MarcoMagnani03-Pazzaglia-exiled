@@ -1,8 +1,11 @@
 package unibo.exiled.model.character;
 
-import unibo.exiled.model.character.attributes.Attributes;
+import unibo.exiled.model.character.attributes.Attribute;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Position;
+
+import java.util.Map;
 
 /**
  * A character that can move.
@@ -30,5 +33,5 @@ public interface Character {
      * Returns the attributes of the current character.
      * @return The attributes of the current character.
      */
-    Attributes getAttributes();
+    Map<AttributeIdentifier, Attribute> getAttributes();
 }

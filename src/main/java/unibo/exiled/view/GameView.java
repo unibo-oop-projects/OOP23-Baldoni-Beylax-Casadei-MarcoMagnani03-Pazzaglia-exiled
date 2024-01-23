@@ -6,7 +6,7 @@ import javax.swing.border.LineBorder;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
-import unibo.exiled.model.character.attributes.AttributeType;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
@@ -98,7 +98,7 @@ public class GameView extends JFrame{
 
         // Player information 
         Font labelFont = new Font("Arial", Font.PLAIN, 16);
-        JLabel lifeLabel = new JLabel("Health: " + gameController.getPlayerController().getPlayer().getAttributes().getAttributeOfType(AttributeType.HEALTH)); 
+        JLabel lifeLabel = new JLabel("Health: " + gameController.getPlayerController().getPlayer().getAttributes().get(AttributeIdentifier.HEALTH));
         lifeLabel.setFont(labelFont);
         JLabel levelLabel = new JLabel("Level: " + gameController.getPlayerController().getPlayer().getLevel());
         levelLabel.setFont(labelFont);
