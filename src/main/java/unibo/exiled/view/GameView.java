@@ -49,7 +49,7 @@ public class GameView {
 
         this.controller = new Controller(SIZE);
         this.playerController = new PlayerController();
-        this.inventoryController=new InventoryController(playerController.getInventory());
+        this.inventoryController = new InventoryController(playerController.getInventory());
         this.menuController = new MenuController();
         this.playerView = new PlayerView();
         this.menuView = new MenuView(menuController, this);
