@@ -13,8 +13,8 @@ public class MenuController {
     private final int STANDARD_MENU_ITEM_WIDTH = 250;
     private final int STANDARD_MENU_ITEM_HEIGHT = 50;
 
-    public MenuController() {
-        this.menu = new MenuImpl();
+    public MenuController(final Menu menu) {
+        this.menu = menu;
 
         this.menu.addMenuItem(new MenuItem(STANDARD_MENU_ITEM_WIDTH, STANDARD_MENU_ITEM_HEIGHT, "NEW GAME", Command.NEW_GAME));
         this.menu.addMenuItem(new MenuItem(STANDARD_MENU_ITEM_WIDTH, STANDARD_MENU_ITEM_HEIGHT, "CLOSE MENU", Command.CLOSE_MENU));

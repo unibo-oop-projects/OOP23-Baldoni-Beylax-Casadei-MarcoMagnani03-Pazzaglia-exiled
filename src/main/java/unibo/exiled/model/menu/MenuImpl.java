@@ -1,6 +1,7 @@
 package unibo.exiled.model.menu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MenuImpl implements Menu {
@@ -10,15 +11,13 @@ public class MenuImpl implements Menu {
         this.menuItems = new ArrayList<>();
     }
 
+    @Override
     public void addMenuItem(MenuItem menuItem) {
         this.menuItems.add(menuItem);
     }
 
-    public void removeMenuItem(MenuItem menuItem){
-        this.menuItems.remove(menuItem);
-    }
-
+    @Override
     public List<MenuItem> getMenuItems() {
-        return this.menuItems;
+        return Collections.unmodifiableList(this.menuItems);
     }
 }

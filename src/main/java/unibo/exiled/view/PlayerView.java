@@ -16,7 +16,7 @@ public class PlayerView extends JPanel{
     private int animationNumber = 1;
 
     public PlayerView(){
-        this(new ImageIcon(imagePath + Constants.getCostantOf("STARTING_PLAYER_ANIMATION")).getImage());
+        this(new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")).getImage());
     }
 
     public PlayerView(Image img){

@@ -11,13 +11,14 @@ import javax.swing.*;
 public class InventoryController {
     private Inventory inventory;
 
-    public InventoryController(Inventory inventory) {
+    public InventoryController(final Inventory inventory) {
         this.inventory = inventory;
     }
 
     public void useItem(UsableItem item) {
         if (inventory.containsItem(item)) {
             inventory.removeItem(item);
+            //NON VA BENE, il controller non sa cos'è un JOptionPane
             JOptionPane.showMessageDialog(null, "Used " + item.getName());
         } else {
             JOptionPane.showMessageDialog(null, "Item not found in the inventory");

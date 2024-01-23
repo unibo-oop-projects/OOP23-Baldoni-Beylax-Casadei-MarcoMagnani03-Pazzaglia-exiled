@@ -1,6 +1,6 @@
 package unibo.exiled.view;
 
-import unibo.exiled.controller.Controller;
+import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.controller.InventoryController;
 import unibo.exiled.controller.MenuController;
 import unibo.exiled.controller.PlayerController;
@@ -26,10 +26,7 @@ public class GameView {
 
     // MVC Components (MC)
     private final JFrame mainFrame;
-    private final Controller controller;
-    private final PlayerController playerController;
-    private final InventoryController inventoryController;
-    private final MenuController menuController;
+    private final GameControllerImpl gameControllerImpl;
     private InventoryView inventoryView;
     private final PlayerView playerView;
     private GameOverView gameOverView;
@@ -47,12 +44,8 @@ public class GameView {
         double SCREEN_WIDTH = SCREEN.getWidth();
         double SCREEN_HEIGHT = SCREEN.getHeight();
 
-        this.controller = new Controller(SIZE);
-        this.playerController = new PlayerController();
-        this.inventoryController = new InventoryController(playerController.getInventory());
-        this.menuController = new MenuController();
+        this.gameControllerImpl = new GameControllerImpl(SIZE);
         this.playerView = new PlayerView();
-        this.menuView = new MenuView(menuController, this);
         this.mainFrame = new JFrame();
 
         // mainFrame.setSize((int) SCREEN_WIDTH, (int) SCREEN_HEIGHT);
@@ -125,7 +118,7 @@ public class GameView {
      */
     private void setAreas(final Position cell){
         final JPanel pane = cells.get(cell);
-        switch (controller.getCellType(cell)){
+        switch (gameControllerImpl.getCellType(cell)){
             case VOLCANO -> pane.setBackground(Color.ORANGE);
             case PLAINS -> pane.setBackground(Color.yellow);
             case FOREST -> pane.setBackground(Color.green);
@@ -139,7 +132,7 @@ public class GameView {
     private void initializeGridComponents() {
         menuPanel.add(menuView);
 
-        final JPanel gridPanel = new JPanel(new GridLayout(controller.getMapWidth(), controller.getMapHeight()));
+        final JPanel gridPanel = new JPanel(new GridLayout(gameControllerImpl.getMapWidth(), gameControllerImpl.getMapHeight()));
 
         // Listener initialization
         KeyListener kl = new KeyListener() {
@@ -197,8 +190,8 @@ public class GameView {
 
     private void draw(JPanel gridPanel){
         gridPanel.removeAll();
-        for (int i = 0; i < controller.getMapHeight(); i++) {
-            for (int j = 0; j < controller.getMapWidth(); j++) {
+        for (int i = 0; i < gameControllerImpl.getMapHeight(); i++) {
+            for (int j = 0; j < gameControllerImpl.getMapWidth(); j++) {
                 final JPanel cell;
                 final Position pos = new Position(j,i);
                 if(pos.equals(playerController.getPlayerPosition())){

@@ -1,7 +1,5 @@
 package unibo.exiled.view;
 
-import unibo.exiled.controller.Controller;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
