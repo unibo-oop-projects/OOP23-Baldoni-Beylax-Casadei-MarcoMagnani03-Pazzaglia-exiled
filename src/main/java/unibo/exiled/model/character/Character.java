@@ -16,10 +16,10 @@ public interface Character {
     MoveSet getMoveSet();
 
     /**
-     * Moves the character by the selected direction.
-     * @param direction
+     * Moves the character to new position.
+     * @param newPosition
      */
-    void move(final Direction direction);
+    void move(final Position newPosition);
 
     /**
      * Returns the position of the current character.

@@ -15,9 +15,9 @@ public class MenuItemActionListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Command.NEW_GAME.getCommandString())) {
-            game.hideMenu();
+            //game.hideMenu();
         } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
-            game.hideMenu();
+            //game.hideMenu();
         } else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
             System.exit(0);
         } else {
