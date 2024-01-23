@@ -1,6 +1,6 @@
 package unibo.exiled.model.item;
 
-import unibo.exiled.model.character.attributes.AttributeType;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 
 /**
  * The ItemFactory interface provides a set of methods for creating different types of items
@@ -28,7 +28,7 @@ public interface ItemFactory {
      * @param boostedAttribute       The attribute that the power up infect.
      * @return               A new Item representing a power-up item.
      */
-    Item createPowerUpItem(final String name, final String description, final double powerUpValue, final int duration,final AttributeType boostedAttribute);
+    Item createPowerUpItem(final String name, final String description, final double powerUpValue, final int duration,final AttributeIdentifier boostedAttribute);
 
     /**
      * Creates an unusable item with the specified name and description.

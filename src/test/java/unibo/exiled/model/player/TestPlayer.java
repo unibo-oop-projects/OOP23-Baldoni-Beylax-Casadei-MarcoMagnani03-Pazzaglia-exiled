@@ -2,11 +2,11 @@ package unibo.exiled.model.player;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.GameModel;
-import unibo.exiled.model.character.attributes.AttributeType;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
 
 public class TestPlayer {
@@ -28,9 +28,9 @@ public class TestPlayer {
 
     @Test
     public void testDefaultField(){
-        assertEquals(player.getAttributes().getAttributeOfType(AttributeType.HEALTH).getValue(), defaultHealth);
-        assertEquals(player.getAttributes().getAttributeOfType(AttributeType.ATTACK).getValue(), defaultAttack);
-        assertEquals(player.getAttributes().getAttributeOfType(AttributeType.DEFENSE).getValue(), defaultDefense);
+        assertEquals(player.getAttributes().get(AttributeIdentifier.HEALTH).getValue(), defaultHealth);
+        assertEquals(player.getAttributes().get(AttributeIdentifier.ATTACK).getValue(), defaultAttack);
+        assertEquals(player.getAttributes().get(AttributeIdentifier.DEFENSE).getValue(), defaultDefense);
         assertEquals(player.getExperience(), defaultExperience);
     }
 }

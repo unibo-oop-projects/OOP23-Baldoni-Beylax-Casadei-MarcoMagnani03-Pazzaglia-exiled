@@ -1,25 +1,34 @@
 package unibo.exiled.model.character.attributes;
 
-import unibo.exiled.config.Constants;
+import java.util.Map;
+import java.util.Optional;
 
-/**
- * Contains some methods to create some basic attribute combinations.
- */
 public class AttributeFactoryImpl implements AttributeFactory {
 
-    @Override
-    public Attributes basicPlayerAttributes() {
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        final Attributes attributes = new AttributesImpl();
-        attributes.addAttribute(AttributeType.HEALTH,new StatImpl(Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_HEALTH")),1));
-        attributes.addAttribute(AttributeType.ATTACK,new StatImpl(Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_ATTACK")),1));
-        attributes.addAttribute(AttributeType.DEFENSE,new StatImpl(Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_DEFENSE")),1));
-        attributes.addAttribute(AttributeType.HEALTHCAP,new StatImpl(Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_HEALTH_CAP")),1));
-        return attributes;
+    private Map<AttributeIdentifier,Attribute> fromValues(
+            final double attackModifier,
+            final double healthValue,
+            final double healthModifier,
+            final double defenseModifier,
+            final double healthCapValue,
+            final double healthCapModifier){
+        return Map.of(
+                AttributeIdentifier.ATTACK,new AttributeImpl(Optional.of(attackModifier),Optional.empty()),
+                AttributeIdentifier.HEALTH,new AttributeImpl(Optional.of(healthModifier),Optional.of(healthValue)),
+                AttributeIdentifier.DEFENSE, new AttributeImpl(Optional.of(defenseModifier),Optional.empty()),
+                AttributeIdentifier.HEALTHCAP, new AttributeImpl(Optional.of(healthCapModifier),Optional.of(healthCapValue))
+        );
     }
 
     @Override
-    public Attributes basicEnemyAttributes() {
-        return null;
+    public Map<AttributeIdentifier,Attribute> createBasicAttributes(){
+        return this.fromValues(1,100,
+                1,1,200,1);
+    }
+
+    @Override
+    public Map<AttributeIdentifier, Attribute> createGoblinAttributes() {
+        return this.fromValues(1,10,1,
+                1,10,1);
     }
 }

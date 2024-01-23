@@ -8,6 +8,7 @@ public enum ElementalType {
     FIRE,
     BOLT,
     WATER,
+    NORMAL,
     GRASS;
 
     /**
@@ -27,6 +28,8 @@ public enum ElementalType {
                 return secondMoveType.equals(BOLT);
             case WATER:
                 return secondMoveType.equals(FIRE);
+            case NORMAL:
+                return false;
             default:
                 throw new IllegalArgumentException("Tipo elementale non valido: " + this);
         }
