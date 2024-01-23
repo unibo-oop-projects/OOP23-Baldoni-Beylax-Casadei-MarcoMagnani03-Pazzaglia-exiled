@@ -26,11 +26,7 @@ public class Constants{
         }
     }
 
-    public static double getConstantOf(final String name) {
-        return Double.parseDouble(constants.get(name));
-    }
-
-    public static String getCostantOf(final String name){
+    public static String getConstantOf(final String name){
         return constants.get(name);
     }
 }

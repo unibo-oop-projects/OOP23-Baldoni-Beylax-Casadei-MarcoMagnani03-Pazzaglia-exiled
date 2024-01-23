@@ -25,14 +25,13 @@ public class PlayerImpl implements Player {
     private final Attributes attributes;
     private final Inventory inventory;
 
-    public PlayerImpl(){
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        this.position = new Position((int)Constants.getConstantOf("PLAYER_STARTING_POSITION_X"), (int)(Constants.getConstantOf("PLAYER_STARTING_POSITION_Y")));
+    public PlayerImpl(final Position startingPosition, final double experience, final int levelIncrease){
+        this.position = startingPosition;
         this.inventory = new InventoryImpl();
         this.moveSet = new MoveSetImpl();
         this.attributes = new AttributeFactoryImpl().basicPlayerAttributes();
-        this.exp = Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE");
-        this.levelInc = (int)Constants.getConstantOf("PLAYER_LEVEL_INCREASE");
+        this.exp = experience;
+        this.levelInc = levelIncrease;
     }
 
     @Override
