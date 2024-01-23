@@ -4,6 +4,7 @@ import unibo.exiled.controller.Controller;
 import unibo.exiled.controller.InventoryController;
 import unibo.exiled.controller.MenuController;
 import unibo.exiled.controller.PlayerController;
+import unibo.exiled.model.GameModel;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
@@ -26,6 +27,7 @@ public class GameView {
 
     // MVC Components (MC)
     private final JFrame mainFrame;
+    private final GameModel gameModel;
     private final Controller controller;
     private final PlayerController playerController;
     private final InventoryController inventoryController;
@@ -47,8 +49,9 @@ public class GameView {
         double SCREEN_WIDTH = SCREEN.getWidth();
         double SCREEN_HEIGHT = SCREEN.getHeight();
 
+        this.gameModel = new GameModel(SIZE);
         this.controller = new Controller(SIZE);
-        this.playerController = new PlayerController();
+        this.playerController = new PlayerController(gameModel);
         this.inventoryController = new InventoryController(playerController.getInventory());
         this.menuController = new MenuController();
         this.playerView = new PlayerView();

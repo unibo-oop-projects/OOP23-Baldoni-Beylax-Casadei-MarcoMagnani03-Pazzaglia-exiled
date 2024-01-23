@@ -35,9 +35,8 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public void move(Direction direction) {
-        Position positionSpanDirection = direction.getPosition();
-        position = new Position(position.x()+positionSpanDirection.x(), position.y()+positionSpanDirection.y());
+    public void move(final Position newPosition) {
+        position = newPosition;
     }
 
     @Override
