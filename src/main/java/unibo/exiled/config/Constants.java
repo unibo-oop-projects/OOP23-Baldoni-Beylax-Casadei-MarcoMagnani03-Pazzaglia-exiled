@@ -16,8 +16,8 @@ public class Constants{
             Scanner reader = new Scanner(file);
             while(reader.hasNextLine()){
                 final String data = reader.nextLine();
-                final String cName = data.substring(0,data.indexOf(":"));
-                final String value = data.substring(data.indexOf(":") + 1);
+                final String cName = data.substring(0,data.indexOf(":")).trim();
+                final String value = data.substring(data.indexOf(":") + 1).trim();
                 constants.put(cName,value);
             }
             reader.close();
