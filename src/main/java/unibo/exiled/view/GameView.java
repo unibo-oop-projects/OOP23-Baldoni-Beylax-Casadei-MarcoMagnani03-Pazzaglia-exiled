@@ -9,6 +9,7 @@ import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.character.attributes.AttributeType;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
+import unibo.exiled.view.Menu.MenuView;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -206,9 +207,9 @@ public class GameView extends JFrame{
         inventoryView.display();
     }
 
-    private void showMenu(){
+    public void showMenu(){
         if(menuView == null){
-            menuView = new MenuView(gameController.getMenuController());
+            menuView = new MenuView(gameController.getMenuController(), this);
         }
         this.gamePanel.setVisible(false);
         this.menuPanel.setVisible(true);
@@ -217,7 +218,7 @@ public class GameView extends JFrame{
         this.mainFrame.repaint();
     }
 
-    private void hideMenu(){
+    public void hideMenu(){
         this.gamePanel.setVisible(true);
         this.menuPanel.setVisible(false);
     
