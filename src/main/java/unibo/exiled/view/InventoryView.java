@@ -110,7 +110,13 @@ public class InventoryView extends JFrame {
                     );
 
                     if (confirmation == JOptionPane.YES_OPTION) {
-                        inventoryController.useItem(usableItem);
+                        boolean useResult=inventoryController.useItem(usableItem);
+                        if(useResult){
+                            JOptionPane.showMessageDialog(null, "Used " + usableItem.getName());
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Item not found in the inventory");
+                        }
                         updateInventoryList();
                     }
                 }

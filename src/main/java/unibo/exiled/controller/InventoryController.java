@@ -6,8 +6,6 @@ import unibo.exiled.model.item.UsableItem;
 
 import java.util.Map;
 
-import javax.swing.*;
-
 public class InventoryController {
     private Inventory inventory;
 
@@ -15,13 +13,12 @@ public class InventoryController {
         this.inventory = inventory;
     }
 
-    public void useItem(UsableItem item) {
+    public boolean useItem(UsableItem item) {
         if (inventory.containsItem(item)) {
             inventory.removeItem(item);
-            //NON VA BENE, il controller non sa cos'è un JOptionPane
-            JOptionPane.showMessageDialog(null, "Used " + item.getName());
+            return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Item not found in the inventory");
+            return false;
         }
     }
 
