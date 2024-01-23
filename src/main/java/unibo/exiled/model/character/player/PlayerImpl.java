@@ -16,6 +16,7 @@ import unibo.exiled.model.utilities.Position;
  */
 public class PlayerImpl implements Player {
 
+    private double health;
     private final int levelInc;
     private int level;
     private double exp;
@@ -37,6 +38,11 @@ public class PlayerImpl implements Player {
     @Override
     public void move(final Position newPosition) {
         position = newPosition;
+    }
+
+    @Override
+    public double getHealth() {
+        return health;
     }
 
     @Override

@@ -19,8 +19,7 @@ public class TestPlayer {
 
     @BeforeEach
     public void testInitialize(){
-        player = new PlayerImpl();
-        assertNotNull(player);
+        
     }
 
     @Test

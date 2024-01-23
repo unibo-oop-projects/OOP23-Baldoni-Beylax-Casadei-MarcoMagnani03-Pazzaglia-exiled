@@ -7,6 +7,12 @@ import unibo.exiled.model.item.Inventory;
  * The interface of the Player.
  */
 public interface Player extends Character{
+
+    /**
+     * @return the player health.
+     */
+    double getHealth();
+
     /**
      * @return the player level.
      */
