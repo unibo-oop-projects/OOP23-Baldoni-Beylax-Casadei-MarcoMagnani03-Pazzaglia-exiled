@@ -16,12 +16,7 @@ public class PlayerController implements CharacterController{
     }
 
     @Override
-    public void move(final Direction direction){
-        Position positionSpanDirection = direction.getPosition();
-        Position newPosition = new Position(
-                player.getPosition().x()+positionSpanDirection.x(),
-                player.getPosition().y()+positionSpanDirection.y());
-
-        this.player.move(newPosition);
+    public void move(final Position position) {
+        this.player.move(position);
     }
 }

@@ -4,13 +4,14 @@ import unibo.exiled.model.utilities.Position;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class GameMapImpl implements  GameMap{
     private final int height;
     private final int width;
     private final Map<Position,CellType> cellStates;
 
-    private final void fillCellRange(final CellType type, final int fromY, final int toY, final int fromX, final int toX){
+    private void fillCellRange(final CellType type, final int fromY, final int toY, final int fromX, final int toX){
         for(int i = fromY ; i < toY; i++){
             for(int j = fromX; j < toX; j++){
                 final Position pos = new Position(j,i);
@@ -24,7 +25,7 @@ public class GameMapImpl implements  GameMap{
         }
     }
 
-    private final void fillCells(final int startingArea){
+    private void fillCells(final int startingArea){
         this.fillCellRange(CellType.VOLCANO,0,height / 2, 0, width / 2);
         this.fillCellRange(CellType.SWAMP,height / 2, this.height,0,width / 2);
         this.fillCellRange(CellType.STORM,0, this.height / 2, width / 2,width);
@@ -48,7 +49,12 @@ public class GameMapImpl implements  GameMap{
     //Gets the type of cell.
     @Override
     public CellType getCellType(final Position cell) {
-        return this.cellStates.get(cell);
+        if(this.isInBoundaries(cell)){
+            return this.cellStates.get(cell);
+        }
+        else{
+            throw new NoSuchElementException("The selected position is out of boundaries.");
+        }
     }
 
     @Override
