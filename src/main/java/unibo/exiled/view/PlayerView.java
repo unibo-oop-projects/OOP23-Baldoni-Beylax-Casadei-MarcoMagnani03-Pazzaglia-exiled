@@ -4,15 +4,16 @@ import unibo.exiled.config.Constants;
 import unibo.exiled.model.utilities.Direction;
 
 import java.awt.*;
+import java.io.File;
+
 import javax.swing.*;
 
 public class PlayerView extends JLabel{
-    private static String imagePath = "src\\main\\java\\unibo\\exiled\\resources\\";
+    private static String imagePath = "src"+File.separator+"main"+File.separator+"java"+File.separator+"unibo"+File.separator+"exiled"+File.separator+"resources"+File.separator+"player"+File.separator;
 
     private String imgAnimationName;
 
     private int animationNumber = 1;
-    private Dimension dimensionImg;
 
     private Image image;
 
