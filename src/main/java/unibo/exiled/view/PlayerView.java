@@ -14,12 +14,11 @@ public class PlayerView extends JLabel{
     private int animationNumber = 1;
     private Dimension dimensionImg;
 
-    public PlayerView() {
-        //this.setIcon(new ImageIcon(imagePath + imgAnimationName));
-    }
+    private Image image;
 
-    public void setImageDimension(Dimension dimension){
-        this.dimensionImg = dimension;
+    public PlayerView() {
+        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
+        image = new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")).getImage();
     }
 
     public void changeImage(Direction dir){
@@ -68,8 +67,35 @@ public class PlayerView extends JLabel{
                 break;
         }
 
-        this.setIcon(new ImageIcon(new ImageIcon(imagePath + imgAnimationName).getImage().getScaledInstance((int)dimensionImg.getWidth(), (int)dimensionImg.getHeight(), Image.SCALE_SMOOTH)));
-        //this.setIcon(new ImageIcon(imagePath + imgAnimationName));
+        image = new ImageIcon(imagePath + imgAnimationName).getImage();
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        int width = getWidth();
+        int height = getHeight();
+
+        if (image != null) {
+            int imgWidth, imgHeight;
+            int originalWidth = image.getWidth(null);
+            int originalHeight = image.getHeight(null);
+            double aspectRatio = (double) originalWidth / originalHeight;
+
+            if (width / aspectRatio <= height) {
+                imgWidth = width;
+                imgHeight = (int) (width / aspectRatio);
+            } else {
+                imgWidth = (int) (height * aspectRatio);
+                imgHeight = height;
+            }
+
+            int x = (width - imgWidth) / 2;
+            int y = (height - imgHeight) / 2;
+
+            g.drawImage(image, x, y, imgWidth, imgHeight, null);
+        }
+    }
 }
+

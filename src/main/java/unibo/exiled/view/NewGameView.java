@@ -8,7 +8,6 @@ import javax.swing.WindowConstants;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
-import unibo.exiled.controller.MenuController;
 import unibo.exiled.view.Menu.MenuView;
 
 public class NewGameView {

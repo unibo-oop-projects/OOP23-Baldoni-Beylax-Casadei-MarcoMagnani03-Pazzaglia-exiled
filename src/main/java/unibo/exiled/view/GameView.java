@@ -52,12 +52,6 @@ public class GameView{
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
 
-        mainFrame.addComponentListener(new ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                playerView.setImageDimension(cells.get(gameController.getPlayerController().getPlayer().getPosition()).getSize());
-            }
-        });
-        
         this.menuPanel = new JPanel();
         this.gamePanel = new JPanel(new BorderLayout());
 
