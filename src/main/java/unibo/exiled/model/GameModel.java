@@ -20,20 +20,29 @@ public class GameModel {
     private final Menu menu;
     private final List<Enemy> enemies;
     private final int enemyNumber;
+    private final int moveNumber;
+    private final double defaultExperience;
+    private final int playerLevelIncrease;
+    private final int playerStartingPositionX;
+    private final int playerStartingPositionY;
 
     public GameModel(final int mapSize){
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
+
+        this.moveNumber = Integer.parseInt(Constants.getConstantOf("NUM_MOVES"));
+        this.defaultExperience = Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE"));
+        this.playerLevelIncrease=Integer.parseInt(Constants.getConstantOf("PLAYER_LEVEL_INCREASE"));
+        this.playerStartingPositionX = Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_X"));
+        this.playerStartingPositionY = Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_Y"));
+        this.enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));
+        
         this.menu = new MenuImpl();
         this.map = new GameMapImpl(mapSize);
-        final Position startingPlayerPosition = new Position(
-                Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_X")),
-                Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_Y")));
-        this.player = new PlayerImpl(
-                startingPlayerPosition,
-                Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE")),
-                Integer.parseInt(Constants.getConstantOf("PLAYER_LEVEL_INCREASE")));
+
+
+        final Position startingPlayerPosition = new Position(this.playerStartingPositionX,playerStartingPositionY);
+        this.player = new PlayerImpl(startingPlayerPosition,defaultExperience,playerLevelIncrease,moveNumber);
         this.enemies = new ArrayList<>();
-        this.enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));
     }
 
     public Player getPlayer(){

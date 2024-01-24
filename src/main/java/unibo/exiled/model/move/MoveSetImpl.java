@@ -1,15 +1,22 @@
 package unibo.exiled.model.move;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 public class MoveSetImpl implements MoveSet{
-    private final static int MOVESNUMBER=4;
-    Set<MagicMove> magicMoves = new HashSet<>();
+    private final Set<MagicMove> magicMoves;
+    private final int maxMoves;
+
+    public MoveSetImpl(int movesNumber){
+        magicMoves = new HashSet<>(movesNumber);
+        maxMoves=movesNumber;
+    }
 
     @Override
     public Set<MagicMove> getMagicMoves() {
-        return this.magicMoves;
+        return Collections.unmodifiableSet(magicMoves);
     }
 
     @Override
@@ -25,7 +32,7 @@ public class MoveSetImpl implements MoveSet{
 
     @Override
     public boolean addMagicMove(MagicMove newMove) {
-        if(magicMoves.size()==MOVESNUMBER){
+        if(magicMoves.size()==maxMoves){
             return false;
         }
         else{
