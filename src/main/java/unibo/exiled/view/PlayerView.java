@@ -9,19 +9,16 @@ import javax.swing.*;
 public class PlayerView extends JLabel{
     private static String imagePath = "src\\main\\java\\unibo\\exiled\\resources\\";
 
-    private Image img;
-    private Image scaled;
     private String imgAnimationName;
 
     private int animationNumber = 1;
 
     public PlayerView() {
-        this.img = new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")).getImage();
-        this.setIcon(new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")));
-    }
-
-    public PlayerView(Image img){
-        this.img = img;
+        if(this.getWidth() != 0 && this.getHeight() != 0){
+            this.setIcon(new ImageIcon(new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")).getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH)));
+        }else{
+            this.setIcon(new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")));
+        }
     }
 
     public void changeImage(Direction dir, Dimension size){
@@ -69,31 +66,9 @@ public class PlayerView extends JLabel{
             default:
                 break;
         }
-        img = (new ImageIcon(imagePath + imgAnimationName).getImage());
-        this.setIcon(new ImageIcon(imagePath + imgAnimationName));
+        //this.setIcon(new ImageIcon(imagePath + imgAnimationName));
+        this.setIcon(new ImageIcon(new ImageIcon(imagePath + imgAnimationName).getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH)));
+
     }
 
-    @Override
-    public void invalidate() {
-      super.invalidate();
-      int width = getWidth();
-      int height = getHeight();
-  
-      if (width > 0 && height > 0) {
-        scaled = img.getScaledInstance(getWidth(), getHeight(),
-            Image.SCALE_SMOOTH);
-      }
-    }
-  
-    @Override
-    public Dimension getPreferredSize() {
-      return img == null ? new Dimension(200, 200) : new Dimension(
-          img.getWidth(this), img.getHeight(this));
-    }
-  
-    @Override
-    public void paintComponent(Graphics g) {
-      super.paintComponent(g);
-      g.drawImage(scaled, 0, 0, null);
-    }
 }
