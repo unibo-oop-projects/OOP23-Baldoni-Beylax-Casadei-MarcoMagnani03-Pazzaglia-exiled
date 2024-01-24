@@ -68,7 +68,7 @@ public class PlayerView extends JLabel{
             default:
                 break;
         }
-        img = (new ImageIcon(imagePath+imgAnimationName).getImage());
+        img = (new ImageIcon(imagePath + imgAnimationName).getImage());
     }
 
     @Override

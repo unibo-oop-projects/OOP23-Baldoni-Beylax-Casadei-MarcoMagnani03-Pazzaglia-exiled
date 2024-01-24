@@ -39,18 +39,13 @@ public class GameView{
     private final Map<Position, JLabel> cells = new HashMap<>();
 
     public GameView(){
-        // Screen size initialization.
-        Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
-        double SCREEN_WIDTH = SCREEN.getWidth();
-        double SCREEN_HEIGHT = SCREEN.getHeight();
-
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         SIZE = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
 
         this.gameController = new GameControllerImpl(SIZE);
         
         this.mainFrame = new JFrame();
-        this.mainFrame.setSize((int)SCREEN_WIDTH, (int)SCREEN_HEIGHT);
+        this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setLocationByPlatform(true);
@@ -72,9 +67,9 @@ public class GameView{
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(menuPanel).addComponent(gamePanel));
 
-        initializeGridComponents();
-        initializeHUD();
-        initializeKeyListeners();
+        this.initializeGridComponents();
+        this.initializeHUD();
+        this.initializeKeyListeners();
         
         this.showMenu();
     }
@@ -88,9 +83,15 @@ public class GameView{
         // Inventory button
         JButton inventoryButton = new JButton("Inventory");
         inventoryButton.addActionListener(e -> showInventory());
+
+        // Menu button
+        JButton menuButton = new JButton("Menu");
+        menuButton.addActionListener(e -> showMenu());
     
 
         flowButtonPanelNorth.add(inventoryButton);
+        flowButtonPanelNorth.add(menuButton);
+
         // Player information 
         Font labelFont = new Font("Arial", Font.PLAIN, 16);
         JLabel lifeLabel = new JLabel("Health: " + gameController.getPlayerController().getPlayer().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
@@ -108,18 +109,16 @@ public class GameView{
     }
 
     private void initializeGridComponents() {
-        gridPanel = new JPanel(
-            new GridLayout(
-                gameController.getMapController().getMap().getWidth(),
-                gameController.getMapController().getMap().getHeight()
-            )
-        );
-        for (int i = 0; i < gameController.getMapController().getMap().getHeight(); i++) {
-            for (int j = 0; j < gameController.getMapController().getMap().getWidth(); j++) {
+        this.gridPanel = new JPanel(
+                new GridLayout(
+                        this.gameController.getMapController().getMap().getWidth(),
+                        this.gameController.getMapController().getMap().getHeight()));
+        for (int i = 0; i < this.gameController.getMapController().getMap().getHeight(); i++) {
+            for (int j = 0; j < this.gameController.getMapController().getMap().getWidth(); j++) {
                 setArea(new Position(j, i));
             }
         }
-        this.gamePanel.add(gridPanel, BorderLayout.CENTER);
+        this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
     }
     
     private void initializeKeyListeners(){
@@ -163,12 +162,12 @@ public class GameView{
         this.mainFrame.addKeyListener(keyListener);
     }
 
-    private void draw(){
+    private void draw() {
         this.cells.clear();
         this.gridPanel.removeAll();
         for (int i = 0; i < this.gameController.getMapController().getMap().getHeight(); i++) {
             for (int j = 0; j < this.gameController.getMapController().getMap().getWidth(); j++) {
-                setArea(new Position(j,i));
+                setArea(new Position(j, i));
             }
         }
     }
@@ -177,8 +176,10 @@ public class GameView{
      * Colors the map areas based on the respective type.
      * @param cell is the JButton to set its background.
      */
-    private void setArea(final Position cell){
-        final JLabel label = cell.equals(this.gameController.getPlayerController().getPlayer().getPosition()) ? this.playerView : new JLabel();
+    private void setArea(final Position cell) {
+        final JLabel label = cell.equals(this.gameController.getPlayerController().getPlayer().getPosition())
+                ? this.playerView
+                : new JLabel();
         label.setOpaque(true);
         switch (this.gameController.getMapController().getMap().getCellType(cell)) {
             case VOLCANO -> label.setBackground(Color.ORANGE);
@@ -186,14 +187,14 @@ public class GameView{
             case FOREST -> label.setBackground(Color.GREEN);
             case STORM -> label.setBackground(Color.DARK_GRAY);
             case SWAMP -> label.setBackground(Color.BLUE);
-        
+
             default -> label.setBackground(Color.WHITE);
         }
         label.setBorder(new LineBorder(Color.BLACK));
         cells.put(cell, label);
         this.gridPanel.add(label);
     }
-    
+
     private void showInventory(){
         if(this.inventoryView == null){
             this.inventoryView = new InventoryView(this.gameController.getInventoryController());
