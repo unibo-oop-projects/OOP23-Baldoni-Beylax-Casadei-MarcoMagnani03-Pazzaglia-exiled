@@ -8,14 +8,16 @@ public class GameControllerImpl implements GameController {
     private final GameModel gameModel;
     private final PlayerController pc;
     private final InventoryController ic;
-    private final MenuController mc;
+    private final MenuController startMenuController;
+    private final MenuController inGameMenuController;
     private final MapController mpc;
 
     public GameControllerImpl(final int mapSize) {
         this.gameModel = new GameModel(mapSize);
         this.pc = new PlayerController(gameModel.getPlayer());
         this.ic = new InventoryController(pc.getPlayer().getInventory());
-        this.mc = new MenuController(gameModel.getMenu());
+        this.startMenuController = new MenuController(gameModel.getStartMenu());
+        this.inGameMenuController = new MenuController(gameModel.getInGameMenu());
         this.mpc = new MapController(gameModel.getMap());
     }
 
@@ -40,8 +42,13 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public MenuController getMenuController() {
-        return this.mc;
+    public MenuController getStartMenuController() {
+        return this.startMenuController;
+    }
+
+    @Override
+    public MenuController getInGameMenuController() {
+        return this.inGameMenuController;
     }
 
     @Override

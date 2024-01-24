@@ -1,9 +1,10 @@
 package unibo.exiled;
 
-import unibo.exiled.view.GameView;
+import unibo.exiled.view.NewGameView;
 
-public class GameLauncher{
+public class GameLauncher {
+
     public static void main(String[] args) {
-        new GameView().display();
+        new NewGameView();
     }
 }

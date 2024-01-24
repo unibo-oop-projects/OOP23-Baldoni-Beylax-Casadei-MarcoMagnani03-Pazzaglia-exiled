@@ -54,7 +54,7 @@ public class GameView{
         this.menuPanel = new JPanel();
         this.gamePanel = new JPanel(new BorderLayout());
 
-        this.menuView = new MenuView(gameController.getMenuController(), this);
+        this.menuView = new MenuView(gameController.getInGameMenuController(), this);
         this.playerView = new PlayerView();
 
         this.menuPanel.add(menuView);
@@ -71,7 +71,7 @@ public class GameView{
         this.initializeHUD();
         this.initializeKeyListeners();
         
-        this.showMenu();
+        this.hideMenu();
     }
 
     private void initializeHUD(){
@@ -216,9 +216,4 @@ public class GameView{
     public void display() {
         this.mainFrame.setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new GameView().display();
-    }
-    
 }

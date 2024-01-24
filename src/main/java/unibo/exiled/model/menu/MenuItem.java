@@ -1,24 +1,12 @@
 package unibo.exiled.model.menu;
 
 public class MenuItem {
-    private int itemWidth;
-    private int itemHeight;
     private String itemText;
     private Command itemCommand;
 
-    public MenuItem(int itemWidth, int itemHeight, String itemText, Command itemCommand) {
-        this.itemWidth = itemWidth;
-        this.itemHeight = itemHeight;
+    public MenuItem(String itemText, Command itemCommand) {
         this.itemText = itemText;
         this.itemCommand = itemCommand;
-    }
-
-    public int getItemWidth() {
-        return this.itemWidth;
-    }
-
-    public int getItemHeight() {
-        return this.itemHeight;
     }
 
     public String getItemText() {

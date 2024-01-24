@@ -6,8 +6,10 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.map.GameMapImpl;
+import unibo.exiled.model.menu.Command;
 import unibo.exiled.model.menu.Menu;
 import unibo.exiled.model.menu.MenuImpl;
+import unibo.exiled.model.menu.MenuItem;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.ArrayList;
@@ -17,7 +19,8 @@ import java.util.List;
 public class GameModel {
     private final Player player;
     private final GameMap map;
-    private final Menu menu;
+    private final Menu startMenu;
+    private final Menu inGameMenu;
     private final List<Enemy> enemies;
     private final int enemyNumber;
     private final int moveNumber;
@@ -36,7 +39,13 @@ public class GameModel {
         this.playerStartingPositionY = Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_Y"));
         this.enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));
         
-        this.menu = new MenuImpl();
+        this.startMenu = new MenuImpl();
+        this.inGameMenu = new MenuImpl();
+        this.startMenu.addMenuItem(new MenuItem("NEW GAME", Command.NEW_GAME));
+        this.startMenu.addMenuItem(new MenuItem("QUIT", Command.QUIT));
+        this.inGameMenu.addMenuItem(new MenuItem("CLOSE MENU", Command.CLOSE_MENU));
+        this.inGameMenu.addMenuItem(new MenuItem("QUIT", Command.QUIT));
+
         this.map = new GameMapImpl(mapSize);
 
 
@@ -48,7 +57,15 @@ public class GameModel {
     public Player getPlayer(){
         return this.player;
     }
-    public Menu getMenu(){return  this.menu;}
+
+    public Menu getStartMenu() {
+        return this.startMenu;
+    }
+    
+    public Menu getInGameMenu() {
+        return this.inGameMenu;
+    }
+
     public GameMap getMap(){
         return this.map;
     }
