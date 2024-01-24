@@ -15,6 +15,8 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -198,6 +200,12 @@ public class GameView{
     private void showInventory(){
         if(this.inventoryView == null){
             this.inventoryView = new InventoryView(this.gameController.getInventoryController());
+            this.inventoryView.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    mainFrame.requestFocus();
+                }
+            });
         }
         this.inventoryView.display();
     }
