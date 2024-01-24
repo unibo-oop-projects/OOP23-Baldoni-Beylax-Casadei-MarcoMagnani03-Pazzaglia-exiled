@@ -12,6 +12,7 @@ import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -50,6 +51,12 @@ public class GameView{
         this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
+
+        mainFrame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                playerView.setImageDimension(cells.get(gameController.getPlayerController().getPlayer().getPosition()).getSize());
+            }
+        });
         
         this.menuPanel = new JPanel();
         this.gamePanel = new JPanel(new BorderLayout());
@@ -144,10 +151,7 @@ public class GameView{
                         default -> throw new IllegalStateException("Illegal pressed key.");
                     }
                     gameController.movePlayer(directionPressed);
-                    playerView.changeImage(
-                        directionPressed,
-                        cells.get(gameController.getPlayerController().getPlayer().getPosition()).getSize()                        
-                    );
+                    playerView.changeImage(directionPressed);
                     draw();
                 }
             }
@@ -172,6 +176,7 @@ public class GameView{
         this.mainFrame.revalidate();
         this.mainFrame.repaint();
     }
+
 
     /**
      * Colors the map areas based on the respective type.

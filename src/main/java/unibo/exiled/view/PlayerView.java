@@ -12,16 +12,17 @@ public class PlayerView extends JLabel{
     private String imgAnimationName;
 
     private int animationNumber = 1;
+    private Dimension dimensionImg;
 
     public PlayerView() {
-        if(this.getWidth() != 0 && this.getHeight() != 0){
-            this.setIcon(new ImageIcon(new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")).getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH)));
-        }else{
-            this.setIcon(new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")));
-        }
+        //this.setIcon(new ImageIcon(imagePath + imgAnimationName));
     }
 
-    public void changeImage(Direction dir, Dimension size){
+    public void setImageDimension(Dimension dimension){
+        this.dimensionImg = dimension;
+    }
+
+    public void changeImage(Direction dir){
         switch (dir) {
             case NORTH:
                 if(animationNumber == 1){
@@ -66,9 +67,9 @@ public class PlayerView extends JLabel{
             default:
                 break;
         }
-        //this.setIcon(new ImageIcon(imagePath + imgAnimationName));
-        this.setIcon(new ImageIcon(new ImageIcon(imagePath + imgAnimationName).getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH)));
 
+        this.setIcon(new ImageIcon(new ImageIcon(imagePath + imgAnimationName).getImage().getScaledInstance((int)dimensionImg.getWidth(), (int)dimensionImg.getHeight(), Image.SCALE_SMOOTH)));
+        //this.setIcon(new ImageIcon(imagePath + imgAnimationName));
     }
 
 }
