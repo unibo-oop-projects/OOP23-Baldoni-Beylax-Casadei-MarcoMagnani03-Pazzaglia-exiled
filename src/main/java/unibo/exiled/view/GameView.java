@@ -110,17 +110,15 @@ public class GameView{
 
     private void initializeGridComponents() {
         this.gridPanel = new JPanel(
-                new GridLayout(
-                        this.gameController.getMapController().getMap().getWidth(),
-                        this.gameController.getMapController().getMap().getHeight()));
-        for (int i = 0; i < this.gameController.getMapController().getMap().getHeight(); i++) {
-            for (int j = 0; j < this.gameController.getMapController().getMap().getWidth(); j++) {
-                setArea(new Position(j, i));
-            }
-        }
+            new GridLayout(
+                this.gameController.getMapController().getMap().getWidth(),
+                this.gameController.getMapController().getMap().getHeight()
+            )
+        );
+        draw();
         this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
     }
-    
+
     private void initializeKeyListeners(){
         // Listener initialization
         KeyListener keyListener = new KeyListener() {
@@ -170,18 +168,21 @@ public class GameView{
                 setArea(new Position(j, i));
             }
         }
+
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
     }
-    
+
     /**
      * Colors the map areas based on the respective type.
-     * @param cell is the JButton to set its background.
+     * @param position is the position of the label.
      */
-    private void setArea(final Position cell) {
-        final JLabel label = cell.equals(this.gameController.getPlayerController().getPlayer().getPosition())
+    private void setArea(final Position position) {
+        final JLabel label = position.equals(this.gameController.getPlayerController().getPlayer().getPosition())
                 ? this.playerView
                 : new JLabel();
         label.setOpaque(true);
-        switch (this.gameController.getMapController().getMap().getCellType(cell)) {
+        switch (this.gameController.getMapController().getMap().getCellType(position)) {
             case VOLCANO -> label.setBackground(Color.ORANGE);
             case PLAINS -> label.setBackground(Color.YELLOW);
             case FOREST -> label.setBackground(Color.GREEN);
@@ -191,7 +192,7 @@ public class GameView{
             default -> label.setBackground(Color.WHITE);
         }
         label.setBorder(new LineBorder(Color.BLACK));
-        cells.put(cell, label);
+        cells.put(position, label);
         this.gridPanel.add(label);
     }
 

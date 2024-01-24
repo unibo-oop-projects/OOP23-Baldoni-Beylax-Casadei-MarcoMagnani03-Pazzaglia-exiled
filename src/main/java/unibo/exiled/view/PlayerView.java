@@ -15,8 +15,9 @@ public class PlayerView extends JLabel{
 
     private int animationNumber = 1;
 
-    public PlayerView(){
-        this(new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")).getImage());
+    public PlayerView() {
+        this.img = new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")).getImage();
+        this.setIcon(new ImageIcon(imagePath + Constants.getConstantOf("STARTING_PLAYER_ANIMATION")));
     }
 
     public PlayerView(Image img){
@@ -69,6 +70,7 @@ public class PlayerView extends JLabel{
                 break;
         }
         img = (new ImageIcon(imagePath + imgAnimationName).getImage());
+        this.setIcon(new ImageIcon(imagePath + imgAnimationName));
     }
 
     @Override
