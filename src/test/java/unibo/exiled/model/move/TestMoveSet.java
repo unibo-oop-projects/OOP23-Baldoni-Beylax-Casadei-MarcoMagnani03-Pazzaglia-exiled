@@ -17,13 +17,13 @@ public class TestMoveSet {
 
     @Test
     void testGetMagicMoves() {
-        MoveSet moveSet = new MoveSetImpl();
+        MoveSet moveSet = new MoveSetImpl(4);
         assertTrue(moveSet.getMagicMoves().isEmpty());
     }
 
     @Test
     void testAddMagicMove() {
-        MoveSet moveSet = new MoveSetImpl();
+        MoveSet moveSet = new MoveSetImpl(4);
         MagicMove fireMove = new MagicMoveImpl("Fire", 10.0, ElementalType.FIRE);
         
         assertTrue(moveSet.addMagicMove(fireMove));
@@ -42,7 +42,7 @@ public class TestMoveSet {
 
     @Test
     void testChangeMoves() {
-        MoveSet moveSet = new MoveSetImpl();
+        MoveSet moveSet = new MoveSetImpl(4);
         MagicMove fireMove = new MagicMoveImpl("Fire", 10.0, ElementalType.FIRE);
         MagicMove boltMove = new MagicMoveImpl("Bolt", 8.0, ElementalType.BOLT);
 

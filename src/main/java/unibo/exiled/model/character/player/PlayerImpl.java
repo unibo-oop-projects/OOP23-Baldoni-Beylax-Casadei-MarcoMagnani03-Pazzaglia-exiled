@@ -28,10 +28,10 @@ public class PlayerImpl implements Player {
     private final Map<AttributeIdentifier, Attribute> attributes;
     private final Inventory inventory;
 
-    public PlayerImpl(final Position startingPosition, final double experience, final int levelIncrease){
+    public PlayerImpl(final Position startingPosition, final double experience, final int levelIncrease,final int maxMovesNumber){
         this.position = startingPosition;
         this.inventory = new InventoryImpl();
-        this.moveSet = new MoveSetImpl();
+        this.moveSet = new MoveSetImpl(maxMovesNumber);
         this.attributes = new AttributeFactoryImpl().createBasicAttributes();
         this.exp = experience;
         this.levelInc = levelIncrease;
