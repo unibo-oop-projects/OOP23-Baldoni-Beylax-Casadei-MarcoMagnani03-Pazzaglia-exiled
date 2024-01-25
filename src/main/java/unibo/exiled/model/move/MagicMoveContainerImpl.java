@@ -23,13 +23,7 @@ public class MagicMoveContainerImpl implements MagicMoveContainer{
 
     @Override
     public Optional<MagicMove> getMagicMoveByName(String name) {
-        for (MagicMove magicMove : magicMoves) {
-            if (magicMove.getName().equals(name)) {
-                return Optional.of(magicMove);
-            }
-        }
-
-        return Optional.empty();
+        return magicMoves.stream().filter(magicMove -> magicMove.getName().equals(name)).findFirst();
     }
 
     @Override
@@ -47,7 +41,7 @@ public class MagicMoveContainerImpl implements MagicMoveContainer{
         if(movesOfType.isEmpty()){
             return Optional.empty();
         }
-        
+
         return Optional.of(movesOfType.get(random.nextInt(movesOfType.size())));
     }
     

@@ -2,6 +2,8 @@ package unibo.exiled.model.item;
 
 import java.util.Objects;
 
+import unibo.exiled.model.utilities.ItemType;
+
 /**
  * This abstract class implements the Item interface by providing
  * a common core implementation for items in the game.
@@ -16,10 +18,12 @@ import java.util.Objects;
 public abstract class ItemBase implements Item{
     private final String name;
     private final String description;
+    private final ItemType itemType;
 
-    public ItemBase(String name,String description){
+    public ItemBase(String name,String description,ItemType itemType){
         this.name = name;
         this.description = description;
+        this.itemType = itemType;
     }
 
     @Override
@@ -45,4 +49,8 @@ public abstract class ItemBase implements Item{
         return Objects.hash(name);
     }
     
+    @Override
+    public ItemType getType(){
+        return this.itemType;
+    }
 }

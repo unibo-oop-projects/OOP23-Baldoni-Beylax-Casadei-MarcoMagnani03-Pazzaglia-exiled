@@ -1,6 +1,8 @@
 package unibo.exiled.model.item;
 
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.utilities.ItemType;
 
 /**
  * This class represents a usable healing item, 
@@ -10,11 +12,12 @@ import unibo.exiled.model.character.player.Player;
 public class HealingItem extends ItemBase implements UsableItem{
     double healingAmount;
     public HealingItem(String name, String description,double healingAmount) {
-        super(name, description);
+        super(name, description,ItemType.HEALTH);
         this.healingAmount=healingAmount;
     }
 
     @Override
     public void use(Player player) {
+        player.getAttributes().get(AttributeIdentifier.HEALTH).setValue(player.getAttributes().get(AttributeIdentifier.HEALTH).getValue().get()+healingAmount);
     }
 }
