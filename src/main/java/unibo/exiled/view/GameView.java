@@ -10,6 +10,7 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
+import unibo.exiled.view.character.CharacterViewImpl;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.GameProgressBar;
@@ -28,7 +29,7 @@ public class GameView{
     private final int SIZE;
 
     // Views
-    private PlayerView playerView;
+    private CharacterViewImpl playerView;
     private InventoryView inventoryView;
     private MenuView menuView;
     private GameOverView gameOverView;
@@ -60,7 +61,12 @@ public class GameView{
         this.gamePanel = new JPanel(new BorderLayout());
 
         this.menuView = new MenuView(gameController.getInGameMenuController(), this);
-        this.playerView = new PlayerView();
+
+        this.playerView = new CharacterViewImpl("player",
+                "boy_up",
+                "boy_down",
+                "boy_right",
+                "boy_left");
 
         this.menuPanel.add(menuView);
         
