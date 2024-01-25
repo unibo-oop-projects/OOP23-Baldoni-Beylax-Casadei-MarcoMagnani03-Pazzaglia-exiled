@@ -22,6 +22,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -59,11 +60,11 @@ public class GameView{
 
         this.menuView = new MenuView(gameController.getInGameMenuController(), this);
 
-        this.playerView = new CharacterView("player",
+        this.playerView = new CharacterView(List.of("player",
                 "boy_up",
                 "boy_down",
                 "boy_right",
-                "boy_left");
+                "boy_left"));
 
         this.menuPanel.add(menuView);
         
@@ -189,12 +190,7 @@ public class GameView{
             label = this.playerView;
         }
         else if(this.gameController.isEnemyInCell(position)){
-            label = new CharacterView(
-                    "enemy" +File.separator + "goblin",
-                    "goblin_up",
-                    "goblin_down",
-                    "goblin_left",
-                    "goblin_right");
+            label = new CharacterView(this.gameController.getImagePathOfCharacter(this.gameController.getCharacterInPosition(position)));
         }
         else{
             label = new JLabel();

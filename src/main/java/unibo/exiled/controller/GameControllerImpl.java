@@ -2,8 +2,15 @@ package unibo.exiled.controller;
 
 import unibo.exiled.model.GameModel;
 import unibo.exiled.model.GameModelImpl;
+import unibo.exiled.model.character.Character;
+import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class GameControllerImpl implements GameController {
     private final GameModel model;
@@ -32,8 +39,23 @@ public class GameControllerImpl implements GameController {
         }
     }
 
+    public List<String> getImagePathOfCharacter(final Character character){
+        return List.of(
+                character.getImagePath(),
+                character.getImageUpPath(),
+                character.getImageDownPath(),
+                character.getImageLeftPath(),
+                character.getImageRightPath()
+        );
+    }
+
     public boolean isEnemyInCell(final Position pos){
         return this.model.getEnemies().containsKey(pos);
+    }
+
+    @Override
+    public Character getCharacterInPosition(Position pos) {
+        return this.model.getEnemies().get(pos);
     }
 
     @Override

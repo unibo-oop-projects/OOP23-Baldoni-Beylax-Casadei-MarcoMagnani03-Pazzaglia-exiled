@@ -6,6 +6,7 @@ import unibo.exiled.model.utilities.Direction;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.List;
 
 public class CharacterView extends JLabel {
     private Image image;
@@ -28,21 +29,17 @@ public class CharacterView extends JLabel {
             "exiled" + File.separator +
             "resources" + File.separator;
 
-    public CharacterView(final String imagePath,
-                         final String northSprite,
-                         final String southSprite,
-                         final String eastSprite,
-                         final String westSprite){
+    public CharacterView(final List<String> sprites){
 
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        DEFAULT_IMAGE_PATH += imagePath + File.separator;
+        DEFAULT_IMAGE_PATH += sprites.get(0) + File.separator;
 
-        this.image = new ImageIcon(DEFAULT_IMAGE_PATH + southSprite + FIRST_IMAGE).getImage();
+        this.image = new ImageIcon(DEFAULT_IMAGE_PATH + sprites.get(2) + FIRST_IMAGE).getImage();
 
-        this.southSprite = southSprite;
-        this.eastSprite = eastSprite;
-        this.westSprite = westSprite;
-        this.northSprite = northSprite;
+        this.southSprite = sprites.get(2);
+        this.eastSprite = sprites.get(3);
+        this.westSprite = sprites.get(4);
+        this.northSprite = sprites.get(1);
     }
 
     public void changeImage(final Direction dir){
