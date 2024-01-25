@@ -12,6 +12,7 @@ import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +31,7 @@ public class PlayerImpl extends CharacterImpl implements Player {
     private final Inventory inventory;
 
     public PlayerImpl(final Position startingPosition, final double experience, final int levelIncrease,final int maxMovesNumber){
-        super("player","boy_up","boy_down","boy_left","boy_right");
+        super(List.of("player","boy_up","boy_down","boy_left","boy_right"));
         this.position = startingPosition;
         this.inventory = new InventoryImpl();
         this.moveSet = new MoveSetImpl(maxMovesNumber);

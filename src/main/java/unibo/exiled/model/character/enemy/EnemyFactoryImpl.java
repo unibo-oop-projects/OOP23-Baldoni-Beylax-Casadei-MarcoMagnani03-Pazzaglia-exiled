@@ -5,6 +5,8 @@ import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.move.*;
 
 import java.io.File;
+import java.util.List;
+import java.util.Random;
 
 
 public class EnemyFactoryImpl implements EnemyFactory {
@@ -16,11 +18,9 @@ public class EnemyFactoryImpl implements EnemyFactory {
     }
     @Override
     public Enemy createGoblin() {
-        return new EnemyImpl("enemy" + File.separator + "goblin",
-                "goblin_up",
-                "goblin_down",
-                "goblin_left",
-                "goblin_right",
+        final List<String> paths = List.of("enemy" + File.separator + "goblin", "goblin_up", "goblin_down", "goblin_left", "goblin_right");
+        return new EnemyImpl(
+                paths,
                 "Gobleno",
                 moveSetFactory.defaultBasicMoveSet(),
                 attributeFactory.createGoblinAttributes()) {
@@ -29,5 +29,34 @@ public class EnemyFactoryImpl implements EnemyFactory {
                 return 10;
             }
         };
+    }
+
+    @Override
+    public Enemy createBrutus(){
+        final List<String> paths = List.of("enemy" + File.separator + "brutus", "brutus_up","brutus_down","brutus_left","brutus_right");
+        return new EnemyImpl(paths,"Brutus",moveSetFactory.defaultBasicMoveSet(),attributeFactory.createBrutusAttributes()) {
+            @Override
+            public double getDroppedExperience() {
+                return 20;
+            }
+        };
+    }
+
+    @Override
+    public Enemy createRandom() {
+        final int factoryMethodsCount = this.getClass().getMethods().length - 10;
+        Random rand = new Random();
+        final int choice = rand.nextInt(factoryMethodsCount);
+        switch (choice){
+            case 0:{
+                return this.createBrutus();
+            }
+            case 1:{
+                return this.createGoblin();
+            }
+            default:{
+                throw new IllegalStateException("No enemy-creation method found!");
+            }
+        }
     }
 }

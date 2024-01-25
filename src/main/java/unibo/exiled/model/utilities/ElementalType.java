@@ -8,6 +8,7 @@ public enum ElementalType {
     FIRE,
     BOLT,
     WATER,
+    NORMAL,
     GRASS;
 
     /**

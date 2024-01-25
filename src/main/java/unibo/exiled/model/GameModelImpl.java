@@ -1,7 +1,6 @@
 package unibo.exiled.model;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.model.character.Character;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyFactory;
 import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
@@ -58,9 +57,9 @@ public class GameModelImpl implements GameModel {
             do{
                 enemyPosition = new Position(rand.nextInt(this.map.getWidth()), rand.nextInt(this.map.getHeight()));
             } while(enemyPosition == player.getPosition() || !map.isInBoundaries(enemyPosition));
-            final Enemy enemy = factory.createGoblin();
+            final Enemy enemy = factory.createRandom();
             this.existentEnemies.add(enemy);
-            this.enemiesScattering.put(enemyPosition,factory.createGoblin());
+            this.enemiesScattering.put(enemyPosition,enemy);
         }
     }
 

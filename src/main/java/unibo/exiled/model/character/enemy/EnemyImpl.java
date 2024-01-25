@@ -7,6 +7,7 @@ import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public abstract class EnemyImpl extends CharacterImpl implements Enemy {
@@ -15,19 +16,11 @@ public abstract class EnemyImpl extends CharacterImpl implements Enemy {
     private final String name;
     private Position position;
 
-    public EnemyImpl(
-            final String path,
-            final String upPath,
-            final String downPath,
-            final String leftPath,
-            final String rightPath,
-            final String name,
-            final MoveSet moveSet,
-            final Map<AttributeIdentifier, Attribute> attributes){
-        super(path,upPath,downPath,leftPath,rightPath);
+    public EnemyImpl(final List<String> paths, final String name, final MoveSet moveSet, final Map<AttributeIdentifier,Attribute> attrubutes){
+        super(paths);
         this.moveSet = moveSet;
         this.name = name;
-        this.attributes = attributes;
+        this.attributes = attrubutes;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package unibo.exiled.model.character;
 
+import java.util.List;
+
 public abstract class CharacterImpl implements  Character{
     private final String path;
     private final String upImageName;
@@ -7,16 +9,12 @@ public abstract class CharacterImpl implements  Character{
     private final String leftImageName;
     private final String rightImageName;
 
-    protected CharacterImpl(final String path,
-                         final String upImageName,
-                         final String downImageName,
-                         final String leftImageName,
-                         final String rightImageName){
-        this.path = path;
-        this.upImageName = upImageName;
-        this.downImageName = downImageName;
-        this.leftImageName = leftImageName;
-        this.rightImageName = rightImageName;
+    protected CharacterImpl(final List<String> paths){
+        this.path = paths.get(0);
+        this.upImageName = paths.get(1);
+        this.downImageName = paths.get(2);
+        this.leftImageName = paths.get(3);
+        this.rightImageName = paths.get(4);
     }
 
     public String getImagePath(){return this.path;}

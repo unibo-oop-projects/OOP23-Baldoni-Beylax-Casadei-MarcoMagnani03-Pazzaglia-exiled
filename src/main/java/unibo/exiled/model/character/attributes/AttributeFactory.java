@@ -5,4 +5,5 @@ import java.util.Map;
 public interface AttributeFactory {
     Map<AttributeIdentifier,Attribute> createBasicAttributes();
     Map<AttributeIdentifier,Attribute> createGoblinAttributes();
+    Map<AttributeIdentifier,Attribute> createBrutusAttributes();
 }
