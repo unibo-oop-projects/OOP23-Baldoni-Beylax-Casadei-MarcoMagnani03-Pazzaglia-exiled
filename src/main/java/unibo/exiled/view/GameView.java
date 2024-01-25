@@ -15,7 +15,6 @@ import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.GameProgressBar;
 
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -48,7 +47,7 @@ public class GameView{
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         SIZE = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
 
-        this.gameController = new GameControllerImpl(SIZE);
+        this.gameController = new GameControllerImpl();
         
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -101,10 +100,10 @@ public class GameView{
         // Player information 
         Font labelFont = new Font("Arial", Font.PLAIN, 16);
         GameProgressBar healthBar = new GameProgressBar();
-        healthBar.updateProgress(gameController.getPlayerController().getPlayer().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
+        healthBar.updateProgress(gameController.getPlayerController().player().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
         /*JLabel lifeLabel = new JLabel("Health: " + gameController.getPlayerController().getPlayer().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
         lifeLabel.setFont(labelFont);*/
-        GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getPlayer().getLevel());
+        GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().player().getLevel());
         levelLabel.setFont(labelFont);
 
         JPanel statusPanel = new JPanel(new FlowLayout());
@@ -120,8 +119,8 @@ public class GameView{
     private void initializeGridComponents() {
         this.gridPanel = new JPanel(
             new GridLayout(
-                this.gameController.getMapController().getMap().getWidth(),
-                this.gameController.getMapController().getMap().getHeight()
+                this.gameController.getMapController().map().getWidth(),
+                this.gameController.getMapController().map().getHeight()
             )
         );
         draw();
@@ -169,8 +168,8 @@ public class GameView{
     private void draw() {
         this.cells.clear();
         this.gridPanel.removeAll();
-        for (int i = 0; i < this.gameController.getMapController().getMap().getHeight(); i++) {
-            for (int j = 0; j < this.gameController.getMapController().getMap().getWidth(); j++) {
+        for (int i = 0; i < this.gameController.getMapController().map().getHeight(); i++) {
+            for (int j = 0; j < this.gameController.getMapController().map().getWidth(); j++) {
                 setArea(new Position(j, i));
             }
         }
@@ -185,11 +184,11 @@ public class GameView{
      * @param position is the position of the label.
      */
     private void setArea(final Position position) {
-        final JLabel label = position.equals(this.gameController.getPlayerController().getPlayer().getPosition())
+        final JLabel label = position.equals(this.gameController.getPlayerController().player().getPosition())
                 ? this.playerView
                 : new JLabel();
         label.setOpaque(true);
-        switch (this.gameController.getMapController().getMap().getCellType(position)) {
+        switch (this.gameController.getMapController().map().getCellType(position)) {
             case VOLCANO -> label.setBackground(Color.ORANGE);
             case PLAINS -> label.setBackground(Color.YELLOW);
             case FOREST -> label.setBackground(Color.GREEN);

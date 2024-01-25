@@ -13,13 +13,11 @@ import unibo.exiled.view.Menu.MenuView;
 public class NewGameView {
     private JFrame mainFrame;
     private final GameController gameController;
-    private final int SIZE;
 
     public NewGameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        this.SIZE = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
 
-        this.gameController = new GameControllerImpl(SIZE);
+        this.gameController = new GameControllerImpl();
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);

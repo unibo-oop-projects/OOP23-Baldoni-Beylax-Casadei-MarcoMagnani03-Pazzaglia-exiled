@@ -3,15 +3,10 @@ package unibo.exiled.controller;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.utilities.Position;
 
-public class PlayerController implements CharacterController{
-    private final Player player;
+public record PlayerController(Player player) implements CharacterController {
 
-    public PlayerController(final Player player){
-        this.player = player;
-    }
-
-    public Player getPlayer() {
-        return this.player;
+    public Position getPlayerPosition() {
+        return this.player.getPosition();
     }
 
     @Override

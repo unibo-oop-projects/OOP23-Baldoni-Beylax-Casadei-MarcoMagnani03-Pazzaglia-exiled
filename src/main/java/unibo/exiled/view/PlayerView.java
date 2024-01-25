@@ -54,7 +54,7 @@ public class PlayerView extends JLabel{
     }
 
     // This override permit to rescale the image inner the JPanel 
-    // when the main window resize it's width, height or both.
+    // when the main window resize its width, height or both.
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
