@@ -3,6 +3,7 @@ package unibo.exiled.view.Menu;
 import unibo.exiled.controller.MenuController;
 import unibo.exiled.model.menu.MenuItem;
 import unibo.exiled.view.GameView;
+import unibo.exiled.view.items.GameButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +25,7 @@ public class MenuView extends JPanel {
         
         ActionListener buttonListener = new MenuItemActionListener(game);
         for (MenuItem menuItem : this.menuController.getMenuItems()) {
-            JButton btn = new JButton(menuItem.getItemText());
+            GameButton btn = new GameButton(menuItem.getItemText());
             btn.setActionCommand(menuItem.getItemCommand().getCommandString());
             btn.addActionListener(buttonListener);
             buttonListPanel.add(btn, cnst);

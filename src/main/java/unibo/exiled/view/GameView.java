@@ -10,6 +10,9 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
+import unibo.exiled.view.items.GameButton;
+import unibo.exiled.view.items.GameLabel;
+import unibo.exiled.view.items.GameProgressBar;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -84,11 +87,11 @@ public class GameView{
         this.gamePanel.add(flowButtonPanelSouth, BorderLayout.SOUTH);
 
         // Inventory button
-        JButton inventoryButton = new JButton("Inventory");
+        GameButton inventoryButton = new GameButton("Inventory");
         inventoryButton.addActionListener(e -> showInventory());
 
         // Menu button
-        JButton menuButton = new JButton("Menu");
+        GameButton menuButton = new GameButton("Menu");
         menuButton.addActionListener(e -> showMenu());
     
 
@@ -97,15 +100,18 @@ public class GameView{
 
         // Player information 
         Font labelFont = new Font("Arial", Font.PLAIN, 16);
-        JLabel lifeLabel = new JLabel("Health: " + gameController.getPlayerController().getPlayer().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
-        lifeLabel.setFont(labelFont);
-        JLabel levelLabel = new JLabel("Level: " + gameController.getPlayerController().getPlayer().getLevel());
+        GameProgressBar healthBar = new GameProgressBar();
+        healthBar.updateProgress(gameController.getPlayerController().getPlayer().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
+        /*JLabel lifeLabel = new JLabel("Health: " + gameController.getPlayerController().getPlayer().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
+        lifeLabel.setFont(labelFont);*/
+        GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getPlayer().getLevel());
         levelLabel.setFont(labelFont);
 
         JPanel statusPanel = new JPanel(new FlowLayout());
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
 
-        statusPanel.add(lifeLabel);
+        statusPanel.add(healthBar);
+        //statusPanel.add(lifeLabel);
         statusPanel.add(levelLabel);
 
         flowButtonPanelSouth.add(statusPanel);
