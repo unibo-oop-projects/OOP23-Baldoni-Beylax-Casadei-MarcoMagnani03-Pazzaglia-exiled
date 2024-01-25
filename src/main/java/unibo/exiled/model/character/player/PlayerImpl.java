@@ -8,10 +8,12 @@ import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetImpl;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class represent the implementation of the player.
@@ -27,6 +29,7 @@ public class PlayerImpl implements Player {
     private final MoveSetImpl moveSet;
     private final Map<AttributeIdentifier, Attribute> attributes;
     private final Inventory inventory;
+    private ElementalType playerClass;
 
     public PlayerImpl(final Position startingPosition, final double experience, final int levelIncrease,final int maxMovesNumber){
         this.position = startingPosition;
@@ -91,5 +94,18 @@ public class PlayerImpl implements Player {
         this.attributes.get(AttributeIdentifier.HEALTHCAP)
         .setValue(this.attributes.get(AttributeIdentifier.HEALTHCAP).getValue().get() + levelInc);
         this.level += 1;
+    }
+
+
+    @Override
+    public void setPlayerClass(ElementalType playerClass) {
+        if(Objects.isNull(playerClass)){
+            this.playerClass=playerClass;
+        }
+    }
+
+    @Override
+    public ElementalType getPlayerClass() {
+        return this.playerClass;
     }
 }

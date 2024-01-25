@@ -6,7 +6,6 @@ import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.menu.Menu;
 import unibo.exiled.model.utilities.Position;
 
-import java.util.List;
 import java.util.Map;
 
 public interface GameModel {

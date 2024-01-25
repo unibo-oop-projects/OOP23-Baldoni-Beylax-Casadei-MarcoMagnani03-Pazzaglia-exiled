@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-
-import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.utilities.ItemType;
 
 public class ItemContainerImpl implements ItemContainer{

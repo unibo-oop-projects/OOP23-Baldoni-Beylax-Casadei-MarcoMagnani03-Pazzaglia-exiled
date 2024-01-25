@@ -5,10 +5,21 @@ package unibo.exiled.model.utilities;
  * Each elemental type has specific strengths and weaknesses against other types.
  */
 public enum ElementalType {
-    FIRE,
-    BOLT,
-    WATER,
-    GRASS;
+    FIRE("Fire"),
+    BOLT("Bolt"),
+    WATER("Water"),
+    GRASS("Grass"),
+    NORMAL("Normal");
+
+    private final String name;
+
+    private ElementalType(String name){
+        this.name=name;
+    }
+
+    public String getName(){
+        return this.name;
+    }
 
     /**
      * Checks if the current elemental type is strong against the specified elemental type.
@@ -27,6 +38,8 @@ public enum ElementalType {
                 return secondMoveType.equals(BOLT);
             case WATER:
                 return secondMoveType.equals(FIRE);
+            case NORMAL:
+                return false;
             default:
                 throw new IllegalArgumentException("Tipo elementale non valido: " + this);
         }

@@ -1,5 +1,6 @@
 package unibo.exiled.view.Menu;
 
+import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.menu.Command;
 import unibo.exiled.view.GameView;
 
@@ -16,6 +17,7 @@ public class MenuItemActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Command.NEW_GAME.getCommandString())) {
             new GameView().display();
+            // new PlayerClassView().display();
         } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
             game.hideMenu();
         } else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
