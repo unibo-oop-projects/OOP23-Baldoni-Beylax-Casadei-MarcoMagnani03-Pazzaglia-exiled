@@ -13,10 +13,8 @@ public class PlayerClassView extends JPanel{
 
     public PlayerClassView(PlayerController controller) {
         this.controller = controller;
-        JFrame frame = new JFrame("Select Player Class");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 200);
-        frame.setLayout(new GridLayout(4, 1));
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 1));
 
         JButton fireButton = new JButton(ElementalType.FIRE.getName());
         JButton waterButton = new JButton(ElementalType.WATER.getName());
@@ -28,12 +26,10 @@ public class PlayerClassView extends JPanel{
         boltButton.addActionListener(e -> classDecision(ElementalType.BOLT));
         grassButton.addActionListener(e -> classDecision(ElementalType.GRASS));
 
-        frame.add(fireButton);
-        frame.add(waterButton);
-        frame.add(boltButton);
-        frame.add(grassButton);
-
-        frame.setVisible(true);
+        panel.add(fireButton);
+        panel.add(waterButton);
+        panel.add(boltButton);
+        panel.add(grassButton);
     }
 
 
