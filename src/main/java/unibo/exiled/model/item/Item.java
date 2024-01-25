@@ -6,6 +6,9 @@ package unibo.exiled.model.item;
  * Implementing this interface allows you to define specific behaviors
  * for each type of item in the game.
  */
+
+import unibo.exiled.model.utilities.ItemType;
+
 public interface Item {
     /**
      * Returns the name of the item.
@@ -19,4 +22,9 @@ public interface Item {
      * @return the description of the item.
      */
     String getDescription();
+    /**
+     * Return the type of the item
+     * @return the type of the item
+     */
+    ItemType getType();
 }

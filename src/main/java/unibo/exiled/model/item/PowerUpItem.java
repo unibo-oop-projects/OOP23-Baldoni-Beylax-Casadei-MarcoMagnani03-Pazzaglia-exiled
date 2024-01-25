@@ -2,6 +2,7 @@ package unibo.exiled.model.item;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.utilities.ItemType;
 
 /**
  * This class represents a usable power up item, 
@@ -16,7 +17,7 @@ public class PowerUpItem extends ItemBase implements ItemWithDuration{
     private final double powerUpValue;
 
     public PowerUpItem(final String name,final String description,final double powerUpValue,final int duration,final AttributeIdentifier boostedAttribute) {
-        super(name, description);
+        super(name, description,ItemType.POWERUP);
         this.duration=duration;
         this.boostedAttribute = boostedAttribute;
         this.powerUpValue=powerUpValue;
@@ -24,7 +25,7 @@ public class PowerUpItem extends ItemBase implements ItemWithDuration{
 
     @Override
     public void use(Player player) {
-
+        player.getAttributes().get(boostedAttribute).setValue(player.getAttributes().get(boostedAttribute).getValue().get()+powerUpValue);
     }
 
     @Override
