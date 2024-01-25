@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class CharacterViewImpl extends JLabel {
+public class CharacterView extends JLabel {
     private Image image;
     private String imgAnimationName;
     private int animationNumber = 1;
@@ -20,7 +20,7 @@ public class CharacterViewImpl extends JLabel {
     private final static String FIRST_IMAGE = "_1.png";
     private final static String SECOND_IMAGE = "_2.png";
 
-    private static String DEFAULT_IMAGE_PATH =
+    private String DEFAULT_IMAGE_PATH =
             "src" + File.separator +
             "main" + File.separator +
             "java" + File.separator +
@@ -28,18 +28,16 @@ public class CharacterViewImpl extends JLabel {
             "exiled" + File.separator +
             "resources" + File.separator;
 
-    public CharacterViewImpl(final String imagePath,
-                                final String northSprite,
-                                final String southSprite,
-                                final String eastSprite,
-                                final String westSprite){
+    public CharacterView(final String imagePath,
+                         final String northSprite,
+                         final String southSprite,
+                         final String eastSprite,
+                         final String westSprite){
 
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         DEFAULT_IMAGE_PATH += imagePath + File.separator;
 
-        this.image = new ImageIcon(
-                DEFAULT_IMAGE_PATH +
-                Constants.getConstantOf("STARTING_PLAYER_ANIMATION")).getImage();
+        this.image = new ImageIcon(DEFAULT_IMAGE_PATH + southSprite + FIRST_IMAGE).getImage();
 
         this.southSprite = southSprite;
         this.eastSprite = eastSprite;

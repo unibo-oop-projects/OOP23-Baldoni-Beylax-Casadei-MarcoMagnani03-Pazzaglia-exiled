@@ -6,7 +6,7 @@ import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 public class GameControllerImpl implements GameController {
-    private final GameModel gameModelImpl;
+    private final GameModel model;
     private final PlayerController pc;
     private final InventoryController ic;
     private final MenuController startMenuController;
@@ -14,12 +14,12 @@ public class GameControllerImpl implements GameController {
     private final MapController mpc;
 
     public GameControllerImpl() {
-        this.gameModelImpl = new GameModelImpl();
-        this.pc = new PlayerController(gameModelImpl.getPlayer());
+        this.model = new GameModelImpl();
+        this.pc = new PlayerController(model.getPlayer());
         this.ic = new InventoryController(pc.player().getInventory());
-        this.startMenuController = new MenuController(gameModelImpl.getStartMenu());
-        this.inGameMenuController = new MenuController(gameModelImpl.getInGameMenu());
-        this.mpc = new MapController(gameModelImpl.getMap());
+        this.startMenuController = new MenuController(model.getStartMenu());
+        this.inGameMenuController = new MenuController(model.getInGameMenu());
+        this.mpc = new MapController(model.getMap());
     }
 
     public void movePlayer(final Direction dir){
@@ -30,6 +30,10 @@ public class GameControllerImpl implements GameController {
         if(this.getMapController().isInBoundaries(newPosition)){
             this.getPlayerController().move(newPosition);
         }
+    }
+
+    public boolean isEnemyInCell(final Position pos){
+        return this.model.getEnemies().containsKey(pos);
     }
 
     @Override
