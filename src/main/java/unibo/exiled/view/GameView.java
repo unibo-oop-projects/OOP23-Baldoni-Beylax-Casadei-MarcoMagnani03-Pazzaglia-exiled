@@ -10,7 +10,7 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
-import unibo.exiled.view.character.CharacterViewImpl;
+import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.GameProgressBar;
@@ -20,7 +20,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -29,10 +31,9 @@ public class GameView{
     private final int SIZE;
 
     // Views
-    private CharacterViewImpl playerView;
+    private CharacterView playerView;
     private InventoryView inventoryView;
     private MenuView menuView;
-    private GameOverView gameOverView;
 
     // MVC Components(MC)
     private final JFrame mainFrame; 
@@ -40,9 +41,6 @@ public class GameView{
     private final JPanel menuPanel;
     private JPanel gridPanel;
     private final GameController gameController;
-
-    // The cells of the grid
-    private final Map<Position, JLabel> cells = new HashMap<>();
 
     public GameView(){
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
@@ -62,11 +60,11 @@ public class GameView{
 
         this.menuView = new MenuView(gameController.getInGameMenuController(), this);
 
-        this.playerView = new CharacterViewImpl("player",
+        this.playerView = new CharacterView(List.of("player",
                 "boy_up",
                 "boy_down",
                 "boy_right",
-                "boy_left");
+                "boy_left"));
 
         this.menuPanel.add(menuView);
         
@@ -107,8 +105,6 @@ public class GameView{
         Font labelFont = new Font("Arial", Font.PLAIN, 16);
         GameProgressBar healthBar = new GameProgressBar();
         healthBar.updateProgress(gameController.getPlayerController().player().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
-        /*JLabel lifeLabel = new JLabel("Health: " + gameController.getPlayerController().getPlayer().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
-        lifeLabel.setFont(labelFont);*/
         GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().player().getLevel());
         levelLabel.setFont(labelFont);
 
@@ -172,7 +168,6 @@ public class GameView{
     }
 
     private void draw() {
-        this.cells.clear();
         this.gridPanel.removeAll();
         for (int i = 0; i < this.gameController.getMapController().map().getHeight(); i++) {
             for (int j = 0; j < this.gameController.getMapController().map().getWidth(); j++) {
@@ -190,9 +185,16 @@ public class GameView{
      * @param position is the position of the label.
      */
     private void setArea(final Position position) {
-        final JLabel label = position.equals(this.gameController.getPlayerController().player().getPosition())
-                ? this.playerView
-                : new JLabel();
+        final JLabel label;
+        if (position.equals(this.gameController.getPlayerController().player().getPosition())){
+            label = this.playerView;
+        }
+        else if(this.gameController.isEnemyInCell(position)){
+            label = new CharacterView(this.gameController.getImagePathOfCharacter(this.gameController.getCharacterInPosition(position)));
+        }
+        else{
+            label = new JLabel();
+        }
         label.setOpaque(true);
         switch (this.gameController.getMapController().map().getCellType(position)) {
             case VOLCANO -> label.setBackground(Color.ORANGE);
@@ -204,7 +206,6 @@ public class GameView{
             default -> label.setBackground(Color.WHITE);
         }
         label.setBorder(new LineBorder(Color.BLACK));
-        cells.put(position, label);
         this.gridPanel.add(label);
     }
 

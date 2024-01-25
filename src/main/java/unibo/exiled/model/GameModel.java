@@ -7,6 +7,7 @@ import unibo.exiled.model.menu.Menu;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Map;
+import java.util.Set;
 
 public interface GameModel {
     Player getPlayer();
@@ -14,4 +15,6 @@ public interface GameModel {
     Menu getInGameMenu();
     GameMap getMap();
     Map<Position,Enemy> getEnemies();
+    Set<Enemy> getExistentEnemies();
+    void killEnemy(final Position position, final Enemy enemy);
 }

@@ -22,6 +22,7 @@ public class GameModelImpl implements GameModel {
     private Menu startMenu;
     private Menu inGameMenu;
     private Map<Position,Enemy> enemiesScattering;
+    private Set<Enemy> existentEnemies;
 
     public GameModelImpl(){
 
@@ -48,6 +49,7 @@ public class GameModelImpl implements GameModel {
 
     private void enemiesInitialization(final int enemyNumber){
         this.enemiesScattering = new HashMap<>();
+        this.existentEnemies = new HashSet<>();
         Random rand = new Random();
         final EnemyFactory factory = new EnemyFactoryImpl();
         for(int i = 0; i < enemyNumber; i++){
@@ -55,8 +57,15 @@ public class GameModelImpl implements GameModel {
             do{
                 enemyPosition = new Position(rand.nextInt(this.map.getWidth()), rand.nextInt(this.map.getHeight()));
             } while(enemyPosition == player.getPosition() || !map.isInBoundaries(enemyPosition));
-            this.enemiesScattering.put(enemyPosition,factory.createGoblin());
+            final Enemy enemy = factory.createRandom();
+            this.existentEnemies.add(enemy);
+            this.enemiesScattering.put(enemyPosition,enemy);
         }
+    }
+
+    public void killEnemy(final Position position, final Enemy enemy){
+        this.existentEnemies.remove(enemy);
+        this.enemiesScattering.remove(position,enemy);
     }
 
     private void menuInitialization(){
@@ -104,6 +113,11 @@ public class GameModelImpl implements GameModel {
     @Override
     public Map<Position, Enemy> getEnemies() {
         return Collections.unmodifiableMap(this.enemiesScattering);
+    }
+
+    @Override
+    public Set<Enemy> getExistentEnemies() {
+        return Collections.unmodifiableSet(this.existentEnemies);
     }
 
 }

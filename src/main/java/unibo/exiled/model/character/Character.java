@@ -34,4 +34,10 @@ public interface Character {
      * @return The attributes of the current character.
      */
     Map<AttributeIdentifier, Attribute> getAttributes();
+
+    String getImagePath();
+    String getImageUpPath();
+    String getImageDownPath();
+    String getImageLeftPath();
+    String getImageRightPath();
 }

@@ -1,5 +1,6 @@
 package unibo.exiled.model.character.player;
 
+import unibo.exiled.model.character.CharacterImpl;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -12,13 +13,14 @@ import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 /**
  * This class represent the implementation of the player.
  */
-public class PlayerImpl implements Player {
+public class PlayerImpl extends CharacterImpl implements Player {
 
     private double health;
     private final int levelInc;
@@ -32,6 +34,7 @@ public class PlayerImpl implements Player {
     private ElementalType playerClass;
 
     public PlayerImpl(final Position startingPosition, final double experience, final int levelIncrease,final int maxMovesNumber){
+        super(List.of("player","boy_up","boy_down","boy_left","boy_right"));
         this.position = startingPosition;
         this.inventory = new InventoryImpl();
         this.moveSet = new MoveSetImpl(maxMovesNumber);

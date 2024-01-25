@@ -2,11 +2,18 @@ package unibo.exiled.controller;
 
 import unibo.exiled.model.GameModel;
 import unibo.exiled.model.GameModelImpl;
+import unibo.exiled.model.character.Character;
+import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 public class GameControllerImpl implements GameController {
-    private final GameModel gameModelImpl;
+    private final GameModel model;
     private final PlayerController pc;
     private final InventoryController ic;
     private final MenuController startMenuController;
@@ -14,12 +21,12 @@ public class GameControllerImpl implements GameController {
     private final MapController mpc;
 
     public GameControllerImpl() {
-        this.gameModelImpl = new GameModelImpl();
-        this.pc = new PlayerController(gameModelImpl.getPlayer());
+        this.model = new GameModelImpl();
+        this.pc = new PlayerController(model.getPlayer());
         this.ic = new InventoryController(pc.player().getInventory());
-        this.startMenuController = new MenuController(gameModelImpl.getStartMenu());
-        this.inGameMenuController = new MenuController(gameModelImpl.getInGameMenu());
-        this.mpc = new MapController(gameModelImpl.getMap());
+        this.startMenuController = new MenuController(model.getStartMenu());
+        this.inGameMenuController = new MenuController(model.getInGameMenu());
+        this.mpc = new MapController(model.getMap());
     }
 
     public void movePlayer(final Direction dir){
@@ -30,6 +37,25 @@ public class GameControllerImpl implements GameController {
         if(this.getMapController().isInBoundaries(newPosition)){
             this.getPlayerController().move(newPosition);
         }
+    }
+
+    public List<String> getImagePathOfCharacter(final Character character){
+        return List.of(
+                character.getImagePath(),
+                character.getImageUpPath(),
+                character.getImageDownPath(),
+                character.getImageLeftPath(),
+                character.getImageRightPath()
+        );
+    }
+
+    public boolean isEnemyInCell(final Position pos){
+        return this.model.getEnemies().containsKey(pos);
+    }
+
+    @Override
+    public Character getCharacterInPosition(Position pos) {
+        return this.model.getEnemies().get(pos);
     }
 
     @Override
