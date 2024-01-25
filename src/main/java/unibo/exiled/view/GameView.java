@@ -106,6 +106,7 @@ public class GameView{
         GameProgressBar healthBar = new GameProgressBar();
         healthBar.updateProgress(gameController.getPlayerController().player().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
         GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().player().getLevel());
+        GameLabel classLabel = new GameLabel("Class: " +gameController.getPlayerController().getPlayerClass());
         levelLabel.setFont(labelFont);
 
         JPanel statusPanel = new JPanel(new FlowLayout());
@@ -114,6 +115,7 @@ public class GameView{
         statusPanel.add(healthBar);
         //statusPanel.add(lifeLabel);
         statusPanel.add(levelLabel);
+        statusPanel.add(classLabel);
 
         flowButtonPanelSouth.add(statusPanel);
     }
