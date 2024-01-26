@@ -39,6 +39,7 @@ public class GameView{
     private final JFrame mainFrame; 
     private final JPanel gamePanel;
     private final JPanel menuPanel;
+    private final JPanel inventoryPanel;
     private JPanel gridPanel;
     private final GameController gameController;
 
@@ -56,9 +57,11 @@ public class GameView{
         this.mainFrame.setFocusable(true);
 
         this.menuPanel = new JPanel();
+        this.inventoryPanel = new JPanel();
         this.gamePanel = new JPanel(new BorderLayout());
 
         this.menuView = new MenuView(gameController.getInGameMenuController(), this);
+        this.inventoryView = new InventoryView(gameController.getInventoryController());
 
         this.playerView = new CharacterView(List.of("player",
                 "boy_up",
@@ -67,20 +70,23 @@ public class GameView{
                 "boy_left"));
 
         this.menuPanel.add(menuView);
+        this.inventoryPanel.add(inventoryView);
         
         Container contentPanel = this.mainFrame.getContentPane();
 
         GroupLayout mainLayout = new GroupLayout(contentPanel);
         contentPanel.setLayout(mainLayout);
 
-        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel));
-        mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(menuPanel).addComponent(gamePanel));
+        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel).addComponent(inventoryPanel));
+        mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(menuPanel).addComponent(gamePanel).addComponent(inventoryPanel));
+
+        this.hideMenu();
+        this.hideInventory();
 
         this.initializeGridComponents();
         this.initializeHUD();
         this.initializeKeyListeners();
         
-        this.hideMenu();
     }
 
     private void initializeHUD(){
@@ -212,16 +218,13 @@ public class GameView{
     }
 
     private void showInventory(){
-        if(this.inventoryView == null){
-            this.inventoryView = new InventoryView(this.gameController.getInventoryController());
-            this.inventoryView.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    mainFrame.requestFocus();
-                }
-            });
-        }
-        this.inventoryView.display();
+        this.gamePanel.setVisible(false);
+        this.inventoryPanel.setVisible(true);
+    }
+
+    private void hideInventory(){
+        this.gamePanel.setVisible(true);
+        this.inventoryPanel.setVisible(false);
     }
 
     public void showMenu(){
