@@ -20,4 +20,11 @@ public class HealingItem extends ItemBase implements UsableItem{
     public void use(Player player) {
         player.getAttributes().get(AttributeIdentifier.HEALTH).setValue(player.getAttributes().get(AttributeIdentifier.HEALTH).getValue().get()+healingAmount);
     }
+
+
+
+    @Override
+    public double getAmount() {
+        return this.healingAmount;
+    }
 }

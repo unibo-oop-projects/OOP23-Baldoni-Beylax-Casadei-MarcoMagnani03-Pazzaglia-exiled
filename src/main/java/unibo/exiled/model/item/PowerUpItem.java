@@ -32,4 +32,13 @@ public class PowerUpItem extends ItemBase implements ItemWithDuration{
     public int getDuration() {
         return this.duration;
     }
+
+    @Override
+    public double getAmount() {
+        return this.powerUpValue;
+    }
+
+    public AttributeIdentifier getBoostedAttribute(){
+        return this.boostedAttribute;
+    }
 }

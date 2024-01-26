@@ -1,10 +1,12 @@
 package unibo.exiled.view;
 
+import unibo.exiled.config.Constants;
 import unibo.exiled.controller.InventoryController;
 import unibo.exiled.model.item.HealingItem;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.PowerUpItem;
 import unibo.exiled.model.item.UsableItem;
+import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.TitleGameLabel;
 
@@ -21,41 +23,55 @@ public class InventoryView extends JPanel {
     private final  JList<Item> itemList;
     private final JLabel emptyInventoryLabel;
     private final JScrollPane scrollPane;
+    private final GameButton exitButton;
     
     private static final Color HEALING_ITEM_COLOR = new Color(141, 254, 141);
     private static final Color POWER_UP_ITEM_COLOR = new Color(254, 141, 141);
     private final static int LIST_ITEM_HEIGHT=30;
+    private final static int LIST_ITEM_WIDTH=1500;
 
-    public InventoryView(InventoryController inventoryController) {
+    public InventoryView(InventoryController inventoryController,GameView game) {
         this.inventoryController = inventoryController;
         setLayout(new BorderLayout());
-
+        
         listModel = new DefaultListModel<>();
         itemList = new JList<>(listModel);
         itemList.addListSelectionListener(new ItemListSelectionListener());
         itemList.setCellRenderer(new ItemListRenderer());
 
-        Dimension listItemSize = new Dimension(1000, LIST_ITEM_HEIGHT);
-        itemList.setFixedCellHeight(listItemSize.height);
-        itemList.setFixedCellWidth(listItemSize.width);
+        Dimension listItemSize = new Dimension(100, LIST_ITEM_HEIGHT);
+        itemList.setFixedCellHeight(LIST_ITEM_HEIGHT);
+        itemList.setFixedCellWidth(LIST_ITEM_WIDTH);
         scrollPane = new JScrollPane(itemList);
         
         scrollPane.setSize(listItemSize);
 
-        JLabel titleLabel = new TitleGameLabel("Inventory");
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(titleLabel, BorderLayout.NORTH);
-
         emptyInventoryLabel = new GameLabel("The inventory is empty");
         emptyInventoryLabel.setHorizontalAlignment(JLabel.CENTER);
+        
+        //Center
 
         JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.add(scrollPane, BorderLayout.CENTER);
         centralPanel.add(emptyInventoryLabel, BorderLayout.SOUTH);
-
+        
         centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
-
+        
         add(centralPanel, BorderLayout.CENTER);
+        
+        //North
+        JLabel titleLabel = new TitleGameLabel("Inventory");
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        
+        exitButton = new GameButton("Exit");
+        exitButton.addActionListener(e -> game.hideInventory());  
+        
+        JPanel northPanel = new JPanel(new BorderLayout());
+        
+        northPanel.add(exitButton, BorderLayout.WEST);
+        northPanel.add(titleLabel, BorderLayout.CENTER);
+
+        add(northPanel, BorderLayout.NORTH);
 
         updateInventoryList();
     }
@@ -70,18 +86,22 @@ public class InventoryView extends JPanel {
             if (value instanceof Item) {
                 Item item = (Item) value;
                 int quantity = inventoryController.getItems().get(item);
-                setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: " + item.getDescription());
-
-                setPreferredSize(new Dimension(getWidth(), InventoryView.LIST_ITEM_HEIGHT));
 
                 if (item instanceof HealingItem) {
+                    HealingItem healItem = (HealingItem) item;
                     setBackground(HEALING_ITEM_COLOR);
+                    setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: " + item.getDescription()+" - Heal: "+healItem.getAmount());
                 } else if (item instanceof PowerUpItem) {
+                    PowerUpItem powerUpItem = (PowerUpItem) item;
                     setBackground(POWER_UP_ITEM_COLOR);
+                    setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: " + item.getDescription()+" - PowerUp: "+powerUpItem.getAmount()+" - Attribute: " + powerUpItem.getBoostedAttribute().getName()+" - Duration: "+powerUpItem.getDuration());
+                }
+                else{
+                    setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: " + item.getDescription());
                 }
             }
             setHorizontalAlignment(SwingConstants.CENTER);
-            
+
             return this;
         }
     }

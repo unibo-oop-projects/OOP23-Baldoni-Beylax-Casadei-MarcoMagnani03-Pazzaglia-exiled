@@ -27,9 +27,6 @@ import java.util.Map;
 
 
 public class GameView{
-    // Screen constants
-    private final int SIZE;
-
     // Views
     private CharacterView playerView;
     private InventoryView inventoryView;
@@ -45,7 +42,6 @@ public class GameView{
 
     public GameView(){
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        SIZE = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
 
         this.gameController = new GameControllerImpl();
         
@@ -61,7 +57,7 @@ public class GameView{
         this.gamePanel = new JPanel(new BorderLayout());
 
         this.menuView = new MenuView(gameController.getInGameMenuController(), this);
-        this.inventoryView = new InventoryView(gameController.getInventoryController());
+        this.inventoryView = new InventoryView(gameController.getInventoryController(),this);
 
         this.playerView = new CharacterView(List.of("player",
                 "boy_up",
@@ -222,7 +218,7 @@ public class GameView{
         this.inventoryPanel.setVisible(true);
     }
 
-    private void hideInventory(){
+    public void hideInventory(){
         this.gamePanel.setVisible(true);
         this.inventoryPanel.setVisible(false);
     }
