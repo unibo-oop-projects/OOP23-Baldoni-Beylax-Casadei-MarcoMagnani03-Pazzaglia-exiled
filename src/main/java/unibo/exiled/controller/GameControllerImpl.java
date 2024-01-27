@@ -1,5 +1,7 @@
 package unibo.exiled.controller;
 
+import unibo.exiled.controller.menu.InGameMenuController;
+import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.model.GameModel;
 import unibo.exiled.model.GameModelImpl;
 import unibo.exiled.model.character.Character;
@@ -16,7 +18,6 @@ public class GameControllerImpl implements GameController {
     private final GameModel model;
     private final PlayerController pc;
     private final InventoryController ic;
-    private final MenuController startMenuController;
     private final MenuController inGameMenuController;
     private final MapController mpc;
 
@@ -24,8 +25,7 @@ public class GameControllerImpl implements GameController {
         this.model = new GameModelImpl();
         this.pc = new PlayerController(model.getPlayer());
         this.ic = new InventoryController(pc.player().getInventory());
-        this.startMenuController = new MenuController(model.getStartMenu());
-        this.inGameMenuController = new MenuController(model.getInGameMenu());
+        this.inGameMenuController = new InGameMenuController();
         this.mpc = new MapController(model.getMap());
     }
 
@@ -66,11 +66,6 @@ public class GameControllerImpl implements GameController {
     @Override
     public PlayerController getPlayerController() {
         return this.pc;
-    }
-
-    @Override
-    public MenuController getStartMenuController() {
-        return this.startMenuController;
     }
 
     @Override

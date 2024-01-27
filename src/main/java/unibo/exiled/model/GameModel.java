@@ -11,8 +11,6 @@ import java.util.Set;
 
 public interface GameModel {
     Player getPlayer();
-    Menu getStartMenu();
-    Menu getInGameMenu();
     GameMap getMap();
     Map<Position,Enemy> getEnemies();
     Set<Enemy> getExistentEnemies();

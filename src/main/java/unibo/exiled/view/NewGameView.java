@@ -8,16 +8,18 @@ import javax.swing.WindowConstants;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
+import unibo.exiled.controller.menu.MenuController;
+import unibo.exiled.controller.menu.StartMenuController;
 import unibo.exiled.view.Menu.MenuView;
 
 public class NewGameView {
     private JFrame mainFrame;
-    private final GameController gameController;
+    private final MenuController menuController;
 
     public NewGameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
 
-        this.gameController = new GameControllerImpl();
+        this.menuController = new StartMenuController();
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -28,7 +30,7 @@ public class NewGameView {
 
         this.mainFrame.setLayout(new BorderLayout());
 
-        this.mainFrame.add(new MenuView(gameController.getStartMenuController(), null), BorderLayout.CENTER);
+        this.mainFrame.add(new MenuView(this.menuController, null), BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
     }
 }

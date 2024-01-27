@@ -1,6 +1,6 @@
 package unibo.exiled.view.Menu;
 
-import unibo.exiled.controller.MenuController;
+import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.model.menu.MenuItem;
 import unibo.exiled.view.GameView;
 import unibo.exiled.view.items.GameButton;

@@ -19,8 +19,6 @@ import java.util.*;
 public class GameModelImpl implements GameModel {
     private Player player;
     private GameMap map;
-    private Menu startMenu;
-    private Menu inGameMenu;
     private Map<Position,Enemy> enemiesScattering;
     private Set<Enemy> existentEnemies;
 
@@ -36,7 +34,6 @@ public class GameModelImpl implements GameModel {
         final int enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));
         final int mapSize = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
 
-        this.menuInitialization();
         this.mapInitialization(mapSize);
         this.playerInitialization(
                 playerStartingPositionX,
@@ -68,15 +65,6 @@ public class GameModelImpl implements GameModel {
         this.enemiesScattering.remove(position,enemy);
     }
 
-    private void menuInitialization(){
-        this.startMenu = new MenuImpl();
-        this.inGameMenu = new MenuImpl();
-        this.startMenu.addMenuItem(new MenuItem("NEW GAME", Command.NEW_GAME));
-        this.startMenu.addMenuItem(new MenuItem("QUIT", Command.QUIT));
-        this.inGameMenu.addMenuItem(new MenuItem("CLOSE MENU", Command.CLOSE_MENU));
-        this.inGameMenu.addMenuItem(new MenuItem("QUIT", Command.QUIT));
-    }
-
     private void mapInitialization(final int size){
         this.map = new GameMapImpl(size);
     }
@@ -93,16 +81,6 @@ public class GameModelImpl implements GameModel {
     @Override
     public Player getPlayer(){
         return this.player;
-    }
-
-    @Override
-    public Menu getStartMenu() {
-        return this.startMenu;
-    }
-
-    @Override
-    public Menu getInGameMenu() {
-        return this.inGameMenu;
     }
 
     @Override
