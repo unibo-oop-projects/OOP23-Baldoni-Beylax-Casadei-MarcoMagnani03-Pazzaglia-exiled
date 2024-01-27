@@ -56,7 +56,7 @@ public class GameView{
         this.inventoryPanel = new JPanel();
         this.gamePanel = new JPanel(new BorderLayout());
 
-        this.menuView = new MenuView(gameController.getInGameMenuController(), this);
+        this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
         this.inventoryView = new InventoryView(gameController.getInventoryController(),this);
 
         this.playerView = new CharacterView(List.of("player",

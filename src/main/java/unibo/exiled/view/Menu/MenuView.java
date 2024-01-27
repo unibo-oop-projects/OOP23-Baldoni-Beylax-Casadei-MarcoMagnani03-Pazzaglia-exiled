@@ -3,6 +3,7 @@ package unibo.exiled.view.Menu;
 import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.model.menu.MenuItem;
 import unibo.exiled.view.GameView;
+import unibo.exiled.view.NewGameView;
 import unibo.exiled.view.items.GameButton;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.io.File;
 public class MenuView extends JPanel {
     private MenuController menuController;
 
-    public MenuView(MenuController menuController, GameView game) {
+    public MenuView(MenuController menuController, GameView game, NewGameView newGameView) {
         super();
         this.menuController = menuController;
 
@@ -34,7 +35,7 @@ public class MenuView extends JPanel {
             "logo.png"));
         buttonListPanel.add(logoLabel);
         cnst.gridy++;
-        ActionListener buttonListener = new MenuItemActionListener(game);
+        ActionListener buttonListener = new MenuItemActionListener(game, newGameView);
         for (MenuItem menuItem : this.menuController.getMenuItems()) {
             GameButton btn = new GameButton(menuItem.getItemText());
             btn.setActionCommand(menuItem.getItemCommand().getCommandString());

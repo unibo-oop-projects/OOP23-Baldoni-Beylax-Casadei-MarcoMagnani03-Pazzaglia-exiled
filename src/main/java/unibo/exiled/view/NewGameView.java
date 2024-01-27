@@ -30,7 +30,11 @@ public class NewGameView {
 
         this.mainFrame.setLayout(new BorderLayout());
 
-        this.mainFrame.add(new MenuView(this.menuController, null), BorderLayout.CENTER);
+        this.mainFrame.add(new MenuView(this.menuController, null, this), BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
+    }
+
+    public void hide() {
+        this.mainFrame.setVisible(false);
     }
 }
