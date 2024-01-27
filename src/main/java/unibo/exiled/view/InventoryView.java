@@ -27,8 +27,10 @@ public class InventoryView extends JPanel {
     
     private static final Color HEALING_ITEM_COLOR = new Color(141, 254, 141);
     private static final Color POWER_UP_ITEM_COLOR = new Color(254, 141, 141);
+    private final int listItemWidth;
     private final static int LIST_ITEM_HEIGHT=30;
-    private final static int LIST_ITEM_WIDTH=1500;
+    private final static int LEFT_RIGHT_MARGIN=100;
+    private final static int TOP_BOTTOM_MARGIN=15;
 
     public InventoryView(InventoryController inventoryController,GameView game) {
         this.inventoryController = inventoryController;
@@ -40,8 +42,10 @@ public class InventoryView extends JPanel {
         itemList.setCellRenderer(new ItemListRenderer());
 
         Dimension listItemSize = new Dimension(100, LIST_ITEM_HEIGHT);
+        listItemWidth = getScreenWidth();
+
         itemList.setFixedCellHeight(LIST_ITEM_HEIGHT);
-        itemList.setFixedCellWidth(LIST_ITEM_WIDTH);
+        itemList.setFixedCellWidth(listItemWidth-LEFT_RIGHT_MARGIN);
         scrollPane = new JScrollPane(itemList);
         
         scrollPane.setSize(listItemSize);
@@ -49,34 +53,34 @@ public class InventoryView extends JPanel {
         emptyInventoryLabel = new GameLabel("The inventory is empty");
         emptyInventoryLabel.setHorizontalAlignment(JLabel.CENTER);
         
-        //Center
-
+        // Center
         JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.add(scrollPane, BorderLayout.CENTER);
         centralPanel.add(emptyInventoryLabel, BorderLayout.SOUTH);
-        
         centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
-        
+        centralPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, 0, TOP_BOTTOM_MARGIN, 0));
         add(centralPanel, BorderLayout.CENTER);
-        
-        //North
+
+        // North
         JLabel titleLabel = new TitleGameLabel("Inventory");
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        
+
         exitButton = new GameButton("Exit");
-        exitButton.addActionListener(e -> game.hideInventory());  
-        
+        exitButton.addActionListener(e -> game.hideInventory());
+
         JPanel northPanel = new JPanel(new BorderLayout());
-        
         northPanel.add(exitButton, BorderLayout.WEST);
         northPanel.add(titleLabel, BorderLayout.CENTER);
-
+        northPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, LEFT_RIGHT_MARGIN, TOP_BOTTOM_MARGIN, 0));
         add(northPanel, BorderLayout.NORTH);
 
         updateInventoryList();
     }
-    
-    
+
+    private int getScreenWidth() {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        return toolkit.getScreenSize().width;
+    }
 
     private class ItemListRenderer extends DefaultListCellRenderer {
         @Override
