@@ -71,7 +71,7 @@ public class InventoryView extends JPanel {
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(exitButton, BorderLayout.WEST);
         northPanel.add(titleLabel, BorderLayout.CENTER);
-        northPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, LEFT_RIGHT_MARGIN, TOP_BOTTOM_MARGIN, 0));
+        northPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, 0, TOP_BOTTOM_MARGIN, 0));
         add(northPanel, BorderLayout.NORTH);
 
         updateInventoryList();
