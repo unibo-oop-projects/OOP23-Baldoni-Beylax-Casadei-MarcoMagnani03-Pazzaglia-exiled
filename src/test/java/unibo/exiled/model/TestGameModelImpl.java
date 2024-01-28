@@ -21,9 +21,8 @@ public class TestGameModelImpl {
 
     @Test
     public void testPlayerStartingPosition(){
-        final int defPosX = Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_X"));
-        final int defPosY = Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_Y"));
-        assertEquals(new Position(defPosX,defPosY),model.getPlayer().getPosition());
+        assertEquals(new Position(model.getMap().getWidth() / 2, model.getMap().getHeight() / 2),
+                model.getPlayer().getPosition());
     }
 
     @Test
