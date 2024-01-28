@@ -11,12 +11,12 @@ import unibo.exiled.model.map.GameMapImpl;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameModelImpl implements GameModel {
     private Player player;
     private GameMap map;
     private Map<Position,Enemy> enemiesScattering;
-    private Set<Enemy> existentEnemies;
 
     public GameModelImpl(){
 
@@ -42,7 +42,6 @@ public class GameModelImpl implements GameModel {
 
     private void enemiesInitialization(final int enemyNumber){
         this.enemiesScattering = new HashMap<>();
-        this.existentEnemies = new HashSet<>();
         Random rand = new Random();
         final EnemyFactory factory = new EnemyFactoryImpl();
         for(int i = 0; i < enemyNumber; i++){
@@ -51,13 +50,11 @@ public class GameModelImpl implements GameModel {
                 enemyPosition = new Position(rand.nextInt(this.map.getWidth()), rand.nextInt(this.map.getHeight()));
             } while(enemyPosition == player.getPosition() || !map.isInBoundaries(enemyPosition));
             final Enemy enemy = factory.createRandom();
-            this.existentEnemies.add(enemy);
             this.enemiesScattering.put(enemyPosition,enemy);
         }
     }
 
     public void killEnemy(final Position position, final Enemy enemy){
-        this.existentEnemies.remove(enemy);
         this.enemiesScattering.remove(position,enemy);
     }
 
@@ -91,6 +88,6 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public Set<Enemy> getExistentEnemies() {
-        return Collections.unmodifiableSet(this.existentEnemies);
+        return this.enemiesScattering.values().stream().collect(Collectors.toSet());
     }
 }
