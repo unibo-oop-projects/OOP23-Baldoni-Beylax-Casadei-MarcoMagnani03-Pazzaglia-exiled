@@ -1,14 +1,11 @@
 package unibo.exiled.controller;
 
 import unibo.exiled.controller.menu.MenuController;
-import unibo.exiled.model.GameModel;
 import unibo.exiled.model.character.Character;
-import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
-import java.util.Set;
 
 public interface GameController {
     InventoryController getInventoryController();

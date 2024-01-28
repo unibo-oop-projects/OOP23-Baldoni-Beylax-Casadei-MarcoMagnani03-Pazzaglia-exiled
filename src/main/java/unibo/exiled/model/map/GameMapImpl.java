@@ -2,11 +2,15 @@ package unibo.exiled.model.map;
 
 import unibo.exiled.model.utilities.Position;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
-public class GameMapImpl implements  GameMap{
+public class GameMapImpl implements GameMap{
     private final int height;
     private final int width;
     private final Map<Position,CellType> cellStates;
@@ -26,11 +30,16 @@ public class GameMapImpl implements  GameMap{
     }
 
     private void fillCells(final int startingArea){
-        this.fillCellRange(CellType.VOLCANO,0,height / 2, 0, width / 2);
-        this.fillCellRange(CellType.SWAMP,height / 2, this.height,0,width / 2);
-        this.fillCellRange(CellType.STORM,0, this.height / 2, width / 2,width);
-        this.fillCellRange(CellType.FOREST,height / 2,height, width / 2, width);
-        this.fillCellRange(CellType.PLAINS,startingArea,height - startingArea, startingArea , width-startingArea);
+        // Random generation of the game map
+        List<CellType> cellTypes = new ArrayList<>(List.of(CellType.values()));
+        cellTypes.remove(CellType.PLAINS); // Removed CellType.PLAINS from cellTypes because it's the starting player spawn area. 
+        Collections.shuffle(cellTypes);
+
+        this.fillCellRange(cellTypes.get(0), 0,height / 2, 0, width / 2);
+        this.fillCellRange(cellTypes.get(1), height / 2, this.height,0,width / 2);
+        this.fillCellRange(cellTypes.get(2), 0, this.height / 2, width / 2,width);
+        this.fillCellRange(cellTypes.get(3), height / 2,height, width / 2, width);
+        this.fillCellRange(CellType.PLAINS, startingArea,height - startingArea, startingArea , width-startingArea);
     }
 
     public GameMapImpl(final int size){
