@@ -18,12 +18,7 @@ import unibo.exiled.view.items.GameProgressBar;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class GameView{
@@ -31,6 +26,7 @@ public class GameView{
     private CharacterView playerView;
     private InventoryView inventoryView;
     private MenuView menuView;
+    private GameOverView gameOverView;
 
     // MVC Components(MC)
     private final JFrame mainFrame; 
@@ -55,10 +51,9 @@ public class GameView{
         this.menuPanel = new JPanel();
         this.inventoryPanel = new JPanel();
         this.gamePanel = new JPanel(new BorderLayout());
-
         this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
-        this.inventoryView = new InventoryView(gameController.getInventoryController(),this);
-
+        this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
+        this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(List.of("player",
                 "boy_up",
                 "boy_down",
@@ -67,7 +62,7 @@ public class GameView{
 
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
-        
+
         Container contentPanel = this.mainFrame.getContentPane();
 
         GroupLayout mainLayout = new GroupLayout(contentPanel);
@@ -115,7 +110,6 @@ public class GameView{
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
 
         statusPanel.add(healthBar);
-        //statusPanel.add(lifeLabel);
         statusPanel.add(levelLabel);
         statusPanel.add(classLabel);
 
@@ -158,8 +152,14 @@ public class GameView{
                         default -> throw new IllegalStateException("Illegal pressed key.");
                     }
                     gameController.movePlayer(directionPressed);
-                    playerView.changeImage(directionPressed);
-                    draw();
+                    if(gameController.isOver()){
+                        gameOverView.display();
+                        mainFrame.dispose();
+                    }else{
+                        playerView.changeImage(directionPressed);
+                        draw();
+                    }
+
                 }
             }
 

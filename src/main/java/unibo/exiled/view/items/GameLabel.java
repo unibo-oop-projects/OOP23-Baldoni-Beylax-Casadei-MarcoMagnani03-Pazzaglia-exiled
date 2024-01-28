@@ -11,6 +11,11 @@ public class GameLabel extends JLabel {
         setLabelStyle();
     }
 
+    public GameLabel(String string, int center) {
+        super(string, center);
+        setLabelStyle();
+    }
+
     private void setLabelStyle() {
         setForeground(foregroundColor);
         setFont(new Font("Arial", Font.PLAIN, 16));

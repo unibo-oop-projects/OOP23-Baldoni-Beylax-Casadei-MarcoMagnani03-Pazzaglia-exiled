@@ -93,5 +93,4 @@ public class GameModelImpl implements GameModel {
     public Set<Enemy> getExistentEnemies() {
         return Collections.unmodifiableSet(this.existentEnemies);
     }
-
 }

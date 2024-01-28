@@ -6,8 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.controller.GameController;
-import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.controller.menu.StartMenuController;
 import unibo.exiled.view.Menu.MenuView;

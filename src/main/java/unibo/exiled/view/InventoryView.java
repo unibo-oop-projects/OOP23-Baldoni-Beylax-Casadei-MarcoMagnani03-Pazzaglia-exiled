@@ -1,6 +1,5 @@
 package unibo.exiled.view;
 
-import unibo.exiled.config.Constants;
 import unibo.exiled.controller.InventoryController;
 import unibo.exiled.model.item.HealingItem;
 import unibo.exiled.model.item.Item;
@@ -19,8 +18,8 @@ import java.util.Map;
 
 public class InventoryView extends JPanel {
     private final InventoryController inventoryController;
-    private final  DefaultListModel<Item> listModel;
-    private final  JList<Item> itemList;
+    private final DefaultListModel<Item> listModel;
+    private final JList<Item> itemList;
     private final JLabel emptyInventoryLabel;
     private final JScrollPane scrollPane;
     private final GameButton exitButton;
@@ -28,11 +27,11 @@ public class InventoryView extends JPanel {
     private static final Color HEALING_ITEM_COLOR = new Color(141, 254, 141);
     private static final Color POWER_UP_ITEM_COLOR = new Color(254, 141, 141);
     private final int listItemWidth;
-    private final static int LIST_ITEM_HEIGHT=30;
-    private final static int LEFT_RIGHT_MARGIN=100;
-    private final static int TOP_BOTTOM_MARGIN=15;
+    private final static int LIST_ITEM_HEIGHT = 30;
+    private final static int LEFT_RIGHT_MARGIN = 100;
+    private final static int TOP_BOTTOM_MARGIN = 15;
 
-    public InventoryView(InventoryController inventoryController,GameView game) {
+    public InventoryView(InventoryController inventoryController, GameView game) {
         this.inventoryController = inventoryController;
         setLayout(new BorderLayout());
         

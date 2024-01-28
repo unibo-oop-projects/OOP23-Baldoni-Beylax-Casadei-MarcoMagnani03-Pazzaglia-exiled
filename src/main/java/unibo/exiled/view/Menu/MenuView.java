@@ -8,7 +8,6 @@ import unibo.exiled.view.items.GameButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.color.ColorSpace;
 import java.awt.event.ActionListener;
 import java.io.File;
 
@@ -31,7 +30,7 @@ public class MenuView extends JPanel {
             "java" + File.separator +
             "unibo" + File.separator +
             "exiled" + File.separator +
-            "resources" + File.separator+
+            "resources" + File.separator +
             "logo.png"));
         buttonListPanel.add(logoLabel);
         cnst.gridy++;

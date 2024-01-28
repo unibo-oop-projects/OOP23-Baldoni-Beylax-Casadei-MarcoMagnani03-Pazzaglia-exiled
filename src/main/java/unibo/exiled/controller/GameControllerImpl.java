@@ -5,14 +5,10 @@ import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.model.GameModel;
 import unibo.exiled.model.GameModelImpl;
 import unibo.exiled.model.character.Character;
-import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 public class GameControllerImpl implements GameController {
     private final GameModel model;
@@ -29,16 +25,20 @@ public class GameControllerImpl implements GameController {
         this.mpc = new MapController(model.getMap());
     }
 
+    @Override
     public void movePlayer(final Direction dir){
         final Position oldPosition = this.getPlayerController().player().getPosition();
         final Position newPosition = new Position(
-                oldPosition.x() + dir.getPosition().x(),
-                oldPosition.y() + dir.getPosition().y());
+                    oldPosition.x() + dir.getPosition().x(),
+                    oldPosition.y() + dir.getPosition().y()
+                );
+
         if(this.getMapController().isInBoundaries(newPosition)){
             this.getPlayerController().move(newPosition);
         }
     }
 
+    @Override
     public List<String> getImagePathOfCharacter(final Character character){
         return List.of(
                 character.getImagePath(),
@@ -49,30 +49,25 @@ public class GameControllerImpl implements GameController {
         );
     }
 
-    public boolean isEnemyInCell(final Position pos){
-        return this.model.getEnemies().containsKey(pos);
-    }
+    @Override
+    public boolean isEnemyInCell(final Position pos){ return this.model.getEnemies().containsKey(pos); }
 
     @Override
-    public Character getCharacterInPosition(Position pos) {
-        return this.model.getEnemies().get(pos);
-    }
+    public boolean isOver(){ return isEnemyInCell(this.getPlayerController().getPlayerPosition()); }
 
     @Override
-    public InventoryController getInventoryController() {
-        return this.ic;
-    }
+    public Character getCharacterInPosition(Position pos) { return this.model.getEnemies().get(pos); }
 
     @Override
-    public PlayerController getPlayerController() {
-        return this.pc;
-    }
+    public InventoryController getInventoryController() { return this.ic; }
+        
+    @Override
+    public PlayerController getPlayerController() { return this.pc; }
 
     @Override
-    public MenuController getInGameMenuController() {
-        return this.inGameMenuController;
-    }
+    public MenuController getInGameMenuController() { return this.inGameMenuController; }
 
     @Override
-    public MapController getMapController(){return this.mpc;}
+    public MapController getMapController(){ return this.mpc; }
+
 }
