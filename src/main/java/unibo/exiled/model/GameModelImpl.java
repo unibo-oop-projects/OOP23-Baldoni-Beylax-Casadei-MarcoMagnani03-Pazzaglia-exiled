@@ -8,10 +8,6 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.map.GameMapImpl;
-import unibo.exiled.model.menu.Command;
-import unibo.exiled.model.menu.Menu;
-import unibo.exiled.model.menu.MenuImpl;
-import unibo.exiled.model.menu.MenuItem;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.*;
@@ -28,7 +24,7 @@ public class GameModelImpl implements GameModel {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         final int moveNumber = Integer.parseInt(Constants.getConstantOf("NUM_MOVES"));
         final double defaultExperience = Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE"));
-        final int playerLevelIncrease=Integer.parseInt(Constants.getConstantOf("PLAYER_LEVEL_INCREASE"));
+        final int playerLevelIncrease = Integer.parseInt(Constants.getConstantOf("PLAYER_LEVEL_INCREASE"));
         final int playerStartingPositionX = Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_X"));
         final int playerStartingPositionY = Integer.parseInt(Constants.getConstantOf("PLAYER_STARTING_POSITION_Y"));
         final int enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));

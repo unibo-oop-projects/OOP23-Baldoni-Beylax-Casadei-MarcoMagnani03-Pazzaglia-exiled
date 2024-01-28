@@ -25,7 +25,6 @@ import java.util.Objects;
  */
 public class PlayerImpl extends CharacterImpl implements Player {
 
-    private double health;
     private final int levelInc;
     private int level;
     private double exp;
@@ -50,7 +49,7 @@ public class PlayerImpl extends CharacterImpl implements Player {
         this.inventory.addItem(powerUpItem1); 
         this.inventory.addItem(powerUpItemDefence); 
         this.moveSet = new MoveSetImpl(maxMovesNumber);
-        this.attributes = new AttributeFactoryImpl().createBasicAttributes();
+        this.attributes = new AttributeFactoryImpl().createPlayerAttributes();
         this.exp = experience;
         this.levelInc = levelIncrease;
     }
@@ -68,7 +67,7 @@ public class PlayerImpl extends CharacterImpl implements Player {
 
     @Override
     public double getHealth() {
-        return health;
+        return attributes.get(AttributeIdentifier.HEALTH).getValue().get();
     }
 
     @Override
