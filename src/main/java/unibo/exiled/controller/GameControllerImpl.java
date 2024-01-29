@@ -13,6 +13,7 @@ import unibo.exiled.model.utilities.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class GameControllerImpl implements GameController {
@@ -24,7 +25,7 @@ public class GameControllerImpl implements GameController {
     private final List<EnemyController> ec;
 
     public GameControllerImpl() {
-        this.model = new GameModelImpl();
+        this.model = new GameModelImpl(this);
         this.pc = new PlayerController(model.getPlayer());
         this.ic = new InventoryController(pc.player().getInventory());
         this.inGameMenuController = new InGameMenuController();
@@ -32,7 +33,7 @@ public class GameControllerImpl implements GameController {
         this.ec = new ArrayList<>();
 
         for (int i = 0; i < model.getEnemies().size(); i++) {
-            var enemy = model.getEnemies().values().stream().toList().get(i);
+            var enemy = model.getEnemies().get(i);
             ec.add(new EnemyController(enemy));
         }
     }
@@ -54,13 +55,13 @@ public class GameControllerImpl implements GameController {
         Random rnd = new Random();
         int indexDirection;
         List<Direction> directions = List.of(Direction.values());
-        Map<Position, Enemy> enemies = this.model.getEnemies();
+        List<Enemy> enemies = this.model.getEnemies();
         Position oldPosition, newPosition;
 
         for (int i = 0; i < enemies.size(); i++) {
-            var enemy = enemies.entrySet().stream().toList().get(i);
+            var enemy = enemies.get(i);
             indexDirection = rnd.nextInt(4);
-            oldPosition = enemy.getKey();
+            oldPosition = enemy.getPosition();
             newPosition = new Position(
                 oldPosition.x() + directions.get(indexDirection).getPosition().x(),
                 oldPosition.y() + directions.get(indexDirection).getPosition().y()
@@ -84,7 +85,7 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public boolean isEnemyInCell(final Position pos) {
-        return this.model.getEnemies().containsKey(pos);
+        return this.model.getEnemies().stream().filter(e -> e.getPosition().equals(pos)).count() != 0;
     }
 
     @Override
@@ -93,7 +94,14 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public Character getCharacterInPosition(Position pos) { return this.model.getEnemies().get(pos); }
+    public Character getCharacterInPosition(Position pos) { 
+        if(this.getPlayerController().getPlayerPosition().equals(pos)){
+            return this.getPlayerController().getPlayer();
+        } else if (this.isEnemyInCell(pos)){
+            return this.model.getEnemies().stream().filter(e -> e.getPosition().equals(pos)).findAny().get(); 
+        }
+        throw new NoSuchElementException();
+    }
 
     @Override
     public InventoryController getInventoryController() { return this.ic; }

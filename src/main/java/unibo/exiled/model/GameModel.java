@@ -5,13 +5,11 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.utilities.Position;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 public interface GameModel {
     Player getPlayer();
     GameMap getMap();
-    Map<Position,Enemy> getEnemies();
-    Set<Enemy> getExistentEnemies();
+    List<Enemy> getEnemies();
     void killEnemy(final Position position, final Enemy enemy);
 }

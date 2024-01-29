@@ -19,6 +19,7 @@ public class EnemyFactoryImpl implements EnemyFactory {
     @Override
     public Enemy createGoblin() {
         final List<String> paths = List.of("enemy" + File.separator + "goblin", "goblin_up", "goblin_down", "goblin_left", "goblin_right");
+        
         return new EnemyImpl(
                 paths,
                 "Gobleno",
@@ -34,7 +35,10 @@ public class EnemyFactoryImpl implements EnemyFactory {
     @Override
     public Enemy createBrutus(){
         final List<String> paths = List.of("enemy" + File.separator + "brutus", "brutus_up","brutus_down","brutus_left","brutus_right");
-        return new EnemyImpl(paths,"Brutus",moveSetFactory.defaultBasicMoveSet(),attributeFactory.createBrutusAttributes()) {
+        return new EnemyImpl(paths,
+        "Brutus",
+        moveSetFactory.defaultBasicMoveSet(),
+        attributeFactory.createBrutusAttributes()) {
             @Override
             public double getDroppedExperience() {
                 return 20;
