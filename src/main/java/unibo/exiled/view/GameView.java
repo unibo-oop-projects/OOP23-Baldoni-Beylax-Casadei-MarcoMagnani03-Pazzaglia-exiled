@@ -106,12 +106,10 @@ public class GameView{
         flowButtonPanelNorth.add(menuButton);
 
         // Player information 
-        Font labelFont = new Font("Arial", Font.PLAIN, 16);
         GameProgressBar healthBar = new GameProgressBar();
         healthBar.updateProgress(gameController.getPlayerController().getHealth());
         GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getLevel());
         GameLabel classLabel = new GameLabel("Class: " +gameController.getPlayerController().getPlayerClass());
-        levelLabel.setFont(labelFont);
 
         JPanel statusPanel = new JPanel(new FlowLayout());
         statusPanel.setBorder(BorderFactory.createEtchedBorder());

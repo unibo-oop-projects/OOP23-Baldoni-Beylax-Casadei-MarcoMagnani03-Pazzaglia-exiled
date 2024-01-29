@@ -18,7 +18,14 @@ public class HealingItem extends ItemBase implements UsableItem{
 
     @Override
     public void use(Player player) {
-        player.getAttributes().get(AttributeIdentifier.HEALTH).setValue(player.getAttributes().get(AttributeIdentifier.HEALTH).getValue().get()+healingAmount);
+        double healthCap = player.getAttributes().get(AttributeIdentifier.HEALTHCAP).getValue().get();
+        double health = player.getAttributes().get(AttributeIdentifier.HEALTHCAP).getValue().get();
+        if(health+healingAmount > healthCap){
+            player.getAttributes().get(AttributeIdentifier.HEALTH).setValue(healthCap);
+        }
+        else{
+            player.getAttributes().get(AttributeIdentifier.HEALTH).setValue(health+healingAmount);
+        }
     }
 
 

@@ -15,6 +15,13 @@ public interface MagicMove {
     String getName();
 
     /**
+     * Gets the description of the magic move.
+     *
+     * @return The description of the magic move.
+     */
+    String getDescription();
+
+    /**
      * Gets the power of the magic move.
      *
      * @return The power of the magic move.

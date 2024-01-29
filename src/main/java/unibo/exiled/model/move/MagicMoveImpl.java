@@ -4,11 +4,13 @@ import unibo.exiled.model.utilities.ElementalType;
 
 public class MagicMoveImpl implements MagicMove {
     private final String name;
+    private final String description;
     private final double power;
     private final ElementalType type;
 
-    public MagicMoveImpl(String name,double power, ElementalType type){
+    public MagicMoveImpl(String name,String description,double power, ElementalType type){
         this.name=name;
+        this.description = description;
         this.power=power;
         this.type=type;
     }
@@ -16,6 +18,11 @@ public class MagicMoveImpl implements MagicMove {
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description;
     }
 
     @Override
@@ -27,5 +34,6 @@ public class MagicMoveImpl implements MagicMove {
     public ElementalType getType() {
         return this.type;
     }
+
     
 }
