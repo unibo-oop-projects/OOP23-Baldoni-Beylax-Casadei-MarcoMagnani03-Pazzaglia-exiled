@@ -16,23 +16,14 @@ public class CombatView extends JPanel {
     private Player player;
     private Enemy enemy;
 
-    public CombatView(Player player, Enemy enemy, GameView game) {
-        this.combatController = new CombatController(player, enemy);
-
+    public CombatView(Player player, GameView game) {
+        this.player = player;
+        
         this.setLayout(new BorderLayout());
 
         this.moveSetPanel = new JPanel(new GridBagLayout());
         this.add(moveSetPanel, BorderLayout.SOUTH);
 
-
-        JButton escapeButton = new JButton("ESCAPE");
-        escapeButton.addActionListener(e -> game.hideCombat());
-
-        this.moveSetPanel.add(escapeButton);
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
 
         for (MagicMove move : this.player.getMoveSet().getMagicMoves()) {
             JButton moveButton = new JButton(move.getName());
@@ -41,9 +32,17 @@ public class CombatView extends JPanel {
 
             // TODO: Add event listener
         }
+
+
+        JButton escapeButton = new JButton("ESCAPE");
+        escapeButton.addActionListener(e -> game.hideCombat());
+
+        this.moveSetPanel.add(escapeButton);
     }
 
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;
+
+        this.combatController = new CombatController(this.player, this.enemy);
     }
 }

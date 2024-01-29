@@ -25,7 +25,7 @@ public class GameControllerImpl implements GameController {
 
     public GameControllerImpl() {
         this.model = new GameModelImpl();
-        this.inventoryController = new InventoryController(model.getPlayer().getInventory());
+        this.inventoryController = new InventoryController(model.getPlayer());
         this.inGameMenuController = new InGameMenuController();
         this.playerController = new PlayerControllerImpl(model.getPlayer());
         this.enemiesController = new EnemiesControllerImpl(model.getEnemies());

@@ -6,9 +6,6 @@ import javax.swing.border.LineBorder;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
-import unibo.exiled.model.character.attributes.AttributeIdentifier;
-import unibo.exiled.model.character.enemy.Enemy;
-import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
@@ -29,6 +26,7 @@ public class GameView{
     private final InventoryView inventoryView;
     private final MenuView menuView;
     private final GameOverView gameOverView;
+    private final CombatView combatView;
 
     // MVC Components(MC)
     private final JFrame mainFrame; 
@@ -58,12 +56,16 @@ public class GameView{
         this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
         this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
         this.gameOverView = new GameOverView();
-        this.playerView = new CharacterView(List.of("player",
-                "boy_up",
-                "boy_down",
-                "boy_right",
-                "boy_left"));
+        this.playerView = new CharacterView(List.of(
+            "player",
+            "boy_up",
+            "boy_down",
+            "boy_right",
+            "boy_left"
+        ));
+        this.combatView = new CombatView(this.gameController.getPlayerController().getPlayer(), this);
 
+        this.combatPanel.add(combatView);
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
 
@@ -104,12 +106,10 @@ public class GameView{
         flowButtonPanelNorth.add(menuButton);
 
         // Player information 
-        Font labelFont = new Font("Arial", Font.PLAIN, 16);
         GameProgressBar healthBar = new GameProgressBar();
         healthBar.updateProgress(gameController.getPlayerController().getHealth());
         GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getLevel());
         GameLabel classLabel = new GameLabel("Class: " +gameController.getPlayerController().getPlayerClass());
-        levelLabel.setFont(labelFont);
 
         JPanel statusPanel = new JPanel(new FlowLayout());
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -143,10 +143,11 @@ public class GameView{
             @Override
             public void keyPressed(KeyEvent e) {
                 if (
-                    e.getKeyCode() == KeyEvent.VK_W ||
+                    (e.getKeyCode() == KeyEvent.VK_W ||
                     e.getKeyCode() == KeyEvent.VK_A ||
                     e.getKeyCode() == KeyEvent.VK_S ||
-                    e.getKeyCode() == KeyEvent.VK_D
+                    e.getKeyCode() == KeyEvent.VK_D) &&
+                    !combatPanel.isVisible()
                 ) {
                     Direction directionPressed;
                     switch (e.getKeyCode()) {
@@ -161,14 +162,12 @@ public class GameView{
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
-                    } else if (false) {
-                        // Combat initialization
-                        // combatPanel.add(new CombatView(gameController.getPlayerController().player(),
-                        // gameController.getEnemyInPosition(gameController.getPlayerController().getPlayerPosition()),
-                        // ));
+                    }
+                    else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
                         showCombat();
-                        // draw();
-                    } else {
+                        draw();
+                    }
+                    else{
                         playerView.changeImage(directionPressed);
                         draw();
                     }

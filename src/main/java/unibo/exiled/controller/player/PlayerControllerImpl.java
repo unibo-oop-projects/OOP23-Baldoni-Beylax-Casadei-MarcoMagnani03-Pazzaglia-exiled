@@ -12,8 +12,13 @@ public class PlayerControllerImpl implements PlayerController{
 
     private final Player player;
 
-    public PlayerControllerImpl(final Player player){
+    public PlayerControllerImpl(final Player player) {
         this.player = player;
+    }
+    
+    @Override
+    public Player getPlayer() {
+        return this.player;
     }
 
     @Override

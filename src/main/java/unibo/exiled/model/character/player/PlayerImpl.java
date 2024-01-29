@@ -45,7 +45,7 @@ public class PlayerImpl extends CharacterImpl implements Player {
         this.inventory.addItem(powerUpItem);
         this.inventory.addItem(powerUpItem1);
         this.inventory.addItem(powerUpItemDefence);
-        this.moveSet = new MoveSetFactoryImpl().defaultBasicMoveSet();
+        this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet();
         this.exp = experience;
         this.levelInc = levelIncrease;
     }
