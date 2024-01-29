@@ -15,11 +15,15 @@ public record PlayerController(Player player) implements CharacterController {
         this.player.move(position);
     }
 
-    public void setPlayerClass(ElementalType playerClass){
+    public void setPlayerClass(final ElementalType playerClass){
         this.player.setPlayerClass(playerClass);
     }
 
     public ElementalType getPlayerClass(){
         return this.player.getPlayerClass();
+    }
+
+    public Player getPlayer(){
+        return this.player;
     }
 }

@@ -60,12 +60,6 @@ public class PlayerImpl extends CharacterImpl implements Player {
     public void move(final Position newPosition) {
         position = newPosition;
     }
-    public void move(final Direction direction) {
-        final Position newPos = new Position(
-                this.position.x() + direction.getPosition().x(),
-                this.position.y() + direction.getPosition().y());
-        this.move(newPos);
-    }
 
     @Override
     public double getHealth() {

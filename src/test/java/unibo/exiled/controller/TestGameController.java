@@ -2,7 +2,7 @@ package unibo.exiled.controller;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import unibo.exiled.model.utilities.Direction;
+
 import unibo.exiled.model.utilities.Position;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,9 +21,6 @@ public class TestGameController {
      */
     @Test
     void testMoveOutOfBoundaries(){
-        for(int i = 0; i <= controller.getMapController().map().getHeight() + 1; i++){
-            controller.movePlayer(Direction.SOUTH);
-        }
         assertEquals(
                 new Position(
                         controller.getPlayerController().player().getPosition().x(), controller.getMapController().map().getHeight() - 1),

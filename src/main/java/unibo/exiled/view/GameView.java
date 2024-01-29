@@ -7,6 +7,8 @@ import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.enemy.Enemy;
+import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
@@ -171,7 +173,6 @@ public class GameView{
                         playerView.changeImage(directionPressed);
                         draw();
                     }
-
                 }
             }
 

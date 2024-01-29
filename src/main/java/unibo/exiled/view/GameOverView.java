@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.io.File;
 
 import unibo.exiled.view.items.GameButton;
-import unibo.exiled.view.items.GameLabel;
 
 
 /**
