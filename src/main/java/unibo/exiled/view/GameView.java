@@ -51,7 +51,7 @@ public class GameView{
 
         this.menuPanel = new JPanel();
         this.inventoryPanel = new JPanel();
-        this.combatPanel = new JPanel();
+        this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
         this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
@@ -65,7 +65,7 @@ public class GameView{
         ));
         this.combatView = new CombatView(this.gameController.getPlayerController().getPlayer(), this);
 
-        this.combatPanel.add(combatView);
+        this.combatPanel.add(combatView, BorderLayout.CENTER);
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
 
@@ -164,6 +164,7 @@ public class GameView{
                         mainFrame.dispose();
                     }
                     else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
+                        combatView.setEnemy(gameController.getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
                         showCombat();
                         draw();
                     }

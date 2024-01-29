@@ -2,6 +2,7 @@ package unibo.exiled.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.*;
 
@@ -9,10 +10,12 @@ import unibo.exiled.controller.CombatController;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.view.items.GameButton;
 
 public class CombatView extends JPanel {
     private CombatController combatController;
     private JPanel moveSetPanel;
+    private JPanel battlePanel;
     private Player player;
     private Enemy enemy;
 
@@ -21,12 +24,14 @@ public class CombatView extends JPanel {
         
         this.setLayout(new BorderLayout());
 
-        this.moveSetPanel = new JPanel(new GridBagLayout());
-        this.add(moveSetPanel, BorderLayout.SOUTH);
+        this.moveSetPanel = new JPanel(new GridLayout());
+        this.battlePanel = new JPanel(new GridLayout());
+        this.add(this.moveSetPanel, BorderLayout.SOUTH);
+        this.add(this.battlePanel, BorderLayout.CENTER);
 
 
         for (MagicMove move : this.player.getMoveSet().getMagicMoves()) {
-            JButton moveButton = new JButton(move.getName());
+            JButton moveButton = new GameButton(move.getName());
 
             this.moveSetPanel.add(moveButton);
 
@@ -34,7 +39,7 @@ public class CombatView extends JPanel {
         }
 
 
-        JButton escapeButton = new JButton("ESCAPE");
+        JButton escapeButton = new GameButton("ESCAPE");
         escapeButton.addActionListener(e -> game.hideCombat());
 
         this.moveSetPanel.add(escapeButton);
@@ -44,5 +49,13 @@ public class CombatView extends JPanel {
         this.enemy = enemy;
 
         this.combatController = new CombatController(this.player, this.enemy);
+
+        JLabel playerLabel = new JLabel(new ImageIcon(this.player.getImagePath()));
+        JLabel enemyLabel = new JLabel(new ImageIcon(this.enemy.getImagePath()));
+        this.battlePanel.add(playerLabel);
+        this.battlePanel.add(enemyLabel);
+
+        this.revalidate();
+        this.repaint();
     }
 }

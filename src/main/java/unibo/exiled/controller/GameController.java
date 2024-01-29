@@ -4,6 +4,7 @@ import unibo.exiled.controller.enemy.EnemiesController;
 import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.controller.player.PlayerController;
 import unibo.exiled.model.character.Character;
+import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
@@ -58,6 +59,13 @@ public interface GameController {
      * @return The character present in the selected position.
      */
     Character getCharacterInPosition(final Position position);
+
+    /**
+     * Return the enemy in the given position
+     * @param position The position to check
+     * @return The enemy present in the selected position.
+     */
+    Enemy getEnemyFromPosition(final Position position);
 
     /**
      * Checks if there is an enemy in the selected cell.
