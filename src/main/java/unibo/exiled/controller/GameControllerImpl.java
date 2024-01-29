@@ -83,10 +83,14 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public boolean isEnemyInCell(final Position pos){ return this.model.getEnemies().containsKey(pos); }
+    public boolean isEnemyInCell(final Position pos) {
+        return this.model.getEnemies().containsKey(pos);
+    }
 
     @Override
-    public boolean isOver(){ return isEnemyInCell(this.getPlayerController().getPlayerPosition()); }
+    public boolean isOver() {
+        return this.pc.player().getHealth() <= 0;
+    }
 
     @Override
     public Character getCharacterInPosition(Position pos) { return this.model.getEnemies().get(pos); }

@@ -154,12 +154,17 @@ public class GameView{
                         default -> throw new IllegalStateException("Illegal pressed key.");
                     }
                     gameController.movePlayer(directionPressed);
-                    gameController.moveEnemies();
-                    playerView.changeImage(directionPressed);
-                    draw();
-                    if(gameController.isOver()){
+                    if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
+                    }
+                    else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
+                        // Combat initialization
+                        draw();
+                    }
+                    else{
+                        playerView.changeImage(directionPressed);
+                        draw();
                     }
                 }
             }
