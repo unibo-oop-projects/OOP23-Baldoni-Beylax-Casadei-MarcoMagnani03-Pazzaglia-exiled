@@ -33,4 +33,8 @@ public class CombatController {
     public MoveSet getPlayerMoveSet() {
         return this.player.getMoveSet();
     }
+
+    public MoveSet getEnemyMoveSet() {
+        return this.enemy.getMoveSet();
+    }
 }
