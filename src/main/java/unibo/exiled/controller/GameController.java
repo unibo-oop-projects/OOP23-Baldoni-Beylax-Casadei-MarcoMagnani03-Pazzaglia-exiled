@@ -1,9 +1,11 @@
 package unibo.exiled.controller;
 
+import unibo.exiled.controller.enemy.EnemiesController;
 import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.controller.player.PlayerController;
 import unibo.exiled.model.character.Character;
 import unibo.exiled.model.map.GameMap;
+import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
@@ -26,6 +28,14 @@ public interface GameController {
      * @return The PlayerController.
      */
     PlayerController getPlayerController();
+
+
+    /**
+     * Gets the enemies controller.
+     * @return The EnemiesController.
+     */
+    EnemiesController getEnemiesController();
+
 
     //Image names for the view
 
@@ -61,4 +71,8 @@ public interface GameController {
      * @return True if the endgame conditions are met, false otherwise.
      */
     boolean isOver();
+
+    void movePlayer(final Direction dir);
+
+    void moveEnemies();
 }

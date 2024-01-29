@@ -5,7 +5,7 @@ import unibo.exiled.model.utilities.Position;
 import java.util.Optional;
 import java.util.Set;
 
-public interface EnemyCollection extends Iterable {
+public interface EnemyCollection extends Iterable<Enemy> {
     void removeEnemy(final Enemy enemy);
     void addEnemy(final Enemy enemy);
     Set<Enemy> getEnemies();

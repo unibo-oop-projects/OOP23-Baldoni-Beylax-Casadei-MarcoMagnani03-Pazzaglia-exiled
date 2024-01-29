@@ -2,6 +2,7 @@ package unibo.exiled.controller.player;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
@@ -16,9 +17,11 @@ public class PlayerControllerImpl implements PlayerController{
     }
 
     @Override
-    public void movePlayer(final Direction dir){
+    public void movePlayer(final Direction dir, final GameMap map){
         final Position currentPlayerPosition = this.player.getPosition();
-        this.player.move(Positions.sum(currentPlayerPosition,dir.getPosition()));
+        if(map.isInBoundaries(Positions.sum(currentPlayerPosition, dir.getPosition()))){
+            this.player.move(Positions.sum(currentPlayerPosition, dir.getPosition()));
+        }
     }
 
     @Override

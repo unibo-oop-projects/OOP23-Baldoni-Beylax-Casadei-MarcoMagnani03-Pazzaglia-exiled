@@ -156,21 +156,19 @@ public class GameView{
                         case KeyEvent.VK_D -> directionPressed = Direction.EAST;
                         default -> throw new IllegalStateException("Illegal pressed key.");
                     }
-                    gameController.getPlayerController().movePlayer(directionPressed);
-                    //gameController.moveEnemies();
+                    gameController.movePlayer(directionPressed);
+                    gameController.moveEnemies();
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
-                    }
-                    else if (false) {
+                    } else if (false) {
                         // Combat initialization
                         // combatPanel.add(new CombatView(gameController.getPlayerController().player(),
                         // gameController.getEnemyInPosition(gameController.getPlayerController().getPlayerPosition()),
                         // ));
                         showCombat();
                         // draw();
-                    }
-                    else{
+                    } else {
                         playerView.changeImage(directionPressed);
                         draw();
                     }
