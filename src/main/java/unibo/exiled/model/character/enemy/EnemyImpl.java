@@ -12,35 +12,20 @@ import java.util.Map;
 
 public abstract class EnemyImpl extends CharacterImpl implements Enemy {
     private final MoveSet moveSet;
-    private final Map<AttributeIdentifier, Attribute> attributes;
     private final String name;
-    private Position position;
 
-    public EnemyImpl(final List<String> paths, final String name, final MoveSet moveSet, final Map<AttributeIdentifier,Attribute> attrubutes){
-        super(paths);
+    public EnemyImpl(final List<String> paths,
+                     final String name,
+                     final MoveSet moveSet,
+                     final Map<AttributeIdentifier,Attribute> attributes){
+        super(attributes,paths);
         this.moveSet = moveSet;
         this.name = name;
-        this.attributes = attrubutes;
     }
 
     @Override
     public MoveSet getMoveSet() {
         return this.moveSet;
-    }
-
-    @Override
-    public void move(final Position newPosition) {
-        this.position = newPosition;
-    }
-
-    @Override
-    public Position getPosition() {
-        return this.position;
-    }
-
-    @Override
-    public Map<AttributeIdentifier, Attribute> getAttributes() {
-        return Collections.unmodifiableMap(this.attributes);
     }
 
     @Override

@@ -1,6 +1,5 @@
-package unibo.exiled.view;
+/*package unibo.exiled.view;
 
-import unibo.exiled.controller.PlayerController;
 import unibo.exiled.model.utilities.ElementalType;
 
 
@@ -49,3 +48,4 @@ public class PlayerClassView extends JPanel{
         }
     }
 }
+*/

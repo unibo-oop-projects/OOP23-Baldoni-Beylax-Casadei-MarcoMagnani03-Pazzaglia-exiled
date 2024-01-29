@@ -38,8 +38,8 @@ public class TestGameModelImpl {
             System.out.print("|");
             for(int j = 0; j < model.getMap().getWidth(); j++){
                 final Position currPos = new Position(j,i);
-                if(model.getEnemies().containsKey(currPos)){
-                    System.out.print(model.getEnemies().get(currPos).getName().substring(0,1));
+                if(model.getEnemies().getEnemyFromPosition(currPos).isPresent()){
+                    System.out.print(model.getEnemies().getEnemyFromPosition(currPos).get().getName().substring(0,1));
                 }
                 else if(model.getPlayer().getPosition().equals(currPos)){
                     System.out.print("P");

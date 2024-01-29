@@ -25,10 +25,10 @@ import java.util.List;
 
 public class GameView{
     // Views
-    private CharacterView playerView;
-    private InventoryView inventoryView;
-    private MenuView menuView;
-    private GameOverView gameOverView;
+    private final CharacterView playerView;
+    private final InventoryView inventoryView;
+    private final MenuView menuView;
+    private final GameOverView gameOverView;
 
     // MVC Components(MC)
     private final JFrame mainFrame; 
@@ -106,8 +106,8 @@ public class GameView{
         // Player information 
         Font labelFont = new Font("Arial", Font.PLAIN, 16);
         GameProgressBar healthBar = new GameProgressBar();
-        healthBar.updateProgress(gameController.getPlayerController().player().getAttributes().get(AttributeIdentifier.HEALTH).getValue().get());
-        GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().player().getLevel());
+        healthBar.updateProgress(gameController.getPlayerController().getHealth());
+        GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getLevel());
         GameLabel classLabel = new GameLabel("Class: " +gameController.getPlayerController().getPlayerClass());
         levelLabel.setFont(labelFont);
 
@@ -124,8 +124,8 @@ public class GameView{
     private void initializeGridComponents() {
         this.gridPanel = new JPanel(
             new GridLayout(
-                this.gameController.getMapController().map().getWidth(),
-                this.gameController.getMapController().map().getHeight()
+                this.gameController.getMap().getWidth(),
+                this.gameController.getMap().getHeight()
             )
         );
         draw();
@@ -156,13 +156,13 @@ public class GameView{
                         case KeyEvent.VK_D -> directionPressed = Direction.EAST;
                         default -> throw new IllegalStateException("Illegal pressed key.");
                     }
-                    gameController.movePlayer(directionPressed);
-                    gameController.moveEnemies();
+                    gameController.getPlayerController().movePlayer(directionPressed);
+                    //gameController.moveEnemies();
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
                     }
-                    else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
+                    else if (false) {
                         // Combat initialization
                         // combatPanel.add(new CombatView(gameController.getPlayerController().player(),
                         // gameController.getEnemyInPosition(gameController.getPlayerController().getPlayerPosition()),
@@ -187,8 +187,8 @@ public class GameView{
 
     private void draw() {
         this.gridPanel.removeAll();
-        for (int i = 0; i < this.gameController.getMapController().map().getHeight(); i++) {
-            for (int j = 0; j < this.gameController.getMapController().map().getWidth(); j++) {
+        for (int i = 0; i < this.gameController.getMap().getHeight(); i++) {
+            for (int j = 0; j < this.gameController.getMap().getWidth(); j++) {
                 setArea(new Position(j, i));
             }
         }
@@ -204,7 +204,7 @@ public class GameView{
      */
     private void setArea(final Position position) {
         final JLabel label;
-        if (position.equals(this.gameController.getPlayerController().player().getPosition())){
+        if (position.equals(this.gameController.getPlayerController().getPlayerPosition())){
             label = this.playerView;
         }
         else if(this.gameController.isEnemyInCell(position)){
@@ -214,7 +214,7 @@ public class GameView{
             label = new JLabel();
         }
         label.setOpaque(true);
-        switch (this.gameController.getMapController().map().getCellType(position)) {
+        switch (this.gameController.getMap().getCellType(position)) {
             case VOLCANO -> label.setBackground(Color.ORANGE);
             case PLAINS -> label.setBackground(Color.YELLOW);
             case FOREST -> label.setBackground(Color.GREEN);
