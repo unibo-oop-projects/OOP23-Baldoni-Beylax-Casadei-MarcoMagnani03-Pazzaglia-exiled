@@ -61,8 +61,8 @@ public class GameModelImpl implements GameModel {
     private void playerInitialization(final double defaultExperience,
                                       final int levelIncrease,
                                       final int movesNumber){
-        final Position startingPlayerPosition = new Position(this.map.getWidth() / 2,this.map.getHeight() / 2);
-        this.player = new PlayerImpl(startingPlayerPosition,defaultExperience,levelIncrease,movesNumber);
+        final Position startingPlayerPosition = new Position(this.map.getWidth() / 2, this.map.getHeight() / 2);
+        this.player = new PlayerImpl(startingPlayerPosition, defaultExperience, levelIncrease, movesNumber);
     }
 
     @Override

@@ -7,6 +7,8 @@ import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.enemy.Enemy;
+import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
@@ -152,14 +154,13 @@ public class GameView{
                         default -> throw new IllegalStateException("Illegal pressed key.");
                     }
                     gameController.movePlayer(directionPressed);
+                    gameController.moveEnemies();
+                    playerView.changeImage(directionPressed);
+                    draw();
                     if(gameController.isOver()){
                         gameOverView.display();
                         mainFrame.dispose();
-                    }else{
-                        playerView.changeImage(directionPressed);
-                        draw();
                     }
-
                 }
             }
 

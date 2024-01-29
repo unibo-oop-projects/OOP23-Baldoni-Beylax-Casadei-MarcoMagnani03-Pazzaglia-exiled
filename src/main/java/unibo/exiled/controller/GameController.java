@@ -13,9 +13,11 @@ public interface GameController {
     PlayerController getPlayerController();
     MenuController getInGameMenuController();
     MapController getMapController();
+    List<EnemyController> getEnemyController();
 
     // Utility game controller methods
     void movePlayer(final Direction dir);
+    void moveEnemies();
     boolean isEnemyInCell(final Position pos);
     Character getCharacterInPosition(final Position pos);
     List<String> getImagePathOfCharacter(final Character character);
