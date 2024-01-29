@@ -5,6 +5,7 @@ import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.model.GameModel;
 import unibo.exiled.model.GameModelImpl;
 import unibo.exiled.model.character.Character;
+import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
@@ -60,7 +61,14 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public Character getCharacterInPosition(Position pos) { return this.model.getEnemies().get(pos); }
+    public Character getCharacterInPosition(Position pos) {
+        return this.model.getEnemies().get(pos);
+    }
+
+    @Override
+    public Enemy getEnemyInPosition(Position pos) {
+        return this.model.getEnemies().get(pos);
+    }
 
     @Override
     public InventoryController getInventoryController() { return this.ic; }

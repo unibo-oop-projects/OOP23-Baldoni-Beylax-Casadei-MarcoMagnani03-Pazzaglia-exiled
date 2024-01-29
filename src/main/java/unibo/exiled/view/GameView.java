@@ -33,6 +33,7 @@ public class GameView{
     private final JPanel gamePanel;
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
+    private final JPanel combatPanel;
     private JPanel gridPanel;
     private final GameController gameController;
 
@@ -50,6 +51,7 @@ public class GameView{
 
         this.menuPanel = new JPanel();
         this.inventoryPanel = new JPanel();
+        this.combatPanel = new JPanel();
         this.gamePanel = new JPanel(new BorderLayout());
         this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
         this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
@@ -68,11 +70,12 @@ public class GameView{
         GroupLayout mainLayout = new GroupLayout(contentPanel);
         contentPanel.setLayout(mainLayout);
 
-        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel).addComponent(inventoryPanel));
-        mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(menuPanel).addComponent(gamePanel).addComponent(inventoryPanel));
+        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel).addComponent(inventoryPanel).addComponent(combatPanel));
+        mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(menuPanel).addComponent(gamePanel).addComponent(inventoryPanel).addComponent(combatPanel));
 
         this.hideMenu();
         this.hideInventory();
+        this.hideCombat();
 
         this.initializeGridComponents();
         this.initializeHUD();
@@ -158,7 +161,11 @@ public class GameView{
                     }
                     else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
                         // Combat initialization
-                        draw();
+                        // combatPanel.add(new CombatView(gameController.getPlayerController().player(),
+                        // gameController.getEnemyInPosition(gameController.getPlayerController().getPlayerPosition()),
+                        // ));
+                        showCombat();
+                        // draw();
                     }
                     else{
                         playerView.changeImage(directionPressed);
@@ -233,9 +240,19 @@ public class GameView{
         this.menuPanel.setVisible(true);
     }
 
-    public void hideMenu(){
+    public void hideMenu() {
         this.gamePanel.setVisible(true);
         this.menuPanel.setVisible(false);
+    }
+
+    public void showCombat(){
+        this.gamePanel.setVisible(false);
+        this.combatPanel.setVisible(true);
+    }
+
+    public void hideCombat(){
+        this.gamePanel.setVisible(true);
+        this.combatPanel.setVisible(false);
     }
 
     public void display() {

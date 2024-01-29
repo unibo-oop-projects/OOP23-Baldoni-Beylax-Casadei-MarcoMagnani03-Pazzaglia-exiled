@@ -10,6 +10,7 @@ import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.ItemFactory;
 import unibo.exiled.model.item.ItemFactoryImpl;
 import unibo.exiled.model.move.MoveSet;
+import unibo.exiled.model.move.MoveSetFactoryImpl;
 import unibo.exiled.model.move.MoveSetImpl;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.ElementalType;
@@ -30,7 +31,7 @@ public class PlayerImpl extends CharacterImpl implements Player {
     private double exp;
 
     private Position position;
-    private final MoveSetImpl moveSet;
+    private final MoveSet moveSet;
     private final Map<AttributeIdentifier, Attribute> attributes;
     private final Inventory inventory;
     private ElementalType playerClass;
@@ -48,7 +49,8 @@ public class PlayerImpl extends CharacterImpl implements Player {
         this.inventory.addItem(powerUpItem); 
         this.inventory.addItem(powerUpItem1); 
         this.inventory.addItem(powerUpItemDefence); 
-        this.moveSet = new MoveSetImpl(maxMovesNumber);
+        // this.moveSet = new MoveSetImpl(maxMovesNumber);
+        this.moveSet = new MoveSetFactoryImpl().defaultBasicMoveSet();
         this.attributes = new AttributeFactoryImpl().createPlayerAttributes();
         this.exp = experience;
         this.levelInc = levelIncrease;
