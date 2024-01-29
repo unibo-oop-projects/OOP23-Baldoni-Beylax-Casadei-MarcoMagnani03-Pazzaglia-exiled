@@ -89,6 +89,11 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
+    public Enemy getEnemyInPosition(Position pos) {
+        return this.model.getEnemies().stream().filter(e -> e.getPosition().equals(pos)).findAny().get();
+    }
+
+    @Override
     public boolean isOver() {
         return this.pc.player().getHealth() <= 0;
     }
@@ -98,7 +103,7 @@ public class GameControllerImpl implements GameController {
         if(this.getPlayerController().getPlayerPosition().equals(pos)){
             return this.getPlayerController().getPlayer();
         } else if (this.isEnemyInCell(pos)){
-            return this.model.getEnemies().stream().filter(e -> e.getPosition().equals(pos)).findAny().get(); 
+            return this.getEnemyInPosition(pos); 
         }
         throw new NoSuchElementException();
     }
