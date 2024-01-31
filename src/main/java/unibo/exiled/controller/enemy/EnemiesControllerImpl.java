@@ -24,19 +24,46 @@ public class EnemiesControllerImpl implements EnemiesController {
     public void moveEnemies() {
         final Random rnd = new Random();
         Direction rndDirection;
-
+    
         for (Enemy enemy : enemies) {
             final Position currentEnemyPosition = enemy.getPosition();
-            if(!isEnemyNearThePlayer(enemy)){
-                do{
+            if (!isEnemyNearThePlayer(enemy)) {
+                do {
                     rndDirection = Direction.values()[rnd.nextInt(4)];
-                }while(!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
+                } while (!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
                 enemy.move(Positions.sum(currentEnemyPosition, rndDirection.getPosition()));
-            }else{
-                System.out.println("Sono vicino al player"); // TODO da modificare col fatto che il nemico insegua il player.
+            } else {
+                // If the enemy and the player are close by a certain range of cells, 
+                // then the enemy will try to chase the player.
+                final Position playerPosition = model.getPlayer().getPosition();
+    
+                int distance = calculateDistance(currentEnemyPosition, playerPosition);
+
+                if(distance != 0){
+                    Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
+                    enemy.move(Positions.sum(currentEnemyPosition, chaseDirection.getPosition()));
+                }
             }
         }
     }
+
+    private int calculateDistance(Position pos1, Position pos2) {
+        int deltaX = pos1.x() - pos2.x();
+        int deltaY = pos1.y() - pos2.y();
+        return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
+
+    private Direction calculateChaseDirection(Position currentEnemyPosition, Position playerPosition) {
+        int deltaX = playerPosition.x() - currentEnemyPosition.x();
+        int deltaY = playerPosition.y() - currentEnemyPosition.y();
+    
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            return (deltaX > 0) ? Direction.EAST : Direction.WEST;
+        } else {
+            return (deltaY > 0) ? Direction.SOUTH : Direction.NORTH;
+        }
+    }
+    
 
     @Override
     public EnemyCollection getEnemies() {
