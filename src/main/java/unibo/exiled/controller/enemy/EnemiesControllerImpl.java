@@ -33,18 +33,33 @@ public class EnemiesControllerImpl implements EnemiesController {
                 } while (!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
                 enemy.move(Positions.sum(currentEnemyPosition, rndDirection.getPosition()));
             } else {
-                // If the enemy and the player are close by a certain range of cells, 
-                // then the enemy will try to chase the player.
+                /* If the enemy and the player are close by a certain range of cells, 
+                then the enemy will try to chase the player. */
                 final Position playerPosition = model.getPlayer().getPosition();
     
                 int distance = calculateDistance(currentEnemyPosition, playerPosition);
 
+                // This check is used to ensure that the player and the enemy meet when their distance is equal to 0.
                 if(distance != 0){
                     Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
                     enemy.move(Positions.sum(currentEnemyPosition, chaseDirection.getPosition()));
                 }
             }
         }
+    }
+
+    private boolean isEnemyNearThePlayer(Enemy enemy) {
+        final Position playerPosition = model.getPlayer().getPosition();
+        final Position enemyPosition = enemy.getPosition();
+
+        int verticalDistance = Math.abs(playerPosition.y() - enemyPosition.y());
+        int horizontalDistance = Math.abs(playerPosition.x() - enemyPosition.x());
+
+        if (verticalDistance <= RANGE_PLAYER_ENEMY && horizontalDistance <= RANGE_PLAYER_ENEMY) {
+            return true; 
+        }
+        
+        return false;
     }
 
     private int calculateDistance(Position pos1, Position pos2) {
@@ -70,20 +85,4 @@ public class EnemiesControllerImpl implements EnemiesController {
         return this.enemies;
     }
 
-    
-    private boolean isEnemyNearThePlayer(Enemy enemy) {
-        final Position playerPosition = model.getPlayer().getPosition();
-        final Position enemyPosition = enemy.getPosition();
-
-        int verticalDistance = Math.abs(playerPosition.y() - enemyPosition.y());
-        int horizontalDistance = Math.abs(playerPosition.x() - enemyPosition.x());
-
-        if (verticalDistance <= RANGE_PLAYER_ENEMY && horizontalDistance <= RANGE_PLAYER_ENEMY) {
-            return true; 
-        }
-        
-        return false;
-    }
-
-    
 }
