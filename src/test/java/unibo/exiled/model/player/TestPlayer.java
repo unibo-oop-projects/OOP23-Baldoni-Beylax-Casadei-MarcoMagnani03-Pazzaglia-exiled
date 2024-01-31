@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.Position;
+import unibo.exiled.model.utilities.Positions;
 
 import java.util.NoSuchElementException;
 
@@ -38,4 +41,26 @@ public class TestPlayer {
         });
         assertEquals(player.getExperience(), defaultExperience);
     }
+
+    @Test
+    void testMove() {
+        Position currentPosition = player.getPosition();
+    
+        player.move(Positions.sum(currentPosition, Direction.NORTH.getPosition()));
+        Position expectedPosition = new Position(currentPosition.x(), currentPosition.y() - 1);
+        assertEquals(player.getPosition(), expectedPosition);
+    
+        player.move(Positions.sum(currentPosition, Direction.SOUTH.getPosition()));
+        expectedPosition = new Position(currentPosition.x(), currentPosition.y() + 1);
+        assertEquals(player.getPosition(), expectedPosition);
+    
+        player.move(Positions.sum(currentPosition, Direction.EAST.getPosition()));
+        expectedPosition = new Position(currentPosition.x() + 1, currentPosition.y());
+        assertEquals(player.getPosition(), expectedPosition);
+    
+        player.move(Positions.sum(currentPosition, Direction.WEST.getPosition()));
+        expectedPosition = new Position(currentPosition.x() - 1, currentPosition.y());
+        assertEquals(player.getPosition(), expectedPosition);
+    }
+    
 }

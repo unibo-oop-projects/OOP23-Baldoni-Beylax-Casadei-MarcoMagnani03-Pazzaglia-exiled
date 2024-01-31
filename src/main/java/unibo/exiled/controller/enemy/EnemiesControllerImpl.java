@@ -13,18 +13,17 @@ public class EnemiesControllerImpl implements EnemiesController {
     private static final int RANGE_PLAYER_ENEMY = 2;
 
     private final GameModel model; 
-    private final EnemyCollection enemies;
 
     public EnemiesControllerImpl(final GameModel model){
         this.model = model;
-        this.enemies = model.getEnemies();
     }
 
     @Override
     public void moveEnemies() {
+        final EnemyCollection enemies = model.getEnemies();
         final Random rnd = new Random();
         Direction rndDirection;
-    
+        
         for (Enemy enemy : enemies) {
             final Position currentEnemyPosition = enemy.getPosition();
             if (!isEnemyNearThePlayer(enemy)) {
@@ -48,30 +47,44 @@ public class EnemiesControllerImpl implements EnemiesController {
         }
     }
 
-    private boolean isEnemyNearThePlayer(Enemy enemy) {
+    /**
+     * Checks if the specified enemy is near the player.
+     * @param enemy the enemy to check.
+     * @return if the enemy is near the player.
+     */
+    private boolean isEnemyNearThePlayer(final Enemy enemy) {
         final Position playerPosition = model.getPlayer().getPosition();
         final Position enemyPosition = enemy.getPosition();
-
-        int verticalDistance = Math.abs(playerPosition.y() - enemyPosition.y());
-        int horizontalDistance = Math.abs(playerPosition.x() - enemyPosition.x());
-
+        final int verticalDistance = Math.abs(playerPosition.y() - enemyPosition.y());
+        final int horizontalDistance = Math.abs(playerPosition.x() - enemyPosition.x());
         if (verticalDistance <= RANGE_PLAYER_ENEMY && horizontalDistance <= RANGE_PLAYER_ENEMY) {
             return true; 
         }
-        
         return false;
     }
 
+    /**
+     * Calculates the distance between two positions.
+     * @param pos1 the first position.
+     * @param pos2 the second position.
+     * @return the distance between the two positions.
+     */
     private int calculateDistance(Position pos1, Position pos2) {
-        int deltaX = pos1.x() - pos2.x();
-        int deltaY = pos1.y() - pos2.y();
+        final int deltaX = pos1.x() - pos2.x();
+        final int deltaY = pos1.y() - pos2.y();
         return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
-    private Direction calculateChaseDirection(Position currentEnemyPosition, Position playerPosition) {
-        int deltaX = playerPosition.x() - currentEnemyPosition.x();
-        int deltaY = playerPosition.y() - currentEnemyPosition.y();
-    
+    /**
+     * Calculates the direction in which an enemy should move to chase the player.
+     * @param currentEnemyPosition the current position of the enemy.
+     * @param playerPosition the position of the player.
+     * @return the direction in which the enemy should move to chase the player.
+     */
+    private Direction calculateChaseDirection(final Position currentEnemyPosition, final Position playerPosition) {
+        final int deltaX = playerPosition.x() - currentEnemyPosition.x();
+        final int deltaY = playerPosition.y() - currentEnemyPosition.y();
+        
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             return (deltaX > 0) ? Direction.EAST : Direction.WEST;
         } else {
@@ -79,10 +92,9 @@ public class EnemiesControllerImpl implements EnemiesController {
         }
     }
     
-
     @Override
     public EnemyCollection getEnemies() {
-        return this.enemies;
+        return this.model.getEnemies();
     }
 
 }

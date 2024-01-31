@@ -6,6 +6,7 @@ import javax.swing.border.LineBorder;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
+import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.Menu.MenuView;
@@ -200,30 +201,42 @@ public class GameView{
      * Colors the map areas based on the respective type.
      * @param position is the position of the label.
      */
-    private void setArea(final Position position) {
-        final JLabel label;
-        if (position.equals(this.gameController.getPlayerController().getPlayerPosition())){
-            label = this.playerView;
-        }
-        else if(this.gameController.isEnemyInCell(position)){
-            label = new CharacterView(this.gameController.getImagePathOfCharacter(this.gameController.getCharacterInPosition(position)));
-        }
-        else{
+    private void setArea(Position position) {
+        JLabel label;
+
+        if (position.equals(gameController.getPlayerController().getPlayerPosition())) {
+            label = playerView;
+        } else if (gameController.isEnemyInCell(position)) {
+            List<String> characterImagePath = gameController.getImagePathOfCharacter(gameController.getCharacterInPosition(position));
+            label = new CharacterView(characterImagePath);
+        } else {
             label = new JLabel();
         }
-        label.setOpaque(true);
-        switch (this.gameController.getMap().getCellType(position)) {
-            case VOLCANO -> label.setBackground(Color.ORANGE);
-            case PLAINS -> label.setBackground(Color.YELLOW);
-            case FOREST -> label.setBackground(Color.GREEN);
-            case STORM -> label.setBackground(Color.DARK_GRAY);
-            case SWAMP -> label.setBackground(Color.BLUE);
 
-            default -> label.setBackground(Color.WHITE);
-        }
-        label.setBorder(new LineBorder(Color.BLACK));
-        this.gridPanel.add(label);
+        setLabelMapProperties(label, position);
+        gridPanel.add(label);
     }
+
+    private void setLabelMapProperties(JLabel label, Position position) {
+        label.setOpaque(true);
+        CellType cellType = gameController.getMap().getCellType(position);
+        Color backgroundColor = getBackgroundColor(cellType);
+        label.setBackground(backgroundColor);
+        label.setBorder(new LineBorder(Color.BLACK));
+    }
+
+    private Color getBackgroundColor(CellType cellType) {
+        switch (cellType) {
+            case VOLCANO -> { return Color.ORANGE; }
+            case PLAINS -> { return Color.YELLOW; }
+            case FOREST -> { return Color.GREEN; }
+            case STORM -> { return Color.DARK_GRAY; }
+            case SWAMP -> { return Color.BLUE; }
+            default -> { return Color.WHITE; }
+        }
+    }
+
+    // Show and hide button views.
 
     private void showInventory(){
         this.gamePanel.setVisible(false);
@@ -254,6 +267,9 @@ public class GameView{
         this.gamePanel.setVisible(true);
         this.combatPanel.setVisible(false);
     }
+
+
+    // Main display of the GameView.
 
     public void display() {
         this.mainFrame.setVisible(true);
