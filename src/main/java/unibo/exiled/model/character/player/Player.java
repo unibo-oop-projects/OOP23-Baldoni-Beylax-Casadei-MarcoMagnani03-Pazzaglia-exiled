@@ -38,4 +38,9 @@ public interface Player extends Character{
      * @return the player class.
      */
     ElementalType getPlayerClass();
+
+    /**
+     * checks if the character has enough experience to increase his level and if so he does so by increasing all his statistics
+     */
+    void levelUp();
 }
