@@ -8,30 +8,34 @@ import unibo.exiled.model.utilities.ElementalType;
  * The interface of the Player.
  */
 public interface Player extends Character{
-    /**
-     * @return the player level.
-     */
-    int getLevel();
 
     /**
-     * @return the player experience.
+     * Gets the level of the player.
+     * @return the level of the player.
      */
-    double getExperience();
+    public int getLevel();
 
     /**
-     * @return the inventory of the player.
+     * Gets the experience of the player.
+     * @return the experience points of the player.
      */
-    Inventory getInventory();
+    public double getExperience();
 
     /**
-     * Set the elemental type chosen from the player.
-     * @param playerClass the class choosen from the player
+     * Gets the inventory of the player.
+     * @return the inventory containing the player's items.
+     */
+    public Inventory getInventory();
+
+    /**
+     * Sets the elemental type chosen from the player.
+     * @param playerClass the class choosen.
      */
     void setPlayerClass(ElementalType playerClass);
 
     /**
-     * Get the elemental type chosen from the player.
-     * @return the elemental type of the player
+     * Gets the player class.
+     * @return the player class.
      */
     ElementalType getPlayerClass();
 }

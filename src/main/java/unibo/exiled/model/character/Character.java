@@ -13,7 +13,7 @@ import java.util.Map;
 public interface Character {
     /**
      * Gets the MoveSet of the character to be used in a battle.
-     * @return The MoveSet of the current character.
+     * @return the MoveSet of the current character.
      */
     MoveSet getMoveSet();
 
@@ -25,16 +25,21 @@ public interface Character {
 
     /**
      * Returns the position of the current character.
-     * @return The position of the current character.
+     * @return the position of the current character.
      */
     Position getPosition();
 
     /**
      * Returns the attributes of the current character.
-     * @return The attributes of the current character.
+     * @return the attributes of the current character.
      */
     Map<AttributeIdentifier, Attribute> getAttributes();
 
+    /**
+     * Gets the file path of the character's image based on its current direction.
+     * The possible directions are: UP, DOWN, LEFT, RIGHT.
+     * @return the file path of the character's image.
+     */
     String getImagePath();
     String getImageUpPath();
     String getImageDownPath();

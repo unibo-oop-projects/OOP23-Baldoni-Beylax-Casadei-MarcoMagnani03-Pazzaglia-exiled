@@ -13,7 +13,6 @@ import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
-import unibo.exiled.model.utilities.Positions;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class GameControllerImpl implements GameController {
         this.inventoryController = new InventoryController(model.getPlayer());
         this.inGameMenuController = new InGameMenuController();
         this.playerController = new PlayerControllerImpl(model.getPlayer());
-        this.enemiesController = new EnemiesControllerImpl(model.getEnemies());
+        this.enemiesController = new EnemiesControllerImpl(model);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public void moveEnemies() {
-        this.getEnemiesController().moveEnemies(this.getMap(), this.getPlayerController().getPlayer());
+        this.getEnemiesController().moveEnemies();
     }
 
 }
