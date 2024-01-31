@@ -20,13 +20,14 @@ public class GameModelImpl implements GameModel {
         //Constants loading
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         final int moveNumber = Integer.parseInt(Constants.getConstantOf("NUM_MOVES"));
+        final double playerExperienceCap = Double.parseDouble(Constants.getConstantOf("PLAYER_EXPERIENCE_CAP"));
         final double defaultExperience = Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE"));
         final int playerLevelIncrease = Integer.parseInt(Constants.getConstantOf("PLAYER_LEVEL_INCREASE"));
         final int enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));
         final int mapSize = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
 
         this.mapInitialization(mapSize);
-        this.playerInitialization(defaultExperience, playerLevelIncrease);
+        this.playerInitialization( playerExperienceCap,defaultExperience, playerLevelIncrease);
         this.enemyCollection = new EnemyCollectionImpl();
         this.enemyInitialization(enemyNumber);
     }
@@ -53,8 +54,8 @@ public class GameModelImpl implements GameModel {
         this.map = new GameMapImpl(size);
     }
 
-    private void playerInitialization(final double defaultExperience, final int levelIncrease){
-        this.player = new PlayerImpl(defaultExperience, levelIncrease);
+    private void playerInitialization(final double  playerExperienceCap,final double defaultExperience, final int levelIncrease){
+        this.player = new PlayerImpl( playerExperienceCap,defaultExperience, levelIncrease);
         this.player.move(new Position(map.getWidth() / 2, map.getHeight() / 2));
     }
 

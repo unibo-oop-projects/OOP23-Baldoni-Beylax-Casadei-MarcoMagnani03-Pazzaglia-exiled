@@ -26,13 +26,14 @@ public class PlayerImpl extends CharacterImpl implements Player {
 
     private final int levelInc;
     private int level;
-    private double exp;
+    private double currentExp;
+    private double expCap;
     private final Inventory inventory;
     private final MoveSet moveSet;
 
     private ElementalType playerClass;
 
-    public PlayerImpl(final double experience, final int levelIncrease) {
+    public PlayerImpl(final double experienceCap, final double initialExperience, final int levelIncrease) {
         super(new AttributeFactoryImpl().createPlayerAttributes(),List.of("player", "boy_up", "boy_down", "boy_left", "boy_right"));
 
         this.inventory = new InventoryImpl();
@@ -46,7 +47,8 @@ public class PlayerImpl extends CharacterImpl implements Player {
         this.inventory.addItem(powerUpItem1);
         this.inventory.addItem(powerUpItemDefence);
         this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet();
-        this.exp = experience;
+        this.expCap = experienceCap;
+        this.currentExp=initialExperience;
         this.levelInc = levelIncrease;
     }
 
@@ -62,7 +64,7 @@ public class PlayerImpl extends CharacterImpl implements Player {
 
     @Override
     public double getExperience() {
-        return this.exp;
+        return this.currentExp;
     }
 
     @Override
@@ -70,13 +72,26 @@ public class PlayerImpl extends CharacterImpl implements Player {
         return this.inventory;
     }
 
+    @Override
     public void levelUp(){
-        this.increaseAttributeModifierBy(AttributeIdentifier.ATTACK,levelInc / 10);
-        this.increaseAttributeValue(AttributeIdentifier.HEALTH,levelInc);
-        this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP,levelInc);
-        this.increaseAttributeValue(AttributeIdentifier.DEFENSE,levelInc);
+        if(checkPossibleLevelUp()){
+            this.increaseAttributeModifierBy(AttributeIdentifier.ATTACK,levelInc / 10);
+            this.increaseAttributeValue(AttributeIdentifier.HEALTH,levelInc);
+            this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP,levelInc);
+            this.increaseAttributeValue(AttributeIdentifier.DEFENSE,levelInc);
+        }
     }
 
+    private boolean checkPossibleLevelUp(){
+        if(currentExp >= expCap){
+            this.expCap = this.expCap + this.expCap / 20 * 100;
+            this.currentExp -= this.expCap-currentExp;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     @Override
     public void setPlayerClass(ElementalType playerClass) {
