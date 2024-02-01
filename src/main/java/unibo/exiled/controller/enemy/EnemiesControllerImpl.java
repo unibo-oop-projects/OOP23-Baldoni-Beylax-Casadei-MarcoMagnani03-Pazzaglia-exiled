@@ -26,11 +26,12 @@ public class EnemiesControllerImpl implements EnemiesController {
         
         for (Enemy enemy : enemies) {
             final Position currentEnemyPosition = enemy.getPosition();
+            Position newPosition = currentEnemyPosition;
             if (!isEnemyNearThePlayer(enemy)) {
                 do {
                     rndDirection = Direction.values()[rnd.nextInt(4)];
                 } while (!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
-                enemy.move(Positions.sum(currentEnemyPosition, rndDirection.getPosition()));
+                newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
             } else {
                 /* If the enemy and the player are close by a certain range of cells, 
                 then the enemy will try to chase the player. */
@@ -41,9 +42,10 @@ public class EnemiesControllerImpl implements EnemiesController {
                 // This check is used to ensure that the player and the enemy meet when their distance is equal to 0.
                 if(distance != 0){
                     Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
-                    enemy.move(Positions.sum(currentEnemyPosition, chaseDirection.getPosition()));
+                    newPosition = Positions.sum(currentEnemyPosition, chaseDirection.getPosition());  
                 }
             }
+            enemy.move(newPosition);
         }
     }
 

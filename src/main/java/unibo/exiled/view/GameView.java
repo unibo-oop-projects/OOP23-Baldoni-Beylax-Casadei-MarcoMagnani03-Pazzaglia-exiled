@@ -20,7 +20,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
-
 public class GameView{
     // Views
     private final CharacterView playerView;
@@ -64,6 +63,7 @@ public class GameView{
             "boy_right",
             "boy_left"
         ));
+
         this.combatView = new CombatView(this.gameController.getPlayerController().getPlayer(), this);
 
         this.combatPanel.add(combatView, BorderLayout.CENTER);
@@ -160,6 +160,7 @@ public class GameView{
                     }
                     gameController.movePlayer(directionPressed);
                     gameController.moveEnemies();
+                
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
@@ -195,7 +196,6 @@ public class GameView{
         this.mainFrame.revalidate();
         this.mainFrame.repaint();
     }
-
 
     /**
      * Colors the map areas based on the respective type.

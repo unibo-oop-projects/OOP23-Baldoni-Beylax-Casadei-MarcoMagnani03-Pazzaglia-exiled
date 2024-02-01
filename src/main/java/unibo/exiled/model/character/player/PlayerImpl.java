@@ -30,26 +30,30 @@ public class PlayerImpl extends CharacterImpl implements Player {
     private double expCap;
     private final Inventory inventory;
     private final MoveSet moveSet;
-
     private ElementalType playerClass;
 
     public PlayerImpl(final double experienceCap, final double initialExperience, final int levelIncrease) {
-        super(new AttributeFactoryImpl().createPlayerAttributes(),List.of("player", "boy_up", "boy_down", "boy_left", "boy_right"));
-
-        this.inventory = new InventoryImpl();
-        ItemFactory itemFactory = new ItemFactoryImpl();
-        Item healingItem = itemFactory.createHealingItem("Health Potion", "Restores health", 50);
-        this.inventory.addItem(healingItem);
-        Item powerUpItem = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.ATTACK);
-        Item powerUpItem1 = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.ATTACK);
-        Item powerUpItemDefence = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.DEFENSE);
-        this.inventory.addItem(powerUpItem);
-        this.inventory.addItem(powerUpItem1);
-        this.inventory.addItem(powerUpItemDefence);
+        super(new AttributeFactoryImpl().createPlayerAttributes(), List.of("player", "boy_up", "boy_down", "boy_left", "boy_right"));
+        this.inventory = initializeInventory();
         this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet();
         this.expCap = experienceCap;
-        this.currentExp=initialExperience;
+        this.currentExp = initialExperience;
         this.levelInc = levelIncrease;
+    }
+
+    // This method is used for testing purposes only.
+    private Inventory initializeInventory() {
+        Inventory inventory = new InventoryImpl();
+        ItemFactory itemFactory = new ItemFactoryImpl();
+        Item healingItem = itemFactory.createHealingItem("Health Potion", "Restores health", 50);
+        inventory.addItem(healingItem);
+        Item powerUpItem = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.ATTACK);
+        inventory.addItem(powerUpItem);
+        Item powerUpItem1 = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.ATTACK);
+        inventory.addItem(powerUpItem1);
+        Item powerUpItemDefence = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.DEFENSE);
+        inventory.addItem(powerUpItemDefence);
+        return inventory;
     }
 
     @Override
@@ -73,30 +77,33 @@ public class PlayerImpl extends CharacterImpl implements Player {
     }
 
     @Override
-    public void levelUp(){
-        if(checkPossibleLevelUp()){
-            this.increaseAttributeModifierBy(AttributeIdentifier.ATTACK,levelInc / 10);
-            this.increaseAttributeValue(AttributeIdentifier.HEALTH,levelInc);
-            this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP,levelInc);
-            this.increaseAttributeValue(AttributeIdentifier.DEFENSE,levelInc);
+    public void levelUp() {
+        if (checkPossibleLevelUp()) {
+            performLevelUp();
         }
     }
 
-    private boolean checkPossibleLevelUp(){
-        if(currentExp >= expCap){
+    private boolean checkPossibleLevelUp() {
+        if (currentExp >= expCap) {
             this.expCap = this.expCap + this.expCap / 20 * 100;
-            this.currentExp -= this.expCap-currentExp;
+            this.currentExp -= this.expCap - currentExp;
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
+    private void performLevelUp() {
+        this.increaseAttributeModifierBy(AttributeIdentifier.ATTACK, levelInc / 10);
+        this.increaseAttributeValue(AttributeIdentifier.HEALTH, levelInc);
+        this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, levelInc);
+        this.increaseAttributeValue(AttributeIdentifier.DEFENSE, levelInc);
+    }
+
     @Override
     public void setPlayerClass(ElementalType playerClass) {
-        if(!Objects.isNull(playerClass)){
-            this.playerClass=playerClass;
+        if (!Objects.isNull(playerClass)) {
+            this.playerClass = playerClass;
         }
     }
 
@@ -105,3 +112,4 @@ public class PlayerImpl extends CharacterImpl implements Player {
         return this.playerClass;
     }
 }
+
