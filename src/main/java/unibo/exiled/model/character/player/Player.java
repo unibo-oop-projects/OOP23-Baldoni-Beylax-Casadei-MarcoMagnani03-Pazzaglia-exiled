@@ -40,7 +40,8 @@ public interface Player extends Character{
     ElementalType getPlayerClass();
 
     /**
-     * checks if the character has enough experience to increase his level and if so he does so by increasing all his statistics
+     * Adds experience, if it exceeds the levelUp cap by increasing statistics
+     * @param exp experience provided to the user
      */
-    void levelUp();
+    void addExperience(double exp);
 }

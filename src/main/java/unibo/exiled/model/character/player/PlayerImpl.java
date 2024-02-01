@@ -80,9 +80,14 @@ public class PlayerImpl extends CharacterImpl implements Player {
     public Inventory getInventory() {
         return this.inventory;
     }
-
+    
     @Override
-    public void levelUp() {
+    public void addExperience(double exp) {
+        currentExp += exp;
+        levelUp();
+    }
+
+    private void levelUp() {
         if (currentExp >= expCap) {
             performLevelUp();
         }
@@ -113,5 +118,6 @@ public class PlayerImpl extends CharacterImpl implements Player {
     public ElementalType getPlayerClass() {
         return this.playerClass;
     }
+
 }
 
