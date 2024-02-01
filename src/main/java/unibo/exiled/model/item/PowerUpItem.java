@@ -25,7 +25,7 @@ public class PowerUpItem extends ItemBase implements ItemWithDuration{
 
     @Override
     public void use(Player player) {
-        player.getAttributes().get(boostedAttribute).setValue(player.getAttributes().get(boostedAttribute).getValue().get()+powerUpValue);
+        player.getAttributes().get(boostedAttribute).setModifier(player.getAttributes().get(boostedAttribute).getModifier().get()+powerUpValue);
     }
 
     @Override
