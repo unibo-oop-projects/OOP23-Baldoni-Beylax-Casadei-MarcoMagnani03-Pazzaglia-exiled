@@ -13,10 +13,10 @@ public class CharacterView extends JLabel {
     private String imgAnimationName;
     private int animationNumber = 1;
 
-    private final String northSprite;
-    private final String southSprite;
-    private final String eastSprite;
-    private final String westSprite;
+    private final String upSprite;
+    private final String downSprite;
+    private final String rightSprite;
+    private final String leftSprite;
 
     private final static String FIRST_IMAGE = "_1.png";
     private final static String SECOND_IMAGE = "_2.png";
@@ -36,21 +36,21 @@ public class CharacterView extends JLabel {
 
         this.image = new ImageIcon(DEFAULT_IMAGE_PATH + sprites.get(2) + FIRST_IMAGE).getImage();
 
-        this.northSprite = sprites.get(1);
-        this.southSprite = sprites.get(2);
-        this.eastSprite = sprites.get(3);
-        this.westSprite = sprites.get(4);
+        this.upSprite = sprites.get(1);
+        this.downSprite = sprites.get(2);
+        this.leftSprite = sprites.get(3);
+        this.rightSprite = sprites.get(4);
     }
 
     public void changeImage(final Direction dir){
         switch (dir) {
-            case NORTH -> checkAnimation(this.northSprite);
+            case NORTH -> checkAnimation(this.upSprite);
 
-            case SOUTH -> checkAnimation(this.southSprite);
+            case SOUTH -> checkAnimation(this.downSprite);
 
-            case WEST -> checkAnimation(this.westSprite);
+            case WEST -> checkAnimation(this.leftSprite);
 
-            case EAST -> checkAnimation(this.eastSprite);
+            case EAST -> checkAnimation(this.rightSprite);
 
             default -> {}
         }
