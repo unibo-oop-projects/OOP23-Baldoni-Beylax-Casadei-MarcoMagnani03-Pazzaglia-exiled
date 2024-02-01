@@ -1,24 +1,26 @@
 package unibo.exiled.model.item;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
+
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.utilities.ItemType;
 
 public class ItemContainerImpl implements ItemContainer{
 
-    List<Item> items;
-
-    public ItemContainerImpl(){
-        items = new LinkedList<>();
-    }
-
-    @Override
-    public void addItem(Item item) {
-        items.add(item);
-    }
+    private static final ItemFactory itemFactory = new ItemFactoryImpl();
+    
+    private static final Set<Item> items = Set.of(
+        itemFactory.createHealingItem(ItemNames.HEALTH_POTION.getName(), "Restores health points.", 20.0),
+        itemFactory.createHealingItem(ItemNames.HERB.getName(), "A natural remedy for minor injuries.", 15.0),
+        itemFactory.createHealingItem(ItemNames.BANDAGE.getName(), "A simple bandage to stop bleeding.", 10.0),
+        itemFactory.createPowerUpItem(ItemNames.STRENGTH_BOOST.getName(), "Increases strength for a short duration.", 10.0, 3, AttributeIdentifier.ATTACK),
+        itemFactory.createPowerUpItem(ItemNames.DEFENSE_SHIELD.getName(), "Boosts defense against attacks.", 15.0, 3, AttributeIdentifier.DEFENSE),
+        itemFactory.createUnUsableItem(ItemNames.CRYSTAL.getName(),"The redemption crystal")
+    );
 
     @Override
     public Optional<Item> getItemByName(String name) {
@@ -28,8 +30,8 @@ public class ItemContainerImpl implements ItemContainer{
     }
 
     @Override
-    public List<Item> getAllItems() {
-        return Collections.unmodifiableList(items);
+    public Set<Item> getAllItems() {
+        return Collections.unmodifiableSet(items);
     }
 
     @Override
