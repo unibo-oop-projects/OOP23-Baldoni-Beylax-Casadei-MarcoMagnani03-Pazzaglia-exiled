@@ -1,7 +1,6 @@
 package unibo.exiled.model;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.controller.GameController;
 import unibo.exiled.model.character.enemy.*;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;

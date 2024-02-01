@@ -12,26 +12,26 @@ public interface MagicMove {
      *
      * @return The name of the magic move.
      */
-    String getName();
+    String name();
 
     /**
      * Gets the description of the magic move.
      *
      * @return The description of the magic move.
      */
-    String getDescription();
+    String description();
 
     /**
      * Gets the power of the magic move.
      *
      * @return The power of the magic move.
      */
-    double getPower();
+    double power();
 
     /**
      * Gets the elemental type of the magic move.
      *
      * @return The elemental type of the magic move.
      */
-    ElementalType getType();
+    ElementalType type();
 }

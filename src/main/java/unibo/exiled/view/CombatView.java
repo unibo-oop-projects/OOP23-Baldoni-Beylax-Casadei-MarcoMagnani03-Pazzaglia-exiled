@@ -1,7 +1,6 @@
 package unibo.exiled.view;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -31,7 +30,7 @@ public class CombatView extends JPanel {
 
 
         for (MagicMove move : this.player.getMoveSet().getMagicMoves()) {
-            JButton moveButton = new GameButton(move.getName());
+            JButton moveButton = new GameButton(move.name());
 
             this.moveSetPanel.add(moveButton);
 
