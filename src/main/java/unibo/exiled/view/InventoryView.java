@@ -10,6 +10,8 @@ import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -26,6 +28,7 @@ public class InventoryView extends JPanel {
     
     private static final Color HEALING_ITEM_COLOR = new Color(141, 254, 141);
     private static final Color POWER_UP_ITEM_COLOR = new Color(254, 141, 141);
+    private static final Border LIST_ITEM_BORDER = new LineBorder(Color.BLACK, 1);;
     private final int listItemWidth;
     private final static int LIST_ITEM_HEIGHT = 30;
     private final static int LEFT_RIGHT_MARGIN = 100;
@@ -102,6 +105,7 @@ public class InventoryView extends JPanel {
                 else{
                     setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: " + item.getDescription());
                 }
+                setBorder(LIST_ITEM_BORDER);
             }
             setHorizontalAlignment(SwingConstants.CENTER);
 

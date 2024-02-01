@@ -8,13 +8,17 @@ import unibo.exiled.model.character.attributes.AttributeImpl;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.Item;
+import unibo.exiled.model.item.ItemContainer;
+import unibo.exiled.model.item.ItemContainer;
 import unibo.exiled.model.item.ItemFactory;
 import unibo.exiled.model.item.ItemFactoryImpl;
+import unibo.exiled.model.item.ItemNames;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
 import unibo.exiled.model.move.MoveSetImpl;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.model.utilities.ItemType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.*;
@@ -44,14 +48,15 @@ public class PlayerImpl extends CharacterImpl implements Player {
     // This method is used for testing purposes only.
     private Inventory initializeInventory() {
         Inventory inventory = new InventoryImpl();
-        ItemFactory itemFactory = new ItemFactoryImpl();
-        Item healingItem = itemFactory.createHealingItem("Health Potion", "Restores health", 50);
+        Item healingItem = ItemContainer.getItemByName(ItemNames.HEALTH_POTION.getName()).get();
         inventory.addItem(healingItem);
-        Item powerUpItem = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.ATTACK);
+        Item healingItem1 = ItemContainer.getItemByName(ItemNames.HEALTH_POTION.getName()).get();
+        inventory.addItem(healingItem1);
+        Item powerUpItem = ItemContainer.getRandomItemByType(ItemType.HEALTH).get();
         inventory.addItem(powerUpItem);
-        Item powerUpItem1 = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.ATTACK);
+        Item powerUpItem1 = ItemContainer.getRandomItemByType(ItemType.POWERUP).get();
         inventory.addItem(powerUpItem1);
-        Item powerUpItemDefence = itemFactory.createPowerUpItem("Strength Elixir", "Boosts attack", 10, 5, AttributeIdentifier.DEFENSE);
+        Item powerUpItemDefence = ItemContainer.getRandomItemByType(ItemType.RESOURCE).get();
         inventory.addItem(powerUpItemDefence);
         return inventory;
     }

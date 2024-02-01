@@ -17,9 +17,9 @@ public class Moves {
         moveFactory.createWaterMagicMove(MoveNames.WATERPISTOL.getName(), "Spits water from the mouth, pretty disgusting but nothing more.", 5)
     );
 
-    public static MagicMove getMoveByName(final String name) {
+    public static Optional<MagicMove> getMoveByName(final String name) {
         final String lowerName = name.toLowerCase();
-        return magicMoves.stream().filter(move -> move.name().toLowerCase().equals(lowerName)).findFirst().orElse(null);
+        return magicMoves.stream().filter(move -> move.name().toLowerCase().equals(lowerName)).findFirst();
     }
 
     public static Set<MagicMove> getAllMagicMoves() {
@@ -27,14 +27,14 @@ public class Moves {
     }
 
     public static Optional<MagicMove> getRandomMagicMoveByType(ElementalType type) {
-        Random random = new Random();
         List<MagicMove> movesOfType = magicMoves.stream()
-                .filter(magicMove -> magicMove.type() == type)
-                .toList();
+        .filter(magicMove -> magicMove.type() == type)
+        .toList();
         
         if (movesOfType.isEmpty()) {
             return Optional.empty();
         }
+        Random random = new Random();
 
         return Optional.of(movesOfType.get(random.nextInt(movesOfType.size())));
     }
