@@ -24,7 +24,6 @@ public class MenuView extends JPanel {
         cnst.gridy = 0;
         cnst.insets = new Insets(3, 3, 3, 3);
         cnst.fill = GridBagConstraints.HORIZONTAL;
-        
         JLabel logoLabel = new JLabel(new ImageIcon("src" + File.separator +
             "main" + File.separator +
             "java" + File.separator +

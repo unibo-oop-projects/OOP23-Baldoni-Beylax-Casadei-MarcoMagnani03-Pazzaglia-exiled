@@ -1,7 +1,6 @@
 package unibo.exiled.view;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -25,7 +24,6 @@ public class NewGameView {
         this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
-
         this.mainFrame.setLayout(new BorderLayout());
 
         this.mainFrame.add(new MenuView(this.menuController, null, this), BorderLayout.CENTER);

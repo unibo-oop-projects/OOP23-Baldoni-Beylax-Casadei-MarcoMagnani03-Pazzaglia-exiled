@@ -36,10 +36,10 @@ public class CharacterView extends JLabel {
 
         this.image = new ImageIcon(DEFAULT_IMAGE_PATH + sprites.get(2) + FIRST_IMAGE).getImage();
 
+        this.northSprite = sprites.get(1);
         this.southSprite = sprites.get(2);
         this.eastSprite = sprites.get(3);
         this.westSprite = sprites.get(4);
-        this.northSprite = sprites.get(1);
     }
 
     public void changeImage(final Direction dir){
