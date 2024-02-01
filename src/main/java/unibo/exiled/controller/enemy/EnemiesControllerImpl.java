@@ -30,7 +30,7 @@ public class EnemiesControllerImpl implements EnemiesController {
             if (!isEnemyNearThePlayer(enemy)) {
                 do {
                     rndDirection = Direction.values()[rnd.nextInt(4)];
-                } while (!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
+                } while (!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition())) && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
                 newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
             } else {
                 /* If the enemy and the player are close by a certain range of cells, 
@@ -47,6 +47,11 @@ public class EnemiesControllerImpl implements EnemiesController {
             }
             enemy.move(newPosition);
         }
+    }
+
+    //Check if in the position there is already another enemy
+    private boolean checkOtherEnemies(Position newPosition) {
+        return model.getEnemies().getEnemies().stream().noneMatch(enemy -> enemy.getPosition().equals(newPosition));
     }
 
     /**
