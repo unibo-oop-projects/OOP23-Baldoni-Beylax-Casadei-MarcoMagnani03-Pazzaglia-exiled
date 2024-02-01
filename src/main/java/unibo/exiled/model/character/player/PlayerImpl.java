@@ -83,22 +83,19 @@ public class PlayerImpl extends CharacterImpl implements Player {
 
     @Override
     public void levelUp() {
-        if (checkPossibleLevelUp()) {
+        if (currentExp >= expCap) {
             performLevelUp();
         }
     }
-
-    private boolean checkPossibleLevelUp() {
-        if (currentExp >= expCap) {
-            this.expCap = this.expCap + this.expCap / 20 * 100;
-            this.currentExp -= this.expCap - currentExp;
-            return true;
-        } else {
-            return false;
-        }
+    
+    private double calculateNextLevelExperience() {
+        return expCap + expCap / 20 * 100;
     }
-
+    
     private void performLevelUp() {
+        this.level++;
+        this.expCap = calculateNextLevelExperience();
+        this.currentExp -= expCap;
         this.increaseAttributeModifierBy(AttributeIdentifier.ATTACK, levelInc / 10);
         this.increaseAttributeValue(AttributeIdentifier.HEALTH, levelInc);
         this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, levelInc);
