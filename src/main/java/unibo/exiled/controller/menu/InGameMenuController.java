@@ -8,7 +8,7 @@ import unibo.exiled.model.menu.MenuImpl;
 import unibo.exiled.model.menu.MenuItem;
 
 public class InGameMenuController implements MenuController {
-    private Menu menu;
+    final private Menu menu;
 
     public InGameMenuController() {
         this.menu = new MenuImpl();
@@ -17,6 +17,7 @@ public class InGameMenuController implements MenuController {
         this.menu.addMenuItem(new MenuItem("QUIT", Command.QUIT));
     }
 
+    @Override
     public List<MenuItem> getMenuItems(){
         return this.menu.getMenuItems();
     }

@@ -13,7 +13,7 @@ public interface PlayerController {
      * Moves the player in the specified direction within the given game map.
      * @param dir is the direction in which the player should move.
      */
-    void movePlayer(final Direction dir);
+    void movePlayer(Direction dir);
 
     /**
      * Gets the health attribute of the player.

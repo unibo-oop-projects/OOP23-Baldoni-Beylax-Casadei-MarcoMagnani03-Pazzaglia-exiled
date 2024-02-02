@@ -35,13 +35,9 @@ public class GameModelImpl implements GameModel {
     }
 
     private void enemyInitialization(int number) {
-
-        //Checks that the number is greater than 0;
-        number = number > 0 ? number : 1;
-
-        Random random = new Random();
-        Position newEnemyPosition = null;
-        EnemyFactory factory = new EnemyFactoryImpl();
+        final Random random = new Random();
+        Position newEnemyPosition;
+        final EnemyFactory factory = new EnemyFactoryImpl();
         for (int i = 0; i < number; i++) {
             do {
                 newEnemyPosition = new Position(random.nextInt(map.getWidth()), random.nextInt(map.getHeight()));
