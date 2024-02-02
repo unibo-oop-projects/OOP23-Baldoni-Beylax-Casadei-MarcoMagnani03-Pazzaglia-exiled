@@ -37,6 +37,7 @@ public abstract class CharacterImpl implements Character {
      * Sets the position of the current character.
      * @param position The new position of the character.
      */
+    @Override
     public final void move(final Position position) {
         this.position = position;
     }
@@ -45,6 +46,7 @@ public abstract class CharacterImpl implements Character {
      * Gets the position of the character.
      * @return The position of the character.
      */
+    @Override
     public final Position getPosition() {
         return this.position;
     }
@@ -86,6 +88,7 @@ public abstract class CharacterImpl implements Character {
      * @param id       The modifier to increase.
      * @param modifier The modifier to add to the current value.
      */
+    @Override
     public final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
         this.increaseAttributes(id, modifier, 0);
     }
@@ -96,6 +99,7 @@ public abstract class CharacterImpl implements Character {
      * @param id    The attribute to increase.
      * @param value The value to add to the attribute value.
      */
+    @Override
     public final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
         this.increaseAttributes(id, 0, value);
     }
@@ -105,6 +109,7 @@ public abstract class CharacterImpl implements Character {
      *
      * @return A double value containing the evaluated attribute of the health.
      */
+    @Override
     public double getHealth() {
         return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
     }

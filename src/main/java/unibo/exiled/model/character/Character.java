@@ -23,7 +23,7 @@ public interface Character {
      * 
      * @param newPosition
      */
-    void move(final Position newPosition);
+    void move(Position newPosition);
 
     /**
      * Returns the position of the current character.
@@ -39,9 +39,9 @@ public interface Character {
      */
     Map<AttributeIdentifier, Attribute> getAttributes();
 
-    void increaseAttributeModifier(final AttributeIdentifier id, final double modifier);
+    void increaseAttributeModifier(AttributeIdentifier id, double modifier);
 
-    void increaseAttributeValue(final AttributeIdentifier id, final double value);
+    void increaseAttributeValue(AttributeIdentifier id, double value);
 
     /**
      * Gets the standard health attribute value.

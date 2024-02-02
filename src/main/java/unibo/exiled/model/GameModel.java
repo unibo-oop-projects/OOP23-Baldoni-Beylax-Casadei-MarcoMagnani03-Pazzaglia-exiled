@@ -12,5 +12,5 @@ public interface GameModel {
 
     EnemyCollection getEnemies();
 
-    void movePlayer(final Direction dir);
+    void movePlayer(Direction dir);
 }

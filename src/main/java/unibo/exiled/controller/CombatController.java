@@ -1,9 +1,5 @@
 package unibo.exiled.controller;
 
-import java.awt.event.ActionListener;
-
-import unibo.exiled.model.character.*;
-import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MoveSet;
@@ -41,7 +37,7 @@ public class CombatController {
         return this.enemy.getMoveSet();
     }
 
-    public void attack(boolean isPlayerAttacking) {
+    public void attack(final boolean isPlayerAttacking) {
         if (isPlayerAttacking) {
             // this.enemy.increaseAttributeValue(AttributeIdentifier.HEALTH, -10000);
             this.enemy.move(new Position(1, 1));
