@@ -1,18 +1,24 @@
 package unibo.exiled.view;
 
-import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.controller.menu.StartMenuController;
 import unibo.exiled.view.Menu.MenuView;
 
-public class NewGameView {
-    private JFrame mainFrame;
-    private final MenuController menuController;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
 
+/**
+ * The new game selection menu view.
+ */
+public final class NewGameView {
+    private final MenuController menuController;
+    private final JFrame mainFrame;
+
+    /**
+     * The constructor of the new game selection view.
+     */
     public NewGameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
 
@@ -30,6 +36,9 @@ public class NewGameView {
         this.mainFrame.setVisible(true);
     }
 
+    /**
+     * Hides the "New Game" view.
+     */
     public void hide() {
         this.mainFrame.setVisible(false);
     }
