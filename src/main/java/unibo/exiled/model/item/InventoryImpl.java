@@ -33,7 +33,7 @@ public final class InventoryImpl implements Inventory {
     @Override
     public void removeItem(final Item item) {
         if (containsItem(item)) {
-            int quantity = itemsList.get(item);
+            final int quantity = itemsList.get(item);
             if (quantity > 1) {
                 itemsList.put(item, quantity - 1);
             } else if (quantity == 1) {
