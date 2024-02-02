@@ -1,6 +1,7 @@
 package unibo.exiled.model.move;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import unibo.exiled.model.utilities.ElementalType;
 
@@ -26,6 +27,12 @@ public class Moves {
         return Collections.unmodifiableSet(magicMoves);
     }
 
+    public static Set<MagicMove> getAllMagicMovesOfType(ElementalType type) {
+        return magicMoves.stream()
+        .filter(magicMove -> magicMove.type() == type)
+        .collect(Collectors.toUnmodifiableSet());
+    }
+
     public static Optional<MagicMove> getRandomMagicMoveByType(ElementalType type) {
         List<MagicMove> movesOfType = magicMoves.stream()
         .filter(magicMove -> magicMove.type() == type)
@@ -37,5 +44,10 @@ public class Moves {
         Random random = new Random();
 
         return Optional.of(movesOfType.get(random.nextInt(movesOfType.size())));
+    }
+
+    public static MagicMove getTotallyRandomMove() {
+        Random random = new Random();
+        return magicMoves.stream().toList().get(random.nextInt(magicMoves.size()));
     }
 }
