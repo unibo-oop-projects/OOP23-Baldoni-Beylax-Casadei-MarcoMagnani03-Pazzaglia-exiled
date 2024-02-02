@@ -2,14 +2,30 @@ package unibo.exiled.view.items;
 
 import unibo.exiled.config.Constants;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
 import java.awt.geom.RoundRectangle2D;
 
-public class GameButton extends JButton {
-    private final int ROUNDED_PARAM = 10;
+import javax.swing.JButton;
 
-    public GameButton(String text) {
+/**
+ * Custom JButton with a specific style for the game.
+ */
+public final class GameButton extends JButton {
+    private static final int ROUNDED_PARAM = 10;
+    private static final Color PRIMARY_COLOR = new Color(51, 102, 255);
+    private static final Color SECONDARY_COLOR = new Color(0, 51, 204);
+
+    /**
+     * Constructs a GameButton with the specified text.
+     *
+     * @param text The text to be displayed on the button.
+     */
+    public GameButton(final String text) {
         super(text);
         setButtonStyle();
     }
@@ -19,26 +35,28 @@ public class GameButton extends JButton {
 
         setFont(new Font("Arial", Font.BOLD, 16));
         setForeground(Color.WHITE);
-        setBackground(new Color(51, 102, 255));
+        setBackground(PRIMARY_COLOR);
 
         setBorderPainted(false);
         setContentAreaFilled(false);
 
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                setBackground(new Color(0, 51, 204));
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(final MouseEvent evt) {
+                setBackground(SECONDARY_COLOR);
             }
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                setBackground(new Color(51, 102, 255));
+            @Override
+            public void mouseExited(final MouseEvent evt) {
+                setBackground(PRIMARY_COLOR);
             }
         });
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(final Graphics g) {
         if (getModel().isArmed()) {
-            g.setColor(new Color(0, 51, 204));
+            g.setColor(SECONDARY_COLOR);
         } else {
             g.setColor(getBackground());
         }
