@@ -9,6 +9,9 @@ package unibo.exiled.model.item;
 
 import unibo.exiled.model.utilities.ItemType;
 
+/**
+ * An item that can be found in-game.
+ */
 public interface Item {
     /**
      * Returns the name of the item.
@@ -16,15 +19,18 @@ public interface Item {
      * @return the name of the item.
      */
     String getName();
+
     /**
-     * Returns the description of the item
+     * Returns the description of the item.
      *
      * @return the description of the item.
      */
     String getDescription();
+
     /**
-     * Return the type of the item
-     * @return the type of the item
+     * Return the type of the item.
+     *
+     * @return the type of the item.
      */
     ItemType getType();
 }
