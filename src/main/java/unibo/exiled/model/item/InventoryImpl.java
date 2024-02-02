@@ -4,43 +4,51 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InventoryImpl implements Inventory{
+/**
+ * Implementation of the player inventory.
+ */
+public final class InventoryImpl implements Inventory {
 
-    Map<Item,Integer> itemsList;
-    
-    public InventoryImpl(){
+    /**
+     * An association between an item and an integer, to have an ordered graphical list.
+     */
+    private final Map<Item, Integer> itemsList;
+
+    /**
+     * Constructor of the inventory implementation.
+     */
+    public InventoryImpl() {
         itemsList = new HashMap<>();
     }
 
     @Override
-    public void addItem(Item item) {
-        if(containsItem(item)){
+    public void addItem(final Item item) {
+        if (containsItem(item)) {
             itemsList.put(item, itemsList.get(item) + 1);
-        }
-        else{
+        } else {
             itemsList.putIfAbsent(item, 1);
         }
     }
 
     @Override
-    public void removeItem(Item item) {
-        if(containsItem(item)){
+    public void removeItem(final Item item) {
+        if (containsItem(item)) {
             int quantity = itemsList.get(item);
             if (quantity > 1) {
                 itemsList.put(item, quantity - 1);
-            } else if(quantity == 1){
+            } else if (quantity == 1) {
                 itemsList.remove(item);
             }
         }
     }
 
     @Override
-    public Integer getItemQuantity(Item item) {
+    public Integer getItemQuantity(final Item item) {
         return itemsList.get(item);
     }
 
     @Override
-    public boolean containsItem(Item item) {
+    public boolean containsItem(final Item item) {
         return itemsList.containsKey(item);
     }
 
