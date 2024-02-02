@@ -68,8 +68,12 @@ public class GameView {
         GroupLayout mainLayout = new GroupLayout(contentPanel);
         contentPanel.setLayout(mainLayout);
 
-        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel).addComponent(inventoryPanel).addComponent(combatPanel));
-        mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(menuPanel).addComponent(gamePanel).addComponent(inventoryPanel).addComponent(combatPanel));
+        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel)
+                .addComponent(gamePanel)
+                .addComponent(inventoryPanel).addComponent(combatPanel));
+        mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(menuPanel)
+                .addComponent(gamePanel).addComponent(inventoryPanel).addComponent(combatPanel));
 
         this.hideMenu();
         this.hideInventory();
@@ -116,7 +120,8 @@ public class GameView {
     }
 
     private void initializeGridComponents() {
-        this.gridPanel = new JPanel(new GridLayout(this.gameController.getMap().getWidth(), this.gameController.getMap().getHeight()));
+        this.gridPanel = new JPanel(new GridLayout(this.gameController.getMap().getWidth(),
+                this.gameController.getMap().getHeight()));
         draw();
         this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
     }
@@ -131,7 +136,10 @@ public class GameView {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_D) && !combatPanel.isVisible()) {
+                if ((e.getKeyCode() == KeyEvent.VK_W ||
+                        e.getKeyCode() == KeyEvent.VK_A ||
+                        e.getKeyCode() == KeyEvent.VK_S ||
+                        e.getKeyCode() == KeyEvent.VK_D) && !combatPanel.isVisible()) {
                     Direction directionPressed;
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_W -> directionPressed = Direction.NORTH;
@@ -146,8 +154,11 @@ public class GameView {
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
-                    } else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
-                        //combatView.setEnemy(gameController.getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
+                    } else if (gameController.isEnemyInCell(gameController.getPlayerController()
+                            .getPlayerPosition())) {
+                        //combatView.setEnemy(gameController.getEnemyFromPosition(gameController
+                        // .getPlayerController()
+                        // .getPlayerPosition()));
                         showCombat();
                         draw();
                     } else {
@@ -188,7 +199,8 @@ public class GameView {
         if (position.equals(gameController.getPlayerController().getPlayerPosition())) {
             label = playerView;
         } else if (gameController.isEnemyInCell(position)) {
-            List<String> characterImagePath = gameController.getImagePathOfCharacter(gameController.getCharacterInPosition(position));
+            List<String> characterImagePath = gameController.getImagePathOfCharacter(gameController
+                    .getCharacterInPosition(position));
             label = new CharacterView(characterImagePath);
         } else {
             label = new JLabel();
