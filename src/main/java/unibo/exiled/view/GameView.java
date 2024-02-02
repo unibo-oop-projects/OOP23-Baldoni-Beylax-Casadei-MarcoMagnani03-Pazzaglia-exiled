@@ -1,4 +1,5 @@
 package unibo.exiled.view;
+
 import java.awt.event.KeyListener;
 import java.util.List;
 import unibo.exiled.config.Constants;
@@ -84,11 +85,8 @@ public final class GameView {
         GroupLayout mainLayout = new GroupLayout(contentPanel);
         contentPanel.setLayout(mainLayout);
 
-        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().
-                addComponent(menuPanel).
-                addComponent(gamePanel).
-                addComponent(inventoryPanel).
-                addComponent(combatPanel));
+        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel)
+                .addComponent(inventoryPanel).addComponent(combatPanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                 .addComponent(menuPanel)
                 .addComponent(gamePanel)
@@ -119,11 +117,10 @@ public final class GameView {
         GameButton menuButton = new GameButton("Menu");
         menuButton.addActionListener(e -> showMenu());
 
-
         flowButtonPanelNorth.add(inventoryButton);
         flowButtonPanelNorth.add(menuButton);
 
-        // Player information 
+        // Player information
         GameProgressBar healthBar = new GameProgressBar();
         healthBar.updateProgress(gameController.getPlayerController().getHealth());
         GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getLevel());
@@ -187,7 +184,8 @@ public final class GameView {
                         gameOverView.display();
                         mainFrame.dispose();
                     } else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
-                        combatView.setEnemy(gameController.getEnemiesController().getEnemies().getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
+                        combatView.setEnemy(gameController.getEnemiesController().getEnemies()
+                                .getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
                         showCombat();
                         draw();
                     } else {
@@ -270,7 +268,6 @@ public final class GameView {
             }
         }
     }
-
 
     private void showInventory() {
         this.gamePanel.setVisible(false);
