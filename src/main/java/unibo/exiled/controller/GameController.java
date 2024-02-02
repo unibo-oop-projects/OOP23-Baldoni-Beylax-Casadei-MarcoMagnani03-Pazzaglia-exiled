@@ -104,6 +104,8 @@ public interface GameController {
      */
     boolean isOver();
 
-
+    /**
+     * Moves the enemies in the game.
+     */
     void moveEnemies();
 }
