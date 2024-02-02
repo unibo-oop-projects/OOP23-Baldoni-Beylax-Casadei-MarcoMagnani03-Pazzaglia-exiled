@@ -13,6 +13,7 @@ import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.utilities.Position;
 
+import java.io.File;
 import java.util.List;
 
 public class GameControllerImpl implements GameController {
@@ -32,7 +33,13 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public List<String> getImagePathOfCharacter(final Character character) {
-        return List.of(character.getImagePath(), character.getImageUpPath(), character.getImageDownPath(), character.getImageLeftPath(), character.getImageRightPath());
+        if (character instanceof Enemy) {
+            return this.getImagePathOfCharacter("enemy", character.getName()
+                    + File.separator
+                    + character.getName());
+        }else{
+            return this.getImagePathOfCharacter("player", "boy");
+        }
     }
 
     @Override

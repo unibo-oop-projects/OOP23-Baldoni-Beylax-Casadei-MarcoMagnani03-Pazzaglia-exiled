@@ -1,48 +1,71 @@
 package unibo.exiled.model.character;
 
-import unibo.exiled.model.character.attributes.*;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.attributes.Attribute;
+import unibo.exiled.model.character.attributes.MultiplierAttributeImpl;
+import unibo.exiled.model.character.attributes.CombinedAttributeImpl;
+import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
+import unibo.exiled.model.character.attributes.CombinedAttribute;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
+/**
+ * The implementation of a generic character.
+ */
 public abstract class CharacterImpl implements Character {
-    private final String path;
-    private final String upImageName;
-    private final String downImageName;
-    private final String leftImageName;
-    private final String rightImageName;
-
+    /**
+     * An association between the identifier of the attribute and its values.
+     */
     private final Map<AttributeIdentifier, Attribute> attributes;
+    private final String name;
     private Position position;
 
-    protected CharacterImpl(final Map<AttributeIdentifier, Attribute> attributes, final List<String> paths) {
-        this.path = paths.get(0);
-        this.upImageName = paths.get(1);
-        this.downImageName = paths.get(2);
-        this.leftImageName = paths.get(3);
-        this.rightImageName = paths.get(4);
+    /**
+     * The constructor of the Character.
+     *
+     * @param attributes The attributes of the character to build.
+     * @param name       The name of the character.
+     */
+    protected CharacterImpl(final String name, final Map<AttributeIdentifier, Attribute> attributes) {
         this.attributes = attributes;
+        this.name = name;
     }
 
-    protected void setAttribute(final AttributeIdentifier id, final Attribute attribute) {
-        this.attributes.put(id, attribute);
-    }
-
-    public void move(final Position position) {
+    /**
+     * Sets the position of the current character.
+     * @param position The new position of the character.
+     */
+    public final void move(final Position position) {
         this.position = position;
     }
 
-    public Position getPosition() {
+    /**
+     * Gets the position of the character.
+     * @return The position of the character.
+     */
+    public final Position getPosition() {
         return this.position;
     }
 
     @Override
-    public Map<AttributeIdentifier, Attribute> getAttributes() {
+    public final Map<AttributeIdentifier, Attribute> getAttributes() {
         return Collections.unmodifiableMap(this.attributes);
     }
 
+    @Override
+    public final String getName() {
+        return this.name;
+    }
+
+    /**
+     * Increases a generic attribute of a specified value.
+     *
+     * @param id       The attribute to modify.
+     * @param modifier The modifier to add.
+     * @param value    The value to add.
+     */
     private void increaseAttributes(final AttributeIdentifier id, final double modifier, final double value) {
         final Attribute attributeToModify = this.attributes.get(id);
         if (attributeToModify.isModifier() && attributeToModify.isValue()) {
@@ -57,35 +80,32 @@ public abstract class CharacterImpl implements Character {
         }
     }
 
-    protected void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
+    /**
+     * Increases a modifier of the specified value.
+     *
+     * @param id       The modifier to increase.
+     * @param modifier The modifier to add to the current value.
+     */
+    protected final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
         this.increaseAttributes(id, modifier, 0);
     }
 
-    protected void increaseAttributeValue(final AttributeIdentifier id, final double value) {
+    /**
+     * Increases the selected attribute of the specified value.
+     *
+     * @param id    The attribute to increase.
+     * @param value The value to add to the attribute value.
+     */
+    protected final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
         this.increaseAttributes(id, 0, value);
     }
 
+    /**
+     * Gets the health of the character.
+     *
+     * @return A double value containing the evaluated attribute of the health.
+     */
     public double getHealth() {
         return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
-    }
-
-    public String getImagePath() {
-        return this.path;
-    }
-
-    public String getImageUpPath() {
-        return this.upImageName;
-    }
-
-    public String getImageDownPath() {
-        return this.downImageName;
-    }
-
-    public String getImageLeftPath() {
-        return this.leftImageName;
-    }
-
-    public String getImageRightPath() {
-        return this.rightImageName;
     }
 }

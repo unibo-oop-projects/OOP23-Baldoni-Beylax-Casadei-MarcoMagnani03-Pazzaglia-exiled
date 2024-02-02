@@ -48,10 +48,10 @@ public class CombatView extends JPanel {
 
         this.combatController = new CombatController(this.player, this.enemy);
 
-        JLabel playerLabel = new JLabel(new ImageIcon(this.player.getImagePath()));
-        JLabel enemyLabel = new JLabel(new ImageIcon(this.enemy.getImagePath()));
-        this.battlePanel.add(playerLabel);
-        this.battlePanel.add(enemyLabel);
+        //JLabel playerLabel = new JLabel(new ImageIcon(this.player.getImagePath()));
+        //JLabel enemyLabel = new JLabel(new ImageIcon(this.enemy.getImagePath()));
+        //this.battlePanel.add(playerLabel);
+        //this.battlePanel.add(enemyLabel);
 
         this.revalidate();
         this.repaint();

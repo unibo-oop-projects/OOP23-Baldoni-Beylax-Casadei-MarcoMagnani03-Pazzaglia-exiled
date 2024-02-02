@@ -21,13 +21,13 @@ public class CombatController {
 
     }
 
-    public String getPlayerImage() {
+    /*public String getPlayerImage() {
         return this.player.getImagePath();
     }
 
     public String getEnemyImage() {
         return this.enemy.getImagePath();
-    }
+    }*/
 
     public MoveSet getPlayerMoveSet() {
         return this.player.getMoveSet();

@@ -33,7 +33,7 @@ public class PlayerImpl extends CharacterImpl implements Player {
     private int levelToLearnAMove;
 
     public PlayerImpl(final double experienceCap, final double initialExperience, final int levelIncrease,final int movesNumber, final int movesLearningInterval) {
-        super(new AttributeFactoryImpl().createPlayerAttributes(), List.of("player", "boy_up", "boy_down", "boy_left", "boy_right"));
+        super("boy",new AttributeFactoryImpl().createPlayerAttributes());
         this.inventory = initializeInventory();
         this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet(movesNumber);
         this.expCap = experienceCap;

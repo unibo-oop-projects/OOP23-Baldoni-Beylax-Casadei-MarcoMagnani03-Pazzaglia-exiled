@@ -39,17 +39,11 @@ public interface Character {
      * Gets the standard health attribute value.
      * @return The evaluated amount of health of the character.
      */
-    public double getHealth();
-
+    double getHealth();
 
     /**
-     * Gets the file path of the character's image based on its current direction.
-     * The possible directions are: UP, DOWN, LEFT, RIGHT.
-     * @return the file path of the character's image.
+     * Gets the name of the character.
+     * @return A string representing the name of the character.
      */
-    String getImagePath();
-    String getImageUpPath();
-    String getImageDownPath();
-    String getImageLeftPath();
-    String getImageRightPath();
+    String getName();
 }

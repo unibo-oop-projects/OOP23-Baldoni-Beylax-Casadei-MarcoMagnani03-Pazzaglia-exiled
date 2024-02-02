@@ -15,12 +15,11 @@ public abstract class EnemyImpl extends CharacterImpl implements Enemy {
     private final String name;
     //private final double level; TODO: Aggiungere livello per migliorare la logica del drop di esperienza
 
-    public EnemyImpl(final List<String> paths,
-                     final String name,
+    public EnemyImpl(final String name,
                      final MoveSet moveSet,
                      final Map<AttributeIdentifier,Attribute> attributes
                      /*final double level*/){
-        super(attributes,paths);
+        super(name, attributes);
         this.moveSet = moveSet;
         this.name = name;
         //this.level = level; TODO
@@ -29,11 +28,6 @@ public abstract class EnemyImpl extends CharacterImpl implements Enemy {
     @Override
     public MoveSet getMoveSet() {
         return this.moveSet;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
     }
 
     @Override
