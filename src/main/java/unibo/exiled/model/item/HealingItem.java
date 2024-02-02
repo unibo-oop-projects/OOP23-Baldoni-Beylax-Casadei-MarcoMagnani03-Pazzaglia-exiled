@@ -1,7 +1,5 @@
 package unibo.exiled.model.item;
 
-import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
-import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.utilities.ItemType;
 
@@ -12,15 +10,15 @@ import unibo.exiled.model.utilities.ItemType;
  */
 public class HealingItem extends ItemBase implements UsableItem{
     double healingAmount;
-    public HealingItem(String name, String description,double healingAmount) {
+    public HealingItem(final String name,final String description,final double healingAmount) {
         super(name, description,ItemType.HEALTH);
         this.healingAmount=healingAmount;
     }
 
     @Override
     public void use(Player player) {
-        double healthCap = ((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
-        double health = ((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
+        // double healthCap = ((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
+        // double health = ((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
 
         /*if(health+healingAmount > healthCap){
             player.getAttributes().get(AttributeIdentifier.HEALTH).setValue(healthCap);

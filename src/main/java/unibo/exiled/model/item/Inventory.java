@@ -13,7 +13,7 @@ public interface Inventory {
      *
      * @param item The item to be added to the inventory.
      */
-    void addItem(final Item item);
+    void addItem(Item item);
 
     /**
      * Retrieves the quantity of the specified item in the inventory.
@@ -21,14 +21,14 @@ public interface Inventory {
      * @param item The item whose quantity needs to be retrieved.
      * @return The quantity of the specified item in the inventory.
      */
-    Integer getItemQuantity(final Item item);
+    Integer getItemQuantity(Item item);
 
     /**
      * Removes the specified item from the inventory.
      *
      * @param item The item to be removed from the inventory.
      */
-    void removeItem(final Item item);
+    void removeItem(Item item);
 
     /**
      * Checks if the inventory contains the specified item.
@@ -36,7 +36,7 @@ public interface Inventory {
      * @param item The item to check for in the inventory.
      * @return true if the inventory contains the item, false otherwise.
      */
-    boolean containsItem(final Item item);
+    boolean containsItem(Item item);
 
     /**
      * returns a map of the objects, the integer specifies the number of that specific item in the inventory

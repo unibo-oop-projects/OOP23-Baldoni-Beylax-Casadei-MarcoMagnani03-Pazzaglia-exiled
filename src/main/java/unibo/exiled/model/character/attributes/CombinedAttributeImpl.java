@@ -26,6 +26,7 @@ public class CombinedAttributeImpl implements CombinedAttribute{
         return this.modifier.modifier();
     }
 
+    @Override
     public double getEvaluated(){
         return this.value.value() * this.modifier.modifier();
     }

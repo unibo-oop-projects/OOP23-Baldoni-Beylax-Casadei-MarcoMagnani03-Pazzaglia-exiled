@@ -61,16 +61,16 @@ public class PlayerImpl extends CharacterImpl implements Player {
 
     // This method is used for testing purposes only.
     private Inventory initializeInventory() {
-        Inventory inventory = new InventoryImpl();
-        Item healingItem = ItemContainer.getItemByName(ItemNames.HEALTH_POTION.getName()).get();
+        final Inventory inventory = new InventoryImpl();
+        final Item healingItem = ItemContainer.getItemByName(ItemNames.HEALTH_POTION.getName()).get();
         inventory.addItem(healingItem);
-        Item healingItem1 = ItemContainer.getItemByName(ItemNames.HEALTH_POTION.getName()).get();
+        final Item healingItem1 = ItemContainer.getItemByName(ItemNames.HEALTH_POTION.getName()).get();
         inventory.addItem(healingItem1);
-        Item powerUpItem = ItemContainer.getRandomItemByType(ItemType.HEALTH).get();
+        final Item powerUpItem = ItemContainer.getRandomItemByType(ItemType.HEALTH).get();
         inventory.addItem(powerUpItem);
-        Item powerUpItem1 = ItemContainer.getRandomItemByType(ItemType.POWERUP).get();
+        final Item powerUpItem1 = ItemContainer.getRandomItemByType(ItemType.POWERUP).get();
         inventory.addItem(powerUpItem1);
-        Item powerUpItemDefence = ItemContainer.getRandomItemByType(ItemType.RESOURCE).get();
+        final Item powerUpItemDefence = ItemContainer.getRandomItemByType(ItemType.RESOURCE).get();
         inventory.addItem(powerUpItemDefence);
         return inventory;
     }

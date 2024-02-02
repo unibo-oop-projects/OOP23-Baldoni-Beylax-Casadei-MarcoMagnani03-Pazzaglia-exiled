@@ -6,8 +6,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface EnemyCollection extends Iterable<Enemy> {
-    void removeEnemy(final Enemy enemy);
-    void addEnemy(final Enemy enemy);
+    void removeEnemy(Enemy enemy);
+    void addEnemy(Enemy enemy);
     Set<Enemy> getEnemies();
-    Optional<Enemy> getEnemyFromPosition(final Position position);
+    Optional<Enemy> getEnemyFromPosition(Position position);
 }
