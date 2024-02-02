@@ -34,7 +34,7 @@ public class GameModelImpl implements GameModel {
         this.enemyInitialization(enemyNumber);
     }
 
-    private void enemyInitialization(int number) {
+    private void enemyInitialization(final int number) {
         final Random random = new Random();
         Position newEnemyPosition;
         final EnemyFactory factory = new EnemyFactoryImpl();
