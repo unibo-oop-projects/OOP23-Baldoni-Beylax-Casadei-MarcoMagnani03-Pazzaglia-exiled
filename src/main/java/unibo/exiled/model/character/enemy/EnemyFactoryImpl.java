@@ -2,20 +2,31 @@ package unibo.exiled.model.character.enemy;
 
 import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
-import unibo.exiled.model.move.*;
+import unibo.exiled.model.move.MoveSetFactory;
+import unibo.exiled.model.move.MoveSetFactoryImpl;
 
 import java.io.File;
 import java.util.List;
 import java.util.Random;
 
-
-public class EnemyFactoryImpl implements EnemyFactory {
+/**
+ * The implementation of the enemy factory.
+ */
+public final class EnemyFactoryImpl implements EnemyFactory {
     private final MoveSetFactory moveSetFactory;
     private final AttributeFactory attributeFactory;
-    public EnemyFactoryImpl(){
+
+    private final double defaultExperience;
+
+    /**
+     * The constructor of the enemy factory.
+     */
+    public EnemyFactoryImpl() {
+        this.defaultExperience = 10;
         this.moveSetFactory = new MoveSetFactoryImpl();
         this.attributeFactory = new AttributeFactoryImpl();
     }
+
     @Override
     public Enemy createGoblin() {
         return new EnemyImpl(
@@ -24,21 +35,23 @@ public class EnemyFactoryImpl implements EnemyFactory {
                 attributeFactory.createGoblinAttributes()) {
             @Override
             public double getDroppedExperience() {
-                return 10;
+                return defaultExperience;
             }
         };
     }
 
     @Override
-    public Enemy createBrutus(){
-        final List<String> paths = List.of("enemy" + File.separator + "brutus", "brutus_up","brutus_down","brutus_left","brutus_right");
+    public Enemy createBrutus() {
+        final List<String> paths = List.of("enemy"
+                + File.separator
+                + "brutus", "brutus_up", "brutus_down", "brutus_left", "brutus_right");
         return new EnemyImpl(
-        "Brutus",
-        moveSetFactory.defaultNormalMoveSet(1),
-        attributeFactory.createBrutusAttributes()) {
+                "Brutus",
+                moveSetFactory.defaultNormalMoveSet(1),
+                attributeFactory.createBrutusAttributes()) {
             @Override
             public double getDroppedExperience() {
-                return 20;
+                return defaultExperience * 2;
             }
         };
     }
@@ -48,16 +61,14 @@ public class EnemyFactoryImpl implements EnemyFactory {
         final int factoryMethodsCount = this.getClass().getMethods().length - 10;
         Random rand = new Random();
         final int choice = rand.nextInt(factoryMethodsCount);
-        switch (choice){
-            case 0:{
+        switch (choice) {
+            case 0 -> {
                 return this.createBrutus();
             }
-            case 1:{
+            case 1 -> {
                 return this.createGoblin();
             }
-            default:{
-                throw new IllegalStateException("No enemy-creation method found!");
-            }
+            default -> throw new IllegalStateException("No enemy-creation method found!");
         }
     }
 }
