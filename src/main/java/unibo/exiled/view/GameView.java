@@ -36,7 +36,7 @@ public final class GameView {
     private final InventoryView inventoryView;
     private final MenuView menuView;
     private final GameOverView gameOverView;
-    //private final CombatView combatView;
+    private CombatView combatView;
 
     // MVC Components(MC)
     private final JFrame mainFrame;
@@ -73,10 +73,9 @@ public final class GameView {
         this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
+        this.combatView = new CombatView(gameController.getCombatController(), this.gameController, this);
 
-        //this.combatView = new CombatView(this.gameController.getPlayerController()., this);
-
-        //this.combatPanel.add(combatView, BorderLayout.CENTER);
+        this.combatPanel.add(combatView, BorderLayout.CENTER);
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
 
@@ -188,9 +187,7 @@ public final class GameView {
                         gameOverView.display();
                         mainFrame.dispose();
                     } else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
-                        //combatView.setEnemy(gameController.getEnemyFromPosition(gameController
-                        // .getPlayerController()
-                        // .getPlayerPosition()));
+                        combatView.setEnemy(gameController.getEnemiesController().getEnemies().getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
                         showCombat();
                         draw();
                     } else {
