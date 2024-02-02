@@ -8,16 +8,40 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class provides constants and configuration loading for the game.
+ */
 public final class Constants {
 
-    public static final String DEF_CONFIG_PATH = "src" + File.separator + "main" + File.separator + "java" + File.separator + "unibo" + File.separator + "exiled" + File.separator + "config" + File.separator + "config.yml";
+    /**
+     * Default path to the configuration file.
+     */
+    public static final String DEF_CONFIG_PATH = "src" 
+            + File.separator 
+            + "main" 
+            + File.separator 
+            + "java"
+            + File.separator 
+            + "unibo" 
+            + File.separator 
+            + "exiled" 
+            + File.separator 
+            + "config" 
+            + File.separator 
+            + "config.yml";
 
     private static final Map<String, String> CONSTANTS_MAP = new HashMap<>();
-    
+
     private static final Logger LOGGER = Logger.getLogger(Constants.class.getName());
-    private Constants() {}
 
+    private Constants() {
+    }
 
+    /**
+     * Loads configuration from the specified path.
+     *
+     * @param configPath The path to the configuration file.
+     */
     public static void loadConfiguration(final String configPath) {
         final File file = new File(configPath);
         final Scanner reader;
@@ -34,10 +58,16 @@ public final class Constants {
             }
             reader.close();
         } catch (FileNotFoundException ex) {
-            LOGGER.log(Level.SEVERE, "Errore durante la lettura del file di configurazione", ex);
+            LOGGER.log(Level.SEVERE, "Error reading the configuration file", ex);
         }
     }
 
+    /**
+     * Retrieves the value of a constant by its name.
+     *
+     * @param name The name of the constant.
+     * @return The value of the constant.
+     */
     public static String getConstantOf(final String name) {
         return CONSTANTS_MAP.get(name);
     }
