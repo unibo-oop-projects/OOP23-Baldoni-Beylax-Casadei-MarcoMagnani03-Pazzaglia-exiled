@@ -1,5 +1,6 @@
 package unibo.exiled.view;
-
+import java.awt.event.KeyListener;
+import java.util.List;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
@@ -12,14 +13,24 @@ import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.GameProgressBar;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import java.awt.Color;
+import javax.swing.GroupLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.Container;
+import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
-import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.List;
 
-public class GameView {
+/**
+ * The main view of the game, everything starts here.
+ */
+public final class GameView {
     // Views
     private final CharacterView playerView;
     private final InventoryView inventoryView;
@@ -33,9 +44,15 @@ public class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
+    /**
+     * The game controller that manages interaction between the model and the view.
+     */
     private final GameController gameController;
     private JPanel gridPanel;
 
+    /**
+     * Constructor of the main view.
+     */
     public GameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
 
@@ -68,12 +85,16 @@ public class GameView {
         GroupLayout mainLayout = new GroupLayout(contentPanel);
         contentPanel.setLayout(mainLayout);
 
-        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel)
-                .addComponent(gamePanel)
-                .addComponent(inventoryPanel).addComponent(combatPanel));
+        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().
+                addComponent(menuPanel).
+                addComponent(gamePanel).
+                addComponent(inventoryPanel).
+                addComponent(combatPanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                 .addComponent(menuPanel)
-                .addComponent(gamePanel).addComponent(inventoryPanel).addComponent(combatPanel));
+                .addComponent(gamePanel)
+                .addComponent(inventoryPanel)
+                .addComponent(combatPanel));
 
         this.hideMenu();
         this.hideInventory();
@@ -120,42 +141,53 @@ public class GameView {
     }
 
     private void initializeGridComponents() {
-        this.gridPanel = new JPanel(new GridLayout(this.gameController.getMap().getWidth(),
-                this.gameController.getMap().getHeight()));
+        this.gridPanel = new JPanel(
+                new GridLayout(this.gameController.getMap().getWidth(),
+                        this.gameController.getMap().getHeight()));
         draw();
         this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
     }
 
     private void initializeKeyListeners() {
         // Listener initialization
-        KeyListener keyListener = new KeyListener() {
+        final KeyListener keyListener = new KeyListener() {
 
-            @Override
-            public void keyTyped(KeyEvent e) {
+            private static Direction getDirection(final KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_W -> {
+                        return Direction.NORTH;
+                    }
+                    case KeyEvent.VK_A -> {
+                        return Direction.WEST;
+                    }
+                    case KeyEvent.VK_S -> {
+                        return Direction.SOUTH;
+                    }
+                    case KeyEvent.VK_D -> {
+                        return Direction.EAST;
+                    }
+                    default -> throw new IllegalStateException("Illegal pressed key.");
+                }
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {
-                if ((e.getKeyCode() == KeyEvent.VK_W ||
-                        e.getKeyCode() == KeyEvent.VK_A ||
-                        e.getKeyCode() == KeyEvent.VK_S ||
-                        e.getKeyCode() == KeyEvent.VK_D) && !combatPanel.isVisible()) {
-                    Direction directionPressed;
-                    switch (e.getKeyCode()) {
-                        case KeyEvent.VK_W -> directionPressed = Direction.NORTH;
-                        case KeyEvent.VK_A -> directionPressed = Direction.WEST;
-                        case KeyEvent.VK_S -> directionPressed = Direction.SOUTH;
-                        case KeyEvent.VK_D -> directionPressed = Direction.EAST;
-                        default -> throw new IllegalStateException("Illegal pressed key.");
-                    }
+            public void keyTyped(final KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(final KeyEvent e) {
+                if ((e.getKeyCode() == KeyEvent.VK_W
+                        || e.getKeyCode() == KeyEvent.VK_A
+                        || e.getKeyCode() == KeyEvent.VK_S
+                        || e.getKeyCode() == KeyEvent.VK_D) && !combatPanel.isVisible()) {
+                    final Direction directionPressed = getDirection(e);
                     gameController.getPlayerController().movePlayer(directionPressed);
                     gameController.moveEnemies();
 
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
-                    } else if (gameController.isEnemyInCell(gameController.getPlayerController()
-                            .getPlayerPosition())) {
+                    } else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
                         //combatView.setEnemy(gameController.getEnemyFromPosition(gameController
                         // .getPlayerController()
                         // .getPlayerPosition()));
@@ -169,7 +201,7 @@ public class GameView {
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void keyReleased(final KeyEvent e) {
             }
         };
 
@@ -193,14 +225,15 @@ public class GameView {
      *
      * @param position is the position of the label.
      */
-    private void setArea(Position position) {
+    private void setArea(final Position position) {
         JLabel label;
 
         if (position.equals(gameController.getPlayerController().getPlayerPosition())) {
             label = playerView;
         } else if (gameController.isEnemyInCell(position)) {
-            List<String> characterImagePath = gameController.getImagePathOfCharacter(gameController
-                    .getCharacterInPosition(position));
+            List<String> characterImagePath = gameController
+                    .getImagePathOfCharacter(gameController
+                            .getCharacterInPosition(position));
             label = new CharacterView(characterImagePath);
         } else {
             label = new JLabel();
@@ -210,15 +243,15 @@ public class GameView {
         gridPanel.add(label);
     }
 
-    private void setLabelMapProperties(JLabel label, Position position) {
+    private void setLabelMapProperties(final JLabel label, final Position position) {
         label.setOpaque(true);
-        CellType cellType = gameController.getMap().getCellType(position);
-        Color backgroundColor = getBackgroundColor(cellType);
+        final CellType cellType = gameController.getMap().getCellType(position);
+        final Color backgroundColor = getBackgroundColor(cellType);
         label.setBackground(backgroundColor);
         label.setBorder(new LineBorder(Color.BLACK));
     }
 
-    private Color getBackgroundColor(CellType cellType) {
+    private Color getBackgroundColor(final CellType cellType) {
         switch (cellType) {
             case VOLCANO -> {
                 return Color.ORANGE;
@@ -241,41 +274,55 @@ public class GameView {
         }
     }
 
-    // Show and hide button views.
 
     private void showInventory() {
         this.gamePanel.setVisible(false);
         this.inventoryPanel.setVisible(true);
     }
 
+    /**
+     * Hides the inventory view.
+     */
     public void hideInventory() {
         this.gamePanel.setVisible(true);
         this.inventoryPanel.setVisible(false);
     }
 
+    /**
+     * Shows the menu view.
+     */
     public void showMenu() {
         this.gamePanel.setVisible(false);
         this.menuPanel.setVisible(true);
     }
 
+    /**
+     * Hides the menu view.
+     */
     public void hideMenu() {
         this.gamePanel.setVisible(true);
         this.menuPanel.setVisible(false);
     }
 
+    /**
+     * Shows the combat view.
+     */
     public void showCombat() {
         this.gamePanel.setVisible(false);
         this.combatPanel.setVisible(true);
     }
 
+    /**
+     * Hides the combat view.
+     */
     public void hideCombat() {
         this.gamePanel.setVisible(true);
         this.combatPanel.setVisible(false);
     }
 
-
-    // Main display of the GameView.
-
+    /**
+     * Makes the main frame visible on screen.
+     */
     public void display() {
         this.mainFrame.setVisible(true);
     }
