@@ -13,17 +13,10 @@ import unibo.exiled.model.utilities.Position;
  */
 public interface PlayerController {
     /**
-     * Retrieves the player object.
-     * @return the player object.
-     */
-    Player player();
-
-    /**
      * Moves the player in the specified direction within the given game map.
      * @param dir is the direction in which the player should move.
-     * @param map is the game map on which the player is moving.
      */
-    void movePlayer(final Direction dir, final GameMap map);
+    void movePlayer(final Direction dir);
 
     /**
      * Gets the health attribute of the player.

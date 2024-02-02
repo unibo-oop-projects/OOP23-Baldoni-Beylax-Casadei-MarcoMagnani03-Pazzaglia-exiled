@@ -6,7 +6,9 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.map.GameMapImpl;
+import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
+import unibo.exiled.model.utilities.Positions;
 
 import java.util.Random;
 
@@ -64,6 +66,14 @@ public class GameModelImpl implements GameModel {
             return false;
         }
         return !player.getPosition().equals(position) && !enemyCollection.getEnemyFromPosition(position).isPresent();
+    }
+
+    @Override
+    public void movePlayer(final Direction dir) {
+        final Position currentPlayerPosition = this.player.getPosition();
+        if (map.isInBoundaries(Positions.sum(currentPlayerPosition, dir.getPosition()))) {
+            this.player.move(Positions.sum(currentPlayerPosition, dir.getPosition()));
+        }
     }
 
     @Override

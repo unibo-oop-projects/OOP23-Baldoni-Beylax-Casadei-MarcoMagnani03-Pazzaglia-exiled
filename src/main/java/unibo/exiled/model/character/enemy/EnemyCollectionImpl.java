@@ -32,7 +32,7 @@ public class EnemyCollectionImpl implements EnemyCollection{
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<Enemy> iterator() {
         return this.enemies.iterator();
     }
 }

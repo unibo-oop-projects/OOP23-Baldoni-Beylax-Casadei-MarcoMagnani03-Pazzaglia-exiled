@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.*;
 
 import unibo.exiled.controller.CombatController;
+import unibo.exiled.model.GameModel;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MagicMove;
@@ -18,7 +19,7 @@ public class CombatView extends JPanel {
     private Player player;
     private Enemy enemy;
 
-    public CombatView(Player player, GameView game) {
+    public CombatView(GameModel model, GameView game) {
         this.player = player;
         
         this.setLayout(new BorderLayout());

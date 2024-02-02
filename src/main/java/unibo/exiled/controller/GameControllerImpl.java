@@ -14,6 +14,7 @@ import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
+import java.io.File;
 import java.util.List;
 
 public class GameControllerImpl implements GameController {
@@ -27,7 +28,7 @@ public class GameControllerImpl implements GameController {
         this.model = new GameModelImpl();
         this.inventoryController = new InventoryController(model.getPlayer());
         this.inGameMenuController = new InGameMenuController();
-        this.playerController = new PlayerControllerImpl(model.getPlayer());
+        this.playerController = new PlayerControllerImpl(model);
         this.enemiesController = new EnemiesControllerImpl(model);
     }
 
@@ -39,6 +40,21 @@ public class GameControllerImpl implements GameController {
                 character.getImageDownPath(),
                 character.getImageLeftPath(),
                 character.getImageRightPath()
+        );
+    }
+
+    @Override
+    public List<String> getImagePathOfCharacter(final String path, final String name) {
+        final String upConst = "_up";
+        final String downConst = "_down";
+        final String leftConst = "_left";
+        final String rightConst = "_right";
+        return List.of(
+                path,
+                name + upConst,
+                name + downConst,
+                name + leftConst,
+                name + rightConst
         );
     }
 
@@ -82,11 +98,6 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public EnemiesController getEnemiesController() { return this.enemiesController; }
-
-    @Override
-    public void movePlayer(final Direction dir) {
-        this.getPlayerController().movePlayer(dir, this.getMap());
-    }
 
     @Override
     public void moveEnemies() {

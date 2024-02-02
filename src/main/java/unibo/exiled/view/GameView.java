@@ -26,7 +26,7 @@ public class GameView{
     private final InventoryView inventoryView;
     private final MenuView menuView;
     private final GameOverView gameOverView;
-    private final CombatView combatView;
+    //private final CombatView combatView;
 
     // MVC Components(MC)
     private final JFrame mainFrame; 
@@ -56,11 +56,11 @@ public class GameView{
         this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
         this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
         this.gameOverView = new GameOverView();
-        this.playerView = new CharacterView(gameController.getImagePathOfCharacter(gameController.getPlayerController().player()));
+        this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player","boy"));
 
-        this.combatView = new CombatView(this.gameController.getPlayerController().player(), this);
+        //this.combatView = new CombatView(this.gameController.getPlayerController()., this);
 
-        this.combatPanel.add(combatView, BorderLayout.CENTER);
+        //this.combatPanel.add(combatView, BorderLayout.CENTER);
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
 
@@ -152,7 +152,7 @@ public class GameView{
                         case KeyEvent.VK_D -> directionPressed = Direction.EAST;
                         default -> throw new IllegalStateException("Illegal pressed key.");
                     }
-                    gameController.movePlayer(directionPressed);
+                    gameController.getPlayerController().movePlayer(directionPressed);
                     gameController.moveEnemies();
                 
                     if (gameController.isOver()) {
@@ -160,7 +160,7 @@ public class GameView{
                         mainFrame.dispose();
                     }
                     else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
-                        combatView.setEnemy(gameController.getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
+                        //combatView.setEnemy(gameController.getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
                         showCombat();
                         draw();
                     }

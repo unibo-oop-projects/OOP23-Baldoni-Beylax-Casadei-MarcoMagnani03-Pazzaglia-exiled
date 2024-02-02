@@ -48,6 +48,13 @@ public interface GameController {
     List<String> getImagePathOfCharacter(final Character character);
 
     /**
+     * Gets the image paths necessary to render the sprites of the character with a certain name.
+     * @param name The name (file) of the character which strings are to be fetched
+     * @return A list of paths to the right images.
+     */
+    List<String> getImagePathOfCharacter(final String path,final String name);
+
+    /**
      * Gets the game map and its methods.
      * @return the GameMap
      */
@@ -79,12 +86,6 @@ public interface GameController {
      * @return true if the endgame conditions are met, false otherwise.
      */
     boolean isOver();
-
-    /**
-     * Moves the player in the specified direction.
-     * @param dir is the direction in which the player should move.
-     */
-    void movePlayer(final Direction dir);
 
     
     void moveEnemies();

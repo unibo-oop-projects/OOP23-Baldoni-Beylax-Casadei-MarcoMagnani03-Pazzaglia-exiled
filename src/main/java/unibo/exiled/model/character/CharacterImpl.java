@@ -65,6 +65,10 @@ public abstract class CharacterImpl implements  Character{
         this.increaseAttributes(id,0,value);
     }
 
+    public double getHealth(){
+        return ((CombinedAttribute)attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
+    }
+
     public String getImagePath(){return this.path;}
     public String getImageUpPath(){return this.upImageName;}
     public String getImageDownPath(){return this.downImageName;}
