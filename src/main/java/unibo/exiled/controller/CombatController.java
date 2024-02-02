@@ -5,8 +5,8 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MoveSet;
 
 public class CombatController {
-    private Player player;
-    private Enemy enemy;
+    private final Player player;
+    private final Enemy enemy;
 
     public CombatController(Player player, Enemy enemy) {
         this.player = player;
@@ -14,14 +14,13 @@ public class CombatController {
     }
 
     /**
-     * 
      * @param character the character Player or Enemy that will take damage (defender)
-     * @param move the choosen move of the attacker
+     * @param move      the choosen move of the attacker
      */
     public void combat(Character character, MoveSet move) {
 
     }
-    
+
     public String getPlayerImage() {
         return this.player.getImagePath();
     }

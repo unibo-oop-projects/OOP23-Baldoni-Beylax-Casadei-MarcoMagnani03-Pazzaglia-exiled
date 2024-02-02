@@ -6,7 +6,6 @@ import unibo.exiled.controller.player.PlayerController;
 import unibo.exiled.model.character.Character;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.map.GameMap;
-import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
@@ -14,18 +13,21 @@ import java.util.List;
 public interface GameController {
     /**
      * Gets the inventory-specific controller.
+     *
      * @return the InventoryController.
      */
     InventoryController getInventoryController();
 
     /**
      * Gets the menu-specific controller.
+     *
      * @return the MenuController.
      */
     MenuController getInGameMenuController();
 
     /**
      * Gets the player-specific controller.
+     *
      * @return the PlayerController.
      */
     PlayerController getPlayerController();
@@ -33,6 +35,7 @@ public interface GameController {
 
     /**
      * Gets the enemies controller.
+     *
      * @return the EnemiesController.
      */
     EnemiesController getEnemiesController();
@@ -42,6 +45,7 @@ public interface GameController {
 
     /**
      * Gets the image paths necessary to render the sprites of the characters on the map.
+     *
      * @param character the character which paths needs to be fetched.
      * @return a list containing the strings of the paths.
      */
@@ -49,19 +53,22 @@ public interface GameController {
 
     /**
      * Gets the image paths necessary to render the sprites of the character with a certain name.
+     *
      * @param name The name (file) of the character which strings are to be fetched
      * @return A list of paths to the right images.
      */
-    List<String> getImagePathOfCharacter(final String path,final String name);
+    List<String> getImagePathOfCharacter(final String path, final String name);
 
     /**
      * Gets the game map and its methods.
+     *
      * @return the GameMap
      */
     GameMap getMap();
 
     /**
      * Returns the character in the given position, usually an enemy or the player.
+     *
      * @param position the position to check.
      * @return the character present in the selected position.
      */
@@ -69,6 +76,7 @@ public interface GameController {
 
     /**
      * Return the enemy in the given position
+     *
      * @param position the position to check
      * @return the enemy present in the selected position.
      */
@@ -76,6 +84,7 @@ public interface GameController {
 
     /**
      * Checks if there is an enemy in the selected cell.
+     *
      * @param pos the position to check.
      * @return true if the position pos contains an enemy, false otherwise.
      */
@@ -83,10 +92,11 @@ public interface GameController {
 
     /**
      * Checks if the game has ended (e.g. no more health)
+     *
      * @return true if the endgame conditions are met, false otherwise.
      */
     boolean isOver();
 
-    
+
     void moveEnemies();
 }

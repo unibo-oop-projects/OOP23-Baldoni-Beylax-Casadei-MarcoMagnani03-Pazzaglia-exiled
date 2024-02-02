@@ -1,10 +1,10 @@
 package unibo.exiled.view.items;
 
+import unibo.exiled.config.Constants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
-
-import unibo.exiled.config.Constants;
 
 public class GameButton extends JButton {
     private final int ROUNDED_PARAM = 10;

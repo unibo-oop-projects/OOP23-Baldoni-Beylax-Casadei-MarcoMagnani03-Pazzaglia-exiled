@@ -1,8 +1,5 @@
 package unibo.exiled.view;
 
-import javax.swing.*;
-import javax.swing.border.LineBorder;
-
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
@@ -15,12 +12,14 @@ import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.GameProgressBar;
 
+import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
-public class GameView{
+public class GameView {
     // Views
     private final CharacterView playerView;
     private final InventoryView inventoryView;
@@ -29,19 +28,19 @@ public class GameView{
     //private final CombatView combatView;
 
     // MVC Components(MC)
-    private final JFrame mainFrame; 
+    private final JFrame mainFrame;
     private final JPanel gamePanel;
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
-    private JPanel gridPanel;
     private final GameController gameController;
+    private JPanel gridPanel;
 
-    public GameView(){
+    public GameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
 
         this.gameController = new GameControllerImpl();
-        
+
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +55,7 @@ public class GameView{
         this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
         this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
         this.gameOverView = new GameOverView();
-        this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player","boy"));
+        this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
 
         //this.combatView = new CombatView(this.gameController.getPlayerController()., this);
 
@@ -79,10 +78,10 @@ public class GameView{
         this.initializeGridComponents();
         this.initializeHUD();
         this.initializeKeyListeners();
-        
+
     }
 
-    private void initializeHUD(){
+    private void initializeHUD() {
         JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
         JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
         this.gamePanel.add(flowButtonPanelNorth, BorderLayout.NORTH);
@@ -95,7 +94,7 @@ public class GameView{
         // Menu button
         GameButton menuButton = new GameButton("Menu");
         menuButton.addActionListener(e -> showMenu());
-    
+
 
         flowButtonPanelNorth.add(inventoryButton);
         flowButtonPanelNorth.add(menuButton);
@@ -104,7 +103,7 @@ public class GameView{
         GameProgressBar healthBar = new GameProgressBar();
         healthBar.updateProgress(gameController.getPlayerController().getHealth());
         GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getLevel());
-        GameLabel classLabel = new GameLabel("Class: " +gameController.getPlayerController().getPlayerClass());
+        GameLabel classLabel = new GameLabel("Class: " + gameController.getPlayerController().getPlayerClass());
 
         JPanel statusPanel = new JPanel(new FlowLayout());
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -117,17 +116,12 @@ public class GameView{
     }
 
     private void initializeGridComponents() {
-        this.gridPanel = new JPanel(
-            new GridLayout(
-                this.gameController.getMap().getWidth(),
-                this.gameController.getMap().getHeight()
-            )
-        );
+        this.gridPanel = new JPanel(new GridLayout(this.gameController.getMap().getWidth(), this.gameController.getMap().getHeight()));
         draw();
         this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
     }
 
-    private void initializeKeyListeners(){
+    private void initializeKeyListeners() {
         // Listener initialization
         KeyListener keyListener = new KeyListener() {
 
@@ -137,13 +131,7 @@ public class GameView{
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (
-                    (e.getKeyCode() == KeyEvent.VK_W ||
-                    e.getKeyCode() == KeyEvent.VK_A ||
-                    e.getKeyCode() == KeyEvent.VK_S ||
-                    e.getKeyCode() == KeyEvent.VK_D) &&
-                    !combatPanel.isVisible()
-                ) {
+                if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_D) && !combatPanel.isVisible()) {
                     Direction directionPressed;
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_W -> directionPressed = Direction.NORTH;
@@ -154,17 +142,15 @@ public class GameView{
                     }
                     gameController.getPlayerController().movePlayer(directionPressed);
                     gameController.moveEnemies();
-                
+
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
-                    }
-                    else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
+                    } else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
                         //combatView.setEnemy(gameController.getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
                         showCombat();
                         draw();
-                    }
-                    else{
+                    } else {
                         playerView.changeImage(directionPressed);
                         draw();
                     }
@@ -193,6 +179,7 @@ public class GameView{
 
     /**
      * Colors the map areas based on the respective type.
+     *
      * @param position is the position of the label.
      */
     private void setArea(Position position) {
@@ -221,28 +208,40 @@ public class GameView{
 
     private Color getBackgroundColor(CellType cellType) {
         switch (cellType) {
-            case VOLCANO -> { return Color.ORANGE; }
-            case PLAINS -> { return Color.YELLOW; }
-            case FOREST -> { return Color.GREEN; }
-            case STORM -> { return Color.DARK_GRAY; }
-            case SWAMP -> { return Color.BLUE; }
-            default -> { return Color.WHITE; }
+            case VOLCANO -> {
+                return Color.ORANGE;
+            }
+            case PLAINS -> {
+                return Color.YELLOW;
+            }
+            case FOREST -> {
+                return Color.GREEN;
+            }
+            case STORM -> {
+                return Color.DARK_GRAY;
+            }
+            case SWAMP -> {
+                return Color.BLUE;
+            }
+            default -> {
+                return Color.WHITE;
+            }
         }
     }
 
     // Show and hide button views.
 
-    private void showInventory(){
+    private void showInventory() {
         this.gamePanel.setVisible(false);
         this.inventoryPanel.setVisible(true);
     }
 
-    public void hideInventory(){
+    public void hideInventory() {
         this.gamePanel.setVisible(true);
         this.inventoryPanel.setVisible(false);
     }
 
-    public void showMenu(){
+    public void showMenu() {
         this.gamePanel.setVisible(false);
         this.menuPanel.setVisible(true);
     }
@@ -252,12 +251,12 @@ public class GameView{
         this.menuPanel.setVisible(false);
     }
 
-    public void showCombat(){
+    public void showCombat() {
         this.gamePanel.setVisible(false);
         this.combatPanel.setVisible(true);
     }
 
-    public void hideCombat(){
+    public void hideCombat() {
         this.gamePanel.setVisible(true);
         this.combatPanel.setVisible(false);
     }

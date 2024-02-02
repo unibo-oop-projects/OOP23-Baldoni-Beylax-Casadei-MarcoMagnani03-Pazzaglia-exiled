@@ -16,6 +16,7 @@ public record InventoryController(Player player) {
             return false;
         }
     }
+
     public Map<Item, Integer> getItems() {
         return player.getInventory().getItems();
     }

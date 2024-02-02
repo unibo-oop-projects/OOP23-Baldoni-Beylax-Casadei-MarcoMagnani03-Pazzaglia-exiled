@@ -2,7 +2,9 @@ package unibo.exiled.model.utilities;
 
 /**
  * The (x,y) position of a cartesian map.
+ *
  * @param x horizontal axis position
  * @param y vertical axis position
  */
-public record Position(int x, int y) { }
+public record Position(int x, int y) {
+}

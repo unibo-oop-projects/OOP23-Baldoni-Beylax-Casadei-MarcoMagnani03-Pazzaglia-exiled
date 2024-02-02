@@ -1,7 +1,5 @@
 package unibo.exiled.controller.enemy;
 
-import java.util.Random;
-
 import unibo.exiled.model.GameModel;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyCollection;
@@ -9,12 +7,14 @@ import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
 
+import java.util.Random;
+
 public class EnemiesControllerImpl implements EnemiesController {
     private static final int RANGE_PLAYER_ENEMY = 2;
 
-    private final GameModel model; 
+    private final GameModel model;
 
-    public EnemiesControllerImpl(final GameModel model){
+    public EnemiesControllerImpl(final GameModel model) {
         this.model = model;
     }
 
@@ -23,7 +23,7 @@ public class EnemiesControllerImpl implements EnemiesController {
         final EnemyCollection enemies = model.getEnemies();
         final Random rnd = new Random();
         Direction rndDirection;
-        
+
         for (Enemy enemy : enemies) {
             final Position currentEnemyPosition = enemy.getPosition();
             Position newPosition = currentEnemyPosition;
@@ -36,13 +36,13 @@ public class EnemiesControllerImpl implements EnemiesController {
                 /* If the enemy and the player are close by a certain range of cells, 
                 then the enemy will try to chase the player. */
                 final Position playerPosition = model.getPlayer().getPosition();
-    
+
                 int distance = calculateDistance(currentEnemyPosition, playerPosition);
 
                 // This check is used to ensure that the player and the enemy meet when their distance is equal to 0.
-                if(distance != 0){
+                if (distance != 0) {
                     Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
-                    newPosition = Positions.sum(currentEnemyPosition, chaseDirection.getPosition());  
+                    newPosition = Positions.sum(currentEnemyPosition, chaseDirection.getPosition());
                 }
             }
             enemy.move(newPosition);
@@ -56,6 +56,7 @@ public class EnemiesControllerImpl implements EnemiesController {
 
     /**
      * Checks if the specified enemy is near the player.
+     *
      * @param enemy the enemy to check.
      * @return if the enemy is near the player.
      */
@@ -64,14 +65,12 @@ public class EnemiesControllerImpl implements EnemiesController {
         final Position enemyPosition = enemy.getPosition();
         final int verticalDistance = Math.abs(playerPosition.y() - enemyPosition.y());
         final int horizontalDistance = Math.abs(playerPosition.x() - enemyPosition.x());
-        if (verticalDistance <= RANGE_PLAYER_ENEMY && horizontalDistance <= RANGE_PLAYER_ENEMY) {
-            return true; 
-        }
-        return false;
+        return verticalDistance <= RANGE_PLAYER_ENEMY && horizontalDistance <= RANGE_PLAYER_ENEMY;
     }
 
     /**
      * Calculates the distance between two positions.
+     *
      * @param pos1 the first position.
      * @param pos2 the second position.
      * @return the distance between the two positions.
@@ -84,21 +83,22 @@ public class EnemiesControllerImpl implements EnemiesController {
 
     /**
      * Calculates the direction in which an enemy should move to chase the player.
+     *
      * @param currentEnemyPosition the current position of the enemy.
-     * @param playerPosition the position of the player.
+     * @param playerPosition       the position of the player.
      * @return the direction in which the enemy should move to chase the player.
      */
     private Direction calculateChaseDirection(final Position currentEnemyPosition, final Position playerPosition) {
         final int deltaX = playerPosition.x() - currentEnemyPosition.x();
         final int deltaY = playerPosition.y() - currentEnemyPosition.y();
-        
+
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             return (deltaX > 0) ? Direction.EAST : Direction.WEST;
         } else {
             return (deltaY > 0) ? Direction.SOUTH : Direction.NORTH;
         }
     }
-    
+
     @Override
     public EnemyCollection getEnemies() {
         return this.model.getEnemies();

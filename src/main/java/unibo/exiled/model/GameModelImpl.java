@@ -13,11 +13,11 @@ import unibo.exiled.model.utilities.Positions;
 import java.util.Random;
 
 public class GameModelImpl implements GameModel {
+    private final EnemyCollection enemyCollection;
     private Player player;
     private GameMap map;
-    private final EnemyCollection enemyCollection;
 
-    public GameModelImpl(){
+    public GameModelImpl() {
         //Constants loading
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         final int moveNumber = Integer.parseInt(Constants.getConstantOf("NUM_PLAYER_MOVES"));
@@ -29,12 +29,12 @@ public class GameModelImpl implements GameModel {
         final int movesLearningInterval = Integer.parseInt(Constants.getConstantOf("MOVES_LEARNING_INTERVAL"));
 
         this.mapInitialization(mapSize);
-        this.playerInitialization( playerExperienceCap,defaultExperience, playerLevelIncrease,moveNumber,movesLearningInterval);
+        this.playerInitialization(playerExperienceCap, defaultExperience, playerLevelIncrease, moveNumber, movesLearningInterval);
         this.enemyCollection = new EnemyCollectionImpl();
         this.enemyInitialization(enemyNumber);
     }
 
-    private void enemyInitialization(int number){
+    private void enemyInitialization(int number) {
 
         //Checks that the number is greater than 0;
         number = number > 0 ? number : 1;
@@ -42,27 +42,27 @@ public class GameModelImpl implements GameModel {
         Random random = new Random();
         Position newEnemyPosition = null;
         EnemyFactory factory = new EnemyFactoryImpl();
-        for(int i = 0; i< number ; i++){
-            do{
-                newEnemyPosition = new Position(random.nextInt(map.getWidth()),random.nextInt(map.getHeight()));
-            }while(!isCellEmpty(newEnemyPosition));
+        for (int i = 0; i < number; i++) {
+            do {
+                newEnemyPosition = new Position(random.nextInt(map.getWidth()), random.nextInt(map.getHeight()));
+            } while (!isCellEmpty(newEnemyPosition));
             final Enemy newEnemy = factory.createRandom();
             newEnemy.move(newEnemyPosition);
             this.enemyCollection.addEnemy(newEnemy);
         }
     }
 
-    private void mapInitialization(final int size){
+    private void mapInitialization(final int size) {
         this.map = new GameMapImpl(size);
     }
 
-    private void playerInitialization(final double  playerExperienceCap,final double defaultExperience, final int levelIncrease,final int moveNumber, final int movesLearningInterval){
-        this.player = new PlayerImpl( playerExperienceCap,defaultExperience, levelIncrease,moveNumber,movesLearningInterval);
+    private void playerInitialization(final double playerExperienceCap, final double defaultExperience, final int levelIncrease, final int moveNumber, final int movesLearningInterval) {
+        this.player = new PlayerImpl(playerExperienceCap, defaultExperience, levelIncrease, moveNumber, movesLearningInterval);
         this.player.move(new Position(map.getWidth() / 2, map.getHeight() / 2));
     }
 
-    private boolean isCellEmpty(final Position position){
-        if(!map.isInBoundaries(position)){
+    private boolean isCellEmpty(final Position position) {
+        if (!map.isInBoundaries(position)) {
             return false;
         }
         return !player.getPosition().equals(position) && !enemyCollection.getEnemyFromPosition(position).isPresent();
@@ -77,12 +77,14 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public Player getPlayer(){
+    public Player getPlayer() {
         return this.player;
     }
 
     @Override
-    public GameMap getMap(){ return this.map; }
+    public GameMap getMap() {
+        return this.map;
+    }
 
     @Override
     public EnemyCollection getEnemies() {

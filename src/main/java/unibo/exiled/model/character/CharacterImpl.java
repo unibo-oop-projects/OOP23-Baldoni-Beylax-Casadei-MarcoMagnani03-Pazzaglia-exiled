@@ -3,9 +3,11 @@ package unibo.exiled.model.character;
 import unibo.exiled.model.character.attributes.*;
 import unibo.exiled.model.utilities.Position;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-public abstract class CharacterImpl implements  Character{
+public abstract class CharacterImpl implements Character {
     private final String path;
     private final String upImageName;
     private final String downImageName;
@@ -15,7 +17,7 @@ public abstract class CharacterImpl implements  Character{
     private final Map<AttributeIdentifier, Attribute> attributes;
     private Position position;
 
-    protected CharacterImpl(final Map<AttributeIdentifier,Attribute> attributes ,final List<String> paths){
+    protected CharacterImpl(final Map<AttributeIdentifier, Attribute> attributes, final List<String> paths) {
         this.path = paths.get(0);
         this.upImageName = paths.get(1);
         this.downImageName = paths.get(2);
@@ -24,15 +26,15 @@ public abstract class CharacterImpl implements  Character{
         this.attributes = attributes;
     }
 
-    protected void setAttribute(final AttributeIdentifier id, final Attribute attribute){
-        this.attributes.put(id,attribute);
+    protected void setAttribute(final AttributeIdentifier id, final Attribute attribute) {
+        this.attributes.put(id, attribute);
     }
 
-    public void move(final Position position){
+    public void move(final Position position) {
         this.position = position;
     }
 
-    public Position getPosition(){
+    public Position getPosition() {
         return this.position;
     }
 
@@ -41,37 +43,49 @@ public abstract class CharacterImpl implements  Character{
         return Collections.unmodifiableMap(this.attributes);
     }
 
-    private void increaseAttributes(final AttributeIdentifier id, final double modifier, final double value){
+    private void increaseAttributes(final AttributeIdentifier id, final double modifier, final double value) {
         final Attribute attributeToModify = this.attributes.get(id);
-        if(attributeToModify.isModifier() && attributeToModify.isValue()){
-            final CombinedAttributeImpl conv = (CombinedAttributeImpl)attributeToModify;
-            this.attributes.replace(id, new CombinedAttributeImpl(conv.value() + value,conv.modifier() + modifier));
-        }
-        else if(attributeToModify.isModifier()){
+        if (attributeToModify.isModifier() && attributeToModify.isValue()) {
+            final CombinedAttributeImpl conv = (CombinedAttributeImpl) attributeToModify;
+            this.attributes.replace(id, new CombinedAttributeImpl(conv.value() + value, conv.modifier() + modifier));
+        } else if (attributeToModify.isModifier()) {
             final MultiplierAttributeImpl conv = (MultiplierAttributeImpl) attributeToModify;
-            this.attributes.replace(id,new MultiplierAttributeImpl(conv.modifier() + modifier));
-        }
-        else{
+            this.attributes.replace(id, new MultiplierAttributeImpl(conv.modifier() + modifier));
+        } else {
             final AdditiveAttributeImpl conv = (AdditiveAttributeImpl) attributeToModify;
-            this.attributes.replace(id,new AdditiveAttributeImpl(conv.value() + value));
+            this.attributes.replace(id, new AdditiveAttributeImpl(conv.value() + value));
         }
     }
 
-    protected void increaseAttributeModifier(final AttributeIdentifier id, final double modifier){
-        this.increaseAttributes(id,modifier,0);
+    protected void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
+        this.increaseAttributes(id, modifier, 0);
     }
 
-    protected void increaseAttributeValue(final AttributeIdentifier id, final double value){
-        this.increaseAttributes(id,0,value);
+    protected void increaseAttributeValue(final AttributeIdentifier id, final double value) {
+        this.increaseAttributes(id, 0, value);
     }
 
-    public double getHealth(){
-        return ((CombinedAttribute)attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
+    public double getHealth() {
+        return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
     }
 
-    public String getImagePath(){return this.path;}
-    public String getImageUpPath(){return this.upImageName;}
-    public String getImageDownPath(){return this.downImageName;}
-    public String getImageLeftPath(){return this.leftImageName;}
-    public String getImageRightPath(){return this.rightImageName;}
+    public String getImagePath() {
+        return this.path;
+    }
+
+    public String getImageUpPath() {
+        return this.upImageName;
+    }
+
+    public String getImageDownPath() {
+        return this.downImageName;
+    }
+
+    public String getImageLeftPath() {
+        return this.leftImageName;
+    }
+
+    public String getImageRightPath() {
+        return this.rightImageName;
+    }
 }

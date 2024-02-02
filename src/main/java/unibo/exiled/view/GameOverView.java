@@ -1,11 +1,13 @@
 package unibo.exiled.view;
 
+import unibo.exiled.view.items.GameButton;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
-
-import unibo.exiled.view.items.GameButton;
 
 
 /**
@@ -24,9 +26,9 @@ public class GameOverView {
     private final GameButton restartButton = new GameButton("Restart");
     private final GameButton quitButton = new GameButton("Quit");
 
-    public GameOverView(){
+    public GameOverView() {
         this.mainFrame = new JFrame();
-        this.mainFrame.setSize((int)SCREEN_WIDTH / 3, (int)SCREEN_HEIGHT / 2);
+        this.mainFrame.setSize((int) SCREEN_WIDTH / 3, (int) SCREEN_HEIGHT / 2);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled - Game Over");
         this.mainFrame.setLocationByPlatform(true);
@@ -35,15 +37,9 @@ public class GameOverView {
         this.initializeListeners();
     }
 
-    private void initializeHud(){
+    private void initializeHud() {
         JPanel gameOverPanel = new JPanel(new BorderLayout());
-        JLabel gameOverLabel = new JLabel(new ImageIcon("src" + File.separator +
-            "main" + File.separator +
-            "java" + File.separator +
-            "unibo" + File.separator +
-            "exiled" + File.separator +
-            "resources" + File.separator +
-            "gameover.png"));
+        JLabel gameOverLabel = new JLabel(new ImageIcon("src" + File.separator + "main" + File.separator + "java" + File.separator + "unibo" + File.separator + "exiled" + File.separator + "resources" + File.separator + "gameover.png"));
         gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
 
         JPanel flowPanel = new JPanel(new FlowLayout());
@@ -55,12 +51,12 @@ public class GameOverView {
         this.mainFrame.getContentPane().add(gameOverPanel);
     }
 
-    private void initializeListeners(){
+    private void initializeListeners() {
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to restart the game?", "Warning", JOptionPane.YES_NO_OPTION);
-                if(dialogResult == JOptionPane.YES_OPTION){
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Would you like to restart the game?", "Warning", JOptionPane.YES_NO_OPTION);
+                if (dialogResult == JOptionPane.YES_OPTION) {
                     mainFrame.dispose();
                     new NewGameView(); // Restarting the game
                 }
@@ -70,8 +66,8 @@ public class GameOverView {
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to quit the game?", "Warning", JOptionPane.YES_NO_OPTION);
-                if(dialogResult == JOptionPane.YES_OPTION){
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Would you like to quit the game?", "Warning", JOptionPane.YES_NO_OPTION);
+                if (dialogResult == JOptionPane.YES_OPTION) {
                     mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING)); // Close the program
                 }
             }

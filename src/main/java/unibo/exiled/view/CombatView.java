@@ -1,10 +1,5 @@
 package unibo.exiled.view;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import javax.swing.*;
-
 import unibo.exiled.controller.CombatController;
 import unibo.exiled.model.GameModel;
 import unibo.exiled.model.character.enemy.Enemy;
@@ -12,16 +7,19 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.view.items.GameButton;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class CombatView extends JPanel {
     private CombatController combatController;
-    private JPanel moveSetPanel;
-    private JPanel battlePanel;
+    private final JPanel moveSetPanel;
+    private final JPanel battlePanel;
     private Player player;
     private Enemy enemy;
 
     public CombatView(GameModel model, GameView game) {
         this.player = player;
-        
+
         this.setLayout(new BorderLayout());
 
         this.moveSetPanel = new JPanel(new GridLayout());
