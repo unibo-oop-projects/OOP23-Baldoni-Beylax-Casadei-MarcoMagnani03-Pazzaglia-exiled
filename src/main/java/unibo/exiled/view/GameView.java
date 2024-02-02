@@ -6,7 +6,6 @@ import javax.swing.border.LineBorder;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
-import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
@@ -19,7 +18,6 @@ import unibo.exiled.view.items.GameProgressBar;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameView{
@@ -58,9 +56,9 @@ public class GameView{
         this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
         this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
         this.gameOverView = new GameOverView();
-        this.playerView = new CharacterView(gameController.getImagePathOfCharacter(gameController.getPlayerController().getPlayer()));
+        this.playerView = new CharacterView(gameController.getImagePathOfCharacter(gameController.getPlayerController().player()));
 
-        this.combatView = new CombatView(this.gameController.getPlayerController().getPlayer(), this);
+        this.combatView = new CombatView(this.gameController.getPlayerController().player(), this);
 
         this.combatPanel.add(combatView, BorderLayout.CENTER);
         this.menuPanel.add(menuView);

@@ -1,75 +1,34 @@
 package unibo.exiled.model.character.attributes;
 
 import java.util.Map;
-import java.util.Optional;
 
-import unibo.exiled.config.Constants;
+public class AttributeFactoryImpl implements AttributeFactory{
 
-public class AttributeFactoryImpl implements AttributeFactory {
-
-    public AttributeFactoryImpl(){
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-    }
-
-    private Map<AttributeIdentifier,Attribute> fromValues(
-            final double healthValue,
-            final double healthCapValue
-            ){
-        if(healthCapValue < healthValue){
-            throw new IllegalArgumentException("The health cap can't be lower than actual health");
-        }
+    private Map<AttributeIdentifier,Attribute> fromValues(final double health,
+                                                          final double healthModifier,
+                                                          final double attack,
+                                                          final double defense,
+                                                          final double healthCap){
         return Map.of(
-                AttributeIdentifier.ATTACK,new AttributeImpl(Optional.of(Double.parseDouble(Constants.getConstantOf("DEFAULT_MODIFIER"))),Optional.empty()),
-                AttributeIdentifier.HEALTH,new AttributeImpl(Optional.of(Double.parseDouble(Constants.getConstantOf("DEFAULT_MODIFIER"))),Optional.of(healthValue)),
-                AttributeIdentifier.DEFENSE, new AttributeImpl(Optional.of(Double.parseDouble(Constants.getConstantOf("DEFAULT_MODIFIER"))),Optional.empty()),
-                AttributeIdentifier.HEALTHCAP, new AttributeImpl(Optional.of(Double.parseDouble(Constants.getConstantOf("DEFAULT_MODIFIER"))),Optional.of(healthCapValue))
-        );
-    }
-
-    private Map<AttributeIdentifier,Attribute> fromValues(
-            final double healthValue,
-            final double healthModifier,
-            final double healthCapValue,
-            final double healthCapModifier,
-            final double attackModifier,
-            final double defenseModifier
-            ){
-        if(healthCapValue < healthValue){
-            throw new IllegalArgumentException("The health cap can't be lower than actual health");
-        }
-        return Map.of(
-                AttributeIdentifier.ATTACK,new AttributeImpl(Optional.of(attackModifier),Optional.empty()),
-                AttributeIdentifier.HEALTH,new AttributeImpl(Optional.of(healthModifier),Optional.of(healthValue)),
-                AttributeIdentifier.DEFENSE, new AttributeImpl(Optional.of(defenseModifier),Optional.empty()),
-                AttributeIdentifier.HEALTHCAP, new AttributeImpl(Optional.of(healthCapModifier),Optional.of(healthCapValue))
+                AttributeIdentifier.HEALTH,new CombinedAttributeImpl(health,healthModifier),
+                AttributeIdentifier.ATTACK, new MultiplierAttributeImpl(attack),
+                AttributeIdentifier.DEFENSE, new MultiplierAttributeImpl(defense),
+                AttributeIdentifier.HEALTHCAP, new AdditiveAttributeImpl(healthCap)
         );
     }
 
     @Override
-    public Map<AttributeIdentifier,Attribute> createPlayerAttributes(){
-        return this.fromValues(
-                    Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_HEALTH")),
-                    Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_HEALTH_MODIFIER")),
-                    Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_HEALTH_CAP")),
-                    Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_HEALTH_CAP_MODIFIER")),
-                    Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_ATTACK")),
-                    Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_DEFENSE"))
-                );
+    public Map<AttributeIdentifier, Attribute> createPlayerAttributes() {
+        return fromValues(100,1,1,1,100);
     }
 
     @Override
     public Map<AttributeIdentifier, Attribute> createGoblinAttributes() {
-        return this.fromValues(
-                10,
-                10
-            );
+        return fromValues(10,1,1,1,10);
     }
 
     @Override
     public Map<AttributeIdentifier, Attribute> createBrutusAttributes() {
-        return this.fromValues(
-                20,
-                20
-            );
+        return fromValues(20,1,1,1,20);
     }
 }

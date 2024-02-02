@@ -16,7 +16,7 @@ public interface PlayerController {
      * Retrieves the player object.
      * @return the player object.
      */
-    Player getPlayer();
+    Player player();
 
     /**
      * Moves the player in the specified direction within the given game map.

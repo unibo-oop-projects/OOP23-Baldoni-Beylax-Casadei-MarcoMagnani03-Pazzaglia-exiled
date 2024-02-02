@@ -6,13 +6,14 @@ import unibo.exiled.model.GameModelImpl;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.attributes.CombinedAttributeImpl;
+import unibo.exiled.model.character.attributes.MultiplierAttributeImpl;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
-
-import java.util.NoSuchElementException;
 
 public class TestPlayer {
     private double defaultHealth;
@@ -33,11 +34,11 @@ public class TestPlayer {
 
     @Test
     public void testDefaultField(){
-        assertEquals(player.getAttributes().get(AttributeIdentifier.HEALTH).getValue().get(), defaultHealth);
-        assertEquals(player.getAttributes().get(AttributeIdentifier.ATTACK).getModifier().get(), defaultAttack);
-        assertEquals(player.getAttributes().get(AttributeIdentifier.DEFENSE).getModifier().get(), defaultDefense);
-        assertThrows(NoSuchElementException.class, ()->{
-            player.getAttributes().get(AttributeIdentifier.ATTACK).getValue().get();
+        assertEquals(((CombinedAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTH)).getEvaluated(), defaultHealth);
+        assertEquals(((MultiplierAttributeImpl)player.getAttributes().get(AttributeIdentifier.ATTACK)).modifier(), defaultAttack);
+        assertEquals(((MultiplierAttributeImpl)player.getAttributes().get(AttributeIdentifier.DEFENSE)).modifier(), defaultDefense);
+        assertThrows(ClassCastException.class, ()->{
+            ((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTH)).value();
         });
         assertEquals(player.getExperience(), defaultExperience);
     }

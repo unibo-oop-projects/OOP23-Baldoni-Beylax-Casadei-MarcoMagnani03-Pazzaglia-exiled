@@ -1,8 +1,6 @@
 package unibo.exiled.model.character;
 
-import unibo.exiled.model.character.attributes.Attribute;
-import unibo.exiled.model.character.attributes.AttributeIdentifier;
-import unibo.exiled.model.character.attributes.AttributeImpl;
+import unibo.exiled.model.character.attributes.*;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.*;
@@ -43,16 +41,28 @@ public abstract class CharacterImpl implements  Character{
         return Collections.unmodifiableMap(this.attributes);
     }
 
-    protected void increaseAttributeModifierBy(final AttributeIdentifier id, final double value){
-        this.attributes.replace(id,
-                new AttributeImpl(Optional.of(this.attributes.get(id).getModifier().get() + value),
-                        Optional.empty()));
+    private void increaseAttributes(final AttributeIdentifier id, final double modifier, final double value){
+        final Attribute attributeToModify = this.attributes.get(id);
+        if(attributeToModify.isModifier() && attributeToModify.isValue()){
+            final CombinedAttributeImpl conv = (CombinedAttributeImpl)attributeToModify;
+            this.attributes.replace(id, new CombinedAttributeImpl(conv.value() + value,conv.modifier() + modifier));
+        }
+        else if(attributeToModify.isModifier()){
+            final MultiplierAttributeImpl conv = (MultiplierAttributeImpl) attributeToModify;
+            this.attributes.replace(id,new MultiplierAttributeImpl(conv.modifier() + modifier));
+        }
+        else{
+            final AdditiveAttributeImpl conv = (AdditiveAttributeImpl) attributeToModify;
+            this.attributes.replace(id,new AdditiveAttributeImpl(conv.value() + value));
+        }
+    }
+
+    protected void increaseAttributeModifier(final AttributeIdentifier id, final double modifier){
+        this.increaseAttributes(id,modifier,0);
     }
 
     protected void increaseAttributeValue(final AttributeIdentifier id, final double value){
-        this.attributes.replace(id,
-                new AttributeImpl(Optional.empty(),
-                        Optional.of(this.attributes.get(id).getValue().get() + value)));
+        this.increaseAttributes(id,0,value);
     }
 
     public String getImagePath(){return this.path;}

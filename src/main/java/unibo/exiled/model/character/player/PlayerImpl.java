@@ -1,25 +1,17 @@
 package unibo.exiled.model.character.player;
 
 import unibo.exiled.model.character.CharacterImpl;
-import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
-import unibo.exiled.model.character.attributes.AttributeImpl;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.ItemContainer;
-import unibo.exiled.model.item.ItemContainer;
-import unibo.exiled.model.item.ItemFactory;
-import unibo.exiled.model.item.ItemFactoryImpl;
 import unibo.exiled.model.item.ItemNames;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
-import unibo.exiled.model.move.MoveSetImpl;
-import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.ItemType;
-import unibo.exiled.model.utilities.Position;
 
 import java.util.*;
 
@@ -101,7 +93,7 @@ public class PlayerImpl extends CharacterImpl implements Player {
         this.level++;
         this.expCap = calculateNextLevelExperience();
         this.currentExp -= expCap;
-        this.increaseAttributeModifierBy(AttributeIdentifier.ATTACK, levelInc / 10);
+        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10);
         this.increaseAttributeValue(AttributeIdentifier.HEALTH, levelInc);
         this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, levelInc);
         this.increaseAttributeValue(AttributeIdentifier.DEFENSE, levelInc);
