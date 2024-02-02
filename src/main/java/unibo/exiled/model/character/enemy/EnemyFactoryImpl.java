@@ -4,9 +4,6 @@ import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.move.MoveSetFactory;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
-
-import java.io.File;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -42,9 +39,6 @@ public final class EnemyFactoryImpl implements EnemyFactory {
 
     @Override
     public Enemy createBrutus() {
-        final List<String> paths = List.of("enemy"
-                + File.separator
-                + "brutus", "brutus_up", "brutus_down", "brutus_left", "brutus_right");
         return new EnemyImpl(
                 "Brutus",
                 moveSetFactory.defaultNormalMoveSet(1),
@@ -59,7 +53,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     @Override
     public Enemy createRandom() {
         final int factoryMethodsCount = this.getClass().getMethods().length - 10;
-        Random rand = new Random();
+        final Random rand = new Random();
         final int choice = rand.nextInt(factoryMethodsCount);
         switch (choice) {
             case 0 -> {

@@ -20,7 +20,7 @@ public abstract class ItemBase implements Item{
     private final String description;
     private final ItemType itemType;
 
-    public ItemBase(String name,String description,ItemType itemType){
+    public ItemBase(final String name,final String description,final ItemType itemType){
         this.name = name;
         this.description = description;
         this.itemType = itemType;
@@ -37,8 +37,9 @@ public abstract class ItemBase implements Item{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
+    public boolean equals(final Object obj) {
+        if (this == obj) 
+        return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Item other = (Item) obj;
         return name.equals(other.getName());
