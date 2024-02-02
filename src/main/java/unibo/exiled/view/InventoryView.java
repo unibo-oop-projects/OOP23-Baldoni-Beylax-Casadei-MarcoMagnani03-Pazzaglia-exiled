@@ -9,12 +9,26 @@ import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.TitleGameLabel;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Map;
 
 /**
@@ -37,8 +51,9 @@ public final class InventoryView extends JPanel {
 
     /**
      * The constructor of the inventory view.
+     * 
      * @param inventoryController The controller of the inventory.
-     * @param game The view of the game (Main view)
+     * @param game                The view of the game (Main view)
      */
     public InventoryView(final InventoryController inventoryController, final GameView game) {
         this.inventoryController = inventoryController;
@@ -117,7 +132,7 @@ public final class InventoryView extends JPanel {
     private final class ItemListRenderer extends DefaultListCellRenderer {
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
-                                                      final boolean isSelected, final boolean cellHasFocus) {
+                final boolean isSelected, final boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof Item item) {
