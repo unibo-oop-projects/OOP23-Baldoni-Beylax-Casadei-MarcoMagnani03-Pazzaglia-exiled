@@ -86,7 +86,7 @@ public abstract class CharacterImpl implements Character {
      * @param id       The modifier to increase.
      * @param modifier The modifier to add to the current value.
      */
-    protected final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
+    public final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
         this.increaseAttributes(id, modifier, 0);
     }
 
@@ -96,7 +96,7 @@ public abstract class CharacterImpl implements Character {
      * @param id    The attribute to increase.
      * @param value The value to add to the attribute value.
      */
-    protected final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
+    public final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
         this.increaseAttributes(id, 0, value);
     }
 

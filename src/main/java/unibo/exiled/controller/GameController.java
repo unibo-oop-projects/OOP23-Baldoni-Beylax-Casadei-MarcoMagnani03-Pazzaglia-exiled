@@ -40,6 +40,13 @@ public interface GameController {
      */
     EnemiesController getEnemiesController();
 
+    /**
+     * Gets the combat controller.
+     *
+     * @return the CombatController.
+     */
+    CombatController getCombatController();
+
 
     //Image names for the view
 

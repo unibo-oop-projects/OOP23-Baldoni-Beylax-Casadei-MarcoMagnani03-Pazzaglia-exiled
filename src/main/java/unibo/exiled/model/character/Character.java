@@ -39,6 +39,10 @@ public interface Character {
      */
     Map<AttributeIdentifier, Attribute> getAttributes();
 
+    void increaseAttributeModifier(final AttributeIdentifier id, final double modifier);
+
+    void increaseAttributeValue(final AttributeIdentifier id, final double value);
+
     /**
      * Gets the standard health attribute value.
      * 

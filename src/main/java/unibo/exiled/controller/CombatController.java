@@ -1,33 +1,37 @@
 package unibo.exiled.controller;
 
+import java.awt.event.ActionListener;
+
+import unibo.exiled.model.character.*;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MoveSet;
+import unibo.exiled.model.utilities.Position;
 
 public class CombatController {
     private final Player player;
-    private final Enemy enemy;
+    private Enemy enemy;
 
-    public CombatController(final Player player,final Enemy enemy) {
+    public CombatController(final Player player) {
         this.player = player;
-        this.enemy = enemy;
+    }
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public Enemy getEnemy() {
+        return this.enemy;
     }
 
     /**
-     * @param character the character Player or Enemy that will take damage (defender)
-     * @param move      the choosen move of the attacker
+     * Sets the current enemy
+     * @param enemy the enemy that will combat
      */
-    public void combat(final Character character,final MoveSet move) {
-
+    public void setEnemy(final Enemy enemy) {
+        this.enemy = enemy;
     }
-
-    /*public String getPlayerImage() {
-        return this.player.getImagePath();
-    }
-
-    public String getEnemyImage() {
-        return this.enemy.getImagePath();
-    }*/
 
     public MoveSet getPlayerMoveSet() {
         return this.player.getMoveSet();
@@ -35,5 +39,12 @@ public class CombatController {
 
     public MoveSet getEnemyMoveSet() {
         return this.enemy.getMoveSet();
+    }
+
+    public void attack(boolean isPlayerAttacking) {
+        if (isPlayerAttacking) {
+            // this.enemy.increaseAttributeValue(AttributeIdentifier.HEALTH, -10000);
+            this.enemy.move(new Position(1, 1));
+        }
     }
 }

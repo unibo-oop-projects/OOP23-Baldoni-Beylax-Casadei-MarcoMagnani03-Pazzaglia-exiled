@@ -22,6 +22,7 @@ public class GameControllerImpl implements GameController {
     private final InventoryController inventoryController;
     private final MenuController inGameMenuController;
     private final EnemiesController enemiesController;
+    private final CombatController combatController;
 
     public GameControllerImpl() {
         this.model = new GameModelImpl();
@@ -29,6 +30,7 @@ public class GameControllerImpl implements GameController {
         this.inGameMenuController = new InGameMenuController();
         this.playerController = new PlayerControllerImpl(model);
         this.enemiesController = new EnemiesControllerImpl(model);
+        this.combatController = new CombatController(model.getPlayer());
     }
 
     @Override
@@ -98,6 +100,11 @@ public class GameControllerImpl implements GameController {
     @Override
     public EnemiesController getEnemiesController() {
         return this.enemiesController;
+    }
+
+    @Override
+    public CombatController getCombatController() {
+        return this.combatController;
     }
 
     @Override
