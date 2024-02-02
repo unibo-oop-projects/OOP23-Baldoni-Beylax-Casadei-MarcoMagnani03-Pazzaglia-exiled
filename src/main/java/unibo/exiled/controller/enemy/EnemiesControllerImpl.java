@@ -24,7 +24,7 @@ public class EnemiesControllerImpl implements EnemiesController {
         final Random rnd = new Random();
         Direction rndDirection;
 
-        for (Enemy enemy : enemies) {
+        for (final Enemy enemy : enemies) {
             final Position currentEnemyPosition = enemy.getPosition();
             Position newPosition = currentEnemyPosition;
             if (!isEnemyNearThePlayer(enemy)) {
@@ -37,11 +37,11 @@ public class EnemiesControllerImpl implements EnemiesController {
                 then the enemy will try to chase the player. */
                 final Position playerPosition = model.getPlayer().getPosition();
 
-                int distance = calculateDistance(currentEnemyPosition, playerPosition);
+                final int distance = calculateDistance(currentEnemyPosition, playerPosition);
 
                 // This check is used to ensure that the player and the enemy meet when their distance is equal to 0.
                 if (distance != 0) {
-                    Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
+                    final Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
                     newPosition = Positions.sum(currentEnemyPosition, chaseDirection.getPosition());
                 }
             }
@@ -50,7 +50,7 @@ public class EnemiesControllerImpl implements EnemiesController {
     }
 
     //Check if in the position there is already another enemy
-    private boolean checkOtherEnemies(Position newPosition) {
+    private boolean checkOtherEnemies(final Position newPosition) {
         return model.getEnemies().getEnemies().stream().noneMatch(enemy -> enemy.getPosition().equals(newPosition));
     }
 
@@ -75,7 +75,7 @@ public class EnemiesControllerImpl implements EnemiesController {
      * @param pos2 the second position.
      * @return the distance between the two positions.
      */
-    private int calculateDistance(Position pos1, Position pos2) {
+    private int calculateDistance(final Position pos1, final Position pos2) {
         final int deltaX = pos1.x() - pos2.x();
         final int deltaY = pos1.y() - pos2.y();
         return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -93,9 +93,9 @@ public class EnemiesControllerImpl implements EnemiesController {
         final int deltaY = playerPosition.y() - currentEnemyPosition.y();
 
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            return (deltaX > 0) ? Direction.EAST : Direction.WEST;
+            return deltaX > 0 ? Direction.EAST : Direction.WEST;
         } else {
-            return (deltaY > 0) ? Direction.SOUTH : Direction.NORTH;
+            return deltaY > 0 ? Direction.SOUTH : Direction.NORTH;
         }
     }
 

@@ -5,28 +5,41 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Constants {
+public final class Constants {
+
     public static final String DEF_CONFIG_PATH = "src" + File.separator + "main" + File.separator + "java" + File.separator + "unibo" + File.separator + "exiled" + File.separator + "config" + File.separator + "config.yml";
-    private static final Map<String, String> constants = new HashMap<>();
+
+    private static final Map<String, String> CONSTANTS_MAP = new HashMap<>();
+    
+    private static final Logger LOGGER = Logger.getLogger(Constants.class.getName());
+    private Constants() {}
+
 
     public static void loadConfiguration(final String configPath) {
-        File file = new File(configPath);
+        final File file = new File(configPath);
+        final Scanner reader;
+        String data;
+        String cName;
+        String value;
         try {
-            Scanner reader = new Scanner(file);
+            reader = new Scanner(file);
             while (reader.hasNextLine()) {
-                final String data = reader.nextLine();
-                final String cName = data.substring(0, data.indexOf(":")).trim();
-                final String value = data.substring(data.indexOf(":") + 1).trim();
-                constants.put(cName, value);
+                data = reader.nextLine();
+                cName = data.substring(0, data.indexOf(':')).trim();
+                value = data.substring(data.indexOf(':') + 1).trim();
+                CONSTANTS_MAP.put(cName, value);
             }
             reader.close();
         } catch (FileNotFoundException ex) {
-            //TODO
+            // Sostituisci printStackTrace() con l'utilizzo di un logger
+            LOGGER.log(Level.SEVERE, "Errore durante la lettura del file di configurazione", ex);
         }
     }
 
     public static String getConstantOf(final String name) {
-        return constants.get(name);
+        return CONSTANTS_MAP.get(name);
     }
 }

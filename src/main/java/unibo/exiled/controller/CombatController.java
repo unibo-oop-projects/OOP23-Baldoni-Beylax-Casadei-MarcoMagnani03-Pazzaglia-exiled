@@ -8,7 +8,7 @@ public class CombatController {
     private final Player player;
     private final Enemy enemy;
 
-    public CombatController(Player player, Enemy enemy) {
+    public CombatController(final Player player,final Enemy enemy) {
         this.player = player;
         this.enemy = enemy;
     }
@@ -17,7 +17,7 @@ public class CombatController {
      * @param character the character Player or Enemy that will take damage (defender)
      * @param move      the choosen move of the attacker
      */
-    public void combat(Character character, MoveSet move) {
+    public void combat(final Character character,final MoveSet move) {
 
     }
 

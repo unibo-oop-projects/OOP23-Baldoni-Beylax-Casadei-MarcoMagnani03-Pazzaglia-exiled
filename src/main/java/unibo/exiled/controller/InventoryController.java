@@ -7,7 +7,7 @@ import unibo.exiled.model.item.UsableItem;
 import java.util.Map;
 
 public record InventoryController(Player player) {
-    public boolean useItem(UsableItem item) {
+    public boolean useItem(final UsableItem item) {
         if (player.getInventory().containsItem(item)) {
             item.use(player);
             player.getInventory().removeItem(item);
