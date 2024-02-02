@@ -23,7 +23,7 @@ public class EnemyFactoryImpl implements EnemyFactory {
         return new EnemyImpl(
                 paths,
                 "Gobleno",
-                moveSetFactory.defaultNormalMoveSet(),
+                moveSetFactory.defaultNormalMoveSet(1),
                 attributeFactory.createGoblinAttributes()) {
             @Override
             public double getDroppedExperience() {
@@ -37,7 +37,7 @@ public class EnemyFactoryImpl implements EnemyFactory {
         final List<String> paths = List.of("enemy" + File.separator + "brutus", "brutus_up","brutus_down","brutus_left","brutus_right");
         return new EnemyImpl(paths,
         "Brutus",
-        moveSetFactory.defaultNormalMoveSet(),
+        moveSetFactory.defaultNormalMoveSet(1),
         attributeFactory.createBrutusAttributes()) {
             @Override
             public double getDroppedExperience() {

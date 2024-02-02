@@ -11,33 +11,33 @@ public interface MoveSetFactory {
      *
      * @return A MoveSet for Normal moves.
      */
-    MoveSet defaultNormalMoveSet();
+    MoveSet defaultNormalMoveSet(int movesNumber);
 
     /**
      * Creates a default MoveSet for Fire moves.
      *
      * @return A MoveSet for Fire moves.
      */
-    MoveSet defaultFireMoveSet();
+    MoveSet defaultFireMoveSet(int movesNumber);
 
     /**
      * Creates a default MoveSet for Grass moves.
      *
      * @return A MoveSet for Grass moves.
      */
-    MoveSet defaultGrassMoveSet();
+    MoveSet defaultGrassMoveSet(int movesNumber);
 
     /**
      * Creates a default MoveSet for Bolt moves.
      *
      * @return A MoveSet for Bolt moves.
      */
-    MoveSet defaultBoltMoveSet();
+    MoveSet defaultBoltMoveSet(int movesNumber);
 
     /**
      * Creates a default MoveSet for Water moves.
      *
      * @return A MoveSet for Water moves.
      */
-    MoveSet defaultWaterMoveSet();
+    MoveSet defaultWaterMoveSet(int movesNumber);
 }
