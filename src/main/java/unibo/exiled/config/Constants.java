@@ -34,7 +34,6 @@ public final class Constants {
             }
             reader.close();
         } catch (FileNotFoundException ex) {
-            // Sostituisci printStackTrace() con l'utilizzo di un logger
             LOGGER.log(Level.SEVERE, "Errore durante la lettura del file di configurazione", ex);
         }
     }
