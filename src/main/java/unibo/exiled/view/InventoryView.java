@@ -40,17 +40,16 @@ public final class InventoryView extends JPanel {
     private static final int TOP_BOTTOM_MARGIN = 15;
     private final GameController gameController;
     private final DefaultListModel<String> listModel;
-    private final JList<String> itemNamesList;
     private final JLabel emptyInventoryLabel;
     private final JScrollPane scrollPane;
 
     /**
      * The constructor of the inventory view.
      *
-     * @param inventoryController The controller of the inventory.
-     * @param game                The view of the game (Main view)
+     * @param gameController The controller of the Game.
      */
-    public InventoryView(final GameController gameController, final GameView game) {
+    public InventoryView(final GameController gameController) {
+        final JList<String> itemNamesList;
         this.gameController = gameController;
         setLayout(new BorderLayout());
 
@@ -129,7 +128,7 @@ public final class InventoryView extends JPanel {
 
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
-                final boolean isSelected, final boolean cellHasFocus) {
+                                                      final boolean isSelected, final boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof String item) {
                 final Map<String, Integer> itemsList = gameController.getItems();
@@ -146,17 +145,17 @@ public final class InventoryView extends JPanel {
 
                     case POWERUP -> {
                         setBackground(POWER_UP_ITEM_COLOR);
-                    setText(" "
-                            + item + " - Quantity: " + quantity
-                            + " - Description: "
-                            + description + " - PowerUp: " + gameController.getItemValor(item) + " - Attribute: "
-                            + gameController.getItemBoostedAttributeName(item) + " - Duration: "
-                            + gameController.getItemDuration(item));
+                        setText(" "
+                                + item + " - Quantity: " + quantity
+                                + " - Description: "
+                                + description + " - PowerUp: " + gameController.getItemValor(item) + " - Attribute: "
+                                + gameController.getItemBoostedAttributeName(item) + " - Duration: "
+                                + gameController.getItemDuration(item));
                     }
 
                     case RESOURCE -> {
                         setText(" " + item + " - Quantity: " + quantity + " - Description: "
-                        + description);
+                                + description);
                     }
 
                     default -> {

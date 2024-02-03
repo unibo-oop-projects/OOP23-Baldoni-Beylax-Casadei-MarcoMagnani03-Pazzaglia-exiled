@@ -38,17 +38,17 @@ public final class MenuItemActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(final ActionEvent e) {
-        if (e.getActionCommand().equals("new_game")) {
+        if ("new_game".equals(e.getActionCommand())) {
             new GameView().display();
             this.newGameView.hide();
         } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
             this.game.hideMenu();
-        } else if (e.getActionCommand().equals("quit")) {
-                        final int dialogResult = JOptionPane.showConfirmDialog(null,
+        } else if ("quit".equals(e.getActionCommand())) {
+            final int dialogResult = JOptionPane.showConfirmDialog(null,
                     "Would you like to quit the game?", "Warning",
                     JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                ((JPanel)e.getSource()).dispatchEvent(new WindowEvent((Window)e.getSource(), WindowEvent.WINDOW_CLOSING));;
+                ((JPanel) e.getSource()).dispatchEvent(new WindowEvent((Window) e.getSource(), WindowEvent.WINDOW_CLOSING));
             }
         } else {
             throw new IllegalArgumentException("Command is not valid");

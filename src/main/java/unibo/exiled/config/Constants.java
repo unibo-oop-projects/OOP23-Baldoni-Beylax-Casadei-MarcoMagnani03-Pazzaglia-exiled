@@ -30,7 +30,13 @@ public final class Constants {
             "src" + File.separator + "main" + File.separator + "java" + File.separator + "unibo" + File.separator
                     + "exiled" + File.separator
                     + "resources" + File.separator;
+    /**
+     * The main folder of the player.
+     */
     public static final String PLAYER_PATH = "player";
+    /**
+     * The name of the player for image purposes.
+     */
     public static final String PLAYER_NAME = "boy";
     private static final Map<String, String> CONSTANTS_MAP = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(Constants.class.getName());

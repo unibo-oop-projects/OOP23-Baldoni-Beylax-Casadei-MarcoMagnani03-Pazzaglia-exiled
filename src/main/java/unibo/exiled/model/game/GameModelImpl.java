@@ -233,7 +233,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public CellType getCellTypeOf(Position position) {
+    public CellType getCellTypeOf(final Position position) {
         return this.map.getCellType(position);
     }
 

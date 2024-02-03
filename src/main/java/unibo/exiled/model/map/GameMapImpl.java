@@ -14,7 +14,7 @@ import unibo.exiled.model.utilities.Position;
  * various types.
  * The map has specific dimensions, height, and width.
  */
-public class GameMapImpl implements GameMap {
+public final class GameMapImpl implements GameMap {
     private final int size;
     private final Map<Position, CellType> cellStates;
 

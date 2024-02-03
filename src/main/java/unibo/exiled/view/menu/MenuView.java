@@ -25,9 +25,8 @@ public final class MenuView extends JPanel {
     /**
      * The constructor of the in-game view.
      *
-     * @param controller The controller of the menu.
-     * @param game           The main view of the game.
-     * @param newGameView    The view of the new game.
+     * @param game        The main view of the game.
+     * @param newGameView The view of the new game.
      */
     public MenuView(final GameView game, final NewGameView newGameView) {
         super();
@@ -53,13 +52,15 @@ public final class MenuView extends JPanel {
         final GameButton newGameButton = new GameButton("NEW GAME");
         newGameButton.setActionCommand("new_game");
         newGameButton.addActionListener(buttonListener);
-        
+
         final GameButton quitGameButton = new GameButton("QUIT");
         quitGameButton.setActionCommand("quit");
         quitGameButton.addActionListener(buttonListener);
 
-        buttonListPanel.add(newGameButton, cnst); cnst.gridy++;
-        buttonListPanel.add(quitGameButton, cnst); cnst.gridy++;
+        buttonListPanel.add(newGameButton, cnst);
+        cnst.gridy++;
+        buttonListPanel.add(quitGameButton, cnst);
+        cnst.gridy++;
 
 
         /*for (final MenuItem menuItem : controller.getMenuItems()) { 

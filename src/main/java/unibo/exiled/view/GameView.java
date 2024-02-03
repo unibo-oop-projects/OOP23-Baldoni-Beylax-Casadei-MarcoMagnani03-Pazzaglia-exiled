@@ -3,6 +3,7 @@ package unibo.exiled.view;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
+
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
@@ -37,7 +38,6 @@ public final class GameView {
     // Views
     private final CharacterView playerView;
     private final GameOverView gameOverView;
-    private final CombatView combatView;
 
     // MVC Components(MC)
     private final JFrame mainFrame;
@@ -73,9 +73,8 @@ public final class GameView {
         //final InventoryView inventoryView = new InventoryView(gameController, this);
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
-        this.combatView = new CombatView(this.gameController, this);
 
-        this.combatPanel.add(combatView, BorderLayout.CENTER);
+        this.combatPanel.add(new CombatView(this.gameController, this), BorderLayout.CENTER);
         this.menuPanel.add(menuView);
         //this.inventoryPanel.add(inventoryView);
 
@@ -224,8 +223,8 @@ public final class GameView {
             label = playerView;
         } else if (gameController.isEnemyInCell(position)) {
             final List<String> characterImagePath = gameController
-                    .getImagePathOfCharacter("enemy",gameController.getNameOfCharacterInPosition(position)
-                    + File.separator + gameController.getNameOfCharacterInPosition(position));
+                    .getImagePathOfCharacter("enemy", gameController.getNameOfCharacterInPosition(position)
+                            + File.separator + gameController.getNameOfCharacterInPosition(position));
             label = new CharacterView(characterImagePath);
         } else {
             label = new JLabel();

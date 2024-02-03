@@ -1,9 +1,6 @@
 package unibo.exiled.view;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.controller.GameController;
-import unibo.exiled.controller.GameControllerImpl;
-import unibo.exiled.model.game.GameModelImpl;
 import unibo.exiled.view.menu.MenuView;
 
 import javax.swing.JFrame;
