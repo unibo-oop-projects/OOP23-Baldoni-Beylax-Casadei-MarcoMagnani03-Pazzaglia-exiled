@@ -17,6 +17,8 @@ import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
 import unibo.exiled.model.move.Moves;
 import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.model.utilities.Inventories;
+import unibo.exiled.model.utilities.MoveSets;
 import unibo.exiled.model.item.ItemType;
 
 /**
@@ -83,7 +85,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      */
     @Override
     public MoveSet getMoveSet() {
-        return moveSet;
+        return MoveSets.copyOf(this.moveSet);
     }
 
     /**
@@ -113,7 +115,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      */
     @Override
     public Inventory getInventory() {
-        return this.inventory;
+        return Inventories.copyOf(this.inventory);
     }
 
     /**

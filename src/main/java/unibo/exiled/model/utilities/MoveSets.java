@@ -1,9 +1,16 @@
-package unibo.exiled.model.move;
+package unibo.exiled.model.utilities;
+
+import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.model.move.MoveSet;
+import unibo.exiled.model.move.MoveSetImpl;
 
 /**
  * Utility class to manage MoveSets.
  */
 public final class MoveSets {
+    /**
+     * Private constructor to prevent instantiation of the utility class.
+     */
     private MoveSets() {
     }
 

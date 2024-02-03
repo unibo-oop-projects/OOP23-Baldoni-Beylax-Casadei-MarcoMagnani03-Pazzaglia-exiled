@@ -18,6 +18,14 @@ public interface Inventory {
     void addItem(Item item);
 
     /**
+     * Adds the specified quantity of the item to the inventory.
+     *
+     * @param item     The item to be added to the inventory.
+     * @param quantity The quantity of the item to be added.
+     */
+    void addItem(Item item, int quantity);
+
+    /**
      * Retrieves the quantity of the specified item in the inventory.
      *
      * @param item The item whose quantity needs to be retrieved.

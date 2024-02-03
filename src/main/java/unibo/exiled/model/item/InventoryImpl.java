@@ -31,6 +31,11 @@ public final class InventoryImpl implements Inventory {
     }
 
     @Override
+    public void addItem(final Item item, final int quantity) {
+        itemsList.put(item, quantity);
+    }
+
+    @Override
     public void removeItem(final Item item) {
         if (containsItem(item)) {
             final int quantity = itemsList.get(item);

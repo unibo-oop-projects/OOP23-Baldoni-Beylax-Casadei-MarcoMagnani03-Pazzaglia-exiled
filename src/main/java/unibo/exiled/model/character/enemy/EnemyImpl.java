@@ -4,7 +4,7 @@ import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.move.MoveSet;
-import unibo.exiled.model.move.MoveSets;
+import unibo.exiled.model.utilities.MoveSets;
 
 import java.util.Map;
 
