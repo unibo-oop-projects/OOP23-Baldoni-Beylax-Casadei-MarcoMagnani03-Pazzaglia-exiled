@@ -7,9 +7,16 @@ import unibo.exiled.model.menu.Menu;
 import unibo.exiled.model.menu.MenuImpl;
 import unibo.exiled.model.menu.MenuItem;
 
+/**
+ * Controller class for managing the in-game menu.
+ */
 public class InGameMenuController implements MenuController {
-    final private Menu menu;
+    private final Menu menu;
 
+    /**
+     * Constructs an InGameMenuController and initializes the menu with default
+     * items.
+     */
     public InGameMenuController() {
         this.menu = new MenuImpl();
 
@@ -17,8 +24,13 @@ public class InGameMenuController implements MenuController {
         this.menu.addMenuItem(new MenuItem("QUIT", Command.QUIT));
     }
 
+    /**
+     * Retrieves the list of menu items.
+     *
+     * @return The list of menu items.
+     */
     @Override
-    public List<MenuItem> getMenuItems(){
+    public List<MenuItem> getMenuItems() {
         return this.menu.getMenuItems();
     }
 }

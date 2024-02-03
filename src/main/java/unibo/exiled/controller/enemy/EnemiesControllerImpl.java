@@ -9,15 +9,27 @@ import unibo.exiled.model.utilities.Positions;
 
 import java.util.Random;
 
+/**
+ * The implementation of the EnemiesController interface responsible for
+ * handling enemy movement and behavior.
+ */
 public class EnemiesControllerImpl implements EnemiesController {
     private static final int RANGE_PLAYER_ENEMY = 2;
 
     private final GameModel model;
 
+    /**
+     * Constructs an EnemiesControllerImpl with the specified GameModel.
+     *
+     * @param model The GameModel to associate with the controller.
+     */
     public EnemiesControllerImpl(final GameModel model) {
         this.model = model;
     }
 
+    /**
+     * Moves all the enemies in the game.
+     */
     @Override
     public void moveEnemies() {
         final EnemyCollection enemies = model.getEnemies();
@@ -30,16 +42,20 @@ public class EnemiesControllerImpl implements EnemiesController {
             if (!isEnemyNearThePlayer(enemy)) {
                 do {
                     rndDirection = Direction.values()[rnd.nextInt(4)];
-                } while (!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition())) && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
+                } while (!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
+                        && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
                 newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
             } else {
-                /* If the enemy and the player are close by a certain range of cells, 
-                then the enemy will try to chase the player. */
+                /*
+                 * If the enemy and the player are close by a certain range of cells,
+                 * then the enemy will try to chase the player.
+                 */
                 final Position playerPosition = model.getPlayer().getPosition();
 
                 final int distance = calculateDistance(currentEnemyPosition, playerPosition);
 
-                // This check is used to ensure that the player and the enemy meet when their distance is equal to 0.
+                // This check is used to ensure that the player and the enemy meet when their
+                // distance is equal to 0.
                 if (distance != 0) {
                     final Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
                     newPosition = Positions.sum(currentEnemyPosition, chaseDirection.getPosition());
@@ -49,7 +65,7 @@ public class EnemiesControllerImpl implements EnemiesController {
         }
     }
 
-    //Check if in the position there is already another enemy
+    // Check if in the position there is already another enemy
     private boolean checkOtherEnemies(final Position newPosition) {
         return model.getEnemies().getEnemies().stream().noneMatch(enemy -> enemy.getPosition().equals(newPosition));
     }
@@ -99,6 +115,11 @@ public class EnemiesControllerImpl implements EnemiesController {
         }
     }
 
+    /**
+     * Gets the collection of enemies in the game.
+     *
+     * @return the collection of enemies.
+     */
     @Override
     public EnemyCollection getEnemies() {
         return this.model.getEnemies();

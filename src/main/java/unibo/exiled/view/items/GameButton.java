@@ -17,8 +17,16 @@ import javax.swing.JButton;
  */
 public final class GameButton extends JButton {
     private static final int ROUNDED_PARAM = 10;
-    private static final Color PRIMARY_COLOR = new Color(51, 102, 255);
-    private static final Color SECONDARY_COLOR = new Color(0, 51, 204);
+
+    private static final int PRIMARY_RED = 51;
+    private static final int PRIMARY_GREEN = 102;
+    private static final int PRIMARY_BLUE = 255;
+    private final Color primaryColor = new Color(PRIMARY_RED, PRIMARY_GREEN, PRIMARY_BLUE);
+
+    private static final int SECONDARY_RED = 0;
+    private static final int SECONDARY_GREEN = 51;
+    private static final int SECONDARY_BLUE = 204;
+    private final Color secondaryColor = new Color(SECONDARY_RED, SECONDARY_GREEN, SECONDARY_BLUE);
 
     /**
      * Constructs a GameButton with the specified text.
@@ -35,7 +43,7 @@ public final class GameButton extends JButton {
 
         setFont(new Font("Arial", Font.BOLD, 16));
         setForeground(Color.WHITE);
-        setBackground(PRIMARY_COLOR);
+        setBackground(primaryColor);
 
         setBorderPainted(false);
         setContentAreaFilled(false);
@@ -43,12 +51,12 @@ public final class GameButton extends JButton {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(final MouseEvent evt) {
-                setBackground(SECONDARY_COLOR);
+                setBackground(secondaryColor);
             }
 
             @Override
             public void mouseExited(final MouseEvent evt) {
-                setBackground(PRIMARY_COLOR);
+                setBackground(primaryColor);
             }
         });
     }
@@ -56,7 +64,7 @@ public final class GameButton extends JButton {
     @Override
     protected void paintComponent(final Graphics g) {
         if (getModel().isArmed()) {
-            g.setColor(SECONDARY_COLOR);
+            g.setColor(secondaryColor);
         } else {
             g.setColor(getBackground());
         }
