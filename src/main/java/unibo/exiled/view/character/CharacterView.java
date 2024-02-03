@@ -16,7 +16,7 @@ import javax.swing.JLabel;
  * It extends the JLabel class to display images within a Swing component.
  * The class handles the sprites of the character's movement.
  */
-public class CharacterView extends JLabel {
+public final class CharacterView extends JLabel {
     private static final long serialVersionUID = 5L;
     private static final String FIRST_IMAGE = "_1.png";
     private static final String SECOND_IMAGE = "_2.png";
@@ -24,7 +24,7 @@ public class CharacterView extends JLabel {
     private final String downSprite;
     private final String rightSprite;
     private final String leftSprite;
-    private Image image;
+    private transient Image image;
     private String imgAnimationName;
     private int animationNumber = 1;
     private String path = Constants.DEF_RESOURCE_PATH;

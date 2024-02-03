@@ -4,6 +4,7 @@ import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.move.MoveSet;
+import unibo.exiled.model.move.MoveSets;
 
 import java.util.Map;
 
@@ -12,8 +13,6 @@ import java.util.Map;
  */
 public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
     private final MoveSet moveSet;
-    // private final double level; TODO: Aggiungere livello per migliorare la logica
-    // del drop di esperienza
 
     /**
      * Constructs an enemy with a name, move set, and attributes.
@@ -23,12 +22,10 @@ public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
      * @param attributes The attributes of the enemy.
      */
     public EnemyImpl(final String name,
-            final MoveSet moveSet,
-            final Map<AttributeIdentifier, Attribute> attributes
-    /* final double level */) {
+                     final MoveSet moveSet,
+                     final Map<AttributeIdentifier, Attribute> attributes) {
         super(name, attributes);
-        this.moveSet = moveSet;
-        // this.level = level; TODO
+        this.moveSet = MoveSets.copyOf(moveSet);
     }
 
     /**
