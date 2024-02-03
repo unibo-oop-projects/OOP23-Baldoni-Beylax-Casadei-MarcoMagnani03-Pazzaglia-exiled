@@ -8,11 +8,11 @@ import java.awt.Font;
  * A label with a title.
  */
 public final class TitleGameLabel extends JLabel {
-    private final int red = 255;
-    private final int green = 100;
-    private final int blue = 50;
-    private final int fontSize = 40;
-    private final Color foregroundColor = new Color(red, green, blue);
+    private final static int RED = 255;
+    private final static int GREEN = 100;
+    private final static int BLUE = 50;
+    private final static int FONT = 40;
+    private final Color foregroundColor = new Color(RED, GREEN, BLUE);
 
     /**
      * Constructs the label with a title.
@@ -26,6 +26,6 @@ public final class TitleGameLabel extends JLabel {
 
     private void setLabelStyle() {
         setForeground(foregroundColor);
-        setFont(new Font("Arial", Font.BOLD, fontSize));
+        setFont(new Font("Arial", Font.BOLD, FONT));
     }
 }
