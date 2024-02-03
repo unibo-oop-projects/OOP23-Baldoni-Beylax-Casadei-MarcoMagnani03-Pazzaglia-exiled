@@ -16,6 +16,7 @@ import java.util.Random;
 public class EnemiesControllerImpl implements EnemiesController {
     private static final int RANGE_PLAYER_ENEMY = 2;
 
+    private static final Random RANDOM = new Random();
     private final GameModel model;
 
     /**
@@ -33,7 +34,6 @@ public class EnemiesControllerImpl implements EnemiesController {
     @Override
     public void moveEnemies() {
         final EnemyCollection enemies = model.getEnemies();
-        final Random rnd = new Random();
         Direction rndDirection;
 
         for (final Enemy enemy : enemies) {
@@ -41,7 +41,7 @@ public class EnemiesControllerImpl implements EnemiesController {
             Position newPosition = currentEnemyPosition;
             if (!isEnemyNearThePlayer(enemy)) {
                 do {
-                    rndDirection = Direction.values()[rnd.nextInt(4)];
+                    rndDirection = Direction.values()[RANDOM.nextInt(4)];
                 } while (!model.getMap().isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
                         && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
                 newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
