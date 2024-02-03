@@ -1,8 +1,9 @@
 package unibo.exiled.view;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.controller.menu.MenuController;
-import unibo.exiled.controller.menu.StartMenuController;
+import unibo.exiled.controller.GameController;
+import unibo.exiled.controller.GameControllerImpl;
+import unibo.exiled.model.game.GameModelImpl;
 import unibo.exiled.view.menu.MenuView;
 
 import javax.swing.JFrame;
@@ -21,8 +22,6 @@ public final class NewGameView {
     public NewGameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
 
-        final MenuController menuController = new StartMenuController();
-
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -31,7 +30,7 @@ public final class NewGameView {
         this.mainFrame.setFocusable(true);
         this.mainFrame.setLayout(new BorderLayout());
 
-        this.mainFrame.add(new MenuView(menuController, null, this), BorderLayout.CENTER);
+        this.mainFrame.add(new MenuView(null, this), BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
     }
 

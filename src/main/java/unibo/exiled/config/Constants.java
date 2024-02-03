@@ -32,6 +32,10 @@ public final class Constants {
 
     private static final Logger LOGGER = Logger.getLogger(Constants.class.getName());
 
+    public static final String PLAYER_PATH = "player";
+
+    public static final String PLAYER_NAME = "boy";
+
     private Constants() {
     }
 

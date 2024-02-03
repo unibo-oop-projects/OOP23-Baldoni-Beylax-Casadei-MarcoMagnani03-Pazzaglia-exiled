@@ -69,15 +69,15 @@ public final class GameView {
         this.inventoryPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
-        final MenuView menuView = new MenuView(gameController, this, null);
-        final InventoryView inventoryView = new InventoryView(gameController, this);
+        final MenuView menuView = new MenuView(this, null);
+        //final InventoryView inventoryView = new InventoryView(gameController, this);
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
-        this.combatView = new CombatView(gameController, this.gameController, this);
+        this.combatView = new CombatView(this.gameController, this);
 
         this.combatPanel.add(combatView, BorderLayout.CENTER);
         this.menuPanel.add(menuView);
-        this.inventoryPanel.add(inventoryView);
+        //this.inventoryPanel.add(inventoryView);
 
         final Container contentPanel = this.mainFrame.getContentPane();
 

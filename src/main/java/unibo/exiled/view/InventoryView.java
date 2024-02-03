@@ -1,8 +1,7 @@
 package unibo.exiled.view;
 
-import unibo.exiled.controller.InventoryController;
+import unibo.exiled.controller.GameController;
 import unibo.exiled.model.item.HealingItem;
-import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.PowerUpItem;
 import unibo.exiled.model.item.UsableItem;
 import unibo.exiled.view.items.GameButton;
@@ -43,9 +42,9 @@ public final class InventoryView extends JPanel {
     private static final int LIST_ITEM_HEIGHT = 30;
     private static final int LEFT_RIGHT_MARGIN = 100;
     private static final int TOP_BOTTOM_MARGIN = 15;
-    private final InventoryController inventoryController;
-    private final DefaultListModel<Item> listModel;
-    private final JList<Item> itemList;
+    private final GameController gameController;
+    private final DefaultListModel<String> listModel;
+    private final JList<String> itemNamesList;
     private final JLabel emptyInventoryLabel;
     private final JScrollPane scrollPane;
 
@@ -55,21 +54,21 @@ public final class InventoryView extends JPanel {
      * @param inventoryController The controller of the inventory.
      * @param game                The view of the game (Main view)
      */
-    public InventoryView(final InventoryController inventoryController, final GameView game) {
-        this.inventoryController = inventoryController;
+    public InventoryView(final GameController gameController, final GameView game) {
+        this.gameController = gameController;
         setLayout(new BorderLayout());
 
         listModel = new DefaultListModel<>();
-        itemList = new JList<>(listModel);
-        itemList.addListSelectionListener(new ItemListSelectionListener());
-        itemList.setCellRenderer(new ItemListRenderer());
+        itemNamesList = new JList<>(listModel);
+        itemNamesList.addListSelectionListener(new ItemListSelectionListener());
+        itemNamesList.setCellRenderer(new ItemListRenderer());
 
         final Dimension listItemSize = new Dimension(100, LIST_ITEM_HEIGHT);
         final int listItemWidth = getScreenWidth();
 
-        itemList.setFixedCellHeight(LIST_ITEM_HEIGHT);
-        itemList.setFixedCellWidth(listItemWidth - LEFT_RIGHT_MARGIN);
-        scrollPane = new JScrollPane(itemList);
+        itemNamesList.setFixedCellHeight(LIST_ITEM_HEIGHT);
+        itemNamesList.setFixedCellWidth(listItemWidth - LEFT_RIGHT_MARGIN);
+        scrollPane = new JScrollPane(itemNamesList);
 
         scrollPane.setSize(listItemSize);
 
@@ -112,15 +111,15 @@ public final class InventoryView extends JPanel {
     public void updateInventoryList() {
         listModel.clear();
 
-        final Map<Item, Integer> itemsList = inventoryController.getItems();
+        final Map<String, Integer> itemsList = gameController.getItems();
 
         if (itemsList.isEmpty()) {
             emptyInventoryLabel.setVisible(true);
             scrollPane.setVisible(false);
         } else {
-            for (final Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
-                final Item item = entry.getKey();
-                listModel.addElement(item);
+            for (final Map.Entry<String, Integer> entry : itemsList.entrySet()) {
+                final String itemName = entry.getKey();
+                listModel.addElement(itemName);
             }
             emptyInventoryLabel.setVisible(false);
         }
@@ -131,14 +130,44 @@ public final class InventoryView extends JPanel {
 
     private final class ItemListRenderer extends DefaultListCellRenderer {
         private static final long serialVersionUID = 3L;
+
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
-                                                      final boolean isSelected, final boolean cellHasFocus) {
+                final boolean isSelected, final boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value instanceof Item item) {
-                final int quantity = inventoryController.getItems().get(item);
+            if (value instanceof String item) {
+                final Map<String, Integer> itemsList = gameController.getItems();
 
-                if (item instanceof HealingItem healItem) {
+                final int quantity = itemsList.get(item);
+                final String description = gameController.getItemDescription(item);
+
+                switch (gameController.getItemType(item)) {
+                    case HEALTH -> {
+                        setBackground(HEALING_ITEM_COLOR);
+                        setText(" " + item + " - Quantity: " + quantity + " - Description: "
+                                + description + " - Heal: " + gameController.getItemAmout(item));
+                    }
+
+                    case POWERUP -> {
+                        setBackground(POWER_UP_ITEM_COLOR);
+                    setText(" "
+                            + item + " - Quantity: " + quantity
+                            + " - Description: "
+                            + description + " - PowerUp: " + gameController.getItemAmout(item) + " - Attribute: "
+                            + gameController.getItemBoostedAttributeName(item) + " - Duration: "
+                            + gameController.getItemDuration(item));
+                    }
+
+                    case RESOURCE -> {
+                        setText(" " + item + " - Quantity: " + quantity + " - Description: "
+                        + description);
+                    }
+
+                    default -> {
+                    }
+                }
+
+                /*if (item instanceof HealingItem healItem) {
                     setBackground(HEALING_ITEM_COLOR);
                     setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: "
                             + item.getDescription() + " - Heal: " + healItem.getAmount());
@@ -153,7 +182,7 @@ public final class InventoryView extends JPanel {
                 } else {
                     setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: "
                             + item.getDescription());
-                }
+                }*/
                 setBorder(LIST_ITEM_BORDER);
             }
             setHorizontalAlignment(SwingConstants.CENTER);
@@ -165,8 +194,8 @@ public final class InventoryView extends JPanel {
     private final class ItemListSelectionListener implements ListSelectionListener {
         @Override
         public void valueChanged(final ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()) {
-                final Item selectedItem = itemList.getSelectedValue();
+         /*   if (!e.getValueIsAdjusting()) {
+                final String selectedItemName = itemNamesList.getSelectedValue();
                 if (selectedItem instanceof UsableItem usableItem) {
                     final int confirmation = JOptionPane.showConfirmDialog(null,
                             "Are you sure you want to use "
@@ -183,7 +212,7 @@ public final class InventoryView extends JPanel {
                         updateInventoryList();
                     }
                 }
-            }
+            }*/
         }
     }
 }
