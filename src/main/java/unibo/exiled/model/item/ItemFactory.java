@@ -18,7 +18,7 @@ public interface ItemFactory {
      * @param healingValue The amount of healing provided by the item.
      * @return A new Item representing a healing item.
      */
-    Item createHealingItem(final String name, final String description, final double healingValue);
+    Item createHealingItem(String name, String description, double healingValue);
 
     /**
      * Creates a power-up item with the specified name, description, power-up value,
@@ -32,8 +32,8 @@ public interface ItemFactory {
      * @param boostedAttribute The attribute that the power up infect.
      * @return A new Item representing a power-up item.
      */
-    Item createPowerUpItem(final String name, final String description, final double powerUpValue, final int duration,
-            final AttributeIdentifier boostedAttribute);
+    Item createPowerUpItem(String name, String description, double powerUpValue, int duration,
+                           AttributeIdentifier boostedAttribute);
 
     /**
      * Creates an unusable item with the specified name and description.
@@ -42,5 +42,5 @@ public interface ItemFactory {
      * @param description The description of the unusable item.
      * @return A new Item representing an unusable item.
      */
-    Item createUnUsableItem(final String name, final String description);
+    Item createUnUsableItem(String name, String description);
 }
