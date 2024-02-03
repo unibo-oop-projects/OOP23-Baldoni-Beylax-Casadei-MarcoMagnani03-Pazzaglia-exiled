@@ -14,7 +14,7 @@ public class GameMapImpl implements GameMap {
             this.height = size;
             this.width = size;
             this.cellStates = new HashMap<>();
-            final int startingSize = (size / 2) - 3;
+            final int startingSize = size / 2 - 3;
             this.fillCells(startingSize);
         } else {
             throw new IllegalArgumentException("The size of the map should be an even number.");
@@ -36,7 +36,7 @@ public class GameMapImpl implements GameMap {
 
     private void fillCells(final int startingArea) {
         // Random generation of the game map
-        List<CellType> cellTypes = new ArrayList<>(List.of(CellType.values()));
+        final List<CellType> cellTypes = new ArrayList<>(List.of(CellType.values()));
         cellTypes.remove(CellType.PLAINS); // Removed CellType.PLAINS from cellTypes because it's the starting player spawn area.
         Collections.shuffle(cellTypes);
 
