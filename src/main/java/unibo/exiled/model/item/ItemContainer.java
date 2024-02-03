@@ -9,20 +9,31 @@ import java.util.Set;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.utilities.ItemType;
 
-public class ItemContainer{
+/**
+ * A container of every existent item in the game.
+ */
+public final class ItemContainer {
 
     private static final ItemFactory ITEM_FACTORY = new ItemFactoryImpl();
-
-    private ItemContainer(){}
-    
     private static final Set<Item> ITEMS = Set.of(
-        ITEM_FACTORY.createHealingItem(ItemNames.HEALTH_POTION.getName(), "Restores health points.", 20.0),
-        ITEM_FACTORY.createHealingItem(ItemNames.HERB.getName(), "A natural remedy for minor injuries.", 15.0),
-        ITEM_FACTORY.createHealingItem(ItemNames.BANDAGE.getName(), "A simple bandage to stop bleeding.", 10.0),
-        ITEM_FACTORY.createPowerUpItem(ItemNames.STRENGTH_BOOST.getName(), "Increases strength for a short duration.", 10.0, 3, AttributeIdentifier.ATTACK),
-        ITEM_FACTORY.createPowerUpItem(ItemNames.DEFENSE_SHIELD.getName(), "Boosts defense against attacks.", 15.0, 3, AttributeIdentifier.DEFENSE),
-        ITEM_FACTORY.createUnUsableItem(ItemNames.CRYSTAL.getName(),"The redemption crystal")
+            ITEM_FACTORY.createHealingItem(ItemNames.HEALTH_POTION.getName(),
+                    "Restores health points.", 20.0),
+            ITEM_FACTORY.createHealingItem(ItemNames.HERB.getName(),
+                    "A natural remedy for minor injuries.", 15.0),
+            ITEM_FACTORY.createHealingItem(ItemNames.BANDAGE.getName(),
+                    "A simple bandage to stop bleeding.", 10.0),
+            ITEM_FACTORY.createPowerUpItem(ItemNames.STRENGTH_BOOST.getName(),
+                    "Increases strength for a short duration.",
+                    10.0, 3, AttributeIdentifier.ATTACK),
+            ITEM_FACTORY.createPowerUpItem(ItemNames.DEFENSE_SHIELD.getName(),
+                    "Boosts defense against attacks.",
+                    15.0, 3, AttributeIdentifier.DEFENSE),
+            ITEM_FACTORY.createUnUsableItem(ItemNames.CRYSTAL.getName(),
+                    "The redemption crystal")
     );
+
+    private ItemContainer() {
+    }
 
     /**
      * Retrieves an item by its name from the container.
@@ -32,8 +43,8 @@ public class ItemContainer{
      */
     public static Optional<Item> getItemByName(final String name) {
         return ITEMS.stream()
-            .filter(item -> item.getName().equals(name))
-            .findFirst();
+                .filter(item -> item.getName().equals(name))
+                .findFirst();
     }
 
     /**
@@ -50,19 +61,19 @@ public class ItemContainer{
      *
      * @param type The type of the item to retrieve.
      * @return An Optional containing a random item of the specified type if found,
-     *         or an empty Optional if no such item is found.
+     * or an empty Optional if no such item is found.
      */
     public static Optional<Item> getRandomItemByType(final ItemType type) {
         final List<Item> itemByType = ITEMS.stream()
-        .filter(items -> items.getType() == type)
-        .toList();
-        
-        if(itemByType.isEmpty()){
+                .filter(items -> items.getType() == type)
+                .toList();
+
+        if (itemByType.isEmpty()) {
             return Optional.empty();
         }
         final Random random = new Random();
 
         return Optional.of(itemByType.get(random.nextInt(itemByType.size())));
     }
-    
+
 }
