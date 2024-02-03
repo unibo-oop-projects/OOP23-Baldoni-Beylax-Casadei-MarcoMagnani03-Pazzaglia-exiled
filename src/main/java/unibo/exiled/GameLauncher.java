@@ -3,7 +3,7 @@ package unibo.exiled;
 import unibo.exiled.view.NewGameView;
 
 /**
- * The GameLauncher class is responsible for launching the game.
+ * The main launcher of the Java application, made to build the JAR.
  */
 public final class GameLauncher {
 
@@ -11,9 +11,9 @@ public final class GameLauncher {
     }
 
     /**
-     * The main method to start the game.
+     * The main method.
      *
-     * @param args The command-line arguments.
+     * @param args No arguments should be passed to this program.
      */
     public static void main(final String[] args) {
         new NewGameView();
