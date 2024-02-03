@@ -70,7 +70,7 @@ public final class GameView {
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         final MenuView menuView = new MenuView(this, null);
-        final InventoryView inventoryView = new InventoryView(gameController,this);
+        final InventoryView inventoryView = new InventoryView(gameController, this);
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
 

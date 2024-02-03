@@ -52,5 +52,11 @@ public interface Player extends GameCharacter {
      */
     void addExperience(double exp);
 
+    /**
+     * Uses the specified UsableItem. The effect of the item is applied to the player,
+     * and the item is consumed from the player's inventory.
+     *
+     * @param item The UsableItem to be used.
+     */
     void useItem(UsableItem item);
 }

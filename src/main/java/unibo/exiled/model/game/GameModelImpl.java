@@ -256,7 +256,7 @@ public final class GameModelImpl implements GameModel {
             .collect(Collectors.toMap(entry -> entry.getKey().getName(), Map.Entry::getValue));
     }
 
-    private Item getItem(String itemName){
+    private Item getItem(final String itemName) {
         return player.getInventory().getItems()
             .entrySet()
             .stream()
@@ -265,51 +265,49 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public String getItemDescription(String itemName) {
+    public String getItemDescription(final String itemName) {
         return getItem(itemName).getDescription();
     }
 
     @Override
-    public double getItemValor(String itemName) {
-        Item selectedItem = getItem(itemName);
-        if(selectedItem instanceof UsableItem){
-            return ((UsableItem)selectedItem).getAmount();
+    public double getItemValor(final String itemName) {
+        final Item selectedItem = getItem(itemName);
+        if (selectedItem instanceof UsableItem) {
+            return ((UsableItem) selectedItem).getAmount();
         }
         return 0;
     }
 
     @Override
-    public ItemType getItemType(String itemName) {
+    public ItemType getItemType(final String itemName) {
         return getItem(itemName).getType();
     }
 
     @Override
-    public String getItemBoostedAttributeName(String itemName) {
-        Item selectedItem = getItem(itemName);
-
-        if(selectedItem instanceof PowerUpItem){
-            return ((PowerUpItem)selectedItem).getBoostedAttribute().getName();
-        }
-        else if(selectedItem instanceof HealingItem){
+    public String getItemBoostedAttributeName(final String itemName) {
+        final Item selectedItem = getItem(itemName);
+        if (selectedItem instanceof PowerUpItem) {
+            return ((PowerUpItem) selectedItem).getBoostedAttribute().getName();
+        } else if (selectedItem instanceof HealingItem) {
             return AttributeIdentifier.HEALTH.getName();
         }
         return "";
     }
 
     @Override
-    public int getItemDuration(String itemName) {
-        Item selectedItem = getItem(itemName);
-        if(selectedItem instanceof PowerUpItem){
-            return ((PowerUpItem)selectedItem).getDuration();
+    public int getItemDuration(final String itemName) {
+        final Item selectedItem = getItem(itemName);
+        if (selectedItem instanceof PowerUpItem) {
+            return ((PowerUpItem) selectedItem).getDuration();
         }
         return 0;
     }
 
     @Override
-    public boolean useItem(String item) {
-        Item selectedItem = getItem(item);
-        if(selectedItem instanceof UsableItem){
-            UsableItem convertedItem = (UsableItem)selectedItem;
+    public boolean useItem(final String item) {
+        final Item selectedItem = getItem(item);
+        if (selectedItem instanceof UsableItem) {
+            final UsableItem convertedItem = (UsableItem) selectedItem;
             player.useItem(convertedItem);
             return true;
         }

@@ -220,6 +220,12 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
         levelUp();
     }
 
+    /**
+     * Uses the specified UsableItem. The effect of the item is applied to the player,
+     * and the item is consumed from the player's inventory.
+     *
+     * @param item The UsableItem to be used.
+     */
     @Override
     public void useItem(final UsableItem item) {
         item.use(this);

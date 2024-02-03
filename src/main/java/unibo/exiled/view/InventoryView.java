@@ -43,7 +43,7 @@ public final class InventoryView extends JPanel {
     private final DefaultListModel<String> listModel;
     private final JLabel emptyInventoryLabel;
     private final JScrollPane scrollPane;
-    private static JList<String> itemNamesList = new JList<String>();
+    private final JList<String> itemNamesList;
 
     /**
      * The constructor of the inventory view.
@@ -135,13 +135,14 @@ public final class InventoryView extends JPanel {
                             "Are you sure you want to use "
                                     + selectedItemName + "?",
                             "Confirm Use", JOptionPane.YES_NO_OPTION);
-    
                     if (confirmation == JOptionPane.YES_OPTION) {
                         final boolean useResult = gameController.useItem(selectedItemName);
                         if (useResult) {
-                            JOptionPane.showMessageDialog(null, "Used " + selectedItemName,"SUCCESS",JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Used " + selectedItemName,
+                            "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(null, "The selected item is not usable", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "The selected item is not usable",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         updateInventoryList();
                     }

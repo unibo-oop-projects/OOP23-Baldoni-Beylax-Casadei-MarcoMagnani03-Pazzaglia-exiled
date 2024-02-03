@@ -66,16 +66,16 @@ public interface GameModel {
     Position getPlayerPosition();
 
     /**
-     * Returns the items of the player
+     * Returns the items of the player.
      *
      * @return The items of the player.
      */
-    Map<String,Integer> getItems();
+    Map<String, Integer> getItems();
 
     /**
-     * Returns the description of a given item
-     *
-     * @return the description of a given item
+     * Returns the description of a given item.
+     * @param itemName The name of the item.
+     * @return the description of a given item.
      */
     String getItemDescription(String itemName);
 
@@ -140,5 +140,5 @@ public interface GameModel {
      * @param item The item to use.
      * @return true if the item was successfully used, false otherwise.
      */
-    public boolean useItem(String item);
+    boolean useItem(String item);
 }

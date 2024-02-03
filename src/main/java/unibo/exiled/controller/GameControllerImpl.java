@@ -148,7 +148,7 @@ public final class GameControllerImpl implements GameController {
     }
 
     @Override
-    public boolean useItem(String itemName){
+    public boolean useItem(final String itemName) {
         return model.useItem(itemName);
     }
 }

@@ -167,5 +167,5 @@ public interface GameController {
      * @param item The item name to use.
      * @return true if the item was successfully used, false otherwise.
      */
-    public boolean useItem(String item);
+    boolean useItem(String item);
 }
