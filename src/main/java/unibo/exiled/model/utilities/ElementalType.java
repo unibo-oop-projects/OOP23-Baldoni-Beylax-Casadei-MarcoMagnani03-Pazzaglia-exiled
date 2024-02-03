@@ -9,7 +9,7 @@ public enum ElementalType {
 
     private final String name;
 
-    ElementalType(String name) {
+    ElementalType(final String name) {
         this.name = name;
     }
 
@@ -24,7 +24,7 @@ public enum ElementalType {
      * @return true if the current type is strong against the specified type, false otherwise.
      * @throws IllegalArgumentException if the current elemental type is not valid.
      */
-    public boolean isStrongAgainst(ElementalType secondMoveType) {
+    public boolean isStrongAgainst(final ElementalType secondMoveType) {
         switch (this) {
             case FIRE:
                 return secondMoveType.equals(GRASS);

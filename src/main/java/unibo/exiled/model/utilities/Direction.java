@@ -8,7 +8,7 @@ public enum Direction {
 
     private final Position position;
 
-    Direction(int x, int y) {
+    Direction(final int x,final int y) {
         position = new Position(x, y);
     }
 
