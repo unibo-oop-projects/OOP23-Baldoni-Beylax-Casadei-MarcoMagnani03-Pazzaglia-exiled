@@ -1,4 +1,4 @@
-package unibo.exiled.view.Menu;
+package unibo.exiled.view.menu;
 
 import unibo.exiled.model.menu.Command;
 import unibo.exiled.view.GameView;
@@ -31,6 +31,7 @@ public final class MenuItemActionListener implements ActionListener {
      *
      * @param e the event to be processed
      */
+    @Override
     public void actionPerformed(final ActionEvent e) {
         if (e.getActionCommand().equals(Command.NEW_GAME.getCommandString())) {
             new GameView().display();

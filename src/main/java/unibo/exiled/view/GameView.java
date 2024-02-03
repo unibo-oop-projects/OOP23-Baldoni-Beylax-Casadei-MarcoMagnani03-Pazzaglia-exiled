@@ -8,11 +8,11 @@ import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
-import unibo.exiled.view.Menu.MenuView;
 import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.GameProgressBar;
+import unibo.exiled.view.menu.MenuView;
 
 import javax.swing.JLabel;
 import javax.swing.JFrame;

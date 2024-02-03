@@ -3,7 +3,7 @@ package unibo.exiled.view;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.controller.menu.StartMenuController;
-import unibo.exiled.view.Menu.MenuView;
+import unibo.exiled.view.menu.MenuView;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -13,7 +13,6 @@ import java.awt.BorderLayout;
  * The new game selection menu view.
  */
 public final class NewGameView {
-    private final MenuController menuController;
     private final JFrame mainFrame;
 
     /**
@@ -22,7 +21,7 @@ public final class NewGameView {
     public NewGameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
 
-        this.menuController = new StartMenuController();
+        final MenuController menuController = new StartMenuController();
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -32,7 +31,7 @@ public final class NewGameView {
         this.mainFrame.setFocusable(true);
         this.mainFrame.setLayout(new BorderLayout());
 
-        this.mainFrame.add(new MenuView(this.menuController, null, this), BorderLayout.CENTER);
+        this.mainFrame.add(new MenuView(menuController, null, this), BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
     }
 
