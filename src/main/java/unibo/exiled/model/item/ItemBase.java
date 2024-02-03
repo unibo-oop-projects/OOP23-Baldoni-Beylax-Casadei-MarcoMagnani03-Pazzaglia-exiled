@@ -2,8 +2,6 @@ package unibo.exiled.model.item;
 
 import java.util.Objects;
 
-import unibo.exiled.model.utilities.ItemType;
-
 /**
  * This abstract class implements the Item interface by providing
  * a common core implementation for items in the game.

@@ -2,7 +2,6 @@ package unibo.exiled.model.item;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
-import unibo.exiled.model.utilities.ItemType;
 
 /**
  * This class represents a usable power-up item.

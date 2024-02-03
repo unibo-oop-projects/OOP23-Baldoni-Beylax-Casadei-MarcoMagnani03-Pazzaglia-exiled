@@ -7,8 +7,6 @@ package unibo.exiled.model.item;
  * for each type of item in the game.
  */
 
-import unibo.exiled.model.utilities.ItemType;
-
 /**
  * An item that can be found in-game.
  */

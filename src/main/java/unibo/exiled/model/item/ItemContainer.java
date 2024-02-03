@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Set;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
-import unibo.exiled.model.utilities.ItemType;
 
 /**
  * A container of every existent item in the game.

@@ -1,7 +1,5 @@
 package unibo.exiled.model.item;
 
-import unibo.exiled.model.utilities.ItemType;
-
 /**
  * This class represents a item that can't be used by the player, for example the crystals
  */

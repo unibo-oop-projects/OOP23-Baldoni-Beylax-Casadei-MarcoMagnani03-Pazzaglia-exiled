@@ -17,7 +17,7 @@ import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
 import unibo.exiled.model.move.Moves;
 import unibo.exiled.model.utilities.ElementalType;
-import unibo.exiled.model.utilities.ItemType;
+import unibo.exiled.model.item.ItemType;
 
 /**
  * This class represent the implementation of the player in the game.
