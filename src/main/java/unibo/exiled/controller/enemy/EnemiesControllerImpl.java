@@ -16,7 +16,7 @@ import java.util.Random;
 public class EnemiesControllerImpl implements EnemiesController {
     private static final int RANGE_PLAYER_ENEMY = 2;
 
-    private final static Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
     private final GameModel model;
 
     /**
