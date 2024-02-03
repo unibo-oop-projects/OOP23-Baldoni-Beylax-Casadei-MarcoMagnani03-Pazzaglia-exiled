@@ -1,12 +1,17 @@
 package unibo.exiled.model.item;
 
 /**
- * This class represents a item that can't be used by the player, for example the crystals
+ * Represents an item that can't be used by the player, such as crystals.
  */
 public class UnUsableItem extends ItemBase {
 
-
-    public UnUsableItem(String name, String description) {
-        super(name, description,ItemType.RESOURCE);
+    /**
+     * Constructs an UnUsableItem with the specified name and description.
+     *
+     * @param name        The name of the un-usable item.
+     * @param description The description of the un-usable item.
+     */
+    public UnUsableItem(final String name, final String description) {
+        super(name, description, ItemType.RESOURCE);
     }
 }

@@ -1,7 +1,7 @@
 package unibo.exiled.model.item;
 
 /**
- * Enumeration representing the types of items available in the game
+ * Enumeration representing the types of items available in the game.
  */
 public enum ItemType {
     /**
