@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * The implementation of a generic character.
  */
-public abstract class CharacterImpl implements Character {
+public abstract class GameCharacterImpl implements GameCharacter {
     /**
      * An association between the identifier of the attribute and its values.
      */
@@ -23,12 +23,12 @@ public abstract class CharacterImpl implements Character {
     private Position position;
 
     /**
-     * The constructor of the Character.
+     * The constructor of the GameCharacter.
      *
      * @param attributes The attributes of the character to build.
      * @param name       The name of the character.
      */
-    protected CharacterImpl(final String name, final Map<AttributeIdentifier, Attribute> attributes) {
+    protected GameCharacterImpl(final String name, final Map<AttributeIdentifier, Attribute> attributes) {
         this.attributes = attributes;
         this.name = name;
     }

@@ -8,7 +8,7 @@ import unibo.exiled.controller.player.PlayerController;
 import unibo.exiled.controller.player.PlayerControllerImpl;
 import unibo.exiled.model.GameModel;
 import unibo.exiled.model.GameModelImpl;
-import unibo.exiled.model.character.Character;
+import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.utilities.Position;
@@ -41,17 +41,17 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * Retrieves the image path for the given character.
+     * Retrieves the image path for the given gameCharacter.
      *
-     * @param character The character for which to retrieve the image path.
-     * @return The image path for the character.
+     * @param gameCharacter The gameCharacter for which to retrieve the image path.
+     * @return The image path for the gameCharacter.
      */
     @Override
-    public List<String> getImagePathOfCharacter(final Character character) {
-        if (character instanceof Enemy) {
-            return this.getImagePathOfCharacter("enemy", character.getName()
+    public List<String> getImagePathOfCharacter(final GameCharacter gameCharacter) {
+        if (gameCharacter instanceof Enemy) {
+            return this.getImagePathOfCharacter("enemy", gameCharacter.getName()
                     + File.separator
-                    + character.getName());
+                    + gameCharacter.getName());
         } else {
             return this.getImagePathOfCharacter("player", "boy");
         }
@@ -90,7 +90,7 @@ public class GameControllerImpl implements GameController {
      * @return The character in the specified position.
      */
     @Override
-    public Character getCharacterInPosition(final Position pos) {
+    public GameCharacter getCharacterInPosition(final Position pos) {
         if (this.model.getPlayer().getPosition().equals(pos)) {
             return this.model.getPlayer();
         } else {

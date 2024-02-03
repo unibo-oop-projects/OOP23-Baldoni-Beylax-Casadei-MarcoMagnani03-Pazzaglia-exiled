@@ -3,7 +3,7 @@ package unibo.exiled.controller;
 import unibo.exiled.controller.enemy.EnemiesController;
 import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.controller.player.PlayerController;
-import unibo.exiled.model.character.Character;
+import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.utilities.Position;
@@ -53,10 +53,10 @@ public interface GameController {
     /**
      * Gets the image paths necessary to render the sprites of the characters on the map.
      *
-     * @param character the character which paths needs to be fetched.
+     * @param gameCharacter the gameCharacter which paths needs to be fetched.
      * @return a list containing the strings of the paths.
      */
-    List<String> getImagePathOfCharacter(Character character);
+    List<String> getImagePathOfCharacter(GameCharacter gameCharacter);
 
     /**
      * Gets the image paths necessary to render the sprites of the character with a certain name.
@@ -79,7 +79,7 @@ public interface GameController {
      * @param position the position to check.
      * @return the character present in the selected position.
      */
-    Character getCharacterInPosition(Position position);
+    GameCharacter getCharacterInPosition(Position position);
 
     /**
      * Return the enemy in the given position

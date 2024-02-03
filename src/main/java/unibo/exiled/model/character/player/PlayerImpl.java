@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.model.character.CharacterImpl;
+import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.item.Inventory;
@@ -22,7 +22,7 @@ import unibo.exiled.model.item.ItemType;
 /**
  * This class represent the implementation of the player in the game.
  */
-public class PlayerImpl extends CharacterImpl implements Player {
+public class PlayerImpl extends GameCharacterImpl implements Player {
     private final int levelInc;
     private int level;
     private double currentExp;

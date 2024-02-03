@@ -1,13 +1,13 @@
 package unibo.exiled.model.character.player;
 
-import unibo.exiled.model.character.Character;
+import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.utilities.ElementalType;
 
 /**
  * The interface of the Player.
  */
-public interface Player extends Character {
+public interface Player extends GameCharacter {
 
     /**
      * Gets the level of the player.

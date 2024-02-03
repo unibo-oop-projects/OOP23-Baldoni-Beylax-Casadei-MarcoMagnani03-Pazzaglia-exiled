@@ -1,12 +1,12 @@
 package unibo.exiled.model.character.enemy;
 
-import unibo.exiled.model.character.CharacterImpl;
+import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.move.MoveSet;
 import java.util.Map;
 
-public abstract class EnemyImpl extends CharacterImpl implements Enemy {
+public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
     private final MoveSet moveSet;
     //private final double level; TODO: Aggiungere livello per migliorare la logica del drop di esperienza
 

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * A character that can move.
  */
-public interface Character {
+public interface GameCharacter {
     /**
      * Gets the MoveSet of the character to be used in a battle.
      * 
