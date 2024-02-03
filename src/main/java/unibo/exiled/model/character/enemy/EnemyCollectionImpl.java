@@ -21,21 +21,42 @@ public final class EnemyCollectionImpl implements EnemyCollection {
         this.enemies = new HashSet<>();
     }
 
+    /**
+     * Adds an enemy to the collection.
+     *
+     * @param enemy The enemy to be added.
+     */
     @Override
     public void addEnemy(final Enemy enemy) {
         this.enemies.add(enemy);
     }
 
+    /**
+     * Removes an enemy from the collection.
+     *
+     * @param enemy The enemy to be removed.
+     */
     @Override
     public void removeEnemy(final Enemy enemy) {
         this.enemies.remove(enemy);
     }
 
+    /**
+     * Gets the set of enemies in the collection.
+     *
+     * @return The set of enemies.
+     */
     @Override
     public Set<Enemy> getEnemies() {
         return Collections.unmodifiableSet(this.enemies);
     }
 
+    /**
+     * Gets the enemy at a specific position, if any.
+     *
+     * @param position The position to check.
+     * @return An Optional containing the enemy at the position, if present.
+     */
     @Override
     public Optional<Enemy> getEnemyFromPosition(final Position position) {
         return this.enemies.stream().filter(enemy -> enemy.getPosition().equals(position)).findFirst();
