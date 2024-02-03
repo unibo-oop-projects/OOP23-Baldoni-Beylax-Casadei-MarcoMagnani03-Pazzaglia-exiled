@@ -2,9 +2,12 @@ package unibo.exiled.model.character.attributes;
 
 import java.util.Map;
 
+/**
+ * A factory of default attributes for characters.
+ */
 public interface AttributeFactory {
     /**
-     * Creates the attributes of the player, by default:<br>
+     * Creates the attributes of the player.<br>
      * <ul>
      *    <li>
      *         Health and HealthCap: 100
@@ -19,7 +22,7 @@ public interface AttributeFactory {
     Map<AttributeIdentifier, Attribute> createPlayerAttributes();
 
     /**
-     * Creates the attributes of the goblin, the weakest enemy, by default:<br>
+     * Creates the attributes of the goblin, the weakest enemy.<br>
      * <ul>
      *    <li>
      *        Health and HealthCap: 10
@@ -33,7 +36,7 @@ public interface AttributeFactory {
     Map<AttributeIdentifier, Attribute> createGoblinAttributes();
 
     /**
-     * Creates the attributes of the brutus, by default:<br>
+     * Creates the attributes of the brutus.<br>
      * <ul>
      *      <li>
      *          Health and HealthCap: 20

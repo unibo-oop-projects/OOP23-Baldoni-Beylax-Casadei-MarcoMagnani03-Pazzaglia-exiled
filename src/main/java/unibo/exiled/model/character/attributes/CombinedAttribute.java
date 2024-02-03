@@ -1,5 +1,8 @@
 package unibo.exiled.model.character.attributes;
 
+/**
+ * Interface of the combined attribute, which should have a method that evaluates the value * modifier.
+ */
 public interface CombinedAttribute extends AdditiveAttribute, MultiplierAttribute {
     /**
      * Calculates the value * modifier in a combined attribute.
