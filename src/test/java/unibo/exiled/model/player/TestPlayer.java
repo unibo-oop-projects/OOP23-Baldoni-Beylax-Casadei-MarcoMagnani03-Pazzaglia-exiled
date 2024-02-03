@@ -2,7 +2,8 @@ package unibo.exiled.model.player;
 
 import org.junit.jupiter.api.BeforeEach;
 import unibo.exiled.config.Constants;
-import unibo.exiled.model.GameModelImpl;
+import unibo.exiled.model.character.player.PlayerImpl;
+import unibo.exiled.model.game.GameModelImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,7 +21,6 @@ import unibo.exiled.model.utilities.Positions;
  * Tests the player and its movements.
  */
 class TestPlayer {
-    private final Player player = new GameModelImpl().getPlayer();
     private double defaultHealth;
     private double defaultAttack;
     private double defaultDefense;

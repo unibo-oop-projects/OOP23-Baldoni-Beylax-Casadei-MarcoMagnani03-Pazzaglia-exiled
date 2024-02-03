@@ -18,28 +18,16 @@ import javax.swing.JLabel;
  */
 public class CharacterView extends JLabel {
     private static final long serialVersionUID = 5L;
-    private Image image;
-    private String imgAnimationName;
-    private int animationNumber = 1;
-
+    private static final String FIRST_IMAGE = "_1.png";
+    private static final String SECOND_IMAGE = "_2.png";
     private final String upSprite;
     private final String downSprite;
     private final String rightSprite;
     private final String leftSprite;
-
-    private static final String FIRST_IMAGE = "_1.png";
-    private static final String SECOND_IMAGE = "_2.png";
-
-    private String defaultImagePath = "src"
-            + File.separator
-            + "main"
-            + File.separator
-            + "java"
-            + File.separator
-            + "unibo"
-            + File.separator
-            + "exiled" + File.separator
-            + "resources" + File.separator;
+    private Image image;
+    private String imgAnimationName;
+    private int animationNumber = 1;
+    private String path = Constants.DEF_RESOURCE_PATH;
 
     /**
      * Constructs a new CharacterView instance with the specified sprite images.
@@ -55,9 +43,9 @@ public class CharacterView extends JLabel {
     public CharacterView(final List<String> sprites) {
 
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        defaultImagePath += sprites.get(0) + File.separator;
+        path += sprites.get(0) + File.separator;
 
-        this.image = new ImageIcon(defaultImagePath + sprites.get(2) + FIRST_IMAGE).getImage();
+        this.image = new ImageIcon(path + sprites.get(2) + FIRST_IMAGE).getImage();
 
         this.upSprite = sprites.get(1);
         this.downSprite = sprites.get(2);
@@ -83,7 +71,7 @@ public class CharacterView extends JLabel {
             default -> {
             }
         }
-        this.image = new ImageIcon(defaultImagePath + imgAnimationName).getImage();
+        this.image = new ImageIcon(path + imgAnimationName).getImage();
     }
 
     /**

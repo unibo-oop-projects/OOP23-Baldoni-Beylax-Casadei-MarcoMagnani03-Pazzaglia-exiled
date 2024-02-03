@@ -51,7 +51,7 @@ public final class InventoryView extends JPanel {
 
     /**
      * The constructor of the inventory view.
-     * 
+     *
      * @param inventoryController The controller of the inventory.
      * @param game                The view of the game (Main view)
      */
@@ -133,7 +133,7 @@ public final class InventoryView extends JPanel {
         private static final long serialVersionUID = 3L;
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
-                final boolean isSelected, final boolean cellHasFocus) {
+                                                      final boolean isSelected, final boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof Item item) {
                 final int quantity = inventoryController.getItems().get(item);

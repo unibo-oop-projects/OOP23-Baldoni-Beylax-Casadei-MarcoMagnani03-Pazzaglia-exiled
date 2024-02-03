@@ -18,18 +18,15 @@ public final class Constants {
      * Default path to the configuration file.
      */
     public static final String DEF_CONFIG_PATH = "src"
-            + File.separator
-            + "main"
-            + File.separator
-            + "java"
-            + File.separator
-            + "unibo"
-            + File.separator
-            + "exiled"
-            + File.separator
-            + "config"
-            + File.separator
+            + File.separator + "main" + File.separator + "java" + File.separator + "unibo" + File.separator
+            + "exiled" + File.separator
+            + "config" + File.separator
             + "config.yml";
+
+    public static final String DEF_RESOURCE_PATH =
+            "src" + File.separator + "main" + File.separator + "java" + File.separator + "unibo" + File.separator
+                    + "exiled" + File.separator
+                    + "resources" + File.separator;
 
     private static final Map<String, String> CONSTANTS_MAP = new HashMap<>();
 

@@ -1,10 +1,12 @@
 package unibo.exiled.view;
 
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.List;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
+import unibo.exiled.model.game.GameModelImpl;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
@@ -54,8 +56,7 @@ public final class GameView {
      */
     public GameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-
-        this.gameController = new GameControllerImpl();
+        this.gameController = new GameControllerImpl(new GameModelImpl());
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -68,11 +69,11 @@ public final class GameView {
         this.inventoryPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
-        final MenuView menuView = new MenuView(gameController.getInGameMenuController(), this, null);
-        final InventoryView inventoryView = new InventoryView(gameController.getInventoryController(), this);
+        final MenuView menuView = new MenuView(gameController, this, null);
+        final InventoryView inventoryView = new InventoryView(gameController, this);
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
-        this.combatView = new CombatView(gameController.getCombatController(), this.gameController, this);
+        this.combatView = new CombatView(gameController, this.gameController, this);
 
         this.combatPanel.add(combatView, BorderLayout.CENTER);
         this.menuPanel.add(menuView);
@@ -120,9 +121,9 @@ public final class GameView {
 
         // Player information
         final GameProgressBar healthBar = new GameProgressBar();
-        healthBar.updateProgress(gameController.getPlayerController().getHealth());
-        final GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getLevel());
-        final GameLabel classLabel = new GameLabel("Class: " + gameController.getPlayerController().getPlayerClass());
+        healthBar.updateProgress(gameController.getPlayerHealth());
+        final GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerLevel());
+        final GameLabel classLabel = new GameLabel("Class: " + gameController.getPlayerClassName());
 
         final JPanel statusPanel = new JPanel(new FlowLayout());
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -136,8 +137,8 @@ public final class GameView {
 
     private void initializeGridComponents() {
         this.gridPanel = new JPanel(
-                new GridLayout(this.gameController.getMap().getWidth(),
-                        this.gameController.getMap().getHeight()));
+                new GridLayout(this.gameController.getMapSize(),
+                        this.gameController.getMapSize()));
         draw();
         this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
     }
@@ -175,17 +176,17 @@ public final class GameView {
                         || e.getKeyCode() == KeyEvent.VK_S
                         || e.getKeyCode() == KeyEvent.VK_D) && !combatPanel.isVisible()) {
                     final Direction directionPressed = getDirection(e);
-                    gameController.getPlayerController().movePlayer(directionPressed);
+                    gameController.movePlayer(directionPressed);
                     gameController.moveEnemies();
 
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
-                    } else if (gameController.isEnemyInCell(gameController.getPlayerController().getPlayerPosition())) {
-                        combatView.setEnemy(gameController.getEnemiesController().getEnemies()
-                                .getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
-                        showCombat();
-                        draw();
+                    } else if (gameController.isEnemyInCell(gameController.getPlayerPosition())) {
+                        //combatView.setEnemy(gameController.getEnemiesController().getEnemies()
+                        //       .getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
+                        //showCombat();
+                        //draw();
                     } else {
                         playerView.changeImage(directionPressed);
                         draw();
@@ -203,8 +204,8 @@ public final class GameView {
 
     private void draw() {
         this.gridPanel.removeAll();
-        for (int i = 0; i < this.gameController.getMap().getHeight(); i++) {
-            for (int j = 0; j < this.gameController.getMap().getWidth(); j++) {
+        for (int i = 0; i < this.gameController.getMapSize(); i++) {
+            for (int j = 0; j < this.gameController.getMapSize(); j++) {
                 setArea(new Position(j, i));
             }
         }
@@ -221,12 +222,12 @@ public final class GameView {
     private void setArea(final Position position) {
         final JLabel label;
 
-        if (position.equals(gameController.getPlayerController().getPlayerPosition())) {
+        if (position.equals(gameController.getPlayerPosition())) {
             label = playerView;
         } else if (gameController.isEnemyInCell(position)) {
             final List<String> characterImagePath = gameController
-                    .getImagePathOfCharacter(gameController
-                            .getCharacterInPosition(position));
+                    .getImagePathOfCharacter("enemy",gameController.getNameOfCharacterInPosition(position)
+                    + File.separator + gameController.getNameOfCharacterInPosition(position));
             label = new CharacterView(characterImagePath);
         } else {
             label = new JLabel();
@@ -238,7 +239,7 @@ public final class GameView {
 
     private void setLabelMapProperties(final JLabel label, final Position position) {
         label.setOpaque(true);
-        final CellType cellType = gameController.getMap().getCellType(position);
+        final CellType cellType = gameController.getCellType(position);
         final Color backgroundColor = getBackgroundColor(cellType);
         label.setBackground(backgroundColor);
         label.setBorder(new LineBorder(Color.BLACK));

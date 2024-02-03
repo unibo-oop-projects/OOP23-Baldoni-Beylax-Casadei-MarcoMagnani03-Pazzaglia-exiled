@@ -1,5 +1,6 @@
 package unibo.exiled.view.menu;
 
+import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.menu.MenuController;
 import unibo.exiled.model.menu.MenuItem;
 import unibo.exiled.view.GameView;
@@ -26,11 +27,11 @@ public final class MenuView extends JPanel {
     /**
      * The constructor of the in-game view.
      *
-     * @param menuController The controller of the menu.
+     * @param controller The controller of the menu.
      * @param game           The main view of the game.
      * @param newGameView    The view of the new game.
      */
-    public MenuView(final MenuController menuController, final GameView game, final NewGameView newGameView) {
+    public MenuView(final GameController controller, final GameView game, final NewGameView newGameView) {
         super();
 
         // CREATING STANDARD UI
@@ -50,7 +51,7 @@ public final class MenuView extends JPanel {
         buttonListPanel.add(logoLabel);
         cnst.gridy++;
         final ActionListener buttonListener = new MenuItemActionListener(game, newGameView);
-        for (final MenuItem menuItem : menuController.getMenuItems()) {
+        for (final MenuItem menuItem : controller.getMenuItems()) {
             final GameButton btn = new GameButton(menuItem.getItemText());
             btn.setActionCommand(menuItem.getItemCommand().getCommandString());
             btn.addActionListener(buttonListener);

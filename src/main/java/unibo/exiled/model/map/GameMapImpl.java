@@ -15,8 +15,7 @@ import unibo.exiled.model.utilities.Position;
  * The map has specific dimensions, height, and width.
  */
 public class GameMapImpl implements GameMap {
-    private final int height;
-    private final int width;
+    private final int size;
     private final Map<Position, CellType> cellStates;
 
     /**
@@ -28,8 +27,7 @@ public class GameMapImpl implements GameMap {
      */
     public GameMapImpl(final int size) {
         if (size % 2 == 0) {
-            this.height = size;
-            this.width = size;
+            this.size = size;
             this.cellStates = new HashMap<>();
             final int startingSize = size / 2 - 3;
             this.fillCells(startingSize);
@@ -71,23 +69,17 @@ public class GameMapImpl implements GameMap {
         // Random generation of the game map
         final List<CellType> cellTypes = new ArrayList<>(List.of(CellType.values()));
         cellTypes.remove(CellType.PLAINS); // Removed CellType.PLAINS from cellTypes because it's the starting player
-                                           // spawn area.
+        // spawn area.
         Collections.shuffle(cellTypes);
 
-        this.fillCellRange(cellTypes.get(0), 0, this.height / 2, 0, this.width / 2);
-        this.fillCellRange(cellTypes.get(1), this.height / 2, this.height, 0, this.width / 2);
-        this.fillCellRange(cellTypes.get(2), 0, this.height / 2, this.width / 2, this.width);
-        this.fillCellRange(cellTypes.get(3), this.height / 2, this.height, this.width / 2, this.width);
-        this.fillCellRange(CellType.PLAINS, startingArea, this.height - startingArea, startingArea,
-                this.width - startingArea);
+        this.fillCellRange(cellTypes.get(0), 0, this.size / 2, 0, this.size / 2);
+        this.fillCellRange(cellTypes.get(1), this.size / 2, this.size, 0, this.size / 2);
+        this.fillCellRange(cellTypes.get(2), 0, this.size / 2, this.size / 2, this.size);
+        this.fillCellRange(cellTypes.get(3), this.size / 2, this.size, this.size / 2, this.size);
+        this.fillCellRange(CellType.PLAINS, startingArea, this.size - startingArea, startingArea,
+                this.size - startingArea);
     }
 
-    /**
-     * Returns the type of cell in a certain position.
-     * 
-     * @param cell The cell position to get the type of.
-     * @return The CellType representing the type of the selected cell.
-     */
     @Override
     public CellType getCellType(final Position cell) {
         if (this.isInBoundaries(cell)) {
@@ -97,37 +89,13 @@ public class GameMapImpl implements GameMap {
         }
     }
 
-    /**
-     * Checks if the selected position is in the boundaries of the map.
-     * 
-     * @param cell The position to check.
-     * @return True if the position is in the boundaries of the map, false
-     *         otherwise.
-     */
     @Override
     public boolean isInBoundaries(final Position cell) {
         return this.cellStates.containsKey(cell);
     }
 
-    // Dimensions getters
-
-    /**
-     * Returns the width of the map.
-     * 
-     * @return An Integer representing the width of the map.
-     */
     @Override
-    public int getWidth() {
-        return this.width;
-    }
-
-    /**
-     * Returns the height of the map.
-     * 
-     * @return An Integer representing the height of the map.
-     */
-    @Override
-    public int getHeight() {
-        return this.height;
+    public int getSize() {
+        return this.size;
     }
 }

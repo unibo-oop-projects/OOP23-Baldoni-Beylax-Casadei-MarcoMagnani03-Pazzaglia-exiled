@@ -1,6 +1,8 @@
-package unibo.exiled.model;
+package unibo.exiled.model.game;
 
 import unibo.exiled.config.Constants;
+import unibo.exiled.model.character.GameCharacter;
+import unibo.exiled.model.character.attributes.*;
 import unibo.exiled.model.character.enemy.EnemyCollection;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
@@ -8,12 +10,15 @@ import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
 import unibo.exiled.model.character.enemy.EnemyFactory;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
+import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.map.GameMapImpl;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
 
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -56,7 +61,7 @@ public final class GameModelImpl implements GameModel {
         final EnemyFactory factory = new EnemyFactoryImpl();
         for (int i = 0; i < number; i++) {
             do {
-                newEnemyPosition = new Position(random.nextInt(map.getWidth()), random.nextInt(map.getHeight()));
+                newEnemyPosition = new Position(random.nextInt(map.getSize()), random.nextInt(map.getSize()));
             } while (!isCellEmpty(newEnemyPosition));
             final Enemy newEnemy = factory.createRandom();
             newEnemy.move(newEnemyPosition);
@@ -75,7 +80,7 @@ public final class GameModelImpl implements GameModel {
                                       final int movesLearningInterval) {
         this.player = new PlayerImpl(playerExperienceCap,
                 defaultExperience, levelIncrease, moveNumber, movesLearningInterval);
-        this.player.move(new Position(map.getWidth() / 2, map.getHeight() / 2));
+        this.player.move(new Position(map.getSize() / 2, map.getSize() / 2));
     }
 
     private boolean isCellEmpty(final Position position) {
@@ -174,5 +179,54 @@ public final class GameModelImpl implements GameModel {
             }
             enemy.move(newPosition);
         }
+    }
+
+    @Override
+    public double getPlayerAttributeOf(final AttributeIdentifier id) {
+        final Attribute selectedAttribute = this.player.getAttributes().get(id);
+        if (selectedAttribute.isModifier() && selectedAttribute.isValue()) {
+            return ((CombinedAttribute) selectedAttribute).getEvaluated();
+        } else if (selectedAttribute.isValue()) {
+            return ((AdditiveAttribute) selectedAttribute).value();
+        } else {
+            return ((MultiplierAttribute) selectedAttribute).modifier();
+        }
+    }
+
+    @Override
+    public double getPlayerLevel() {
+        return player.getLevel();
+    }
+
+    @Override
+    public ElementalType getPlayerClass() {
+        return player.getPlayerClass();
+    }
+
+    @Override
+    public int getMapSize() {
+        return map.getSize();
+    }
+
+    @Override
+    public Position getPlayerPosition() {
+        return player.getPosition();
+    }
+
+    @Override
+    public Optional<GameCharacter> getCharacterFromPosition(final Position pos) {
+        if(player.getPosition().equals(pos)){
+            return Optional.of(player);
+        }else if(enemyCollection.getEnemyFromPosition(pos).isPresent()){
+            return Optional.of(enemyCollection.getEnemyFromPosition(pos).get());
+        }
+        else{
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public CellType getCellTypeOf(Position position) {
+        return this.map.getCellType(position);
     }
 }

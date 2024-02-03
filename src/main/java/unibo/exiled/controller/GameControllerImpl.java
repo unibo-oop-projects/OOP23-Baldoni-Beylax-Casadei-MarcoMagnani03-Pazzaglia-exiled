@@ -1,190 +1,105 @@
 package unibo.exiled.controller;
 
-import unibo.exiled.controller.enemy.EnemiesController;
-import unibo.exiled.controller.enemy.EnemiesControllerImpl;
-import unibo.exiled.controller.menu.InGameMenuController;
-import unibo.exiled.controller.menu.MenuController;
-import unibo.exiled.controller.player.PlayerController;
-import unibo.exiled.controller.player.PlayerControllerImpl;
-import unibo.exiled.model.GameModel;
-import unibo.exiled.model.GameModelImpl;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.enemy.Enemy;
-import unibo.exiled.model.map.GameMap;
+import unibo.exiled.model.game.GameModel;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.map.CellType;
+import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
-import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Implementation of the GameController interface.
+ * The implementation of the game main controller.
  */
 public class GameControllerImpl implements GameController {
+
     private final GameModel model;
-    private final PlayerController playerController;
-    private final InventoryController inventoryController;
-    private final MenuController inGameMenuController;
-    private final EnemiesController enemiesController;
-    private final CombatController combatController;
 
     /**
-     * Constructs a GameControllerImpl, initializing the model and
-     * controllers.
-     */
-    public GameControllerImpl() {
-        this.model = new GameModelImpl();
-        this.inventoryController = new InventoryController(model);
-        this.inGameMenuController = new InGameMenuController();
-        this.playerController = new PlayerControllerImpl(model);
-        this.enemiesController = new EnemiesControllerImpl(model);
-        this.combatController = new CombatController(model);
-    }
-
-    /**
-     * Retrieves the image path for the given gameCharacter.
+     * The constructor of the game main controller.
      *
-     * @param gameCharacter The gameCharacter for which to retrieve the image path.
-     * @return The image path for the gameCharacter.
+     * @param model The game model to manage the game.
      */
-    @Override
-    public List<String> getImagePathOfCharacter(final GameCharacter gameCharacter) {
-        if (gameCharacter instanceof Enemy) {
-            return this.getImagePathOfCharacter("enemy", gameCharacter.getName()
-                    + File.separator
-                    + gameCharacter.getName());
-        } else {
-            return this.getImagePathOfCharacter("player", "boy");
-        }
+    public GameControllerImpl(final GameModel model) {
+        this.model = model;
     }
 
-    /**
-     * Retrieves the image path for the character with the specified path and name.
-     *
-     * @param path The path of the character images.
-     * @param name The name of the character.
-     * @return The image path for the character.
-     */
     @Override
-    public List<String> getImagePathOfCharacter(final String path, final String name) {
-        final String upConst = "_up";
-        final String downConst = "_down";
-        final String leftConst = "_left";
-        final String rightConst = "_right";
-        return List.of(path, name + upConst, name + downConst, name + leftConst, name + rightConst);
+    public List<String> getImagePathOfCharacter(final String folderPath, final String name) {
+        return List.of(
+                folderPath,
+                name + "_up",
+                name + "_down",
+                name + "_left",
+                name + "_right"
+        );
     }
 
-    /**
-     * Retrieves the game map.
-     *
-     * @return The game map.
-     */
     @Override
-    public GameMap getMap() {
-        return this.model.getMap();
+    public double getPlayerHealth() {
+        return model.getPlayerAttributeOf(AttributeIdentifier.HEALTH);
     }
 
-    /**
-     * Retrieves the character in the specified position.
-     *
-     * @param pos The position to check.
-     * @return The character in the specified position.
-     */
     @Override
-    public GameCharacter getCharacterInPosition(final Position pos) {
-        if (this.model.getPlayer().getPosition().equals(pos)) {
-            return this.model.getPlayer();
-        } else {
-            return this.model.getEnemies().getEnemyFromPosition(pos).get();
-        }
+    public double getPlayerLevel() {
+        return model.getPlayerLevel();
     }
 
-    /**
-     * Retrieves the enemy in the specified position.
-     *
-     * @param pos The position to check.
-     * @return The enemy in the specified position.
-     */
     @Override
-    public Enemy getEnemyFromPosition(final Position pos) {
-        return this.model.getEnemies().getEnemyFromPosition(pos).get();
+    public int getMapSize() {
+        return model.getMapSize();
     }
 
-    /**
-     * Checks if the game is over.
-     *
-     * @return True if the game is over, false otherwise.
-     */
     @Override
-    public boolean isOver() {
-        return this.playerController.getHealth() <= 0;
+    public String getPlayerClassName() {
+        return model.getPlayerClass().getName();
     }
 
-    /**
-     * Checks if an enemy is in the specified cell.
-     *
-     * @param pos The position to check.
-     * @return True if an enemy is in the cell, false otherwise.
-     */
     @Override
-    public boolean isEnemyInCell(final Position pos) {
-        return this.model.getEnemies().getEnemyFromPosition(pos).isPresent();
+    public void movePlayer(final Direction direction) {
+        this.model.movePlayer(direction);
     }
 
-    /**
-     * Retrieves the inventory controller.
-     *
-     * @return The inventory controller.
-     */
-    @Override
-    public InventoryController getInventoryController() {
-        return this.inventoryController;
-    }
-
-    /**
-     * Retrieves the in-game menu controller.
-     *
-     * @return The in-game menu controller.
-     */
-    @Override
-    public MenuController getInGameMenuController() {
-        return this.inGameMenuController;
-    }
-
-    /**
-     * Retrieves the player controller.
-     *
-     * @return The player controller.
-     */
-    @Override
-    public PlayerController getPlayerController() {
-        return this.playerController;
-    }
-
-    /**
-     * Retrieves the enemies controller.
-     *
-     * @return The enemies controller.
-     */
-    @Override
-    public EnemiesController getEnemiesController() {
-        return this.enemiesController;
-    }
-
-    /**
-     * Retrieves the combat controller.
-     *
-     * @return The combat controller.
-     */
-    @Override
-    public CombatController getCombatController() {
-        return this.combatController;
-    }
-
-    /**
-     * Moves the enemies in the game.
-     */
     @Override
     public void moveEnemies() {
-        this.getEnemiesController().moveEnemies();
+        this.model.moveEnemies();
+    }
+
+    @Override
+    public boolean isOver() {
+        return getPlayerHealth() <= 0;
+    }
+
+    @Override
+    public Position getPlayerPosition() {
+        return model.getPlayerPosition();
+    }
+
+    @Override
+    public boolean isEnemyInCell(final Position position) {
+        final Optional<GameCharacter> gottenCharacter = model.getCharacterFromPosition(position);
+        if (gottenCharacter.isPresent()) {
+            return gottenCharacter.get() instanceof Enemy;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public String getNameOfCharacterInPosition(final Position position) {
+        final Optional<GameCharacter> gottenCharacter = model.getCharacterFromPosition(position);
+        if (gottenCharacter.isPresent()) {
+            return gottenCharacter.get().getName();
+        } else {
+            return "";
+        }
+    }
+
+    @Override
+    public CellType getCellType(final Position position) {
+        return model.getCellTypeOf(position);
     }
 }

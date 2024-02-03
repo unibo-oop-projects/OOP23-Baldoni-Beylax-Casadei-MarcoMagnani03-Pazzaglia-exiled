@@ -1,6 +1,5 @@
 package unibo.exiled.view;
 
-import unibo.exiled.controller.CombatController;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.move.MagicMove;

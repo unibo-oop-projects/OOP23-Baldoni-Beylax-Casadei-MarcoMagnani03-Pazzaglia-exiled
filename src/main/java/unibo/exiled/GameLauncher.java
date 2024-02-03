@@ -1,5 +1,6 @@
 package unibo.exiled;
 
+import unibo.exiled.view.GameView;
 import unibo.exiled.view.NewGameView;
 
 /**
@@ -16,6 +17,6 @@ public final class GameLauncher {
      * @param args No arguments should be passed to this program.
      */
     public static void main(final String[] args) {
-        new NewGameView();
+        new GameView().display();
     }
 }

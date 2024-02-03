@@ -8,18 +8,11 @@ import unibo.exiled.model.utilities.Position;
  */
 public interface GameMap {
     /**
-     * Returns the height of the map.
+     * Returns the size of the map.
      * 
-     * @return An Integer representing the height of the map.
+     * @return An Integer representing the size of the map.
      */
-    int getHeight();
-
-    /**
-     * Returns the width of the map.
-     * 
-     * @return An Integer representing the width of the map.
-     */
-    int getWidth();
+    int getSize();
 
     /**
      * Returns the type of cell in a certain position.

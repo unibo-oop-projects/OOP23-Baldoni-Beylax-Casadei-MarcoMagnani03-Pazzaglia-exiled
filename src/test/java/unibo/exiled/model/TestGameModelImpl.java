@@ -3,6 +3,7 @@ package unibo.exiled.model;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import unibo.exiled.config.Constants;
+import unibo.exiled.model.game.GameModelImpl;
 import unibo.exiled.model.utilities.Position;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
