@@ -130,7 +130,7 @@ public final class InventoryView extends JPanel {
     }
 
     private final class ItemListRenderer extends DefaultListCellRenderer {
-        private static final long serialVersionUID = 3L;        
+        private static final long serialVersionUID = 3L;
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
                 final boolean isSelected, final boolean cellHasFocus) {

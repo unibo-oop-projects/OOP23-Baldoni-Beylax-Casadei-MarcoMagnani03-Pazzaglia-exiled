@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class GameLabel extends JLabel {
     private static final long serialVersionUID = 7L;
-    
+
     private final List<Integer> foregroundColors = List.of(50, 100, 255);
     private final Color foregroundColor = new Color(
             foregroundColors.get(0),
@@ -33,4 +33,3 @@ public class GameLabel extends JLabel {
     }
 
 }
-

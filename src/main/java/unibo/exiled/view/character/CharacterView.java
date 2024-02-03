@@ -27,8 +27,8 @@ public class CharacterView extends JLabel {
     private final String rightSprite;
     private final String leftSprite;
 
-    private final static String FIRST_IMAGE = "_1.png";
-    private final static String SECOND_IMAGE = "_2.png";
+    private static final String FIRST_IMAGE = "_1.png";
+    private static final String SECOND_IMAGE = "_2.png";
 
     private String defaultImagePath = "src"
             + File.separator
