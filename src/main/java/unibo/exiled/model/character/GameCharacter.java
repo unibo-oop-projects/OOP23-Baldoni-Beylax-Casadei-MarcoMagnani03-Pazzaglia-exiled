@@ -19,9 +19,9 @@ public interface GameCharacter {
     MoveSet getMoveSet();
 
     /**
-     * Moves the character to new position.
+     * Moves the character to the specified position.
      * 
-     * @param newPosition
+     * @param newPosition The new position to which the character is moved.
      */
     void move(Position newPosition);
 
@@ -39,8 +39,20 @@ public interface GameCharacter {
      */
     Map<AttributeIdentifier, Attribute> getAttributes();
 
+    /**
+     * Increases the modifier of the specified attribute for the character.
+     * 
+     * @param id       The identifier of the attribute.
+     * @param modifier The amount by which the modifier is increased.
+     */
     void increaseAttributeModifier(AttributeIdentifier id, double modifier);
 
+    /**
+     * Increases the value of the specified attribute for the character.
+     * 
+     * @param id    The identifier of the attribute.
+     * @param value The amount by which the attribute value is increased.
+     */
     void increaseAttributeValue(AttributeIdentifier id, double value);
 
     /**
