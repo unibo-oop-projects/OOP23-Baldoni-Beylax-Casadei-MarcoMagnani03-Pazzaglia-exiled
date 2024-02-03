@@ -15,6 +15,7 @@ import unibo.exiled.model.utilities.ElementalType;
 public final class Moves {
 
     private static final MagicMoveFactoryImpl MOVE_FACTORY = new MagicMoveFactoryImpl();
+    private static final Random RANDOM = new Random();
 
     private static final Set<MagicMove> MAGIC_MOVES = Set.of(
             MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPACCIO.getName(),
@@ -41,8 +42,7 @@ public final class Moves {
      * @return An optional containing the move if a move with the selected name exists, Optional.empty() otherwise.
      */
     public static Optional<MagicMove> getMoveByName(final String name) {
-        final String lowerName = name.toLowerCase();
-        return MAGIC_MOVES.stream().filter(move -> move.name().toLowerCase().equals(lowerName)).findFirst();
+        return MAGIC_MOVES.stream().filter(move -> move.name().equalsIgnoreCase(name)).findFirst();
     }
 
     /**
@@ -82,17 +82,15 @@ public final class Moves {
         if (movesOfType.isEmpty()) {
             return Optional.empty();
         }
-        final Random random = new Random();
-
-        return Optional.of(movesOfType.get(random.nextInt(movesOfType.size())));
+        return Optional.of(movesOfType.get(RANDOM.nextInt(movesOfType.size())));
     }
 
     /**
      * Gets a random move.
+     *
      * @return A random move of any type.
      */
     public static MagicMove getTotallyRandomMove() {
-        Random random = new Random();
-        return MAGIC_MOVES.stream().toList().get(random.nextInt(MAGIC_MOVES.size()));
+        return MAGIC_MOVES.stream().toList().get(RANDOM.nextInt(MAGIC_MOVES.size()));
     }
 }
