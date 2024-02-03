@@ -3,8 +3,10 @@ package unibo.exiled.model.item;
 import java.util.Map;
 
 /**
- * The Inventory interface represents a collection of items in a game or application.
- * It provides methods for managing items such as adding, retrieving quantity, removing, and checking item presence.
+ * The Inventory interface represents a collection of items in a game or
+ * application.
+ * It provides methods for managing items such as adding, retrieving quantity,
+ * removing, and checking item presence.
  */
 public interface Inventory {
 
@@ -39,9 +41,10 @@ public interface Inventory {
     boolean containsItem(Item item);
 
     /**
-     * returns a map of the objects, the integer specifies the number of that specific item in the inventory
+     * returns a map of the objects, the integer specifies the number of that
+     * specific item in the inventory.
      *
      * @return the items and the number of the items in the inventory.
      */
-    Map<Item,Integer> getItems();
+    Map<Item, Integer> getItems();
 }
