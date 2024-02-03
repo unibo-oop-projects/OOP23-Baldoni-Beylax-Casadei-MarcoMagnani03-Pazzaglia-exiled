@@ -19,9 +19,9 @@ public interface MoveSet {
      *
      * @param oldMove The old magical move to be replaced.
      * @param newMove The new magical move to replace the old move.
-     * @throws IllegalArgumentException If the old move is not found in the set.
+     * @return Return false if the old move is not found in the set.
      */
-    void changeMoves(MagicMove oldMove, MagicMove newMove) throws IllegalArgumentException;
+    boolean changeMoves(MagicMove oldMove, MagicMove newMove);
 
     /**
      * Adds a new magical move to the set if the number of moves is below a specified limit.

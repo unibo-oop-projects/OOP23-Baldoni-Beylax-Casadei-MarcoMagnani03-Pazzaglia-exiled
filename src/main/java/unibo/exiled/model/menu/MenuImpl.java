@@ -5,14 +5,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class MenuImpl implements Menu {
-    private List<MenuItem> menuItems;
+    private final List<MenuItem> menuItems;
 
     public MenuImpl() {
         this.menuItems = new ArrayList<>();
     }
 
     @Override
-    public void addMenuItem(MenuItem menuItem) {
+    public void addMenuItem(final MenuItem menuItem) {
         this.menuItems.add(menuItem);
     }
 

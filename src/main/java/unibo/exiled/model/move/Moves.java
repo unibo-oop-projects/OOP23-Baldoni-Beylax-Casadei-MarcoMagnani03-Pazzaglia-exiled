@@ -75,7 +75,7 @@ public final class Moves {
      * otherwise.
      */
     public static Optional<MagicMove> getRandomMagicMoveByType(final ElementalType type) {
-        List<MagicMove> movesOfType = MAGIC_MOVES.stream()
+        final List<MagicMove> movesOfType = MAGIC_MOVES.stream()
                 .filter(magicMove -> magicMove.type() == type)
                 .toList();
 

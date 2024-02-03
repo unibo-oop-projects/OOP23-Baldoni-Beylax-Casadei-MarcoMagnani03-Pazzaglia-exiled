@@ -34,10 +34,8 @@ import java.awt.event.KeyEvent;
 public final class GameView {
     // Views
     private final CharacterView playerView;
-    private final InventoryView inventoryView;
-    private final MenuView menuView;
     private final GameOverView gameOverView;
-    private CombatView combatView;
+    private final CombatView combatView;
 
     // MVC Components(MC)
     private final JFrame mainFrame;
@@ -70,8 +68,8 @@ public final class GameView {
         this.inventoryPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
-        this.menuView = new MenuView(gameController.getInGameMenuController(), this, null);
-        this.inventoryView = new InventoryView(gameController.getInventoryController(), this);
+        final MenuView menuView = new MenuView(gameController.getInGameMenuController(), this, null);
+        final InventoryView inventoryView = new InventoryView(gameController.getInventoryController(), this);
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
         this.combatView = new CombatView(gameController.getCombatController(), this.gameController, this);
@@ -80,9 +78,9 @@ public final class GameView {
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
 
-        Container contentPanel = this.mainFrame.getContentPane();
+        final Container contentPanel = this.mainFrame.getContentPane();
 
-        GroupLayout mainLayout = new GroupLayout(contentPanel);
+        final GroupLayout mainLayout = new GroupLayout(contentPanel);
         contentPanel.setLayout(mainLayout);
 
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel)
@@ -104,29 +102,29 @@ public final class GameView {
     }
 
     private void initializeHUD() {
-        JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
-        JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
+        final JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
+        final JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
         this.gamePanel.add(flowButtonPanelNorth, BorderLayout.NORTH);
         this.gamePanel.add(flowButtonPanelSouth, BorderLayout.SOUTH);
 
         // Inventory button
-        GameButton inventoryButton = new GameButton("Inventory");
+        final GameButton inventoryButton = new GameButton("Inventory");
         inventoryButton.addActionListener(e -> showInventory());
 
         // Menu button
-        GameButton menuButton = new GameButton("Menu");
+        final GameButton menuButton = new GameButton("Menu");
         menuButton.addActionListener(e -> showMenu());
 
         flowButtonPanelNorth.add(inventoryButton);
         flowButtonPanelNorth.add(menuButton);
 
         // Player information
-        GameProgressBar healthBar = new GameProgressBar();
+        final GameProgressBar healthBar = new GameProgressBar();
         healthBar.updateProgress(gameController.getPlayerController().getHealth());
-        GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getLevel());
-        GameLabel classLabel = new GameLabel("Class: " + gameController.getPlayerController().getPlayerClass());
+        final GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerController().getLevel());
+        final GameLabel classLabel = new GameLabel("Class: " + gameController.getPlayerController().getPlayerClass());
 
-        JPanel statusPanel = new JPanel(new FlowLayout());
+        final JPanel statusPanel = new JPanel(new FlowLayout());
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
 
         statusPanel.add(healthBar);
@@ -221,12 +219,12 @@ public final class GameView {
      * @param position is the position of the label.
      */
     private void setArea(final Position position) {
-        JLabel label;
+        final JLabel label;
 
         if (position.equals(gameController.getPlayerController().getPlayerPosition())) {
             label = playerView;
         } else if (gameController.isEnemyInCell(position)) {
-            List<String> characterImagePath = gameController
+            final List<String> characterImagePath = gameController
                     .getImagePathOfCharacter(gameController
                             .getCharacterInPosition(position));
             label = new CharacterView(characterImagePath);
