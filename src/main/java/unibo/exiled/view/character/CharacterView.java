@@ -17,6 +17,7 @@ import javax.swing.JLabel;
  * The class handles the sprites of the character's movement.
  */
 public class CharacterView extends JLabel {
+    private static final long serialVersionUID = 5L;
     private Image image;
     private String imgAnimationName;
     private int animationNumber = 1;
@@ -26,8 +27,8 @@ public class CharacterView extends JLabel {
     private final String rightSprite;
     private final String leftSprite;
 
-    private final String firstImage = "_1.png";
-    private final String secondImage = "_2.png";
+    private final static String FIRST_IMAGE = "_1.png";
+    private final static String SECOND_IMAGE = "_2.png";
 
     private String defaultImagePath = "src"
             + File.separator
@@ -56,7 +57,7 @@ public class CharacterView extends JLabel {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         defaultImagePath += sprites.get(0) + File.separator;
 
-        this.image = new ImageIcon(defaultImagePath + sprites.get(2) + firstImage).getImage();
+        this.image = new ImageIcon(defaultImagePath + sprites.get(2) + FIRST_IMAGE).getImage();
 
         this.upSprite = sprites.get(1);
         this.downSprite = sprites.get(2);
@@ -92,10 +93,10 @@ public class CharacterView extends JLabel {
      */
     private void checkAnimation(final String animationName) {
         if (animationNumber == 1) {
-            imgAnimationName = animationName + firstImage;
+            imgAnimationName = animationName + FIRST_IMAGE;
             animationNumber = 2;
         } else {
-            imgAnimationName = animationName + secondImage;
+            imgAnimationName = animationName + SECOND_IMAGE;
             animationNumber = 1;
         }
     }
@@ -114,10 +115,10 @@ public class CharacterView extends JLabel {
         final int height = getHeight();
 
         if (image != null) {
-            int imgWidth, imgHeight;
-            int originalWidth = image.getWidth(null);
-            int originalHeight = image.getHeight(null);
-            double aspectRatio = (double) originalWidth / originalHeight;
+            final int imgWidth, imgHeight;
+            final int originalWidth = image.getWidth(null);
+            final int originalHeight = image.getHeight(null);
+            final double aspectRatio = (double) originalWidth / originalHeight;
 
             if (width / aspectRatio <= height) {
                 imgWidth = width;
@@ -127,8 +128,8 @@ public class CharacterView extends JLabel {
                 imgHeight = height;
             }
 
-            int x = (width - imgWidth) / 2;
-            int y = (height - imgHeight) / 2;
+            final int x = (width - imgWidth) / 2;
+            final int y = (height - imgHeight) / 2;
 
             g.drawImage(image, x, y, imgWidth, imgHeight, null);
         }

@@ -16,6 +16,7 @@ import javax.swing.JButton;
  * Custom JButton with a specific style for the game.
  */
 public final class GameButton extends JButton {
+    private static final long serialVersionUID = 6L;
     private static final int ROUNDED_PARAM = 10;
 
     private static final int PRIMARY_RED = 51;
@@ -69,9 +70,9 @@ public final class GameButton extends JButton {
             g.setColor(getBackground());
         }
 
-        int width = getWidth();
-        int height = getHeight();
-        Graphics2D graphics = (Graphics2D) g;
+        final int width = getWidth();
+        final int height = getHeight();
+        final Graphics2D graphics = (Graphics2D) g;
         graphics.fill(new RoundRectangle2D.Double(0, 0, width, height, ROUNDED_PARAM, ROUNDED_PARAM));
 
         super.paintComponent(g);

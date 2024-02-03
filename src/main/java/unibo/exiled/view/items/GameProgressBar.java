@@ -8,6 +8,7 @@ import java.util.List;
  * A custom progress bar for the view.
  */
 public final class GameProgressBar extends JProgressBar {
+    private static final long serialVersionUID = 8L;
     private final List<Integer> foregroundColors = List.of(50, 100, 255);
     private final List<Integer> backGroundColors = List.of(200, 200, 200);
     private final Color foregroundColor = new Color(foregroundColors.get(0), foregroundColors.get(1), foregroundColors.get(2));
