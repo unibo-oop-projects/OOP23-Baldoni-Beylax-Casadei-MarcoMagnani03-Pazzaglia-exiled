@@ -33,7 +33,7 @@ public interface ItemFactory {
      * @return A new Item representing a power-up item.
      */
     Item createPowerUpItem(String name, String description, double powerUpValue, int duration,
-            AttributeIdentifier boostedAttribute);
+                           AttributeIdentifier boostedAttribute);
 
     /**
      * Creates an unusable item with the specified name and description.
