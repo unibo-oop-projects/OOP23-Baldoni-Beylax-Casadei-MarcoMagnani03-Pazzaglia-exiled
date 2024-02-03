@@ -145,7 +145,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
         this.level++;
         this.expCap = calculateNextLevelExperience();
         this.currentExp -= expCap;
-        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10);
+        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10.0f);
         learnNewMove();
         boostAttributes();
     }
@@ -154,7 +154,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      * Boosts various attributes of the player upon leveling up.
      */
     private void boostAttributes() {
-        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10);
+        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10.0f);
         this.increaseAttributeValue(AttributeIdentifier.HEALTH, levelInc);
         this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, levelInc);
         this.increaseAttributeValue(AttributeIdentifier.DEFENSE, levelInc);
