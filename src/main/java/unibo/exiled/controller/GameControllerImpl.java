@@ -33,11 +33,11 @@ public class GameControllerImpl implements GameController {
      */
     public GameControllerImpl() {
         this.model = new GameModelImpl();
-        this.inventoryController = new InventoryController(model.getPlayer());
+        this.inventoryController = new InventoryController(model);
         this.inGameMenuController = new InGameMenuController();
         this.playerController = new PlayerControllerImpl(model);
         this.enemiesController = new EnemiesControllerImpl(model);
-        this.combatController = new CombatController(model.getPlayer());
+        this.combatController = new CombatController(model);
     }
 
     /**

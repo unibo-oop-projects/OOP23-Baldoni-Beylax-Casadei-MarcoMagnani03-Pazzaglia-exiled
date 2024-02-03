@@ -1,5 +1,6 @@
 package unibo.exiled.controller;
 
+import unibo.exiled.model.GameModel;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MoveSet;
@@ -17,7 +18,7 @@ public final class CombatController {
      *
      * @param player The player engaged in the combat.
      */
-    public CombatController(final Player player) {
+    public CombatController(GameModel model) {
         this.player = player;
     }
 

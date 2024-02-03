@@ -10,11 +10,4 @@ public interface EnemiesController {
      * Moves all the enemies in the game.
      */
     void moveEnemies();
-
-    /**
-     * Gets the collection of enemies in the game.
-     * 
-     * @return the collection of enemies.
-     */
-    EnemyCollection getEnemies();
 }

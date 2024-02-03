@@ -1,5 +1,6 @@
 package unibo.exiled.controller;
 
+import unibo.exiled.model.GameModel;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.UsableItem;
@@ -11,7 +12,7 @@ import java.util.Map;
  *
  * @param player The player associated with this inventory controller.
  */
-public record InventoryController(Player player) {
+public record InventoryController(GameModel model) {
     /**
      * Attempts to use the specified usable item from the player's inventory.
      *
