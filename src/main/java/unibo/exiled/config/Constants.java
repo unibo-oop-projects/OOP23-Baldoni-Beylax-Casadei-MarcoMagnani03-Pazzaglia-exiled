@@ -1,7 +1,8 @@
 package unibo.exiled.config;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -49,7 +50,7 @@ public final class Constants {
         String cName;
         String value;
         try {
-            reader = new Scanner(file);
+            reader = new Scanner(file, StandardCharsets.UTF_8);
             while (reader.hasNextLine()) {
                 data = reader.nextLine();
                 cName = data.substring(0, data.indexOf(':')).trim();
@@ -57,7 +58,7 @@ public final class Constants {
                 CONSTANTS_MAP.put(cName, value);
             }
             reader.close();
-        } catch (FileNotFoundException ex) {
+        } catch (final IOException ex) {
             LOGGER.log(Level.SEVERE, "Error reading the configuration file", ex);
         }
     }
