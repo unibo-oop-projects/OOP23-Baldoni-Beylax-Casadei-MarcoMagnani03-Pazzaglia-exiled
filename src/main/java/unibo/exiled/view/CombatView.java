@@ -18,10 +18,9 @@ import java.util.Optional;
  * The view that starts when the player engages in a combat with an enemy.
  */
 public final class CombatView extends JPanel {
+    private static final long serialVersionUID = 1L;
     private final CombatController combatController;
-    private final JPanel moveSetPanel;
-    private final JPanel battlePanel;
-    private final int iconSize = 20;
+    private static final int ICON_SIZE = 20;
 
     /**
      * The constructor of the combat view.
@@ -35,28 +34,28 @@ public final class CombatView extends JPanel {
 
         this.setLayout(new BorderLayout());
 
-        this.moveSetPanel = new JPanel(new GridLayout());
-        this.battlePanel = new JPanel(new GridLayout());
+        final JPanel moveSetPanel = new JPanel(new GridLayout());
+        final JPanel battlePanel = new JPanel(new GridLayout());
 
-        this.add(this.moveSetPanel, BorderLayout.SOUTH);
-        this.add(this.battlePanel, BorderLayout.CENTER);
+        this.add(moveSetPanel, BorderLayout.SOUTH);
+        this.add(battlePanel, BorderLayout.CENTER);
 
         for (final MagicMove move : this.combatController.getPlayerMoveSet().getMagicMoves()) {
-            JButton moveButton = new GameButton(move.name());
-            this.moveSetPanel.add(moveButton);
+            final JButton moveButton = new GameButton(move.name());
+            moveSetPanel.add(moveButton);
             moveButton.addActionListener(e -> combatController.attack(true));
         }
 
-        JButton escapeButton = new GameButton("ESCAPE");
+        final JButton escapeButton = new GameButton("ESCAPE");
         escapeButton.addActionListener(e -> game.hideCombat());
-        this.moveSetPanel.add(escapeButton);
+        moveSetPanel.add(escapeButton);
 
         final JLabel player = new JLabel();
         player.imageUpdate(
                 new ImageIcon(gameController.getImagePathOfCharacter(this.combatController.getPlayer()).get(0))
                         .getImage(),
-                ERROR, ALLBITS, ABORT, iconSize, iconSize);
-        this.battlePanel.add(player);
+                ERROR, ALLBITS, ABORT, ICON_SIZE, ICON_SIZE);
+        battlePanel.add(player);
     }
 
     /**
