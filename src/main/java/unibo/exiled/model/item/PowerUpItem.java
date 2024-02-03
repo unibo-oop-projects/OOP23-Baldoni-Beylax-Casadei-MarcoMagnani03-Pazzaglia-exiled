@@ -10,7 +10,7 @@ import unibo.exiled.model.character.player.Player;
  * The amount of power-up is determined by the powerUpValue.
  * Power-ups are not permanent, so they have a duration.
  */
-public class PowerUpItem extends ItemBase implements ItemWithDuration {
+public final class PowerUpItem extends ItemBase implements ItemWithDuration {
 
     private final AttributeIdentifier boostedAttribute;
     private final int duration;
@@ -26,7 +26,7 @@ public class PowerUpItem extends ItemBase implements ItemWithDuration {
      * @param boostedAttribute The attribute that is boosted by the power-up.
      */
     public PowerUpItem(final String name, final String description, final double powerUpValue, final int duration,
-            final AttributeIdentifier boostedAttribute) {
+                       final AttributeIdentifier boostedAttribute) {
         super(name, description, ItemType.POWERUP);
         this.duration = duration;
         this.boostedAttribute = boostedAttribute;
@@ -35,10 +35,7 @@ public class PowerUpItem extends ItemBase implements ItemWithDuration {
 
     @Override
     public void use(final Player player) {
-        // TODO: Update the attribute modification logic based on the specific
-        // attribute.
-        // player.getAttributes().get(boostedAttribute).setModifier(player.getAttributes().get(boostedAttribute).getModifier()
-        // + powerUpValue);
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     /**
@@ -55,7 +52,7 @@ public class PowerUpItem extends ItemBase implements ItemWithDuration {
      * Get the amount or effectiveness of the item.
      *
      * @return Depends on the specific type of item. For example, for a healing
-     *         item, it represents the amount of health restored.
+     * item, it represents the amount of health restored.
      */
     @Override
     public double getAmount() {
