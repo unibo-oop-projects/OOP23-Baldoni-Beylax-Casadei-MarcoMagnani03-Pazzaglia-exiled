@@ -1,7 +1,11 @@
 package unibo.exiled.model;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.model.character.enemy.*;
+import unibo.exiled.model.character.enemy.EnemyCollection;
+import unibo.exiled.model.character.enemy.Enemy;
+import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
+import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
+import unibo.exiled.model.character.enemy.EnemyFactory;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.map.GameMap;
@@ -12,11 +16,17 @@ import unibo.exiled.model.utilities.Positions;
 
 import java.util.Random;
 
-public class GameModelImpl implements GameModel {
+/**
+ * The implementation of the game core.
+ */
+public final class GameModelImpl implements GameModel {
     private final EnemyCollection enemyCollection;
     private Player player;
     private GameMap map;
 
+    /**
+     * The constructor of the game core.
+     */
     public GameModelImpl() {
         //Constants loading
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
@@ -29,7 +39,11 @@ public class GameModelImpl implements GameModel {
         final int movesLearningInterval = Integer.parseInt(Constants.getConstantOf("MOVES_LEARNING_INTERVAL"));
 
         this.mapInitialization(mapSize);
-        this.playerInitialization(playerExperienceCap, defaultExperience, playerLevelIncrease, moveNumber, movesLearningInterval);
+        this.playerInitialization(playerExperienceCap,
+                defaultExperience,
+                playerLevelIncrease,
+                moveNumber,
+                movesLearningInterval);
         this.enemyCollection = new EnemyCollectionImpl();
         this.enemyInitialization(enemyNumber);
     }
@@ -52,8 +66,13 @@ public class GameModelImpl implements GameModel {
         this.map = new GameMapImpl(size);
     }
 
-    private void playerInitialization(final double playerExperienceCap, final double defaultExperience, final int levelIncrease, final int moveNumber, final int movesLearningInterval) {
-        this.player = new PlayerImpl(playerExperienceCap, defaultExperience, levelIncrease, moveNumber, movesLearningInterval);
+    private void playerInitialization(final double playerExperienceCap,
+                                      final double defaultExperience,
+                                      final int levelIncrease,
+                                      final int moveNumber,
+                                      final int movesLearningInterval) {
+        this.player = new PlayerImpl(playerExperienceCap,
+                defaultExperience, levelIncrease, moveNumber, movesLearningInterval);
         this.player.move(new Position(map.getWidth() / 2, map.getHeight() / 2));
     }
 
