@@ -2,6 +2,7 @@ package unibo.exiled.model.character.player;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.item.Inventory;
+import unibo.exiled.model.item.UsableItem;
 import unibo.exiled.model.utilities.ElementalType;
 
 /**
@@ -50,4 +51,6 @@ public interface Player extends GameCharacter {
      * @param exp experience provided to the user.
      */
     void addExperience(double exp);
+
+    void useItem(UsableItem item);
 }

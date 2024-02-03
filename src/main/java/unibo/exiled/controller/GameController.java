@@ -160,4 +160,12 @@ public interface GameController {
      * @return An integer representing the duration of the item (in turns)
      */
     int getItemDuration(String itemName);
+
+    /**
+     * Attempts to use the specified item from the player's inventory.
+     *
+     * @param item The item name to use.
+     * @return true if the item was successfully used, false otherwise.
+     */
+    public boolean useItem(String item);
 }

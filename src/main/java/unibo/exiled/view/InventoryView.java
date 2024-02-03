@@ -11,6 +11,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -42,14 +43,15 @@ public final class InventoryView extends JPanel {
     private final DefaultListModel<String> listModel;
     private final JLabel emptyInventoryLabel;
     private final JScrollPane scrollPane;
+    private static JList<String> itemNamesList = new JList<String>();
 
     /**
      * The constructor of the inventory view.
      *
      * @param gameController The controller of the Game.
+     * @param game The GameView associated at the game.
      */
-    public InventoryView(final GameController gameController) {
-        final JList<String> itemNamesList;
+    public InventoryView(final GameController gameController, final GameView game) {
         this.gameController = gameController;
         setLayout(new BorderLayout());
 
@@ -84,7 +86,7 @@ public final class InventoryView extends JPanel {
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
         final GameButton exitButton = new GameButton("Exit");
-        //exitButton.addActionListener(e -> game.hideInventory());
+        exitButton.addActionListener(e -> game.hideInventory());
 
         final JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(exitButton, BorderLayout.WEST);
@@ -123,28 +125,28 @@ public final class InventoryView extends JPanel {
         repaint();
     }
 
-    private static final class ItemListSelectionListener implements ListSelectionListener {
+    private final class ItemListSelectionListener implements ListSelectionListener {
         @Override
         public void valueChanged(final ListSelectionEvent e) {
-         /*   if (!e.getValueIsAdjusting()) {
+            if (!e.getValueIsAdjusting()) {
                 final String selectedItemName = itemNamesList.getSelectedValue();
-                if (selectedItem instanceof UsableItem usableItem) {
+                if (selectedItemName != null) {
                     final int confirmation = JOptionPane.showConfirmDialog(null,
                             "Are you sure you want to use "
-                                    + usableItem.getName() + "?",
+                                    + selectedItemName + "?",
                             "Confirm Use", JOptionPane.YES_NO_OPTION);
-
+    
                     if (confirmation == JOptionPane.YES_OPTION) {
-                        final boolean useResult = inventoryController.useItem(usableItem);
+                        final boolean useResult = gameController.useItem(selectedItemName);
                         if (useResult) {
-                            JOptionPane.showMessageDialog(null, "Used " + usableItem.getName());
+                            JOptionPane.showMessageDialog(null, "Used " + selectedItemName,"SUCCESS",JOptionPane.INFORMATION_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Item not found in the inventory");
+                            JOptionPane.showMessageDialog(null, "The selected item is not usable", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         updateInventoryList();
                     }
                 }
-            }*/
+            }
         }
     }
 
@@ -186,23 +188,6 @@ public final class InventoryView extends JPanel {
                     default -> {
                     }
                 }
-
-                /*if (item instanceof HealingItem healItem) {
-                    setBackground(HEALING_ITEM_COLOR);
-                    setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: "
-                            + item.getDescription() + " - Heal: " + healItem.getAmount());
-                } else if (item instanceof PowerUpItem powerUpItem) {
-                    setBackground(POWER_UP_ITEM_COLOR);
-                    setText(" "
-                            + item.getName() + " - Quantity: " + quantity
-                            + " - Description: "
-                            + item.getDescription() + " - PowerUp: " + powerUpItem.getAmount() + " - Attribute: "
-                            + powerUpItem.getBoostedAttribute().getName() + " - Duration: "
-                            + powerUpItem.getDuration());
-                } else {
-                    setText(" " + item.getName() + " - Quantity: " + quantity + " - Description: "
-                            + item.getDescription());
-                }*/
                 setBorder(LIST_ITEM_BORDER);
             }
             setHorizontalAlignment(SwingConstants.CENTER);

@@ -10,7 +10,7 @@ public class PlayerClassView extends JPanel{
 
     private final PlayerController controller;
 
-    public PlayerClassView(PlayerController controller) {
+    public PlayerClassView(final GameController gameController) {
         this.controller = controller;
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(4, 1));

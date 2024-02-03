@@ -20,6 +20,7 @@ import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Inventories;
 import unibo.exiled.model.utilities.MoveSets;
 import unibo.exiled.model.item.ItemType;
+import unibo.exiled.model.item.UsableItem;
 
 /**
  * This class represent the implementation of the player in the game.
@@ -217,5 +218,11 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
     public void addExperience(final double exp) {
         this.currentExp += exp;
         levelUp();
+    }
+
+    @Override
+    public void useItem(final UsableItem item) {
+        item.use(this);
+        inventory.removeItem(item);
     }
 }

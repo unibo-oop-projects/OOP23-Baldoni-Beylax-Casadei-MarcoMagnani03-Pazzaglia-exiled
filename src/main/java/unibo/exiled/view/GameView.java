@@ -43,7 +43,7 @@ public final class GameView {
     private final JFrame mainFrame;
     private final JPanel gamePanel;
     private final JPanel menuPanel;
-    //private final JPanel inventoryPanel;
+    private final JPanel inventoryPanel;
     private final JPanel combatPanel;
     /**
      * The game controller that manages interaction between the model and the view.
@@ -66,17 +66,17 @@ public final class GameView {
         this.mainFrame.setFocusable(true);
 
         this.menuPanel = new JPanel();
-        //this.inventoryPanel = new JPanel();
+        this.inventoryPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         final MenuView menuView = new MenuView(this, null);
-        //final InventoryView inventoryView = new InventoryView(gameController, this);
+        final InventoryView inventoryView = new InventoryView(gameController,this);
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
 
         this.combatPanel.add(new CombatView(this.gameController, this), BorderLayout.CENTER);
         this.menuPanel.add(menuView);
-        //this.inventoryPanel.add(inventoryView);
+        this.inventoryPanel.add(inventoryView);
 
         final Container contentPanel = this.mainFrame.getContentPane();
 
@@ -84,14 +84,15 @@ public final class GameView {
         contentPanel.setLayout(mainLayout);
 
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel)
-                .addComponent(combatPanel));
+                .addComponent(combatPanel).addComponent(inventoryPanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                 .addComponent(menuPanel)
                 .addComponent(gamePanel)
+                .addComponent(inventoryPanel)
                 .addComponent(combatPanel));
 
         this.hideMenu();
-        //this.hideInventory();
+        this.hideInventory();
         this.hideCombat();
 
         this.initializeGridComponents();
@@ -107,14 +108,14 @@ public final class GameView {
         this.gamePanel.add(flowButtonPanelSouth, BorderLayout.SOUTH);
 
         // Inventory button
-        /*final GameButton inventoryButton = new GameButton("Inventory");
-        inventoryButton.addActionListener(e -> showInventory());*/
+        final GameButton inventoryButton = new GameButton("Inventory");
+        inventoryButton.addActionListener(e -> showInventory());
 
         // Menu button
         final GameButton menuButton = new GameButton("Menu");
         menuButton.addActionListener(e -> showMenu());
 
-        //flowButtonPanelNorth.add(inventoryButton);
+        flowButtonPanelNorth.add(inventoryButton);
         flowButtonPanelNorth.add(menuButton);
 
         // Player information
@@ -265,18 +266,21 @@ public final class GameView {
         }
     }
 
-    /*private void showInventory() {
+    /**
+     * Shows the inventory view.
+     */
+    private void showInventory() {
         this.gamePanel.setVisible(false);
         this.inventoryPanel.setVisible(true);
-    }*/
+    }
 
     /**
      * Hides the inventory view.
      */
-    /*public void hideInventory() {
+    public void hideInventory() {
         this.gamePanel.setVisible(true);
         this.inventoryPanel.setVisible(false);
-    }*/
+    }
 
     /**
      * Shows the menu view.

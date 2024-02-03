@@ -9,6 +9,11 @@ import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
 import unibo.exiled.model.character.enemy.EnemyFactory;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
+import unibo.exiled.model.item.HealingItem;
+import unibo.exiled.model.item.Item;
+import unibo.exiled.model.item.ItemType;
+import unibo.exiled.model.item.PowerUpItem;
+import unibo.exiled.model.item.UsableItem;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.map.GameMapImpl;
@@ -24,10 +29,11 @@ import unibo.exiled.model.character.attributes.CombinedAttribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.attributes.Attribute;
 
-
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * The implementation of the game core.
@@ -240,5 +246,73 @@ public final class GameModelImpl implements GameModel {
     @Override
     public Set<MagicMove> getMagicMoves() {
         return Moves.getAllMagicMoves();
+    }
+
+    @Override
+    public Map<String, Integer> getItems() {
+        return player.getInventory().getItems()
+            .entrySet()
+            .stream()
+            .collect(Collectors.toMap(entry -> entry.getKey().getName(), Map.Entry::getValue));
+    }
+
+    private Item getItem(String itemName){
+        return player.getInventory().getItems()
+            .entrySet()
+            .stream()
+            .filter(entry -> entry.getKey().getName().equals(itemName))
+            .findFirst().get().getKey();
+    }
+
+    @Override
+    public String getItemDescription(String itemName) {
+        return getItem(itemName).getDescription();
+    }
+
+    @Override
+    public double getItemValor(String itemName) {
+        Item selectedItem = getItem(itemName);
+        if(selectedItem instanceof UsableItem){
+            return ((UsableItem)selectedItem).getAmount();
+        }
+        return 0;
+    }
+
+    @Override
+    public ItemType getItemType(String itemName) {
+        return getItem(itemName).getType();
+    }
+
+    @Override
+    public String getItemBoostedAttributeName(String itemName) {
+        Item selectedItem = getItem(itemName);
+
+        if(selectedItem instanceof PowerUpItem){
+            return ((PowerUpItem)selectedItem).getBoostedAttribute().getName();
+        }
+        else if(selectedItem instanceof HealingItem){
+            return AttributeIdentifier.HEALTH.getName();
+        }
+        return "";
+    }
+
+    @Override
+    public int getItemDuration(String itemName) {
+        Item selectedItem = getItem(itemName);
+        if(selectedItem instanceof PowerUpItem){
+            return ((PowerUpItem)selectedItem).getDuration();
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean useItem(String item) {
+        Item selectedItem = getItem(item);
+        if(selectedItem instanceof UsableItem){
+            UsableItem convertedItem = (UsableItem)selectedItem;
+            player.useItem(convertedItem);
+            return true;
+        }
+        return false;
     }
 }

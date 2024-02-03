@@ -119,37 +119,36 @@ public final class GameControllerImpl implements GameController {
 
     @Override
     public Map<String, Integer> getItems() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItems'");
+        return model.getItems();
     }
 
     @Override
     public String getItemDescription(final String itemName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItemDescription'");
+        return model.getItemDescription(itemName);
     }
 
     @Override
     public double getItemValor(final String itemName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItemAmout'");
+        return model.getItemValor(itemName);
     }
 
     @Override
     public ItemType getItemType(final String itemName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItemType'");
+        return model.getItemType(itemName);
     }
 
     @Override
     public String getItemBoostedAttributeName(final String itemName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItemBoostedAttributeName'");
+        return model.getItemBoostedAttributeName(itemName);
     }
 
     @Override
     public int getItemDuration(final String itemName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItemDuration'");
+        return model.getItemDuration(itemName);
+    }
+
+    @Override
+    public boolean useItem(String itemName){
+        return model.useItem(itemName);
     }
 }
