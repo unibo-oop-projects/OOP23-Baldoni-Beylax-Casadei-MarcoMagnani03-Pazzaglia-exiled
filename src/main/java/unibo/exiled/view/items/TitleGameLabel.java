@@ -8,6 +8,7 @@ import java.awt.Font;
  * A label with a title.
  */
 public final class TitleGameLabel extends JLabel {
+    private static final long serialVersionUID = 9L;
     private final static int RED = 255;
     private final static int GREEN = 100;
     private final static int BLUE = 50;

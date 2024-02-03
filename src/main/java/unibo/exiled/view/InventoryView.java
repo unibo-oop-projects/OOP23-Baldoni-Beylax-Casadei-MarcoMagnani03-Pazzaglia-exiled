@@ -35,6 +35,8 @@ import java.util.Map;
  * The view panel of the player's inventory.
  */
 public final class InventoryView extends JPanel {
+    private static final long serialVersionUID = 2L;
+
     private static final Color HEALING_ITEM_COLOR = new Color(141, 254, 141);
     private static final Color POWER_UP_ITEM_COLOR = new Color(254, 141, 141);
     private static final Border LIST_ITEM_BORDER = new LineBorder(Color.BLACK, 1);
@@ -46,8 +48,6 @@ public final class InventoryView extends JPanel {
     private final JList<Item> itemList;
     private final JLabel emptyInventoryLabel;
     private final JScrollPane scrollPane;
-    private final GameButton exitButton;
-    private final int listItemWidth;
 
     /**
      * The constructor of the inventory view.
@@ -65,7 +65,7 @@ public final class InventoryView extends JPanel {
         itemList.setCellRenderer(new ItemListRenderer());
 
         final Dimension listItemSize = new Dimension(100, LIST_ITEM_HEIGHT);
-        listItemWidth = getScreenWidth();
+        final int listItemWidth = getScreenWidth();
 
         itemList.setFixedCellHeight(LIST_ITEM_HEIGHT);
         itemList.setFixedCellWidth(listItemWidth - LEFT_RIGHT_MARGIN);
@@ -86,13 +86,13 @@ public final class InventoryView extends JPanel {
         add(centralPanel, BorderLayout.CENTER);
 
         // North
-        JLabel titleLabel = new TitleGameLabel("Inventory");
+        final JLabel titleLabel = new TitleGameLabel("Inventory");
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        exitButton = new GameButton("Exit");
+        final GameButton exitButton = new GameButton("Exit");
         exitButton.addActionListener(e -> game.hideInventory());
 
-        JPanel northPanel = new JPanel(new BorderLayout());
+        final JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(exitButton, BorderLayout.WEST);
         northPanel.add(titleLabel, BorderLayout.CENTER);
         northPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, 0, TOP_BOTTOM_MARGIN, 0));
@@ -102,7 +102,7 @@ public final class InventoryView extends JPanel {
     }
 
     private int getScreenWidth() {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        final Toolkit toolkit = Toolkit.getDefaultToolkit();
         return toolkit.getScreenSize().width;
     }
 
@@ -118,8 +118,8 @@ public final class InventoryView extends JPanel {
             emptyInventoryLabel.setVisible(true);
             scrollPane.setVisible(false);
         } else {
-            for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
-                Item item = entry.getKey();
+            for (final Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
+                final Item item = entry.getKey();
                 listModel.addElement(item);
             }
             emptyInventoryLabel.setVisible(false);
@@ -130,13 +130,13 @@ public final class InventoryView extends JPanel {
     }
 
     private final class ItemListRenderer extends DefaultListCellRenderer {
+        private static final long serialVersionUID = 3L;        
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
                 final boolean isSelected, final boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
             if (value instanceof Item item) {
-                int quantity = inventoryController.getItems().get(item);
+                final int quantity = inventoryController.getItems().get(item);
 
                 if (item instanceof HealingItem healItem) {
                     setBackground(HEALING_ITEM_COLOR);
@@ -168,13 +168,13 @@ public final class InventoryView extends JPanel {
             if (!e.getValueIsAdjusting()) {
                 final Item selectedItem = itemList.getSelectedValue();
                 if (selectedItem instanceof UsableItem usableItem) {
-                    int confirmation = JOptionPane.showConfirmDialog(null,
+                    final int confirmation = JOptionPane.showConfirmDialog(null,
                             "Are you sure you want to use "
                                     + usableItem.getName() + "?",
                             "Confirm Use", JOptionPane.YES_NO_OPTION);
 
                     if (confirmation == JOptionPane.YES_OPTION) {
-                        boolean useResult = inventoryController.useItem(usableItem);
+                        final boolean useResult = inventoryController.useItem(usableItem);
                         if (useResult) {
                             JOptionPane.showMessageDialog(null, "Used " + usableItem.getName());
                         } else {
