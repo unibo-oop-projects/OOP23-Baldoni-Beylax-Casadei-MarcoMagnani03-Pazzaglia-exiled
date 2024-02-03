@@ -2,7 +2,6 @@ package unibo.exiled.model.game;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.character.GameCharacter;
-import unibo.exiled.model.character.attributes.*;
 import unibo.exiled.model.character.enemy.EnemyCollection;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
@@ -13,13 +12,22 @@ import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.map.GameMapImpl;
+import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.model.move.Moves;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
+import unibo.exiled.model.character.attributes.AdditiveAttribute;
+import unibo.exiled.model.character.attributes.MultiplierAttribute;
+import unibo.exiled.model.character.attributes.CombinedAttribute;
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.attributes.Attribute;
+
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * The implementation of the game core.
@@ -158,7 +166,7 @@ public final class GameModelImpl implements GameModel {
             if (!isEnemyNearThePlayer(enemy)) {
                 do {
                     rndDirection = Direction.values()[RANDOM.nextInt(4)];
-                } while (this.map.isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
+                } while (!this.map.isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
                         && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
                 newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
             } else {
@@ -215,12 +223,11 @@ public final class GameModelImpl implements GameModel {
 
     @Override
     public Optional<GameCharacter> getCharacterFromPosition(final Position pos) {
-        if(player.getPosition().equals(pos)){
+        if (player.getPosition().equals(pos)) {
             return Optional.of(player);
-        }else if(enemyCollection.getEnemyFromPosition(pos).isPresent()){
+        } else if (enemyCollection.getEnemyFromPosition(pos).isPresent()) {
             return Optional.of(enemyCollection.getEnemyFromPosition(pos).get());
-        }
-        else{
+        } else {
             return Optional.empty();
         }
     }
@@ -228,5 +235,10 @@ public final class GameModelImpl implements GameModel {
     @Override
     public CellType getCellTypeOf(Position position) {
         return this.map.getCellType(position);
+    }
+
+    @Override
+    public Set<MagicMove> getMagicMoves() {
+        return Moves.getAllMagicMoves();
     }
 }

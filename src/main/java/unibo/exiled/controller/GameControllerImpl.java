@@ -12,11 +12,12 @@ import unibo.exiled.model.utilities.Position;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * The implementation of the game main controller.
  */
-public class GameControllerImpl implements GameController {
+public final class GameControllerImpl implements GameController {
 
     private final GameModel model;
 
@@ -107,12 +108,11 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public List<String> getMagicMoveNames() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMagicMoveNames'");
+        return model.getMagicMoves().stream().map(move -> move.name()).collect(Collectors.toUnmodifiableList());
     }
 
     @Override
-    public void attack(boolean cond) {
+    public void attack(final boolean cond) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'attack'");
     }
@@ -124,31 +124,31 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public String getItemDescription(String itemName) {
+    public String getItemDescription(final String itemName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItemDescription'");
     }
 
     @Override
-    public double getItemAmout(String itemName) {
+    public double getItemValor(final String itemName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItemAmout'");
     }
 
     @Override
-    public ItemType getItemType(String itemName) {
+    public ItemType getItemType(final String itemName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItemType'");
     }
 
     @Override
-    public String getItemBoostedAttributeName(String itemName) {
+    public String getItemBoostedAttributeName(final String itemName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItemBoostedAttributeName'");
     }
 
     @Override
-    public int getItemDuration(String itemName) {
+    public int getItemDuration(final String itemName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItemDuration'");
     }

@@ -55,7 +55,7 @@ public interface GameController {
      *
      * @param direction The direction in which the player should move.
      */
-    void movePlayer(final Direction direction);
+    void movePlayer(Direction direction);
 
     /**
      * Moves the enemies in the game.
@@ -82,7 +82,7 @@ public interface GameController {
      * @param position The position to check.
      * @return True if there is an enemy in the cell, false otherwise.
      */
-    boolean isEnemyInCell(final Position position);
+    boolean isEnemyInCell(Position position);
 
     /**
      * Gets the name of the character in the specified position.
@@ -90,7 +90,7 @@ public interface GameController {
      * @param position The position to check.
      * @return The name of the character in the specified position.
      */
-    String getNameOfCharacterInPosition(final Position position);
+    String getNameOfCharacterInPosition(Position position);
 
     /**
      * Gets the cell type at the specified position.
@@ -100,19 +100,64 @@ public interface GameController {
      */
     CellType getCellType(Position position);
 
+    /**
+     * Gets the names of every magic move.
+     *
+     * @return A list of every magic move name.
+     */
     List<String> getMagicMoveNames();
 
-    void attack(boolean cond);
+    /**
+     * Performs an attack routine.
+     *
+     * @param isPlayerAttacking True if the attacker is the player, false otherwise.
+     */
+    void attack(boolean isPlayerAttacking);
 
+    /**
+     * Gets an association of items and their quantity.
+     *
+     * @return A map of Item names and their quantity for the view.
+     */
     Map<String, Integer> getItems();
 
+    /**
+     * Gets the description of an item based on its name.
+     *
+     * @param itemName The name of the item.
+     * @return A string representing the description of the item.
+     */
     String getItemDescription(String itemName);
 
-    double getItemAmout(String itemName);
+    /**
+     * Gets the modification value of the item.
+     *
+     * @param itemName The item to look for.
+     * @return A double value representing how strong is the item.
+     */
+    double getItemValor(String itemName);
 
+    /**
+     * Gets the type of the item with a certain name.
+     *
+     * @param itemName The name of the item to look for.
+     * @return The ItemType of the selected itemName.
+     */
     ItemType getItemType(String itemName);
 
+    /**
+     * Gets the name of the boosted attribute of an item.
+     *
+     * @param itemName The item that boosts the attribute.
+     * @return A String representing the name of the boosted attribute.
+     */
     String getItemBoostedAttributeName(String itemName);
 
+    /**
+     * Gets the duration of an item based of its name.
+     *
+     * @param itemName The name of the item.
+     * @return An integer representing the duration of the item (in turns)
+     */
     int getItemDuration(String itemName);
 }

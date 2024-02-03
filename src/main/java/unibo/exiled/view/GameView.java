@@ -43,7 +43,7 @@ public final class GameView {
     private final JFrame mainFrame;
     private final JPanel gamePanel;
     private final JPanel menuPanel;
-    private final JPanel inventoryPanel;
+    //private final JPanel inventoryPanel;
     private final JPanel combatPanel;
     /**
      * The game controller that manages interaction between the model and the view.
@@ -66,7 +66,7 @@ public final class GameView {
         this.mainFrame.setFocusable(true);
 
         this.menuPanel = new JPanel();
-        this.inventoryPanel = new JPanel();
+        //this.inventoryPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         final MenuView menuView = new MenuView(this, null);
@@ -85,15 +85,14 @@ public final class GameView {
         contentPanel.setLayout(mainLayout);
 
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel)
-                .addComponent(inventoryPanel).addComponent(combatPanel));
+                .addComponent(combatPanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                 .addComponent(menuPanel)
                 .addComponent(gamePanel)
-                .addComponent(inventoryPanel)
                 .addComponent(combatPanel));
 
         this.hideMenu();
-        this.hideInventory();
+        //this.hideInventory();
         this.hideCombat();
 
         this.initializeGridComponents();
@@ -109,14 +108,14 @@ public final class GameView {
         this.gamePanel.add(flowButtonPanelSouth, BorderLayout.SOUTH);
 
         // Inventory button
-        final GameButton inventoryButton = new GameButton("Inventory");
-        inventoryButton.addActionListener(e -> showInventory());
+        /*final GameButton inventoryButton = new GameButton("Inventory");
+        inventoryButton.addActionListener(e -> showInventory());*/
 
         // Menu button
         final GameButton menuButton = new GameButton("Menu");
         menuButton.addActionListener(e -> showMenu());
 
-        flowButtonPanelNorth.add(inventoryButton);
+        //flowButtonPanelNorth.add(inventoryButton);
         flowButtonPanelNorth.add(menuButton);
 
         // Player information
@@ -183,11 +182,10 @@ public final class GameView {
                         gameOverView.display();
                         mainFrame.dispose();
                     } else if (gameController.isEnemyInCell(gameController.getPlayerPosition())) {
-                        //combatView.setEnemy(gameController.getEnemiesController().getEnemies()
-                        //       .getEnemyFromPosition(gameController.getPlayerController().getPlayerPosition()));
-                        //showCombat();
-                        //draw();
+                        showCombat();
+                        draw();
                     } else {
+                        playerView.changeImage(directionPressed);
                         playerView.changeImage(directionPressed);
                         draw();
                     }
@@ -268,18 +266,18 @@ public final class GameView {
         }
     }
 
-    private void showInventory() {
+    /*private void showInventory() {
         this.gamePanel.setVisible(false);
         this.inventoryPanel.setVisible(true);
-    }
+    }*/
 
     /**
      * Hides the inventory view.
      */
-    public void hideInventory() {
+    /*public void hideInventory() {
         this.gamePanel.setVisible(true);
         this.inventoryPanel.setVisible(false);
-    }
+    }*/
 
     /**
      * Shows the menu view.

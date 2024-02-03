@@ -1,9 +1,6 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
-import unibo.exiled.model.item.HealingItem;
-import unibo.exiled.model.item.PowerUpItem;
-import unibo.exiled.model.item.UsableItem;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.TitleGameLabel;
@@ -14,7 +11,6 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -89,7 +85,7 @@ public final class InventoryView extends JPanel {
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
         final GameButton exitButton = new GameButton("Exit");
-        exitButton.addActionListener(e -> game.hideInventory());
+        //exitButton.addActionListener(e -> game.hideInventory());
 
         final JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(exitButton, BorderLayout.WEST);
@@ -145,7 +141,7 @@ public final class InventoryView extends JPanel {
                     case HEALTH -> {
                         setBackground(HEALING_ITEM_COLOR);
                         setText(" " + item + " - Quantity: " + quantity + " - Description: "
-                                + description + " - Heal: " + gameController.getItemAmout(item));
+                                + description + " - Heal: " + gameController.getItemValor(item));
                     }
 
                     case POWERUP -> {
@@ -153,7 +149,7 @@ public final class InventoryView extends JPanel {
                     setText(" "
                             + item + " - Quantity: " + quantity
                             + " - Description: "
-                            + description + " - PowerUp: " + gameController.getItemAmout(item) + " - Attribute: "
+                            + description + " - PowerUp: " + gameController.getItemValor(item) + " - Attribute: "
                             + gameController.getItemBoostedAttributeName(item) + " - Duration: "
                             + gameController.getItemDuration(item));
                     }

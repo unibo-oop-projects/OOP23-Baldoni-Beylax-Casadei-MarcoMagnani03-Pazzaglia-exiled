@@ -23,18 +23,17 @@ public final class Constants {
             + "config" + File.separator
             + "config.yml";
 
+    /**
+     * Default path of the images of the characters.
+     */
     public static final String DEF_RESOURCE_PATH =
             "src" + File.separator + "main" + File.separator + "java" + File.separator + "unibo" + File.separator
                     + "exiled" + File.separator
                     + "resources" + File.separator;
-
-    private static final Map<String, String> CONSTANTS_MAP = new HashMap<>();
-
-    private static final Logger LOGGER = Logger.getLogger(Constants.class.getName());
-
     public static final String PLAYER_PATH = "player";
-
     public static final String PLAYER_NAME = "boy";
+    private static final Map<String, String> CONSTANTS_MAP = new HashMap<>();
+    private static final Logger LOGGER = Logger.getLogger(Constants.class.getName());
 
     private Constants() {
     }
