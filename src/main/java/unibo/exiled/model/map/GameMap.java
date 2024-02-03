@@ -20,12 +20,12 @@ public interface GameMap {
      * @param cell The cell position to get the type of.
      * @return The CellType representing the type of the selected cell.
      */
-    CellType getCellType(final Position cell);
+    CellType getCellType(Position cell);
 
     /**
      * Checks if the selected position is in the boundaries of the map.
      * @param cell The position to check.
      * @return True if the position is in the boundaries of the map, false otherwise.
      */
-    boolean isInBoundaries(final Position cell);
+    boolean isInBoundaries(Position cell);
 }
