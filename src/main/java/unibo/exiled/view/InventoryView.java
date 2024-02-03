@@ -38,7 +38,7 @@ public final class InventoryView extends JPanel {
     private static final int LIST_ITEM_HEIGHT = 30;
     private static final int LEFT_RIGHT_MARGIN = 100;
     private static final int TOP_BOTTOM_MARGIN = 15;
-    private final GameController gameController;
+    private final transient GameController gameController;
     private final DefaultListModel<String> listModel;
     private final JLabel emptyInventoryLabel;
     private final JScrollPane scrollPane;
@@ -123,6 +123,31 @@ public final class InventoryView extends JPanel {
         repaint();
     }
 
+    private static final class ItemListSelectionListener implements ListSelectionListener {
+        @Override
+        public void valueChanged(final ListSelectionEvent e) {
+         /*   if (!e.getValueIsAdjusting()) {
+                final String selectedItemName = itemNamesList.getSelectedValue();
+                if (selectedItem instanceof UsableItem usableItem) {
+                    final int confirmation = JOptionPane.showConfirmDialog(null,
+                            "Are you sure you want to use "
+                                    + usableItem.getName() + "?",
+                            "Confirm Use", JOptionPane.YES_NO_OPTION);
+
+                    if (confirmation == JOptionPane.YES_OPTION) {
+                        final boolean useResult = inventoryController.useItem(usableItem);
+                        if (useResult) {
+                            JOptionPane.showMessageDialog(null, "Used " + usableItem.getName());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Item not found in the inventory");
+                        }
+                        updateInventoryList();
+                    }
+                }
+            }*/
+        }
+    }
+
     private final class ItemListRenderer extends DefaultListCellRenderer {
         private static final long serialVersionUID = 3L;
 
@@ -186,28 +211,5 @@ public final class InventoryView extends JPanel {
         }
     }
 
-    private final class ItemListSelectionListener implements ListSelectionListener {
-        @Override
-        public void valueChanged(final ListSelectionEvent e) {
-         /*   if (!e.getValueIsAdjusting()) {
-                final String selectedItemName = itemNamesList.getSelectedValue();
-                if (selectedItem instanceof UsableItem usableItem) {
-                    final int confirmation = JOptionPane.showConfirmDialog(null,
-                            "Are you sure you want to use "
-                                    + usableItem.getName() + "?",
-                            "Confirm Use", JOptionPane.YES_NO_OPTION);
 
-                    if (confirmation == JOptionPane.YES_OPTION) {
-                        final boolean useResult = inventoryController.useItem(usableItem);
-                        if (useResult) {
-                            JOptionPane.showMessageDialog(null, "Used " + usableItem.getName());
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Item not found in the inventory");
-                        }
-                        updateInventoryList();
-                    }
-                }
-            }*/
-        }
-    }
 }

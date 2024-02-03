@@ -14,6 +14,7 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 public final class ItemContainer {
 
     private static final ItemFactory ITEM_FACTORY = new ItemFactoryImpl();
+    private static final Random RANDOM = new Random();
     private static final Set<Item> ITEMS = Set.of(
             ITEM_FACTORY.createHealingItem(ItemNames.HEALTH_POTION.getName(),
                     "Restores health points.", 20.0),
@@ -70,9 +71,8 @@ public final class ItemContainer {
         if (itemByType.isEmpty()) {
             return Optional.empty();
         }
-        final Random random = new Random();
 
-        return Optional.of(itemByType.get(random.nextInt(itemByType.size())));
+        return Optional.of(itemByType.get(RANDOM.nextInt(itemByType.size())));
     }
 
 }

@@ -35,7 +35,7 @@ public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
      */
     @Override
     public MoveSet getMoveSet() {
-        return this.moveSet;
+        return MoveSets.copyOf(this.moveSet);
     }
 
     /**
