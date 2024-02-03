@@ -13,13 +13,21 @@ import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.ItemFactory;
 import unibo.exiled.model.item.ItemFactoryImpl;
 
-public class TestInventory {
+/**
+ * Tests the inventory items.
+ */
+class TestInventory {
+
+    private static final double HEALING_DEFAULT = 5.0;
+    private static final String HEALING_POTION_NAME = "Health Potion";
+    private static final String HEALING_POTION_DESC = "A healing potion";
+
     @Test
     void testAddItem() {
-        Inventory inventory = new InventoryImpl();
-        ItemFactory factory = new ItemFactoryImpl();
-        Item crystal = factory.createUnUsableItem("Crystal", "A crystal");
-        
+        final Inventory inventory = new InventoryImpl();
+        final ItemFactory factory = new ItemFactoryImpl();
+        final Item crystal = factory.createUnUsableItem("Crystal", "A crystal");
+
         inventory.addItem(crystal);
         assertEquals(1, inventory.getItemQuantity(crystal));
 
@@ -29,9 +37,10 @@ public class TestInventory {
 
     @Test
     void testRemoveItem() {
-        Inventory inventory = new InventoryImpl();
-        ItemFactory factory = new ItemFactoryImpl();
-        Item potion = factory.createHealingItem("Health Potion","A healing potion", 5);
+        final Inventory inventory = new InventoryImpl();
+        final ItemFactory factory = new ItemFactoryImpl();
+        final Item potion = factory.createHealingItem(HEALING_POTION_NAME,
+                HEALING_POTION_DESC, HEALING_DEFAULT);
 
         // Remove an item that is not in the inventory
         inventory.removeItem(potion);
@@ -43,7 +52,9 @@ public class TestInventory {
         assertNull(inventory.getItemQuantity(potion));
 
         // Add multiple items and remove one
-        Item maxPotion = factory.createHealingItem("Max Health Potion","A max healing potion", 50);
+        final Item maxPotion = factory.createHealingItem("Max Health Potion",
+                "A max healing potion",
+                HEALING_DEFAULT * 10);
         inventory.addItem(potion);
         inventory.addItem(maxPotion);
         inventory.removeItem(potion);
@@ -52,9 +63,10 @@ public class TestInventory {
 
     @Test
     void testGetItemQuantity() {
-        Inventory inventory = new InventoryImpl();
-        ItemFactory factory = new ItemFactoryImpl();
-        Item potion = factory.createHealingItem("Health Potion","A healing potion", 5);
+        final Inventory inventory = new InventoryImpl();
+        final ItemFactory factory = new ItemFactoryImpl();
+        final Item potion = factory.createHealingItem(HEALING_POTION_NAME,
+                HEALING_POTION_DESC, HEALING_DEFAULT);
 
         assertNull(inventory.getItemQuantity(potion));
 
@@ -67,10 +79,10 @@ public class TestInventory {
 
     @Test
     void testContainsItem() {
-        Inventory inventory = new InventoryImpl();
-        ItemFactory factory = new ItemFactoryImpl();
-        Item potion = factory.createHealingItem("Health Potion","A healing potion", 5);
-        Item crystal = factory.createUnUsableItem("Crystal", "A crystal");
+        final Inventory inventory = new InventoryImpl();
+        final ItemFactory factory = new ItemFactoryImpl();
+        final Item potion = factory.createHealingItem(HEALING_POTION_NAME, HEALING_POTION_DESC, HEALING_DEFAULT);
+        final Item crystal = factory.createUnUsableItem("Crystal", "A crystal");
 
         assertFalse(inventory.containsItem(potion));
 
@@ -83,10 +95,10 @@ public class TestInventory {
 
     @Test
     void testGetItems() {
-        Inventory inventory = new InventoryImpl();
-        ItemFactory factory = new ItemFactoryImpl();
-        Item potion = factory.createHealingItem("Health Potion","A healing potion", 5);
-        Item crystal = factory.createUnUsableItem("Crystal", "A crystal");
+        final Inventory inventory = new InventoryImpl();
+        final ItemFactory factory = new ItemFactoryImpl();
+        final Item potion = factory.createHealingItem(HEALING_POTION_NAME, HEALING_POTION_DESC, HEALING_DEFAULT);
+        final Item crystal = factory.createUnUsableItem("Crystal", "A crystal");
 
         assertTrue(inventory.getItems().isEmpty(), "Newly created inventory should have no items");
 

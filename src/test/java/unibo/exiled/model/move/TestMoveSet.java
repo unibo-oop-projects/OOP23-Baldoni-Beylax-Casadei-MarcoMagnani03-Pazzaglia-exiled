@@ -2,49 +2,55 @@ package unibo.exiled.model.move;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import unibo.exiled.model.move.MoveSet;
-import unibo.exiled.model.move.MoveSetImpl;
-import unibo.exiled.model.utilities.ElementalType;
+/**
+ * Tests the MoveSet creation.
+ */
+class TestMoveSet {
 
-public class TestMoveSet {
-
+    private static final double WATER_DEFAULT = 12.0;
+    private static final double BOLT_DEFAULT = 8.0;
+    private static final double GRASS_DEFAULT = 15.0;
+    private static final double FIRE_DEFAULT = 10.0;
+    private static final double EXTRA_POWER = 5.0;
+    private static final int NUM_MOVES = 4;
     private final MagicMoveFactory moveFactory = new MagicMoveFactoryImpl();
 
     @Test
     void testGetMagicMoves() {
-        MoveSet moveSet = new MoveSetImpl(4);
+        final MoveSet moveSet = new MoveSetImpl(NUM_MOVES);
         assertTrue(moveSet.getMagicMoves().isEmpty());
     }
 
     @Test
     void testAddMagicMove() {
-        MoveSet moveSet = new MoveSetImpl(4);
-        MagicMove fireMove = moveFactory.createFireMagicMove("Fire", "Powerful fire move", 10.0);
+        final MoveSet moveSet = new MoveSetImpl(NUM_MOVES);
+        final MagicMove fireMove = moveFactory.createFireMagicMove("Fire", "Powerful fire move", FIRE_DEFAULT);
 
         assertTrue(moveSet.addMagicMove(fireMove));
         assertEquals(1, moveSet.getMagicMoves().size());
 
-        MagicMove boltMove = moveFactory.createBoltMagicMove("Bolt", "Electric shock", 8.0);
-        MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", 12.0);
-        MagicMove grassMove = moveFactory.createGrassMagicMove("Grass", "Nature's force", 15.0);
+        final MagicMove boltMove = moveFactory.createBoltMagicMove("Bolt", "Electric shock", BOLT_DEFAULT);
+        final MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", WATER_DEFAULT);
+        final MagicMove grassMove = moveFactory.createGrassMagicMove("Grass",
+                "Nature's force", GRASS_DEFAULT);
 
         assertTrue(moveSet.addMagicMove(boltMove));
         assertTrue(moveSet.addMagicMove(waterMove));
         assertTrue(moveSet.addMagicMove(grassMove));
 
-        assertFalse(moveSet.addMagicMove(moveFactory.createFireMagicMove("ExtraMove", "Extra move", 5.0)));
+        assertFalse(moveSet.addMagicMove(moveFactory.createFireMagicMove("ExtraMove",
+                "Extra move", EXTRA_POWER)));
     }
 
     @Test
     void testChangeMoves() {
-        MoveSet moveSet = new MoveSetImpl(4);
-        MagicMove fireMove = moveFactory.createFireMagicMove("Fire", "Powerful fire move", 10.0);
-        MagicMove boltMove = moveFactory.createBoltMagicMove("Bolt", "Electric shock", 8.0);
+        final MoveSet moveSet = new MoveSetImpl(NUM_MOVES);
+        final MagicMove fireMove = moveFactory.createFireMagicMove("Fire", "Powerful fire move", FIRE_DEFAULT);
+        final MagicMove boltMove = moveFactory.createBoltMagicMove("Bolt", "Electric shock", BOLT_DEFAULT);
 
         moveSet.addMagicMove(fireMove);
         assertTrue(moveSet.getMagicMoves().contains(fireMove));
@@ -53,7 +59,7 @@ public class TestMoveSet {
         assertFalse(moveSet.getMagicMoves().contains(fireMove));
         assertTrue(moveSet.getMagicMoves().contains(boltMove));
 
-        MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", 12.0);
-        assertThrows(IllegalArgumentException.class, () -> moveSet.changeMoves(waterMove, boltMove));
+        final MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", WATER_DEFAULT);
+        assertFalse(moveSet.changeMoves(waterMove, boltMove));
     }
 }
