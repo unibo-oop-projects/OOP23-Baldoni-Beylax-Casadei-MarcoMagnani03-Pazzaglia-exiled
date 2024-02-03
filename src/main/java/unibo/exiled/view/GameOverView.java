@@ -47,8 +47,8 @@ public final class GameOverView {
     }
 
     private void initializeHud() {
-        JPanel gameOverPanel = new JPanel(new BorderLayout());
-        JLabel gameOverLabel = new JLabel(new ImageIcon("src"
+        final JPanel gameOverPanel = new JPanel(new BorderLayout());
+        final JLabel gameOverLabel = new JLabel(new ImageIcon("src"
                 + File.separator
                 + "main"
                 + File.separator
@@ -57,7 +57,7 @@ public final class GameOverView {
                 + "resources" + File.separator + "gameover.png"));
         gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
 
-        JPanel flowPanel = new JPanel(new FlowLayout());
+        final JPanel flowPanel = new JPanel(new FlowLayout());
         gameOverPanel.add(flowPanel, BorderLayout.SOUTH);
 
         flowPanel.add(restartButton);
@@ -68,7 +68,7 @@ public final class GameOverView {
 
     private void initializeListeners() {
         restartButton.addActionListener(e -> {
-            int dialogResult = JOptionPane.showConfirmDialog(null,
+            final int dialogResult = JOptionPane.showConfirmDialog(null,
                     "Would you like to restart the game?", "Warning",
                     JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
@@ -78,7 +78,7 @@ public final class GameOverView {
         });
 
         quitButton.addActionListener(e -> {
-            int dialogResult = JOptionPane.showConfirmDialog(null,
+            final int dialogResult = JOptionPane.showConfirmDialog(null,
                     "Would you like to quit the game?", "Warning",
                     JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {

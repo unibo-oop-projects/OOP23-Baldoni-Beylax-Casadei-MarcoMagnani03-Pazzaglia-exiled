@@ -9,7 +9,7 @@ import java.util.List;
  * multiple menu items.
  */
 public class MenuImpl implements Menu {
-    private List<MenuItem> menuItems;
+    private final List<MenuItem> menuItems;
 
     /**
      * Constructs a new MenuImpl with an empty list of menu items.

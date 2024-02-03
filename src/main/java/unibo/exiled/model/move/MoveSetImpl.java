@@ -29,12 +29,13 @@ public final class MoveSetImpl implements MoveSet {
     }
 
     @Override
-    public void changeMoves(final MagicMove oldMove, final MagicMove newMove) {
+    public boolean changeMoves(final MagicMove oldMove, final MagicMove newMove) {
         if (magicMoves.contains(oldMove)) {
             magicMoves.remove(oldMove);
             magicMoves.add(newMove);
+            return true;
         } else {
-            throw new IllegalArgumentException("Cannot change moves: oldMove not found in the moveset");
+            return false;
         }
     }
 

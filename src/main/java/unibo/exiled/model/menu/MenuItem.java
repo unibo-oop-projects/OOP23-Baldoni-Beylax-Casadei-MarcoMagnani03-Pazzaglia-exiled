@@ -5,7 +5,7 @@ package unibo.exiled.model.menu;
  */
 public class MenuItem {
     private String itemText;
-    private Command itemCommand;
+    private final Command itemCommand;
 
     /**
      * Constructs a MenuItem with the specified text and command.
