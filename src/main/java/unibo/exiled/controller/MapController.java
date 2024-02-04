@@ -1,6 +1,7 @@
 package unibo.exiled.controller;
 
 import unibo.exiled.model.map.CellType;
+import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 /**
@@ -37,4 +38,12 @@ public interface MapController {
      * @return The name of the character in the specified position.
      */
     String getNameOfCharacterInPosition(Position position);
+
+    /**
+     * Gets the last direction of the character in the given position.
+     *
+     * @param position The position where the character is.
+     * @return The last direction of the character in the given position.
+     */
+    Direction getLastDirectionOfCharacterInPosition(Position position);
 }

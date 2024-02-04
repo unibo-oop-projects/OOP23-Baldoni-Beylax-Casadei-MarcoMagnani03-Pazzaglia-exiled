@@ -6,6 +6,7 @@ import unibo.exiled.model.character.attributes.MultiplierAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttributeImpl;
 import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttribute;
+import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Collections;
@@ -16,12 +17,13 @@ import java.util.Map;
  * The implementation of a generic character.
  */
 public abstract class GameCharacterImpl implements GameCharacter {
+    private final String name;
     /**
      * An association between the identifier of the attribute and its values.
      */
     private Map<AttributeIdentifier, Attribute> attributes;
-    private final String name;
     private Position position;
+    private Direction lastDirection = Direction.SOUTH;
 
     /**
      * The constructor of the GameCharacter.
@@ -34,8 +36,19 @@ public abstract class GameCharacterImpl implements GameCharacter {
         this.name = name;
     }
 
+    @Override
+    public final Direction getLastDirection() {
+        return this.lastDirection;
+    }
+
+    @Override
+    public final void setLastDirection(final Direction direction) {
+        this.lastDirection = direction;
+    }
+
     /**
      * Sets the position of the current character.
+     *
      * @param position The new position of the character.
      */
     @Override
@@ -45,6 +58,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 
     /**
      * Gets the position of the character.
+     *
      * @return The position of the character.
      */
     @Override

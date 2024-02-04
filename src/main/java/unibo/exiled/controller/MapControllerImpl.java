@@ -6,12 +6,13 @@ import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.map.CellType;
+import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 /**
  * Implementation of the MapController interface.
  */
-public class MapControllerImpl implements MapController {
+public final class MapControllerImpl implements MapController {
 
     private final GameModel model;
 
@@ -24,33 +25,17 @@ public class MapControllerImpl implements MapController {
         this.model = model;
     }
 
-    /**
-     * Gets the size of the game map.
-     *
-     * @return An integer representing the size of the game map.
-     */
     @Override
     public int getMapSize() {
         return model.getMapSize();
     }
 
-    /**
-     * Gets the type of cell at the specified position on the game map.
-     *
-     * @param position The position to check on the game map.
-     * @return The CellType representing the type of cell at the specified position.
-     */
     @Override
     public CellType getCellType(final Position position) {
         return model.getCellTypeOf(position);
     }
 
-    /**
-     * Checks if an enemy is present in the cell at the specified position on the game map.
-     *
-     * @param position The position to check on the game map.
-     * @return True if an enemy is present, false otherwise.
-     */
+
     @Override
     public boolean isEnemyInCell(final Position position) {
         final Optional<GameCharacter> gottenCharacter = model.getCharacterFromPosition(position);
@@ -61,12 +46,6 @@ public class MapControllerImpl implements MapController {
         }
     }
 
-    /**
-     * Gets the name of the character in the cell at the specified position on the game map.
-     *
-     * @param position The position to check on the game map.
-     * @return The name of the character in the cell, or an empty string if no character is present.
-     */
     @Override
     public String getNameOfCharacterInPosition(final Position position) {
         final Optional<GameCharacter> gottenCharacter = model.getCharacterFromPosition(position);
@@ -75,5 +54,10 @@ public class MapControllerImpl implements MapController {
         } else {
             return "";
         }
+    }
+
+    @Override
+    public Direction getLastDirectionOfCharacterInPosition(final Position position) {
+        return model.getCharacterFromPosition(position).get().getLastDirection();
     }
 }
