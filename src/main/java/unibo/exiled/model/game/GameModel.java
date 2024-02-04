@@ -53,8 +53,9 @@ public interface GameModel {
     ElementalType getPlayerClass();
 
     /**
-     * Gest the player move set
-     * @return The a move set
+     * Gest the player move set.
+     * 
+     * @return The a move set.
      */
     MoveSet getPlayerMoveSet();
 
@@ -81,6 +82,7 @@ public interface GameModel {
 
     /**
      * Returns the description of a given item.
+     * 
      * @param itemName The name of the item.
      * @return the description of a given item.
      */

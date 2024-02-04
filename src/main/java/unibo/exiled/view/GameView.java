@@ -43,7 +43,6 @@ public final class GameView {
     // MVC Components(MC)
     private final JFrame mainFrame;
     private final JPanel gameHudPanel;
-    private final JPanel gameContainerPanel;
     private final JPanel gamePanel;
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
@@ -59,6 +58,7 @@ public final class GameView {
      */
     public GameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
+        final JPanel gameContainerPanel;
         this.gameController = new GameControllerImpl(new GameModelImpl());
 
         this.mainFrame = new JFrame();
@@ -73,10 +73,10 @@ public final class GameView {
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
-        this.gameContainerPanel = new JPanel();
+        gameContainerPanel = new JPanel();
 
-        final GroupLayout gamePanelLayout = new GroupLayout(this.gameContainerPanel);
-        this.gameContainerPanel.setLayout(gamePanelLayout);
+        final GroupLayout gamePanelLayout = new GroupLayout(gameContainerPanel);
+        gameContainerPanel.setLayout(gamePanelLayout);
 
         gamePanelLayout.setHorizontalGroup(gamePanelLayout.createSequentialGroup()
                 .addComponent(gamePanel)
@@ -85,10 +85,11 @@ public final class GameView {
                 .addComponent(gamePanel)
                 .addComponent(combatPanel));
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
-        
+
         this.gameOverView = new GameOverView();
-        this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
-        this.combatView = new CombatView(this.gameController, this);
+        this.playerView = new CharacterView(
+                gameController.getCharacterController().getImagePathOfCharacter("player", "boy"));
+        this.combatView = new CombatView(this.gameController);
         final MenuView menuView = new MenuView(this, null);
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
 
@@ -138,9 +139,11 @@ public final class GameView {
 
         // Player information
         final GameProgressBar healthBar = new GameProgressBar();
-        healthBar.updateProgress(gameController.getPlayerHealth());
-        final GameLabel levelLabel = new GameLabel("Level: " + gameController.getPlayerLevel());
-        final GameLabel classLabel = new GameLabel("Class: " + gameController.getPlayerClassName());
+        healthBar.updateProgress(gameController.getCharacterController().getPlayerHealth());
+        final GameLabel levelLabel = new GameLabel(
+                "Level: " + gameController.getCharacterController().getPlayerLevel());
+        final GameLabel classLabel = new GameLabel(
+                "Class: " + gameController.getCharacterController().getPlayerClassName());
 
         final JPanel statusPanel = new JPanel(new FlowLayout());
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -154,8 +157,8 @@ public final class GameView {
 
     private void initializeGridComponents() {
         this.gridPanel = new JPanel(
-                new GridLayout(this.gameController.getMapSize(),
-                        this.gameController.getMapSize()));
+                new GridLayout(this.gameController.getMapController().getMapSize(),
+                        this.gameController.getMapController().getMapSize()));
         draw();
         this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
     }
@@ -193,13 +196,14 @@ public final class GameView {
                         || e.getKeyCode() == KeyEvent.VK_S
                         || e.getKeyCode() == KeyEvent.VK_D) && !combatPanel.isVisible()) {
                     final Direction directionPressed = getDirection(e);
-                    gameController.movePlayer(directionPressed);
-                    gameController.moveEnemies();
-                    
+                    gameController.getCharacterController().movePlayer(directionPressed);
+                    gameController.getCharacterController().moveEnemies();
+
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
-                    } else if (gameController.isEnemyInCell(gameController.getPlayerPosition())) {
+                    } else if (gameController.getMapController()
+                            .isEnemyInCell(gameController.getCharacterController().getPlayerPosition())) {
                         initializeCombat();
                         draw();
                     } else {
@@ -220,8 +224,8 @@ public final class GameView {
 
     private void draw() {
         this.gridPanel.removeAll();
-        for (int i = 0; i < this.gameController.getMapSize(); i++) {
-            for (int j = 0; j < this.gameController.getMapSize(); j++) {
+        for (int i = 0; i < this.gameController.getMapController().getMapSize(); i++) {
+            for (int j = 0; j < this.gameController.getMapController().getMapSize(); j++) {
                 setArea(new Position(j, i));
             }
         }
@@ -238,12 +242,14 @@ public final class GameView {
     private void setArea(final Position position) {
         final JLabel label;
 
-        if (position.equals(gameController.getPlayerPosition())) {
+        if (position.equals(gameController.getCharacterController().getPlayerPosition())) {
             label = playerView;
-        } else if (gameController.isEnemyInCell(position)) {
-            final List<String> characterImagePath = gameController
-                    .getImagePathOfCharacter("enemy", gameController.getNameOfCharacterInPosition(position)
-                            + File.separator + gameController.getNameOfCharacterInPosition(position));
+        } else if (gameController.getMapController().isEnemyInCell(position)) {
+            final List<String> characterImagePath = gameController.getCharacterController()
+                    .getImagePathOfCharacter("enemy",
+                            gameController.getMapController().getNameOfCharacterInPosition(position)
+                                    + File.separator
+                                    + gameController.getMapController().getNameOfCharacterInPosition(position));
             label = new CharacterView(characterImagePath);
         } else {
             label = new JLabel();
@@ -255,7 +261,7 @@ public final class GameView {
 
     private void setLabelMapProperties(final JLabel label, final Position position) {
         label.setOpaque(true);
-        final CellType cellType = gameController.getCellType(position);
+        final CellType cellType = gameController.getMapController().getCellType(position);
         final Color backgroundColor = getBackgroundColor(cellType);
         label.setBackground(backgroundColor);
         label.setBorder(new LineBorder(Color.BLACK));

@@ -49,7 +49,7 @@ public final class InventoryView extends JPanel {
      * The constructor of the inventory view.
      *
      * @param gameController The controller of the Game.
-     * @param game The GameView associated at the game.
+     * @param game           The GameView associated at the game.
      */
     public InventoryView(final GameController gameController, final GameView game) {
         this.gameController = gameController;
@@ -108,7 +108,7 @@ public final class InventoryView extends JPanel {
     public void updateInventoryList() {
         listModel.clear();
 
-        final Map<String, Integer> itemsList = gameController.getItems();
+        final Map<String, Integer> itemsList = gameController.getItemsController().getItems();
 
         if (itemsList.isEmpty()) {
             emptyInventoryLabel.setVisible(true);
@@ -136,13 +136,13 @@ public final class InventoryView extends JPanel {
                                     + selectedItemName + "?",
                             "Confirm Use", JOptionPane.YES_NO_OPTION);
                     if (confirmation == JOptionPane.YES_OPTION) {
-                        final boolean useResult = gameController.useItem(selectedItemName);
+                        final boolean useResult = gameController.getItemsController().useItem(selectedItemName);
                         if (useResult) {
                             JOptionPane.showMessageDialog(null, "Used " + selectedItemName,
-                            "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+                                    "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(null, "The selected item is not usable",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                                    "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         updateInventoryList();
                     }
@@ -156,19 +156,19 @@ public final class InventoryView extends JPanel {
 
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
-                                                      final boolean isSelected, final boolean cellHasFocus) {
+                final boolean isSelected, final boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof String item) {
-                final Map<String, Integer> itemsList = gameController.getItems();
+                final Map<String, Integer> itemsList = gameController.getItemsController().getItems();
 
                 final int quantity = itemsList.get(item);
-                final String description = gameController.getItemDescription(item);
+                final String description = gameController.getItemsController().getItemDescription(item);
 
-                switch (gameController.getItemType(item)) {
+                switch (gameController.getItemsController().getItemType(item)) {
                     case HEALTH -> {
                         setBackground(HEALING_ITEM_COLOR);
                         setText(" " + item + " - Quantity: " + quantity + " - Description: "
-                                + description + " - Heal: " + gameController.getItemValor(item));
+                                + description + " - Heal: " + gameController.getItemsController().getItemValor(item));
                     }
 
                     case POWERUP -> {
@@ -176,9 +176,11 @@ public final class InventoryView extends JPanel {
                         setText(" "
                                 + item + " - Quantity: " + quantity
                                 + " - Description: "
-                                + description + " - PowerUp: " + gameController.getItemValor(item) + " - Attribute: "
-                                + gameController.getItemBoostedAttributeName(item) + " - Duration: "
-                                + gameController.getItemDuration(item));
+                                + description + " - PowerUp: " + gameController.getItemsController().getItemValor(item)
+                                + " - Attribute: "
+                                + gameController.getItemsController().getItemBoostedAttributeName(item)
+                                + " - Duration: "
+                                + gameController.getItemsController().getItemDuration(item));
                     }
 
                     case RESOURCE -> {
@@ -196,6 +198,5 @@ public final class InventoryView extends JPanel {
             return this;
         }
     }
-
 
 }
