@@ -4,6 +4,7 @@ import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.move.MoveSetFactory;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
+import unibo.exiled.model.utilities.ElementalType;
 
 import java.util.Random;
 
@@ -30,7 +31,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
         return new EnemyImpl(
                 "Goblin",
                 moveSetFactory.defaultNormalMoveSet(1),
-                attributeFactory.createGoblinAttributes()) {
+                attributeFactory.createGoblinAttributes(), ElementalType.NORMAL) {
             @Override
             public double getDroppedExperience() {
                 return defaultExperience;
@@ -43,7 +44,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
         return new EnemyImpl(
                 "Brutus",
                 moveSetFactory.defaultNormalMoveSet(1),
-                attributeFactory.createBrutusAttributes()) {
+                attributeFactory.createBrutusAttributes(), ElementalType.FIRE) {
             @Override
             public double getDroppedExperience() {
                 return defaultExperience * 2;
