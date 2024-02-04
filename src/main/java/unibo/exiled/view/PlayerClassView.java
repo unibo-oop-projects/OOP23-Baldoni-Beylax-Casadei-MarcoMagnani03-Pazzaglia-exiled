@@ -6,7 +6,6 @@ import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
 
