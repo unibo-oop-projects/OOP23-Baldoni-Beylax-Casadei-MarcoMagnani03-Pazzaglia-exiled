@@ -218,7 +218,7 @@ public final class GameView {
                         initializeCombat();
                         draw();
                     } else {
-                        playerView.changeImage(directionPressed,gameController.getCharacterController().
+                        playerView.changeImage(directionPressed, gameController.getCharacterController().
                                 getIfCharacterInPositionIsMoving(gameController.getCharacterController().
                                         getPlayerPosition()));
                         draw();
