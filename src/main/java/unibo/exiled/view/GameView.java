@@ -218,7 +218,6 @@ public final class GameView {
                         draw();
                     } else {
                         playerView.changeImage(directionPressed);
-                        playerView.changeImage(directionPressed);
                         draw();
                     }
                 }
