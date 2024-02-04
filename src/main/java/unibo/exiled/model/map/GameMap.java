@@ -2,6 +2,8 @@ package unibo.exiled.model.map;
 
 import unibo.exiled.model.utilities.Position;
 
+import java.util.Map;
+
 /**
  * Represents a game map with cells of various types.
  * The map has specific dimensions, height, and width.
@@ -9,25 +11,15 @@ import unibo.exiled.model.utilities.Position;
 public interface GameMap {
     /**
      * Returns the size of the map.
-     * 
+     *
      * @return An Integer representing the size of the map.
      */
     int getSize();
 
     /**
-     * Returns the type of cell in a certain position.
-     * 
-     * @param cell The cell position to get the type of.
-     * @return The CellType representing the type of the selected cell.
+     * Gets the cells of the map.
+     *
+     * @return An unmodifiable map of positions and CellTypes to be used from the model.
      */
-    CellType getCellType(Position cell);
-
-    /**
-     * Checks if the selected position is in the boundaries of the map.
-     * 
-     * @param cell The position to check.
-     * @return True if the position is in the boundaries of the map, false
-     *         otherwise.
-     */
-    boolean isInBoundaries(Position cell);
+    Map<Position, CellType> getCellStates();
 }

@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import unibo.exiled.model.utilities.Position;
 
@@ -81,17 +80,8 @@ public final class GameMapImpl implements GameMap {
     }
 
     @Override
-    public CellType getCellType(final Position cell) {
-        if (this.isInBoundaries(cell)) {
-            return this.cellStates.get(cell);
-        } else {
-            throw new NoSuchElementException("The selected position is out of boundaries.");
-        }
-    }
-
-    @Override
-    public boolean isInBoundaries(final Position cell) {
-        return this.cellStates.containsKey(cell);
+    public Map<Position, CellType> getCellStates() {
+        return Collections.unmodifiableMap(this.cellStates);
     }
 
     @Override

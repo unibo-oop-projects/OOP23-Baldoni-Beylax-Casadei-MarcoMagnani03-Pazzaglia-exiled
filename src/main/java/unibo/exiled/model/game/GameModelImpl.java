@@ -15,8 +15,6 @@ import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.item.PowerUpItem;
 import unibo.exiled.model.item.UsableItem;
 import unibo.exiled.model.map.CellType;
-import unibo.exiled.model.map.GameMap;
-import unibo.exiled.model.map.GameMapImpl;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.Moves;
@@ -44,7 +42,8 @@ public final class GameModelImpl implements GameModel {
     private static final int RANGE_PLAYER_ENEMY = 2;
     private final EnemyCollection enemyCollection;
     private Player player;
-    private GameMap map;
+
+    private final MapModelImpl mapModel;
 
     /**
      * The constructor of the game core.
@@ -60,7 +59,7 @@ public final class GameModelImpl implements GameModel {
         final int mapSize = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
         final int movesLearningInterval = Integer.parseInt(Constants.getConstantOf("MOVES_LEARNING_INTERVAL"));
 
-        this.mapInitialization(mapSize);
+        this.mapModel = new MapModelImpl(mapSize);
         this.playerInitialization(playerExperienceCap,
                 defaultExperience,
                 playerLevelIncrease,
@@ -76,16 +75,12 @@ public final class GameModelImpl implements GameModel {
         final EnemyFactory factory = new EnemyFactoryImpl();
         for (int i = 0; i < number; i++) {
             do {
-                newEnemyPosition = new Position(random.nextInt(map.getSize()), random.nextInt(map.getSize()));
+                newEnemyPosition = new Position(random.nextInt(mapModel.getSize()), random.nextInt(mapModel.getSize()));
             } while (!isCellEmpty(newEnemyPosition));
             final Enemy newEnemy = factory.createRandom();
             newEnemy.move(newEnemyPosition);
             this.enemyCollection.addEnemy(newEnemy);
         }
-    }
-
-    private void mapInitialization(final int size) {
-        this.map = new GameMapImpl(size);
     }
 
     private void playerInitialization(final double playerExperienceCap,
@@ -95,20 +90,20 @@ public final class GameModelImpl implements GameModel {
                                       final int movesLearningInterval) {
         this.player = new PlayerImpl(playerExperienceCap,
                 defaultExperience, levelIncrease, moveNumber, movesLearningInterval);
-        this.player.move(new Position(map.getSize() / 2, map.getSize() / 2));
+        this.player.move(new Position(mapModel.getSize() / 2, mapModel.getSize() / 2));
     }
 
     private boolean isCellEmpty(final Position position) {
-        if (!map.isInBoundaries(position)) {
+        if (!mapModel.isInBoundaries(position)) {
             return false;
         }
-        return !player.getPosition().equals(position) && !enemyCollection.getEnemyFromPosition(position).isPresent();
+        return !player.getPosition().equals(position) && enemyCollection.getEnemyFromPosition(position).isEmpty();
     }
 
     @Override
     public void movePlayer(final Direction dir) {
         final Position currentPlayerPosition = this.player.getPosition();
-        if (map.isInBoundaries(Positions.sum(currentPlayerPosition, dir.getPosition()))) {
+        if (mapModel.isInBoundaries(Positions.sum(currentPlayerPosition, dir.getPosition()))) {
             this.player.move(Positions.sum(currentPlayerPosition, dir.getPosition()));
         }
     }
@@ -173,7 +168,7 @@ public final class GameModelImpl implements GameModel {
             if (!isEnemyNearThePlayer(enemy)) {
                 do {
                     rndDirection = Direction.values()[RANDOM.nextInt(4)];
-                } while (!this.map.isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
+                } while (!this.mapModel.isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
                         && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
                 newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
             } else {
@@ -225,7 +220,7 @@ public final class GameModelImpl implements GameModel {
 
     @Override
     public int getMapSize() {
-        return map.getSize();
+        return mapModel.getSize();
     }
 
     @Override
@@ -246,7 +241,7 @@ public final class GameModelImpl implements GameModel {
 
     @Override
     public CellType getCellTypeOf(final Position position) {
-        return this.map.getCellType(position);
+        return this.mapModel.getCellType(position);
     }
 
     @Override
@@ -312,8 +307,7 @@ public final class GameModelImpl implements GameModel {
     @Override
     public boolean useItem(final String item) {
         final Item selectedItem = getItem(item);
-        if (selectedItem instanceof UsableItem) {
-            final UsableItem convertedItem = (UsableItem) selectedItem;
+        if (selectedItem instanceof UsableItem convertedItem) {
             player.useItem(convertedItem);
             return true;
         }
