@@ -6,6 +6,7 @@ import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -22,7 +23,7 @@ import javax.swing.JPanel;
 public final class PlayerClassView extends JPanel {
     private static final long serialVersionUID = 7L;
     private static final int MARGIN = 20;
-    private static final int BUTTON_FONT_SIZE = 60;
+    private static final int BUTTON_FONT_SIZE = 40;
     private final transient GameController controller;
     private final transient GameView gameView;
 
@@ -57,6 +58,7 @@ public final class PlayerClassView extends JPanel {
         buttonPanel.add(grassButton);
 
         final JLabel titleLabel = new TitleGameLabel("Choose Your Class");
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
         mainPanel.add(Box.createVerticalStrut(MARGIN), BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
@@ -76,7 +78,7 @@ public final class PlayerClassView extends JPanel {
     }
 
     /**
-     * method where the player class is set.
+     * Method where the player class is set.
      *
      * @param playerClass the class decided by the user.
      */
