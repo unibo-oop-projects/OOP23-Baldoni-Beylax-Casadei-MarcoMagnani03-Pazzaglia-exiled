@@ -1,5 +1,10 @@
 package unibo.exiled.model.utilities;
 
+import java.awt.Color;
+import java.io.File;
+
+import javax.swing.ImageIcon;
+
 /**
  * The ElementalType enum represents the elemental types of player class and
  * also the magical moves in the game.
@@ -10,37 +15,40 @@ public enum ElementalType {
     /**
      * Represents the Fire elemental type.
      */
-    FIRE("Fire"),
+    FIRE("Fire", "fire.png"),
 
     /**
      * Represents the Bolt elemental type.
      */
-    BOLT("Bolt"),
+    BOLT("Bolt", "bolt.png"),
 
     /**
      * Represents the Water elemental type.
      */
-    WATER("Water"),
+    WATER("Water", "water.png"),
 
     /**
      * Represents the Grass elemental type.
      */
-    GRASS("Grass"),
+    GRASS("Grass", "grass.png"),
 
     /**
      * Represents the Normal elemental type.
      */
-    NORMAL("Normal");
+    NORMAL("Normal", "normal.png");
 
     private final String name;
+    private final String fileImageName;
 
     /**
      * Constructs an ElementalType with the specified name.
      *
      * @param name The name of the elemental type.
+     * @param fileImageName the name of the file which contains the image of the element
      */
-    ElementalType(final String name) {
+    ElementalType(final String name, final String fileImageName) {
         this.name = name;
+        this.fileImageName = fileImageName;
     }
 
     /**
@@ -50,6 +58,24 @@ public enum ElementalType {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Gets the image associated with the elemental type.
+     *
+     * @return The ImageIcon representing the image of the elemental type.
+     */
+    public ImageIcon getElementalImage() {
+        final String imagePath = "src"
+                + File.separator
+                + "main" + File.separator
+                + "java" + File.separator
+                + "unibo" + File.separator
+                + "exiled" + File.separator
+                + "resources" + File.separator
+                + "class" + File.separator
+                + this.fileImageName;
+        return new ImageIcon(imagePath);
     }
 
     /**
@@ -75,6 +101,25 @@ public enum ElementalType {
                 return false;
             default:
                 throw new IllegalArgumentException("Invalid elemental type: " + this);
+        }
+    }
+
+    /**
+     * Method that associates each elemental type with a color.
+     * @return The color of the ElementalType.
+     */
+    public Color getElementalColor() {
+        switch (this) {
+            case FIRE:
+                return Color.RED;
+            case WATER:
+                return Color.BLUE;
+            case BOLT:
+                return Color.YELLOW;
+            case GRASS:
+                return Color.GREEN;
+            default:
+                return Color.GRAY;
         }
     }
 }

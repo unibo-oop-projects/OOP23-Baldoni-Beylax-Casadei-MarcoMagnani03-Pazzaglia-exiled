@@ -1,51 +1,85 @@
-/*package unibo.exiled.view;
+package unibo.exiled.view;
 
+import unibo.exiled.controller.GameController;
 import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.view.items.TitleGameLabel;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+/**
+ * View where the player decides his class.
+ */
+public final class PlayerClassView extends JPanel {
+    private static final long serialVersionUID = 7L;
 
-public class PlayerClassView extends JPanel{
+    private final GameController controller;
+    private final GameView gameView;
+    private static final int MARGIN = 20;
+    private static final int BUTTON_FONT_SIZE = 40;
 
-    private final PlayerController controller;
+    /**
+     * PlayerClassView is a graphical user interface component where the player can choose their character class.
+     * It displays buttons representing different elemental classes, allowing the player to make a selection.
+     *
+     * @param gameController The GameController instance managing the game logic.
+     * @param gameView       The GameView instance responsible for rendering the game interface.
+     */
+    public PlayerClassView(final GameController gameController, final GameView gameView) {
+        this.controller = gameController;
+        this.gameView = gameView;
+        setLayout(new BorderLayout());
 
-    public PlayerClassView(final GameController gameController) {
-        this.controller = controller;
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 1));
+        final JPanel mainPanel = new JPanel(new BorderLayout());
+        add(mainPanel, BorderLayout.CENTER);
 
-        JButton fireButton = new JButton(ElementalType.FIRE.getName());
-        JButton waterButton = new JButton(ElementalType.WATER.getName());
-        JButton boltButton = new JButton(ElementalType.BOLT.getName());
-        JButton grassButton = new JButton(ElementalType.GRASS.getName());
+        final JPanel buttonPanel = new JPanel(new GridLayout(2, 2, MARGIN, MARGIN));
 
-        fireButton.addActionListener(e -> classDecision(ElementalType.FIRE));
-        waterButton.addActionListener(e -> classDecision(ElementalType.WATER));
-        boltButton.addActionListener(e -> classDecision(ElementalType.BOLT));
-        grassButton.addActionListener(e -> classDecision(ElementalType.GRASS));
+        final JButton fireButton = createButton(ElementalType.FIRE);
+        final JButton waterButton = createButton(ElementalType.WATER);
+        final JButton boltButton = createButton(ElementalType.BOLT);
+        final JButton grassButton = createButton(ElementalType.GRASS);
 
-        panel.add(fireButton);
-        panel.add(waterButton);
-        panel.add(boltButton);
-        panel.add(grassButton);
+        buttonPanel.add(fireButton);
+        buttonPanel.add(waterButton);
+        buttonPanel.add(boltButton);
+        buttonPanel.add(grassButton);
+
+        final JLabel titleLabel = new TitleGameLabel("Choose Your Class");
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        mainPanel.add(Box.createVerticalStrut(MARGIN), BorderLayout.CENTER);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
 
-
-    public void display() {
-        setVisible(true);
+    private JButton createButton(final ElementalType elementalType) {
+        final JButton button = new JButton(elementalType.getName(), elementalType.getElementalImage());
+        button.setFont(new Font("Arial", Font.BOLD, BUTTON_FONT_SIZE));
+        button.setBackground(elementalType.getElementalColor());
+        button.addActionListener(e -> classDecision(elementalType));
+        return button;
     }
-
-    private void classDecision(ElementalType playerClass){
-        int result = JOptionPane.showConfirmDialog(
+    /**
+     * method where the player class is set.
+     * @param playerClass the class decided by the user.
+     */
+    private void classDecision(final ElementalType playerClass) {
+        final int result = JOptionPane.showConfirmDialog(
                 this,
-                "Are you sure you want to choose " + playerClass + " class?",
+                "Are you sure you want to choose " + playerClass.getName() + " class?",
                 "Confirmation",
                 JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
             this.controller.setPlayerClass(playerClass);
+            this.gameView.initializeHUD();
+            this.gameView.hidePlayerClass();
         }
     }
 }
-*/
+

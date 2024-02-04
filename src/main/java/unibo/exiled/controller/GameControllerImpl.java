@@ -7,6 +7,7 @@ import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
@@ -150,5 +151,10 @@ public final class GameControllerImpl implements GameController {
     @Override
     public boolean useItem(final String itemName) {
         return model.useItem(itemName);
+    }
+
+    @Override
+    public void setPlayerClass(final ElementalType playerClass) {
+        model.setPlayerClass(playerClass);
     }
 }

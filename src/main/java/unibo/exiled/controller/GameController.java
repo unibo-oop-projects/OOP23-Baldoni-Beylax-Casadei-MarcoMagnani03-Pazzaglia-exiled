@@ -3,6 +3,7 @@ package unibo.exiled.controller;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
@@ -180,5 +181,12 @@ public interface GameController {
      * @return The cell type at the specified position.
      */
     CellType getCellType(Position position);
+
+    /**
+     * Sets the elemental class of the player.
+     *
+     * @param playerClass The ElementalType representing the new elemental class of the player.
+     */
+    void setPlayerClass(ElementalType playerClass);
 
 }

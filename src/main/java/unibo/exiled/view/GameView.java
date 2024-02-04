@@ -47,11 +47,13 @@ public final class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
+    private final JPanel playerClassPanel;
     /**
      * The game controller that manages interaction between the model and the view.
      */
     private final GameController gameController;
     private JPanel gridPanel;
+
 
     /**
      * Constructor of the main view.
@@ -69,6 +71,7 @@ public final class GameView {
 
         this.menuPanel = new JPanel();
         this.inventoryPanel = new JPanel();
+        this.playerClassPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
@@ -84,13 +87,13 @@ public final class GameView {
                 .addComponent(gamePanel)
                 .addComponent(combatPanel));
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
-        
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
         final MenuView menuView = new MenuView(this, null);
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
         final CombatView combatView = new CombatView(this.gameController, this);
-
+        final PlayerClassView classView = new PlayerClassView(this.gameController, this);
+        this.playerClassPanel.add(classView);
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
         this.combatPanel.add(combatView, BorderLayout.CENTER);
@@ -101,10 +104,12 @@ public final class GameView {
         contentPanel.setLayout(mainLayout);
 
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup()
+                .addComponent(playerClassPanel)
                 .addComponent(menuPanel)
                 .addComponent(gameHudPanel)
                 .addComponent(inventoryPanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(playerClassPanel)
                 .addComponent(menuPanel)
                 .addComponent(gameHudPanel)
                 .addComponent(inventoryPanel));
@@ -112,13 +117,16 @@ public final class GameView {
         this.hideMenu();
         this.hideInventory();
         this.hideCombat();
+        this.showPlayerClass();
 
         this.initializeGridComponents();
-        this.initializeHUD();
         this.initializeKeyListeners();
     }
 
-    private void initializeHUD() {
+    /**
+     * This method sets up buttons for inventory and menu, displays player health, level, and class information.
+     */
+    protected void initializeHUD() {
         final JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
         final JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
         this.gameHudPanel.add(flowButtonPanelNorth, BorderLayout.NORTH);
@@ -194,7 +202,6 @@ public final class GameView {
                     final Direction directionPressed = getDirection(e);
                     gameController.movePlayer(directionPressed);
                     gameController.moveEnemies();
-                    
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
@@ -281,6 +288,22 @@ public final class GameView {
                 return Color.WHITE;
             }
         }
+    }
+
+    /**
+     * Shows the player class view.
+     */
+    public void showPlayerClass() {
+        this.gameHudPanel.setVisible(false);
+        this.playerClassPanel.setVisible(true);
+    }
+
+    /**
+     * Hides the player class view.
+     */
+    public void hidePlayerClass() {
+        this.gameHudPanel.setVisible(true);
+        this.playerClassPanel.setVisible(false);
     }
 
     /**

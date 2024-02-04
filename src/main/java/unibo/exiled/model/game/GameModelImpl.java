@@ -313,4 +313,9 @@ public final class GameModelImpl implements GameModel {
         }
         return false;
     }
+
+    @Override
+    public void setPlayerClass(final ElementalType playerClass) {
+        player.setPlayerClass(playerClass);
+    }
 }
