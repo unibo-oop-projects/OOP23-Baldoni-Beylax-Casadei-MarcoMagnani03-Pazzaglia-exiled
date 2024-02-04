@@ -6,12 +6,15 @@ import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
 
 import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.io.File;
 import java.util.List;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 /**
  * The view that starts when the player engages in a combat with an enemy.
@@ -34,13 +37,14 @@ public final class CombatView extends JPanel {
         this.gameController = gameController;
         this.setLayout(new BorderLayout());
 
-        this.battlePanel = new JPanel(new GridLayout(1, 2));
-        this.moveSetPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        this.moveSetPanel = new JPanel(new FlowLayout(1, 10, 10));
+        this.battlePanel = new JPanel(new GridLayout(1, 3));
+        this.battlePanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
 
         this.add(this.battlePanel, BorderLayout.CENTER);
         this.add(this.moveSetPanel, BorderLayout.SOUTH);
 
-        for (final String moveName : this.gameController.getMagicMoveNames()) {
+        for (final String moveName : this.gameController.getPlayerMoveSet()) {
             final JButton moveButton = new GameButton(moveName);
             moveSetPanel.add(moveButton);
             moveButton.addActionListener(e -> this.gameController.attack(true));

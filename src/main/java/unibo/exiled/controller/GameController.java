@@ -1,5 +1,6 @@
 package unibo.exiled.controller;
 
+import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Direction;
@@ -67,6 +68,12 @@ public interface GameController {
      * @return A list of every magic move name.
      */
     List<String> getMagicMoveNames();
+
+    /**
+     * Gets the move set of the player
+     * @return A list of the player moves
+     */
+    List<String> getPlayerMoveSet();
 
     /**
      * Moves the enemies in the game.
