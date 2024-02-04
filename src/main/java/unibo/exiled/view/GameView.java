@@ -261,6 +261,9 @@ public final class GameView {
                                     + File.separator
                                     + gameController.getMapController().getNameOfCharacterInPosition(position));
             label = new CharacterView(characterImagePath);
+            ((CharacterView) label)
+                    .changeImage(gameController.getMapController()
+                            .getLastDirectionOfCharacterInPosition(position));
         } else {
             label = new JLabel();
         }

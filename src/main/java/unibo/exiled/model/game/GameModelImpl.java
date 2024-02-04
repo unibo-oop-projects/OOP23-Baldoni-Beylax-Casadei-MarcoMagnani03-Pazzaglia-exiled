@@ -41,9 +41,8 @@ public final class GameModelImpl implements GameModel {
     private static final Random RANDOM = new Random();
     private static final int RANGE_PLAYER_ENEMY = 2;
     private final EnemyCollection enemyCollection;
-    private Player player;
-
     private final MapModelImpl mapModel;
+    private Player player;
 
     /**
      * The constructor of the game core.
@@ -102,6 +101,7 @@ public final class GameModelImpl implements GameModel {
 
     @Override
     public void movePlayer(final Direction dir) {
+        this.player.setLastDirection(dir);
         final Position currentPlayerPosition = this.player.getPosition();
         if (mapModel.isInBoundaries(Positions.sum(currentPlayerPosition, dir.getPosition()))) {
             this.player.move(Positions.sum(currentPlayerPosition, dir.getPosition()));
@@ -170,6 +170,7 @@ public final class GameModelImpl implements GameModel {
                     rndDirection = Direction.values()[RANDOM.nextInt(4)];
                 } while (!this.mapModel.isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
                         && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
+                enemy.setLastDirection(rndDirection);
                 newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
             } else {
                 /*
@@ -185,6 +186,7 @@ public final class GameModelImpl implements GameModel {
                 if (distance != 0) {
                     final Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
                     newPosition = Positions.sum(currentEnemyPosition, chaseDirection.getPosition());
+                    enemy.setLastDirection(chaseDirection);
                 }
             }
             enemy.move(newPosition);
@@ -252,17 +254,17 @@ public final class GameModelImpl implements GameModel {
     @Override
     public Map<String, Integer> getItems() {
         return player.getInventory().getItems()
-            .entrySet()
-            .stream()
-            .collect(Collectors.toMap(entry -> entry.getKey().getName(), Map.Entry::getValue));
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(entry -> entry.getKey().getName(), Map.Entry::getValue));
     }
 
     private Item getItem(final String itemName) {
         return player.getInventory().getItems()
-            .entrySet()
-            .stream()
-            .filter(entry -> entry.getKey().getName().equals(itemName))
-            .findFirst().get().getKey();
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().getName().equals(itemName))
+                .findFirst().get().getKey();
     }
 
     @Override
