@@ -29,7 +29,7 @@ public final class TitleGameLabel extends JLabel {
 
     private void setLabelStyle() {
         setForeground(foregroundColor);
-        
+
         setFont(FontManager.getCustomFont(FONT_SIZE));
     }
 }
