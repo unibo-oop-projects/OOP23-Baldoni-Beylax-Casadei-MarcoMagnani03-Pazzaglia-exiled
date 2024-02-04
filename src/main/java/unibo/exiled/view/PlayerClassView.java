@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 public final class PlayerClassView extends JPanel {
     private static final long serialVersionUID = 7L;
     private static final int MARGIN = 20;
-    private static final int BUTTON_FONT_SIZE = 60;
+    private static final int BUTTON_FONT_SIZE = 40;
     private final transient GameController controller;
     private final transient GameView gameView;
 
@@ -76,7 +76,7 @@ public final class PlayerClassView extends JPanel {
     }
 
     /**
-     * method where the player class is set.
+     * Method where the player class is set.
      *
      * @param playerClass the class decided by the user.
      */
