@@ -47,21 +47,11 @@ public abstract class GameCharacterImpl implements GameCharacter {
         this.lastDirection = direction;
     }
 
-    /**
-     * Sets the position of the current character.
-     *
-     * @param position The new position of the character.
-     */
     @Override
     public final void move(final Position position) {
         this.position = position;
     }
 
-    /**
-     * Gets the position of the character.
-     *
-     * @return The position of the character.
-     */
     @Override
     public final Position getPosition() {
         return this.position;
@@ -100,35 +90,18 @@ public abstract class GameCharacterImpl implements GameCharacter {
         this.attributes = modifiedAttributes;
     }
 
-    /**
-     * Increases a modifier of the specified value.
-     *
-     * @param id       The modifier to increase.
-     * @param modifier The modifier to add to the current value.
-     */
     @Override
     public final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
         this.increaseAttributes(id, modifier, 0);
     }
 
-    /**
-     * Increases the selected attribute of the specified value.
-     *
-     * @param id    The attribute to increase.
-     * @param value The value to add to the attribute value.
-     */
     @Override
     public final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
         this.increaseAttributes(id, 0, value);
     }
 
-    /**
-     * Gets the health of the character.
-     *
-     * @return A double value containing the evaluated attribute of the health.
-     */
     @Override
-    public double getHealth() {
+    public final double getHealth() {
         return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
     }
 
