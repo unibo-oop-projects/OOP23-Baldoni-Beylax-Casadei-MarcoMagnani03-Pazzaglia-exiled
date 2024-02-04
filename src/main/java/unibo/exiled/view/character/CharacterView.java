@@ -55,17 +55,18 @@ public final class CharacterView extends JLabel {
     /**
      * Changes the character's image based on the specified direction.
      *
-     * @param dir The direction in which the character is moving.
+     * @param dir      The direction in which the character is moving.
+     * @param isMoving If the character is currently in its moving state.
      */
     public void changeImage(final Direction dir, final boolean isMoving) {
         switch (dir) {
-            case NORTH -> checkAnimation(this.upSprite,isMoving);
+            case NORTH -> checkAnimation(this.upSprite, isMoving);
 
-            case SOUTH -> checkAnimation(this.downSprite,isMoving);
+            case SOUTH -> checkAnimation(this.downSprite, isMoving);
 
-            case WEST -> checkAnimation(this.leftSprite,isMoving);
+            case WEST -> checkAnimation(this.leftSprite, isMoving);
 
-            case EAST -> checkAnimation(this.rightSprite,isMoving);
+            case EAST -> checkAnimation(this.rightSprite, isMoving);
 
             default -> {
             }
@@ -77,6 +78,7 @@ public final class CharacterView extends JLabel {
      * Checks the animation frame and updates the image name accordingly.
      *
      * @param animationName The base name of the animation sprite.
+     * @param isMoving      If the character is currently in the moving state.
      */
     private void checkAnimation(final String animationName, final boolean isMoving) {
         if (!isMoving) {
