@@ -113,6 +113,11 @@ public final class GameControllerImpl implements GameController {
     }
 
     @Override
+    public List<String> getPlayerMoveSet() {
+        return model.getPlayerMoveSet().getMagicMoves().stream().map(move -> move.name()).collect(Collectors.toUnmodifiableList());
+    }
+
+    @Override
     public void attack(final boolean cond) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'attack'");

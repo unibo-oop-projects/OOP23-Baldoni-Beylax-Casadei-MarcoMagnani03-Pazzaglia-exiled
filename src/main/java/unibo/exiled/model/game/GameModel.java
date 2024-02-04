@@ -5,6 +5,7 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
@@ -50,6 +51,12 @@ public interface GameModel {
      * @return The elemental class of the player.
      */
     ElementalType getPlayerClass();
+
+    /**
+     * Gest the player move set
+     * @return The a move set
+     */
+    MoveSet getPlayerMoveSet();
 
     /**
      * Gets the size of the map.

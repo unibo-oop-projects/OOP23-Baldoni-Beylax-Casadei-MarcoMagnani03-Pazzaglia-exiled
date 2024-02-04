@@ -6,18 +6,26 @@ import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
 
 import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.io.File;
 import java.util.List;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 /**
  * The view that starts when the player engages in a combat with an enemy.
  */
 public final class CombatView extends JPanel {
     private static final long serialVersionUID = 1L;
+
+    private final GameController gameController;
+
+    private final JPanel battlePanel;
+    private final JPanel moveSetPanel;
 
     /**
      * The constructor of the combat view.
@@ -26,29 +34,33 @@ public final class CombatView extends JPanel {
      * @param game             The view of the game (Main view).
      */
     public CombatView(final GameController gameController, final GameView game) {
+        this.gameController = gameController;
         this.setLayout(new BorderLayout());
 
-        final JPanel battlePanel = new JPanel(new GridLayout(2, 1));
-        final JPanel moveSetPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        this.moveSetPanel = new JPanel(new FlowLayout(1, 10, 10));
+        this.battlePanel = new JPanel(new GridLayout(1, 3));
+        this.battlePanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
 
-        this.add(battlePanel, BorderLayout.CENTER);
-        this.add(moveSetPanel, BorderLayout.SOUTH);
+        this.add(this.battlePanel, BorderLayout.CENTER);
+        this.add(this.moveSetPanel, BorderLayout.SOUTH);
 
-        for (final String moveName : gameController.getMagicMoveNames()) {
+        for (final String moveName : this.gameController.getPlayerMoveSet()) {
             final JButton moveButton = new GameButton(moveName);
             moveSetPanel.add(moveButton);
-            moveButton.addActionListener(e -> gameController.attack(true));
+            moveButton.addActionListener(e -> this.gameController.attack(true));
         }
 
-        final Position combatPosition = gameController.getPlayerPosition();
-
-        final List<String> characterImagePath = gameController.getImagePathOfCharacter(
-                "enemy",
-            gameController.getNameOfCharacterInPosition(combatPosition)
-                        + File.separator + gameController.getNameOfCharacterInPosition(combatPosition));
-        final JLabel enemyLabel = new CharacterView(characterImagePath);
-        final JLabel playerLabel = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
+        final JLabel playerLabel = new CharacterView(this.gameController.getImagePathOfCharacter("player", "boy"));
         battlePanel.add(playerLabel);
-        battlePanel.add(enemyLabel);
+    }
+    
+    public void setEnemy() {
+        final Position combatPosition = this.gameController.getPlayerPosition();
+        final List<String> enemyImagePath = this.gameController.getImagePathOfCharacter(
+                "enemy",
+                this.gameController.getNameOfCharacterInPosition(combatPosition)
+                        + File.separator + this.gameController.getNameOfCharacterInPosition(combatPosition));
+        final JLabel enemyLabel = new CharacterView(enemyImagePath);
+        this.battlePanel.add(enemyLabel);
     }
 }

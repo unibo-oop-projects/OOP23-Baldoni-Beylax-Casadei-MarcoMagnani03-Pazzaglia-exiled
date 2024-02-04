@@ -18,6 +18,7 @@ import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.map.GameMapImpl;
 import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.Moves;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.ElementalType;
@@ -215,6 +216,11 @@ public final class GameModelImpl implements GameModel {
     @Override
     public ElementalType getPlayerClass() {
         return player.getPlayerClass();
+    }
+
+    @Override
+    public MoveSet getPlayerMoveSet() {
+        return player.getMoveSet();
     }
 
     @Override

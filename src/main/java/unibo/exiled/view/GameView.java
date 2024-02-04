@@ -37,6 +37,7 @@ import java.awt.event.KeyEvent;
 public final class GameView {
     // Views
     private final CharacterView playerView;
+    private final CombatView combatView;
     private final GameOverView gameOverView;
 
     // MVC Components(MC)
@@ -89,9 +90,9 @@ public final class GameView {
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
+        this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(this, null);
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
-        final CombatView combatView = new CombatView(this.gameController, this);
         final PlayerClassView classView = new PlayerClassView(this.gameController, this);
         this.playerClassPanel.add(classView);
         this.menuPanel.add(menuView);
@@ -206,7 +207,7 @@ public final class GameView {
                         gameOverView.display();
                         mainFrame.dispose();
                     } else if (gameController.isEnemyInCell(gameController.getPlayerPosition())) {
-                        showCombat();
+                        initializeCombat();
                         draw();
                     } else {
                         playerView.changeImage(directionPressed);
@@ -290,9 +291,9 @@ public final class GameView {
         }
     }
 
-    /**
-     * Shows the player class view.
-     */
+    private void initializeCombat() {
+        this.combatView.setEnemy();
+        this.showCombat();
     public void showPlayerClass() {
         this.gameHudPanel.setVisible(false);
         this.playerClassPanel.setVisible(true);
