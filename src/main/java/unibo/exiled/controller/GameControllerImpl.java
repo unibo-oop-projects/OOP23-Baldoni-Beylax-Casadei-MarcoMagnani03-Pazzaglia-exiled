@@ -2,14 +2,14 @@ package unibo.exiled.controller;
 
 import unibo.exiled.model.game.GameModel;
 
-import java.util.Objects;
-
 /**
  * The implementation of the game main controller.
  */
 public final class GameControllerImpl implements GameController {
 
-    private final GameModel model;
+    private final MapController mapController;
+    private final ItemsController itemsController;
+    private final CharacterController characterController;
 
     /**
      * The constructor of the game main controller.
@@ -17,22 +17,24 @@ public final class GameControllerImpl implements GameController {
      * @param model The game model to manage the game.
      */
     public GameControllerImpl(final GameModel model) {
-        this.model = Objects.requireNonNull(model);
+        this.mapController = new MapControllerImpl(model);
+        this.itemsController = new ItemsControllerImpl(model);
+        this.characterController = new CharacterControllerImpl(model);
     }
 
     @Override
     public MapController getMapController() {
-        return new MapControllerImpl(this.model);
+        return this.mapController;
     }
 
     @Override
     public ItemsController getItemsController() {
-        return new ItemsControllerImpl(this.model);
+        return this.itemsController;
     }
 
     @Override
     public CharacterController getCharacterController() {
-        return new CharacterControllerImpl(this.model);
+        return this.characterController;
     }
 
     @Override

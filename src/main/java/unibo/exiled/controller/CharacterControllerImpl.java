@@ -138,7 +138,7 @@ public class CharacterControllerImpl implements CharacterController {
      * @param playerClass The ElementalType representing the player's class.
      */
     @Override
-    public void setPlayerClass(final ElementalType playerClass) {
+    public void assignPlayerClass(final ElementalType playerClass) {
         model.assignPlayerClass(playerClass);
     }
 }

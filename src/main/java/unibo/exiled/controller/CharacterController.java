@@ -85,5 +85,5 @@ public interface CharacterController {
      *
      * @param playerClass The ElementalType representing the new elemental class of the player.
      */
-    void setPlayerClass(ElementalType playerClass);
+    void assignPlayerClass(ElementalType playerClass);
 }

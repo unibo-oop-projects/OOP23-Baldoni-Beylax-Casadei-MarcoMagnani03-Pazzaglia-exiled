@@ -15,7 +15,7 @@ public interface GameController {
     /**
      * Gets the items controller.
      *
-     * @return The items controller.
+     * @return The items' controller.
      */
     ItemsController getItemsController();
 

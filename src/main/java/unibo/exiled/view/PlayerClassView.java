@@ -78,7 +78,7 @@ public final class PlayerClassView extends JPanel {
                 JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
-            this.controller.getCharacterController().setPlayerClass(playerClass);
+            this.controller.getCharacterController().assignPlayerClass(playerClass);
             this.gameView.initializeHUD();
             this.gameView.hidePlayerClass();
         }
