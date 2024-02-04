@@ -7,8 +7,10 @@ import unibo.exiled.view.items.TitleGameLabel;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -58,10 +60,14 @@ public final class PlayerClassView extends JPanel {
     }
 
     private JButton createButton(final ElementalType elementalType) {
-        final JButton button = new JButton(elementalType.getName(), elementalType.getElementalImage());
+        final JButton button = new JButton(elementalType.getName());
         button.setFont(new Font("Arial", Font.BOLD, BUTTON_FONT_SIZE));
         button.setBackground(elementalType.getElementalColor());
         button.addActionListener(e -> classDecision(elementalType));
+        Image scaledImage = elementalType.getElementalImage().getImage().getScaledInstance(BUTTON_FONT_SIZE, BUTTON_FONT_SIZE, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        button.setIcon(scaledIcon);
+
         return button;
     }
 

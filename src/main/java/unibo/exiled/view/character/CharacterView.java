@@ -122,5 +122,4 @@ public final class CharacterView extends JLabel {
             g.drawImage(image, x, y, imgWidth, imgHeight, null);
         }
     }
-
 }
