@@ -208,7 +208,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public double getPlayerLevel() {
+    public int getPlayerLevel() {
         return player.getLevel();
     }
 

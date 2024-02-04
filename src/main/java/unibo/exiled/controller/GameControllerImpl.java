@@ -47,7 +47,7 @@ public final class GameControllerImpl implements GameController {
     }
 
     @Override
-    public double getPlayerLevel() {
+    public int getPlayerLevel() {
         return model.getPlayerLevel();
     }
 

@@ -60,7 +60,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
         this.levelInc = levelIncrease;
         this.movesLearningInterval = movesLearningInterval;
         this.levelToLearnAMove = 0;
-        this.playerClass = ElementalType.GRASS;
+        this.playerClass = ElementalType.NORMAL;
     }
 
     // This method is used for testing purposes only.

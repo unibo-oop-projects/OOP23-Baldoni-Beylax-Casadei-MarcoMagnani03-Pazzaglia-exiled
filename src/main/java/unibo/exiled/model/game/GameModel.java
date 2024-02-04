@@ -40,9 +40,9 @@ public interface GameModel {
     /**
      * Gets the level of the player.
      *
-     * @return A double representing the level of the player.
+     * @return A integer representing the level of the player.
      */
-    double getPlayerLevel();
+    int getPlayerLevel();
 
     /**
      * Gets the elemental class of the player.
