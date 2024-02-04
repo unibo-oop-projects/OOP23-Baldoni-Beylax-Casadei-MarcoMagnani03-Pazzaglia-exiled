@@ -35,7 +35,7 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
 
     @Override
     public void use(final Player player) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        player.increaseAttributeModifier(boostedAttribute, powerUpValue);
     }
 
     /**

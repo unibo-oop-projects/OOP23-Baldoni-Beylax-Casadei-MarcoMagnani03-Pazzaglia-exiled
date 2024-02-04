@@ -150,4 +150,11 @@ public interface GameModel {
      * @return true if the item was successfully used, false otherwise.
      */
     boolean useItem(String item);
+
+    /**
+     * Sets the elemental class of the player.
+     *
+     * @param playerClass The ElementalType representing the new elemental class of the player.
+     */
+    void setPlayerClass(ElementalType playerClass);
 }

@@ -1,6 +1,5 @@
 package unibo.exiled.model.character.player;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import unibo.exiled.config.Constants;
@@ -190,13 +189,11 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
     /**
      * Sets the elemental type chosen from the player.
      * 
-     * @param playerClass the class choosen.
+     * @param playerClassChoice the class choosen.
      */
     @Override
-    public void setPlayerClass(final ElementalType playerClass) {
-        if (!Objects.isNull(playerClass)) {
-            this.playerClass = playerClass;
-        }
+    public void setPlayerClass(final ElementalType playerClassChoice) {
+        this.playerClass = playerClassChoice;
     }
 
     /**

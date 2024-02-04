@@ -43,6 +43,7 @@ public final class GameView {
     // MVC Components(MC)
     private final JFrame mainFrame;
     private final JPanel gameHudPanel;
+    private final JPanel gameContainerPanel;
     private final JPanel gamePanel;
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
@@ -58,7 +59,6 @@ public final class GameView {
      */
     public GameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        final JPanel gameContainerPanel;
         this.gameController = new GameControllerImpl(new GameModelImpl());
 
         this.mainFrame = new JFrame();
@@ -73,10 +73,10 @@ public final class GameView {
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
-        gameContainerPanel = new JPanel();
+        this.gameContainerPanel = new JPanel();
 
-        final GroupLayout gamePanelLayout = new GroupLayout(gameContainerPanel);
-        gameContainerPanel.setLayout(gamePanelLayout);
+        final GroupLayout gamePanelLayout = new GroupLayout(this.gameContainerPanel);
+        this.gameContainerPanel.setLayout(gamePanelLayout);
 
         gamePanelLayout.setHorizontalGroup(gamePanelLayout.createSequentialGroup()
                 .addComponent(gamePanel)
@@ -85,14 +85,15 @@ public final class GameView {
                 .addComponent(gamePanel)
                 .addComponent(combatPanel));
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
-
+        
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(
                 gameController.getCharacterController().getImagePathOfCharacter("player", "boy"));
-        this.combatView = new CombatView(this.gameController);
+        this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(this, null);
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
-
+		final PlayerClassView classView = new PlayerClassView(this.gameController, this);
+        this.playerClassPanel.add(classView);
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
         this.combatPanel.add(combatView, BorderLayout.CENTER);
@@ -103,10 +104,12 @@ public final class GameView {
         contentPanel.setLayout(mainLayout);
 
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup()
+				.addComponent(playerClassPanel)
                 .addComponent(menuPanel)
                 .addComponent(gameHudPanel)
                 .addComponent(inventoryPanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(playerClassPanel)
                 .addComponent(menuPanel)
                 .addComponent(gameHudPanel)
                 .addComponent(inventoryPanel));
@@ -114,13 +117,17 @@ public final class GameView {
         this.hideMenu();
         this.hideInventory();
         this.hideCombat();
+        this.showPlayerClass();
 
         this.initializeGridComponents();
         this.initializeHUD();
         this.initializeKeyListeners();
     }
 
-    private void initializeHUD() {
+    /**
+     * This method sets up buttons for inventory and menu, displays player health, level, and class information.
+     */
+    protected void initializeHUD() {
         final JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
         final JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
         this.gameHudPanel.add(flowButtonPanelNorth, BorderLayout.NORTH);
@@ -198,7 +205,7 @@ public final class GameView {
                     final Direction directionPressed = getDirection(e);
                     gameController.getCharacterController().movePlayer(directionPressed);
                     gameController.getCharacterController().moveEnemies();
-
+                    
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
@@ -293,6 +300,19 @@ public final class GameView {
     private void initializeCombat() {
         this.combatView.setEnemy();
         this.showCombat();
+    }
+    
+    public void showPlayerClass() {
+        this.gameHudPanel.setVisible(false);
+        this.playerClassPanel.setVisible(true);
+    }
+
+    /**
+     * Hides the player class view.
+     */
+    public void hidePlayerClass() {
+        this.gameHudPanel.setVisible(true);
+        this.playerClassPanel.setVisible(false);
     }
 
     /**
