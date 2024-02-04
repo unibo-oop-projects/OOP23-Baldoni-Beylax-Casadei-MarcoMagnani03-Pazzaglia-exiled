@@ -6,6 +6,7 @@ import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -57,6 +58,7 @@ public final class PlayerClassView extends JPanel {
         buttonPanel.add(grassButton);
 
         final JLabel titleLabel = new TitleGameLabel("Choose Your Class");
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
         mainPanel.add(Box.createVerticalStrut(MARGIN), BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
