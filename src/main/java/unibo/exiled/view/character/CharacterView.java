@@ -26,7 +26,6 @@ public final class CharacterView extends JLabel {
     private final String leftSprite;
     private transient Image image;
     private String imgAnimationName;
-    private int animationNumber = 1;
     private String path = Constants.DEF_RESOURCE_PATH;
 
     /**
@@ -58,15 +57,15 @@ public final class CharacterView extends JLabel {
      *
      * @param dir The direction in which the character is moving.
      */
-    public void changeImage(final Direction dir) {
+    public void changeImage(final Direction dir, final boolean isMoving) {
         switch (dir) {
-            case NORTH -> checkAnimation(this.upSprite);
+            case NORTH -> checkAnimation(this.upSprite,isMoving);
 
-            case SOUTH -> checkAnimation(this.downSprite);
+            case SOUTH -> checkAnimation(this.downSprite,isMoving);
 
-            case WEST -> checkAnimation(this.leftSprite);
+            case WEST -> checkAnimation(this.leftSprite,isMoving);
 
-            case EAST -> checkAnimation(this.rightSprite);
+            case EAST -> checkAnimation(this.rightSprite,isMoving);
 
             default -> {
             }
@@ -79,13 +78,11 @@ public final class CharacterView extends JLabel {
      *
      * @param animationName The base name of the animation sprite.
      */
-    private void checkAnimation(final String animationName) {
-        if (animationNumber == 1) {
+    private void checkAnimation(final String animationName, final boolean isMoving) {
+        if (!isMoving) {
             imgAnimationName = animationName + FIRST_IMAGE;
-            animationNumber = 2;
         } else {
             imgAnimationName = animationName + SECOND_IMAGE;
-            animationNumber = 1;
         }
     }
 
@@ -93,7 +90,7 @@ public final class CharacterView extends JLabel {
      * Overrides the paintComponent method to rescale the image within the JPanel
      * when the main window is resized.
      *
-     * @param g The raphics context used for painting.
+     * @param g The graphics context used for painting.
      */
     @Override
     protected void paintComponent(final Graphics g) {

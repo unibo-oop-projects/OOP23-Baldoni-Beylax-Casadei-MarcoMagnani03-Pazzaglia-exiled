@@ -218,7 +218,9 @@ public final class GameView {
                         initializeCombat();
                         draw();
                     } else {
-                        playerView.changeImage(directionPressed);
+                        playerView.changeImage(directionPressed,gameController.getCharacterController().
+                                getIfCharacterInPositionIsMoving(gameController.getCharacterController().
+                                        getPlayerPosition()));
                         draw();
                     }
                 }
@@ -263,7 +265,8 @@ public final class GameView {
             label = new CharacterView(characterImagePath);
             ((CharacterView) label)
                     .changeImage(gameController.getMapController()
-                            .getLastDirectionOfCharacterInPosition(position));
+                                    .getLastDirectionOfCharacterInPosition(position),
+                            gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
         } else {
             label = new JLabel();
         }

@@ -7,6 +7,7 @@ import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -34,12 +35,13 @@ public class CharacterControllerImpl implements CharacterController {
      */
     @Override
     public List<String> getImagePathOfCharacter(final String folderPath, final String name) {
+        final String loweredName = name.toLowerCase(Locale.ROOT);
         return List.of(
                 folderPath,
-                name + "_up",
-                name + "_down",
-                name + "_left",
-                name + "_right");
+                loweredName + "_up",
+                loweredName + "_down",
+                loweredName + "_left",
+                loweredName + "_right");
     }
 
     /**
@@ -140,5 +142,10 @@ public class CharacterControllerImpl implements CharacterController {
     @Override
     public void assignPlayerClass(final ElementalType playerClass) {
         model.assignPlayerClass(playerClass);
+    }
+
+    @Override
+    public boolean getIfCharacterInPositionIsMoving(final Position position) {
+        return model.getCharacterFromPosition(position).get().spriteIsMoving();
     }
 }

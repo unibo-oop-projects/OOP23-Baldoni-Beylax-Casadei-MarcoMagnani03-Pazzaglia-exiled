@@ -18,6 +18,7 @@ import java.util.Map;
  */
 public abstract class GameCharacterImpl implements GameCharacter {
     private final String name;
+    private boolean isMoving = true;
     /**
      * An association between the identifier of the attribute and its values.
      */
@@ -129,5 +130,11 @@ public abstract class GameCharacterImpl implements GameCharacter {
     @Override
     public double getHealth() {
         return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
+    }
+
+    @Override
+    public final boolean spriteIsMoving() {
+        this.isMoving = !isMoving;
+        return !this.isMoving;
     }
 }

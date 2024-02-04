@@ -83,4 +83,10 @@ public interface GameCharacter {
      * @param direction The direction to set.
      */
     void setLastDirection(Direction direction);
+
+    /**
+     * States which kind of sprite is to be used.
+     * @return True if the moving sprite is the right one, false otherwise.
+     */
+    boolean spriteIsMoving();
 }

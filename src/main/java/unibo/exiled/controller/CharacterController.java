@@ -63,7 +63,7 @@ public interface CharacterController {
 
     /**
      * Gets the move set of the player.
-     * 
+     *
      * @return A list of the player moves.
      */
     List<String> getPlayerMoveSet();
@@ -86,4 +86,12 @@ public interface CharacterController {
      * @param playerClass The ElementalType representing the new elemental class of the player.
      */
     void assignPlayerClass(ElementalType playerClass);
+
+    /**
+     * Gets the state of the character in a certain position.
+     *
+     * @param position The position where the character is.
+     * @return True if the character is moving, false otherwise.
+     */
+    boolean getIfCharacterInPositionIsMoving(Position position);
 }
