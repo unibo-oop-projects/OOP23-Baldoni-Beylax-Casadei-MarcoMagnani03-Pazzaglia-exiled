@@ -27,11 +27,14 @@ public final class PlayerClassView extends JPanel {
     private final transient GameView gameView;
 
     /**
-     * PlayerClassView is a graphical user interface component where the player can choose their character class.
-     * It displays buttons representing different elemental classes, allowing the player to make a selection.
+     * PlayerClassView is a graphical user interface component where the player can
+     * choose their character class.
+     * It displays buttons representing different elemental classes, allowing the
+     * player to make a selection.
      *
      * @param gameController The GameController instance managing the game logic.
-     * @param gameView       The GameView instance responsible for rendering the game interface.
+     * @param gameView       The GameView instance responsible for rendering the
+     *                       game interface.
      */
     public PlayerClassView(final GameController gameController, final GameView gameView) {
         this.controller = gameController;
@@ -64,8 +67,9 @@ public final class PlayerClassView extends JPanel {
         button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
         button.setBackground(elementalType.getElementalColor());
         button.addActionListener(e -> classDecision(elementalType));
-        Image scaledImage = elementalType.getElementalImage().getImage().getScaledInstance(BUTTON_FONT_SIZE, BUTTON_FONT_SIZE, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        final Image scaledImage = elementalType.getElementalImage().getImage().getScaledInstance(BUTTON_FONT_SIZE,
+                BUTTON_FONT_SIZE, Image.SCALE_SMOOTH);
+        final ImageIcon scaledIcon = new ImageIcon(scaledImage);
         button.setIcon(scaledIcon);
 
         return button;
@@ -90,4 +94,3 @@ public final class PlayerClassView extends JPanel {
         }
     }
 }
-

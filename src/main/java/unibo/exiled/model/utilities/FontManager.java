@@ -7,15 +7,19 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * The FontManager class is responsible for loading and managing custom font
+ * The FontManager class is responsible for loading and managing the custom font
  * used in the application.
  */
-public class FontManager {
+public final class FontManager {
+    private static final float DEFAULT_FONT_SIZE = 20f;
+
+    private static Font customFont;
 
     /**
-     * The custom font loaded by the FontManager.
+     * Private constructor to prevent instantiation of the utility class.
      */
-    private static Font customFont;
+    private FontManager() {
+    }
 
     /**
      * Loads the custom font from the specified file path. If the loading fails, it
@@ -31,11 +35,10 @@ public class FontManager {
                     + "exiled" + File.separator
                     + "resources" + File.separator
                     + "font.ttf";
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(DEFAULT_FONT_SIZE);
+            final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
             // If the custom font loading fails, use a fallback font (Arial, bold, size 16).
             customFont = new Font("Arial", Font.BOLD, 16);
         }
@@ -56,7 +59,8 @@ public class FontManager {
      * @param size The size to set for the custom font.
      * @return The custom font with the specified size.
      */
-    public static Font getCustomFont(int size) {
-        return customFont.deriveFont(size);
+    public static Font getCustomFont(final int size) {
+        return customFont.deriveFont((float) size);
     }
 }
+
