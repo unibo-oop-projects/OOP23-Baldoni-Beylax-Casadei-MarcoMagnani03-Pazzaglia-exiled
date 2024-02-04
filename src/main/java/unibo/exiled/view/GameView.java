@@ -294,6 +294,8 @@ public final class GameView {
     private void initializeCombat() {
         this.combatView.setEnemy();
         this.showCombat();
+    }
+    
     public void showPlayerClass() {
         this.gameHudPanel.setVisible(false);
         this.playerClassPanel.setVisible(true);
