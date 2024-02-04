@@ -3,6 +3,7 @@ package unibo.exiled.controller;
 import java.util.List;
 
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 /**
@@ -79,4 +80,10 @@ public interface CharacterController {
      */
     void attack(boolean isPlayerAttacking);
 
+    /**
+     * Sets the elemental class of the player.
+     *
+     * @param playerClass The ElementalType representing the new elemental class of the player.
+     */
+    void setPlayerClass(ElementalType playerClass);
 }

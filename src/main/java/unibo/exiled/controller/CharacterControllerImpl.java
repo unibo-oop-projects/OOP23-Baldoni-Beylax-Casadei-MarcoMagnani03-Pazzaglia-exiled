@@ -3,6 +3,7 @@ package unibo.exiled.controller;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
@@ -129,5 +130,10 @@ public class CharacterControllerImpl implements CharacterController {
     public void attack(final boolean cond) {
         // TODO: Implement attack logic
         throw new UnsupportedOperationException("Unimplemented method 'attack'");
+    }
+
+    @Override
+    public void setPlayerClass(final ElementalType playerClass) {
+        model.setPlayerClass(playerClass);
     }
 }

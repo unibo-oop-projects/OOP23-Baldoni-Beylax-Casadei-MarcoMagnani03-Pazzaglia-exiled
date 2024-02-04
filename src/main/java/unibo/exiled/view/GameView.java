@@ -48,6 +48,8 @@ public final class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
+    private final JPanel playerClassPanel;
+
     /**
      * The game controller that manages interaction between the model and the view.
      */
@@ -70,6 +72,7 @@ public final class GameView {
 
         this.menuPanel = new JPanel();
         this.inventoryPanel = new JPanel();
+        this.playerClassPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
@@ -89,7 +92,7 @@ public final class GameView {
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(
                 gameController.getCharacterController().getImagePathOfCharacter("player", "boy"));
-        this.combatView = new CombatView(this.gameController, this);
+        this.combatView = new CombatView(this.gameController);
         final MenuView menuView = new MenuView(this, null);
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
 		final PlayerClassView classView = new PlayerClassView(this.gameController, this);
