@@ -1,14 +1,16 @@
 package unibo.exiled.view;
 
-import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
+import unibo.exiled.model.utilities.Position;
+import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import java.awt.GridLayout;
+import java.io.File;
+import java.util.List;
 import java.awt.BorderLayout;
 
 /**
@@ -16,7 +18,6 @@ import java.awt.BorderLayout;
  */
 public final class CombatView extends JPanel {
     private static final long serialVersionUID = 1L;
-    private static final int ICON_SIZE = 20;
 
     /**
      * The constructor of the combat view.
@@ -27,11 +28,11 @@ public final class CombatView extends JPanel {
     public CombatView(final GameController gameController, final GameView game) {
         this.setLayout(new BorderLayout());
 
-        final JPanel moveSetPanel = new JPanel(new GridLayout());
-        final JPanel battlePanel = new JPanel(new GridLayout());
+        final JPanel battlePanel = new JPanel(new GridLayout(2, 1));
+        final JPanel moveSetPanel = new JPanel(new GridLayout(5, 2, 10, 10));
 
-        this.add(moveSetPanel, BorderLayout.SOUTH);
         this.add(battlePanel, BorderLayout.CENTER);
+        this.add(moveSetPanel, BorderLayout.SOUTH);
 
         for (final String moveName : gameController.getMagicMoveNames()) {
             final JButton moveButton = new GameButton(moveName);
@@ -39,15 +40,15 @@ public final class CombatView extends JPanel {
             moveButton.addActionListener(e -> gameController.attack(true));
         }
 
-        final JButton escapeButton = new GameButton("ESCAPE");
-        escapeButton.addActionListener(e -> game.hideCombat());
-        moveSetPanel.add(escapeButton);
+        final Position combatPosition = gameController.getPlayerPosition();
 
-        final JLabel player = new JLabel();
-        player.imageUpdate(
-                new ImageIcon(gameController.getImagePathOfCharacter(Constants.PLAYER_PATH, Constants.PLAYER_NAME).get(0))
-                        .getImage(),
-                ERROR, ALLBITS, ABORT, ICON_SIZE, ICON_SIZE);
-        battlePanel.add(player);
+        final List<String> characterImagePath = gameController.getImagePathOfCharacter(
+                "enemy",
+            gameController.getNameOfCharacterInPosition(combatPosition)
+                        + File.separator + gameController.getNameOfCharacterInPosition(combatPosition));
+        final JLabel enemyLabel = new CharacterView(characterImagePath);
+        final JLabel playerLabel = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
+        battlePanel.add(playerLabel);
+        battlePanel.add(enemyLabel);
     }
 }
