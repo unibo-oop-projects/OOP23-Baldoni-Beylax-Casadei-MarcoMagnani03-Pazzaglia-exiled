@@ -1,6 +1,7 @@
 package unibo.exiled.controller;
 
 import java.util.Map;
+import java.util.Objects;
 
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.item.ItemType;
@@ -8,7 +9,7 @@ import unibo.exiled.model.item.ItemType;
 /**
  * Implementation of the ItemsController interface.
  */
-public class ItemsControllerImpl implements ItemsController {
+public final class ItemsControllerImpl implements ItemsController {
 
     private final GameModel model;
 
@@ -18,7 +19,7 @@ public class ItemsControllerImpl implements ItemsController {
      * @param model The game model to manage the game.
      */
     public ItemsControllerImpl(final GameModel model) {
-        this.model = model;
+        this.model = Objects.requireNonNull(model);
     }
 
     /**

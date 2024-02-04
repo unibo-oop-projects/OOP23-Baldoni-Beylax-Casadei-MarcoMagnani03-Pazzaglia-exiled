@@ -236,7 +236,7 @@ public final class GameView {
         this.gridPanel.removeAll();
         for (int i = 0; i < this.gameController.getMapController().getMapSize(); i++) {
             for (int j = 0; j < this.gameController.getMapController().getMapSize(); j++) {
-                setArea(new Position(j, i));
+                placeCell(new Position(j, i));
             }
         }
 
@@ -249,7 +249,7 @@ public final class GameView {
      *
      * @param position is the position of the label.
      */
-    private void setArea(final Position position) {
+    private void placeCell(final Position position) {
         final JLabel label;
 
         if (position.equals(gameController.getCharacterController().getPlayerPosition())) {
@@ -265,11 +265,11 @@ public final class GameView {
             label = new JLabel();
         }
 
-        setLabelMapProperties(label, position);
+        configLabels(label, position);
         gridPanel.add(label);
     }
 
-    private void setLabelMapProperties(final JLabel label, final Position position) {
+    private void configLabels(final JLabel label, final Position position) {
         label.setOpaque(true);
         final CellType cellType = gameController.getMapController().getCellType(position);
         final Color backgroundColor = getBackgroundColor(cellType);

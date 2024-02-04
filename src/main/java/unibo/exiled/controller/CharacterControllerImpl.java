@@ -139,6 +139,6 @@ public class CharacterControllerImpl implements CharacterController {
      */
     @Override
     public void setPlayerClass(final ElementalType playerClass) {
-        model.setPlayerClass(playerClass);
+        model.assignPlayerClass(playerClass);
     }
 }

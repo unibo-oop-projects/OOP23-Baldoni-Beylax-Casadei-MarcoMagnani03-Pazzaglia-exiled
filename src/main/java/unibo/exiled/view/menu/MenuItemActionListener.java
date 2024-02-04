@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  * The action listener class for the menu. To retrieve input.
  */
 public final class MenuItemActionListener implements ActionListener {
-    private final GameView game;
+    private GameView game;
     private final NewGameView newGameView;
 
     /**
@@ -39,7 +39,8 @@ public final class MenuItemActionListener implements ActionListener {
     @Override
     public void actionPerformed(final ActionEvent e) {
         if ("new_game".equals(e.getActionCommand())) {
-            new GameView().display();
+            this.game = new GameView();
+            this.game.display();
             this.newGameView.hide();
         } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
             this.game.hideMenu();

@@ -156,5 +156,5 @@ public interface GameModel {
      *
      * @param playerClass The ElementalType representing the new elemental class of the player.
      */
-    void setPlayerClass(ElementalType playerClass);
+    void assignPlayerClass(ElementalType playerClass);
 }

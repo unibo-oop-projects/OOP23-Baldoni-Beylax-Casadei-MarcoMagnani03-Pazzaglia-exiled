@@ -321,7 +321,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void setPlayerClass(final ElementalType playerClass) {
+    public void assignPlayerClass(final ElementalType playerClass) {
         player.setPlayerClass(playerClass);
     }
 }

@@ -13,16 +13,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 /**
  * View where the player decides his class.
  */
 public final class PlayerClassView extends JPanel {
     private static final long serialVersionUID = 7L;
-
-    private final GameController controller;
-    private final GameView gameView;
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;
+    private final transient GameController controller;
+    private final transient GameView gameView;
 
     /**
      * PlayerClassView is a graphical user interface component where the player can choose their character class.
@@ -64,8 +64,10 @@ public final class PlayerClassView extends JPanel {
         button.addActionListener(e -> classDecision(elementalType));
         return button;
     }
+
     /**
      * method where the player class is set.
+     *
      * @param playerClass the class decided by the user.
      */
     private void classDecision(final ElementalType playerClass) {
