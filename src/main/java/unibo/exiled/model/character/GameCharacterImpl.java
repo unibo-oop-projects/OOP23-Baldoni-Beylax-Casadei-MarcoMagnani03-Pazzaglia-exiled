@@ -9,6 +9,7 @@ import unibo.exiled.model.character.attributes.CombinedAttribute;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,7 +19,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
     /**
      * An association between the identifier of the attribute and its values.
      */
-    private final Map<AttributeIdentifier, Attribute> attributes;
+    private Map<AttributeIdentifier, Attribute> attributes;
     private final String name;
     private Position position;
 
@@ -70,16 +71,18 @@ public abstract class GameCharacterImpl implements GameCharacter {
      */
     private void increaseAttributes(final AttributeIdentifier id, final double modifier, final double value) {
         final Attribute attributeToModify = this.attributes.get(id);
+        Map<AttributeIdentifier, Attribute> modifiedAttributes = new HashMap<>(this.attributes);
         if (attributeToModify.isModifier() && attributeToModify.isValue()) {
             final CombinedAttributeImpl conv = (CombinedAttributeImpl) attributeToModify;
-            this.attributes.replace(id, new CombinedAttributeImpl(conv.value() + value, conv.modifier() + modifier));
+            modifiedAttributes.replace(id, new CombinedAttributeImpl(conv.value() + value, conv.modifier() + modifier));
         } else if (attributeToModify.isModifier()) {
             final MultiplierAttributeImpl conv = (MultiplierAttributeImpl) attributeToModify;
-            this.attributes.replace(id, new MultiplierAttributeImpl(conv.modifier() + modifier));
+            modifiedAttributes.replace(id, new MultiplierAttributeImpl(conv.modifier() + modifier));
         } else {
             final AdditiveAttributeImpl conv = (AdditiveAttributeImpl) attributeToModify;
-            this.attributes.replace(id, new AdditiveAttributeImpl(conv.value() + value));
+            modifiedAttributes.replace(id, new AdditiveAttributeImpl(conv.value() + value));
         }
+        this.attributes = modifiedAttributes;
     }
 
     /**

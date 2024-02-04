@@ -1,6 +1,8 @@
 package unibo.exiled.model.item;
 
+import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 
 /**
  * This class represents a usable healing item,
@@ -24,15 +26,16 @@ public final class HealingItem extends ItemBase implements UsableItem {
 
     @Override
     public void use(final Player player) {
-        // double healthCap = ((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
-        // double health = ((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
+        double healthCap =((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
+        double health = ((AdditiveAttributeImpl) player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
 
-        /*if(health+healingAmount > healthCap){
-            player.getAttributes().get(AttributeIdentifier.HEALTH).setValue(healthCap);
+        if(health+healingAmount > healthCap){
+            //La vita del player così diventa massima, raggiunge il cap
+            player.increaseAttributeModifier(AttributeIdentifier.HEALTH, healthCap-health);;
         }
         else{
-            player.getAttributes().get(AttributeIdentifier.HEALTH).setValue(health+healingAmount);
-        }*/
+            player.increaseAttributeValue(AttributeIdentifier.HEALTH,healingAmount);
+        }
     }
 
 
