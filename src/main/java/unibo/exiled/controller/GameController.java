@@ -13,6 +13,10 @@ import java.util.Map;
  */
 public interface GameController {
 
+    //
+    //  CHARACTER METHODS
+    //
+
     /**
      * Gets the image paths for a character.
      *
@@ -21,6 +25,13 @@ public interface GameController {
      * @return A list containing the paths of the images for the character.
      */
     List<String> getImagePathOfCharacter(String folderPath, String name);
+
+    /**
+     * Moves the player in the specified direction.
+     *
+     * @param direction The direction in which the player should move.
+     */
+    void movePlayer(Direction direction);
 
     /**
      * Gets the health of the player.
@@ -37,13 +48,6 @@ public interface GameController {
     double getPlayerLevel();
 
     /**
-     * Gets the size of the game map.
-     *
-     * @return An integer representing the size of the game map.
-     */
-    int getMapSize();
-
-    /**
      * Gets the class name of the player.
      *
      * @return A string representing the class name of the player.
@@ -51,30 +55,23 @@ public interface GameController {
     String getPlayerClassName();
 
     /**
-     * Moves the player in the specified direction.
-     *
-     * @param direction The direction in which the player should move.
-     */
-    void movePlayer(Direction direction);
-
-    /**
-     * Moves the enemies in the game.
-     */
-    void moveEnemies();
-
-    /**
-     * Checks if the game is over.
-     *
-     * @return True if the game is over, false otherwise.
-     */
-    boolean isOver();
-
-    /**
      * Gets the position of the player.
      *
      * @return The position of the player.
      */
     Position getPlayerPosition();
+
+    /**
+     * Gets the names of every magic move.
+     *
+     * @return A list of every magic move name.
+     */
+    List<String> getMagicMoveNames();
+
+    /**
+     * Moves the enemies in the game.
+     */
+    void moveEnemies();
 
     /**
      * Checks if there is an enemy in the specified cell.
@@ -93,26 +90,23 @@ public interface GameController {
     String getNameOfCharacterInPosition(Position position);
 
     /**
-     * Gets the cell type at the specified position.
-     *
-     * @param position The position to check.
-     * @return The cell type at the specified position.
-     */
-    CellType getCellType(Position position);
-
-    /**
-     * Gets the names of every magic move.
-     *
-     * @return A list of every magic move name.
-     */
-    List<String> getMagicMoveNames();
-
-    /**
      * Performs an attack routine.
      *
      * @param isPlayerAttacking True if the attacker is the player, false otherwise.
      */
     void attack(boolean isPlayerAttacking);
+
+    //
+    //  ITEM METHODS
+    //
+
+    /**
+     * Attempts to use the specified item from the player's inventory.
+     *
+     * @param item The item name to use.
+     * @return true if the item was successfully used, false otherwise.
+     */
+    boolean useItem(String item);
 
     /**
      * Gets an association of items and their quantity.
@@ -122,20 +116,20 @@ public interface GameController {
     Map<String, Integer> getItems();
 
     /**
-     * Gets the description of an item based on its name.
-     *
-     * @param itemName The name of the item.
-     * @return A string representing the description of the item.
-     */
-    String getItemDescription(String itemName);
-
-    /**
      * Gets the modification value of the item.
      *
      * @param itemName The item to look for.
      * @return A double value representing how strong is the item.
      */
     double getItemValor(String itemName);
+
+    /**
+     * Gets the description of an item based on its name.
+     *
+     * @param itemName The name of the item.
+     * @return A string representing the description of the item.
+     */
+    String getItemDescription(String itemName);
 
     /**
      * Gets the type of the item with a certain name.
@@ -161,11 +155,30 @@ public interface GameController {
      */
     int getItemDuration(String itemName);
 
+    //
+    //  MAP METHODS
+    //
+
     /**
-     * Attempts to use the specified item from the player's inventory.
+     * Gets the size of the game map.
      *
-     * @param item The item name to use.
-     * @return true if the item was successfully used, false otherwise.
+     * @return An integer representing the size of the game map.
      */
-    boolean useItem(String item);
+    int getMapSize();
+
+    /**
+     * Checks if the game is over.
+     *
+     * @return True if the game is over, false otherwise.
+     */
+    boolean isOver();
+
+    /**
+     * Gets the cell type at the specified position.
+     *
+     * @param position The position to check.
+     * @return The cell type at the specified position.
+     */
+    CellType getCellType(Position position);
+
 }
