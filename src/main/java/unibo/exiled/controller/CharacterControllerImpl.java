@@ -132,6 +132,11 @@ public class CharacterControllerImpl implements CharacterController {
         throw new UnsupportedOperationException("Unimplemented method 'attack'");
     }
 
+    /**
+     * Sets the class of the player.
+     *
+     * @param playerClass The ElementalType representing the player's class.
+     */
     @Override
     public void setPlayerClass(final ElementalType playerClass) {
         model.setPlayerClass(playerClass);

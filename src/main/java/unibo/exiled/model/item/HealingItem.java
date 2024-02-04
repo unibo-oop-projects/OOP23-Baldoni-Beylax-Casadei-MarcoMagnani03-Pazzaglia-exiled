@@ -6,7 +6,8 @@ import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 
 /**
  * This class represents a usable healing item,
- * the use class allows the character to recover a certain amount of missing life,
+ * the use class allows the character to recover a certain amount of missing
+ * life,
  * the amount of healing is determined by the healing value.
  */
 public final class HealingItem extends ItemBase implements UsableItem {
@@ -26,18 +27,15 @@ public final class HealingItem extends ItemBase implements UsableItem {
 
     @Override
     public void use(final Player player) {
-        double healthCap =((AdditiveAttributeImpl)player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
-        double health = ((AdditiveAttributeImpl) player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
+        final double healthCap = ((AdditiveAttributeImpl) player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
+        final double health = ((AdditiveAttributeImpl) player.getAttributes().get(AttributeIdentifier.HEALTHCAP)).value();
 
-        if(health+healingAmount > healthCap){
-            //La vita del player così diventa massima, raggiunge il cap
-            player.increaseAttributeModifier(AttributeIdentifier.HEALTH, healthCap-health);;
-        }
-        else{
-            player.increaseAttributeValue(AttributeIdentifier.HEALTH,healingAmount);
+        if (health + healingAmount > healthCap) {
+            player.increaseAttributeModifier(AttributeIdentifier.HEALTH, healthCap - health);
+        } else {
+            player.increaseAttributeValue(AttributeIdentifier.HEALTH, healingAmount);
         }
     }
-
 
     @Override
     public double getAmount() {

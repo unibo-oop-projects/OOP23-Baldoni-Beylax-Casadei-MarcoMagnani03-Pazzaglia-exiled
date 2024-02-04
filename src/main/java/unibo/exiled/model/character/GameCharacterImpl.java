@@ -71,7 +71,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
      */
     private void increaseAttributes(final AttributeIdentifier id, final double modifier, final double value) {
         final Attribute attributeToModify = this.attributes.get(id);
-        Map<AttributeIdentifier, Attribute> modifiedAttributes = new HashMap<>(this.attributes);
+        final Map<AttributeIdentifier, Attribute> modifiedAttributes = new HashMap<>(this.attributes);
         if (attributeToModify.isModifier() && attributeToModify.isValue()) {
             final CombinedAttributeImpl conv = (CombinedAttributeImpl) attributeToModify;
             modifiedAttributes.replace(id, new CombinedAttributeImpl(conv.value() + value, conv.modifier() + modifier));
