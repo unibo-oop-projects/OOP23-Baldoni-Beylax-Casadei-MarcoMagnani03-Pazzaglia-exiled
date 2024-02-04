@@ -69,22 +69,27 @@ public final class GameView {
         this.inventoryPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
-        final MenuView menuView = new MenuView(this, null);
-        final InventoryView inventoryView = new InventoryView(gameController, this);
+        
         this.gameOverView = new GameOverView();
         this.playerView = new CharacterView(gameController.getImagePathOfCharacter("player", "boy"));
+        final MenuView menuView = new MenuView(this, null);
+        final InventoryView inventoryView = new InventoryView(this.gameController, this);
+        final CombatView combatView = new CombatView(this.gameController, this);
 
-        this.combatPanel.add(new CombatView(this.gameController, this), BorderLayout.CENTER);
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
+        this.combatPanel.add(combatView, BorderLayout.CENTER);
 
         final Container contentPanel = this.mainFrame.getContentPane();
 
         final GroupLayout mainLayout = new GroupLayout(contentPanel);
         contentPanel.setLayout(mainLayout);
 
-        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup().addComponent(menuPanel).addComponent(gamePanel)
-                .addComponent(combatPanel).addComponent(inventoryPanel));
+        mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup()
+                .addComponent(menuPanel)
+                .addComponent(gamePanel)
+                .addComponent(inventoryPanel)
+                .addComponent(combatPanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                 .addComponent(menuPanel)
                 .addComponent(gamePanel)
@@ -177,7 +182,7 @@ public final class GameView {
                     final Direction directionPressed = getDirection(e);
                     gameController.movePlayer(directionPressed);
                     gameController.moveEnemies();
-
+                    
                     if (gameController.isOver()) {
                         gameOverView.display();
                         mainFrame.dispose();
@@ -269,7 +274,7 @@ public final class GameView {
     /**
      * Shows the inventory view.
      */
-    private void showInventory() {
+    public void showInventory() {
         this.gamePanel.setVisible(false);
         this.inventoryPanel.setVisible(true);
     }

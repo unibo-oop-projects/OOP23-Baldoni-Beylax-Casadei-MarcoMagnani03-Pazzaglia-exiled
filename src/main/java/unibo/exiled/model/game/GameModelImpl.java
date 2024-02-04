@@ -229,10 +229,10 @@ public final class GameModelImpl implements GameModel {
 
     @Override
     public Optional<GameCharacter> getCharacterFromPosition(final Position pos) {
-        if (player.getPosition().equals(pos)) {
-            return Optional.of(player);
-        } else if (enemyCollection.getEnemyFromPosition(pos).isPresent()) {
+        if (enemyCollection.getEnemyFromPosition(pos).isPresent()) {
             return Optional.of(enemyCollection.getEnemyFromPosition(pos).get());
+        } else if (player.getPosition().equals(pos)) {
+            return Optional.of(player);
         } else {
             return Optional.empty();
         }
