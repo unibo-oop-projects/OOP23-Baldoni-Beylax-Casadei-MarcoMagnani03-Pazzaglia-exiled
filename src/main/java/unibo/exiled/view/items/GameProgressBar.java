@@ -1,6 +1,9 @@
 package unibo.exiled.view.items;
 
 import javax.swing.JProgressBar;
+
+import unibo.exiled.model.utilities.FontManager;
+
 import java.awt.Color;
 import java.util.List;
 
@@ -24,6 +27,7 @@ public final class GameProgressBar extends JProgressBar {
 
     private void setProgressBarStyle() {
         setStringPainted(true);
+        setFont(FontManager.getCustomFont());
         setForeground(foregroundColor);
         setBackground(backgroundColor);
     }

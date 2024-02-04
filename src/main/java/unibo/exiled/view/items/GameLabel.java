@@ -1,8 +1,10 @@
 package unibo.exiled.view.items;
 
 import javax.swing.JLabel;
+
+import unibo.exiled.model.utilities.FontManager;
+
 import java.awt.Color;
-import java.awt.Font;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ public class GameLabel extends JLabel {
 
     private void setLabelStyle() {
         setForeground(foregroundColor);
-        setFont(new Font("Arial", Font.PLAIN, 16));
+        setFont(FontManager.getCustomFont());
     }
 
 }

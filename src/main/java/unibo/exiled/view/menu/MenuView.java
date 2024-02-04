@@ -10,9 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.ImageIcon;
-
 import java.awt.BorderLayout;
-
 import java.awt.event.ActionListener;
 import java.io.File;
 
@@ -70,6 +68,8 @@ public final class MenuView extends JPanel {
             buttonListPanel.add(btn, cnst);
             cnst.gridy++;
         }*/
+
+
 
         this.setLayout(new BorderLayout());
         this.add(buttonListPanel, BorderLayout.CENTER);

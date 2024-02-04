@@ -1,8 +1,10 @@
 package unibo.exiled.view.items;
 
 import javax.swing.JLabel;
+
+import unibo.exiled.model.utilities.FontManager;
+
 import java.awt.Color;
-import java.awt.Font;
 
 /**
  * A label with a title.
@@ -27,6 +29,7 @@ public final class TitleGameLabel extends JLabel {
 
     private void setLabelStyle() {
         setForeground(foregroundColor);
-        setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
+        
+        setFont(FontManager.getCustomFont(FONT_SIZE));
     }
 }

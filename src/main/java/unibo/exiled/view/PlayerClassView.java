@@ -2,10 +2,10 @@ package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
 import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 public final class PlayerClassView extends JPanel {
     private static final long serialVersionUID = 7L;
     private static final int MARGIN = 20;
-    private static final int BUTTON_FONT_SIZE = 40;
+    private static final int BUTTON_FONT_SIZE = 60;
     private final transient GameController controller;
     private final transient GameView gameView;
 
@@ -61,7 +61,7 @@ public final class PlayerClassView extends JPanel {
 
     private JButton createButton(final ElementalType elementalType) {
         final JButton button = new JButton(elementalType.getName());
-        button.setFont(new Font("Arial", Font.BOLD, BUTTON_FONT_SIZE));
+        button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
         button.setBackground(elementalType.getElementalColor());
         button.addActionListener(e -> classDecision(elementalType));
         Image scaledImage = elementalType.getElementalImage().getImage().getScaledInstance(BUTTON_FONT_SIZE, BUTTON_FONT_SIZE, Image.SCALE_SMOOTH);

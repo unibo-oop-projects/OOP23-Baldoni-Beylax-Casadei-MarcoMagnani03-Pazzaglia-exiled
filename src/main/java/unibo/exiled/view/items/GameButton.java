@@ -1,10 +1,10 @@
 package unibo.exiled.view.items;
 
 import unibo.exiled.config.Constants;
+import unibo.exiled.model.utilities.FontManager;
 
 import java.awt.event.MouseEvent;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -42,7 +42,7 @@ public final class GameButton extends JButton {
     private void setButtonStyle() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
 
-        setFont(new Font("Arial", Font.BOLD, 16));
+        setFont(FontManager.getCustomFont());
         setForeground(Color.WHITE);
         setBackground(primaryColor);
 

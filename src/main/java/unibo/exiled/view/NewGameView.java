@@ -1,6 +1,7 @@
 package unibo.exiled.view;
 
 import unibo.exiled.config.Constants;
+import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.menu.MenuView;
 
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ public final class NewGameView {
      */
     public NewGameView() {
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
+        FontManager.loadFont();
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -26,7 +28,6 @@ public final class NewGameView {
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
         this.mainFrame.setLayout(new BorderLayout());
-
         this.mainFrame.add(new MenuView(null, this), BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
     }
