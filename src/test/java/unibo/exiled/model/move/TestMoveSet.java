@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests the MoveSet creation.
  */
-class TestMoveSet {
+final class TestMoveSet {
 
     private static final double WATER_DEFAULT = 12.0;
     private static final double BOLT_DEFAULT = 8.0;

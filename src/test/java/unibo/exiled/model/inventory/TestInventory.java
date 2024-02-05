@@ -16,7 +16,7 @@ import unibo.exiled.model.item.ItemFactoryImpl;
 /**
  * Tests the inventory items.
  */
-class TestInventory {
+final class TestInventory {
 
     private static final double HEALING_DEFAULT = 5.0;
     private static final String HEALING_POTION_NAME = "Health Potion";

@@ -123,7 +123,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      * experience cap.
      */
     private void levelUp() {
-        if (this.currentExp >= this.expCap) {
+        while (this.currentExp >= this.expCap) {
             performLevelUp();
         }
     }
@@ -134,7 +134,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      * @return The experience points needed for the next level.
      */
     private double calculateNextLevelExperience() {
-        return this.expCap + this.expCap / Integer.parseInt(Constants.getConstantOf("EXPERIENCE_MULTIPLIER"));
+        return this.expCap + this.expCap * Double.parseDouble(Constants.getConstantOf("EXPERIENCE_MULTIPLIER"));
     }
 
     /**
@@ -143,8 +143,8 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      */
     private void performLevelUp() {
         this.level++;
-        this.expCap = calculateNextLevelExperience();
         this.currentExp -= expCap;
+        this.expCap = calculateNextLevelExperience();
         this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10.0f);
         learnNewMove();
         boostAttributes();
