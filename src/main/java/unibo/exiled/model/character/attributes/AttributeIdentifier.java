@@ -5,19 +5,19 @@ package unibo.exiled.model.character.attributes;
  */
 public enum AttributeIdentifier {
     /**
-     * The attack modifier of a character.
+     * The attack modifier of a character. is Modifier.
      */
     ATTACK("Attack"),
     /**
-     * How a character resists to damage.
+     * How a character resists to damage. is Modifier.
      */
     DEFENSE("Defense"),
     /**
-     * The health of a character.
+     * The health of a character. is Combined.
      */
     HEALTH("Health"),
     /**
-     * The maximum health a character can have.
+     * The maximum health a character can have. is Additive.
      */
     HEALTHCAP("Health Cap");
 

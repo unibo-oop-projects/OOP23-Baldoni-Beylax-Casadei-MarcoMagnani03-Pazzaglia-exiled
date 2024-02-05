@@ -59,4 +59,5 @@ public interface Player extends GameCharacter {
      * @param item The UsableItem to be used.
      */
     void useItem(UsableItem item);
+
 }

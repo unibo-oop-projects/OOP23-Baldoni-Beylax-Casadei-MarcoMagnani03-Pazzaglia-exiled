@@ -68,36 +68,54 @@ public abstract class GameCharacterImpl implements GameCharacter {
     }
 
     /**
-     * Increases a generic attribute of a specified value.
+     * Modifies a generic attribute by adding or subtracting a value and/or a modifier.
      *
      * @param id       The attribute to modify.
-     * @param modifier The modifier to add.
-     * @param value    The value to add.
+     * @param modifier The modifier to add or subtract.
+     * @param value    The value to add or subtract.
+     * @param increase True for increase, false for decrease.
      */
-    private void increaseAttributes(final AttributeIdentifier id, final double modifier, final double value) {
+    private void modifyAttribute(final AttributeIdentifier id, final double modifier,
+    final double value, final boolean increase) {
         final Attribute attributeToModify = this.attributes.get(id);
         final Map<AttributeIdentifier, Attribute> modifiedAttributes = new HashMap<>(this.attributes);
-        if (attributeToModify.isModifier() && attributeToModify.isValue()) {
-            final CombinedAttributeImpl conv = (CombinedAttributeImpl) attributeToModify;
-            modifiedAttributes.replace(id, new CombinedAttributeImpl(conv.value() + value, conv.modifier() + modifier));
-        } else if (attributeToModify.isModifier()) {
+
+        if (attributeToModify instanceof CombinedAttribute) {
+            final CombinedAttribute conv = (CombinedAttribute) attributeToModify;
+            modifiedAttributes.replace(id, new CombinedAttributeImpl(
+                    increase ? conv.value() + value : conv.value() - value,
+                    increase ? conv.modifier() + modifier : conv.modifier() - modifier));
+        } else if (attributeToModify instanceof MultiplierAttributeImpl) {
             final MultiplierAttributeImpl conv = (MultiplierAttributeImpl) attributeToModify;
-            modifiedAttributes.replace(id, new MultiplierAttributeImpl(conv.modifier() + modifier));
-        } else {
+            modifiedAttributes.replace(id, new MultiplierAttributeImpl(
+                    increase ? conv.modifier() + modifier : conv.modifier() - modifier));
+        } else if (attributeToModify instanceof AdditiveAttributeImpl) {
             final AdditiveAttributeImpl conv = (AdditiveAttributeImpl) attributeToModify;
-            modifiedAttributes.replace(id, new AdditiveAttributeImpl(conv.value() + value));
+            modifiedAttributes.replace(id, new AdditiveAttributeImpl(
+                    increase ? conv.value() + value : conv.value() - value));
         }
+
         this.attributes = modifiedAttributes;
     }
 
     @Override
     public final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
-        this.increaseAttributes(id, modifier, 0);
+        modifyAttribute(id, modifier, 0, true);
     }
 
     @Override
     public final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
-        this.increaseAttributes(id, 0, value);
+        modifyAttribute(id, 0, value, true);
+    }
+
+    @Override
+    public final void decreaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
+        modifyAttribute(id, modifier, 0, false);
+    }
+
+    @Override
+    public final void decreaseAttributeValue(final AttributeIdentifier id, final double value) {
+        modifyAttribute(id, 0, value, false);
     }
 
     @Override

@@ -57,6 +57,22 @@ public interface GameCharacter {
     void increaseAttributeValue(AttributeIdentifier id, double value);
 
     /**
+     * Decreases the value of the specified attribute for the character.
+     *
+     * @param id    The identifier of the attribute.
+     * @param value The amount by which the attribute value is decreased.
+     */
+    void decreaseAttributeModifier(AttributeIdentifier id, double value);
+
+    /**
+     * Decreases the value of the specified attribute for the character.
+     *
+     * @param id    The identifier of the attribute.
+     * @param value The amount by which the attribute value is decreased.
+     */
+    void decreaseAttributeValue(AttributeIdentifier id, double value);
+
+    /**
      * Gets the standard health attribute value.
      *
      * @return The evaluated amount of health of the character.
