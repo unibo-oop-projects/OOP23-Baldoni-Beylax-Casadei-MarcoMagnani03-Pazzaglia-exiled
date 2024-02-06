@@ -1,11 +1,14 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
+import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
+import unibo.exiled.view.items.GameLabel;
 
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,6 +23,8 @@ import java.awt.FlowLayout;
  */
 public final class CombatView extends JPanel {
     private static final long serialVersionUID = 1L;
+    
+    private final int BUTTON_FONT_SIZE = 40;
 
     private final transient GameController gameController;
 
@@ -36,7 +41,7 @@ public final class CombatView extends JPanel {
         this.setLayout(new BorderLayout());
 
         moveSetPanel = new JPanel(new FlowLayout(1, 10, 10));
-        this.battlePanel = new JPanel(new GridLayout(1, 3));
+        this.battlePanel = new JPanel(new GridLayout(1, 2));
         this.battlePanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
 
         this.add(this.battlePanel, BorderLayout.CENTER);
@@ -52,7 +57,7 @@ public final class CombatView extends JPanel {
         // Display the player character
         final JLabel playerLabel = new CharacterView(
                 this.gameController.getCharacterController().getImagePathOfCharacter("player", "boy"));
-        battlePanel.add(playerLabel);
+        this.battlePanel.add(playerLabel);
     }
 
     /**
@@ -65,7 +70,27 @@ public final class CombatView extends JPanel {
                 this.gameController.getMapController().getNameOfCharacterInPosition(combatPosition)
                         + File.separator
                         + this.gameController.getMapController().getNameOfCharacterInPosition(combatPosition));
-        final JLabel enemyLabel = new CharacterView(enemyImagePath);
-        this.battlePanel.add(enemyLabel);
+        final JLabel enemyImage = new CharacterView(enemyImagePath);
+        final JLabel enemyLabel = new JLabel(
+                this.gameController.getMapController().getNameOfCharacterInPosition(combatPosition),
+                SwingConstants.CENTER);
+        enemyLabel.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
+        enemyLabel.setVerticalAlignment(SwingConstants.CENTER);
+
+        final GameLabel healthBar = new GameLabel("Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
+        + gameController.getCharacterController().getPlayerHealthCap());
+        final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getPlayerClassName());
+        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5)); 
+        statusPanel.setBorder(BorderFactory.createEtchedBorder());
+        statusPanel.add(healthBar);
+        statusPanel.add(classLabel);
+
+        final JPanel enemyPanel = new JPanel(new BorderLayout(50, 50));
+        enemyPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        enemyPanel.add(enemyLabel, BorderLayout.NORTH);
+        enemyPanel.add(enemyImage, BorderLayout.CENTER);
+        enemyPanel.add(statusPanel, BorderLayout.SOUTH);
+
+        this.battlePanel.add(enemyPanel);
     }
 }
