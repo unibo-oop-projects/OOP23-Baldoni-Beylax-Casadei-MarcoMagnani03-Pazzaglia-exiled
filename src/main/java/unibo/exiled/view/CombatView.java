@@ -79,7 +79,7 @@ public final class CombatView extends JPanel {
 
         final GameLabel healthBar = new GameLabel("Health: " + gameController.getCharacterController().getCharacterHealthFromPosition(combatPosition) + " / "
         + gameController.getCharacterController().getCharacterHealthCapFromPosition(combatPosition));
-        final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getPlayerClassName());
+        final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getCharacterClassNameFromPosition(combatPosition));
         final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5)); 
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
         statusPanel.add(healthBar);

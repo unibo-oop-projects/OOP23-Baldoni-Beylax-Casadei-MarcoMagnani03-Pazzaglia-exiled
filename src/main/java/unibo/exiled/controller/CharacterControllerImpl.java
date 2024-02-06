@@ -2,6 +2,8 @@ package unibo.exiled.controller;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.enemy.Enemy;
+import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.move.MagicMove;
@@ -125,10 +127,20 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public double getCharacterHealthCapFromPosition(Position position) {
+    public double getCharacterHealthCapFromPosition(final Position position) {
         final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().getHealthCap();
+        } else {
+            throw new IllegalArgumentException("The position doesn't contain a character.");
+        }
+    }
+
+    @Override
+    public String getCharacterClassNameFromPosition(final Position position) {
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
+        if (gottenCharacter.isPresent()) {
+            return ((EnemyImpl) gottenCharacter.get()).getType().getName();
         } else {
             throw new IllegalArgumentException("The position doesn't contain a character.");
         }

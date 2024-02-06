@@ -132,6 +132,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
         }
     }
 
+    @Override
     public final double getHealthCap() {
         if (attributes.get(AttributeIdentifier.HEALTHCAP).isModifier() && attributes.get(AttributeIdentifier.HEALTHCAP).isValue()) {
             return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).getEvaluated();
