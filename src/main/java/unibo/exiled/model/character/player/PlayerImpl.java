@@ -31,7 +31,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
     private double expCap;
     private final Inventory inventory;
     private final MoveSet moveSet;
-    private ElementalType playerClass;
+    private PlayerClass playerClass;
     private final int movesLearningInterval;
     private int levelToLearnAMove;
 
@@ -59,7 +59,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
         this.levelInc = levelIncrease;
         this.movesLearningInterval = movesLearningInterval;
         this.levelToLearnAMove = 0;
-        this.playerClass = ElementalType.NORMAL;
+        this.playerClass = new PlayerClassImpl(ElementalType.NORMAL);
     }
 
     // This method is used for testing purposes only.
@@ -169,11 +169,11 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
             Optional<MagicMove> newMove;
 
             // If the player knows all moves of their type, learn a move of a different type
-            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass))) {
+            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass.getElementalType()))) {
                 newMove = Optional.of(Moves.getTotallyRandomMove());
             } else {
                 do {
-                    newMove = Moves.getRandomMagicMoveByType(playerClass);
+                    newMove = Moves.getRandomMagicMoveByType(playerClass.getElementalType());
                     // If there are no moves of the specified type, choose a completely random move
                     newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove()) : newMove;
                     // Continue searching until finding a move the player doesn't already know
@@ -192,7 +192,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      * @param playerClassChoice the class choosen.
      */
     @Override
-    public void setPlayerClass(final ElementalType playerClassChoice) {
+    public void setPlayerClass(final PlayerClass playerClassChoice) {
         this.playerClass = playerClassChoice;
     }
 
@@ -202,7 +202,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      * @return the player class.
      */
     @Override
-    public ElementalType getPlayerClass() {
+    public PlayerClass getPlayerClass() {
         return this.playerClass;
     }
 

@@ -8,6 +8,7 @@ import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
 import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
 import unibo.exiled.model.character.enemy.EnemyFactory;
 import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.item.HealingItem;
 import unibo.exiled.model.item.Item;
@@ -19,7 +20,6 @@ import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.Moves;
 import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
 import unibo.exiled.model.character.attributes.AdditiveAttribute;
@@ -211,7 +211,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public ElementalType getPlayerClass() {
+    public PlayerClass getPlayerClass() {
         return player.getPlayerClass();
     }
 
@@ -317,7 +317,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void assignPlayerClass(final ElementalType playerClass) {
+    public void assignPlayerClass(final PlayerClass playerClass) {
         player.setPlayerClass(playerClass);
     }
 }
