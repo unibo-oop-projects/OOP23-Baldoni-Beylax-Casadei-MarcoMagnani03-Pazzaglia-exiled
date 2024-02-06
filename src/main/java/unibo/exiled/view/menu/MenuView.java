@@ -28,7 +28,7 @@ public final class MenuView extends JPanel {
      */
     public MenuView(final GameView game, final NewGameView newGameView) {
         super();
-
+        newGameView.hide();
         // CREATING STANDARD UI
         final JPanel buttonListPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints cnst = new GridBagConstraints();

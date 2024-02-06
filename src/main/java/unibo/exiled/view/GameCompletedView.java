@@ -60,7 +60,7 @@ public final class GameCompletedView {
 
         final JPanel flowPanel = new JPanel(new FlowLayout());
         gameCompletedPanel.add(flowPanel, BorderLayout.SOUTH);
-        final JLabel completedLabel = new GameLabel("Congratulations, you finish the game!");
+        final JLabel completedLabel = new GameLabel("Congratulations, you have achieved redemption!");
         flowPanel.add(completedLabel);
         flowPanel.add(restartButton);
         flowPanel.add(quitButton);

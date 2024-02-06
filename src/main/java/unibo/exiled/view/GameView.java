@@ -1,6 +1,7 @@
 package unibo.exiled.view;
 
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.List;
 
@@ -400,4 +401,12 @@ public final class GameView {
     public void display() {
         this.mainFrame.setVisible(true);
     }
+
+    /**
+     * Disposes the main frame.
+     */
+    public void terminateGame() {
+        mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
+    }
+    
 }

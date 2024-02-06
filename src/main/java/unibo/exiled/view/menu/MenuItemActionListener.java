@@ -49,7 +49,7 @@ public final class MenuItemActionListener implements ActionListener {
                     "Would you like to quit the game?", "Warning",
                     JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                ((JPanel) e.getSource()).dispatchEvent(new WindowEvent((Window) e.getSource(), WindowEvent.WINDOW_CLOSING));
+                this.game.terminateGame();
             }
         } else {
             throw new IllegalArgumentException("Command is not valid");
