@@ -80,6 +80,13 @@ public interface GameCharacter {
     double getHealth();
 
     /**
+     * Gets the health cap attribute value.
+     *
+     * @return The evaluated amount of health cap of the character.
+     */
+    double getHealthCap();
+
+    /**
      * Gets the name of the character.
      *
      * @return A string representing the name of the character.
@@ -102,6 +109,7 @@ public interface GameCharacter {
 
     /**
      * States which kind of sprite is to be used.
+     * 
      * @return True if the moving sprite is the right one, false otherwise.
      */
     boolean spriteIsMoving();

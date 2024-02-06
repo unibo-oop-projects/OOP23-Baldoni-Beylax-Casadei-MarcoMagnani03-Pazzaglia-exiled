@@ -68,7 +68,8 @@ public abstract class GameCharacterImpl implements GameCharacter {
     }
 
     /**
-     * Modifies a generic attribute by adding or subtracting a value and/or a modifier.
+     * Modifies a generic attribute by adding or subtracting a value and/or a
+     * modifier.
      *
      * @param id       The attribute to modify.
      * @param modifier The modifier to add or subtract.
@@ -76,7 +77,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
      * @param increase True for increase, false for decrease.
      */
     private void modifyAttribute(final AttributeIdentifier id, final double modifier,
-    final double value, final boolean increase) {
+            final double value, final boolean increase) {
         final Attribute attributeToModify = this.attributes.get(id);
         final Map<AttributeIdentifier, Attribute> modifiedAttributes = new HashMap<>(this.attributes);
 
@@ -121,6 +122,10 @@ public abstract class GameCharacterImpl implements GameCharacter {
     @Override
     public final double getHealth() {
         return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
+    }
+
+    public final double getHealthCap() {
+        return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).getEvaluated();
     }
 
     @Override

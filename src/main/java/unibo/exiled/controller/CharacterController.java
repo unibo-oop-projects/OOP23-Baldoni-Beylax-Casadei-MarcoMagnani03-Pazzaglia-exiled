@@ -54,7 +54,7 @@ public interface CharacterController {
      */
     String getPlayerClassName();
 
-        /**
+    /**
      * Retrieves the current experience of the player.
      *
      * @return The current experience of the player.
@@ -104,7 +104,8 @@ public interface CharacterController {
     /**
      * Sets the elemental class of the player.
      *
-     * @param playerClass The ElementalType representing the new elemental class of the player.
+     * @param playerClass The ElementalType representing the new elemental class of
+     *                    the player.
      */
     void assignPlayerClass(PlayerClass playerClass);
 
@@ -115,4 +116,26 @@ public interface CharacterController {
      * @return True if the character is moving, false otherwise.
      */
     boolean getIfCharacterInPositionIsMoving(Position position);
+
+    /**
+     * Returns the health of the character at the specified position.
+     *
+     * @param position The position of the character whose health is to be obtained.
+     * @return The health of the character at the specified position.
+     * @throws IllegalArgumentException if the specified position is null or
+     *                                  invalid.
+     */
+    double getCharacterHealthFromPosition(Position position);
+
+    /**
+     * Returns the health cap of the character at the specified position.
+     *
+     * @param position The position of the character whose health cap is to be
+     *                 obtained.
+     * @return The health cap of the character at the specified position.
+     * @throws IllegalArgumentException if the specified position is null or
+     *                                  invalid.
+     */
+    double getCharacterHealthCapFromPosition(Position position);
+
 }

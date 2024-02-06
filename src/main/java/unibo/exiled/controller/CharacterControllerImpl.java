@@ -113,4 +113,24 @@ public final class CharacterControllerImpl implements CharacterController {
             throw new IllegalArgumentException("The position doesn't contain a character.");
         }
     }
+
+    @Override
+    public double getCharacterHealthFromPosition(final Position position) {
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
+        if (gottenCharacter.isPresent()) {
+            return gottenCharacter.get().getHealth();
+        } else {
+            throw new IllegalArgumentException("The position doesn't contain a character.");
+        }
+    }
+
+    @Override
+    public double getCharacterHealthCapFromPosition(Position position) {
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
+        if (gottenCharacter.isPresent()) {
+            return gottenCharacter.get().getHealthCap();
+        } else {
+            throw new IllegalArgumentException("The position doesn't contain a character.");
+        }
+    }
 }
