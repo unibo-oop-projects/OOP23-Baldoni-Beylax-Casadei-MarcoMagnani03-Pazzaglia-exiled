@@ -151,6 +151,12 @@ public final class GameView {
         flowButtonPanelNorth.add(menuButton);
 
         // Player information
+        final JPanel statusPanel = getProgressPanel();
+
+        flowButtonPanelSouth.add(statusPanel);
+    }
+
+    private JPanel getProgressPanel() {
         final GameProgressBar healthBar = new GameProgressBar();
         healthBar.updateProgress(gameController.getCharacterController().getPlayerHealth());
         final GameLabel levelLabel = new GameLabel(
@@ -164,8 +170,7 @@ public final class GameView {
         statusPanel.add(healthBar);
         statusPanel.add(levelLabel);
         statusPanel.add(classLabel);
-
-        flowButtonPanelSouth.add(statusPanel);
+        return statusPanel;
     }
 
     private void initializeGridComponents() {
