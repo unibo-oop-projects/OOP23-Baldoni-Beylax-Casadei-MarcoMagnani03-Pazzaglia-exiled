@@ -230,6 +230,11 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    @Override
     public double getPlayerAttributeOf(final AttributeIdentifier id) {
         final Attribute selectedAttribute = this.player.getAttributes().get(id);
         if (selectedAttribute.isModifier() && selectedAttribute.isValue()) {

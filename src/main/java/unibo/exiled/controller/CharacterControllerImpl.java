@@ -12,6 +12,8 @@ import unibo.exiled.model.utilities.Position;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Implementation of the CharacterController interface.
@@ -97,8 +99,25 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public void attack(final boolean cond) {
-        throw new UnsupportedOperationException("Unimplemented");
+    public boolean attack(final boolean isPlayerAttacking, final String moveName, Position combatPosition) {
+        if (!this.model.getCharacterFromPosition(combatPosition).isPresent()) {
+            throw new IllegalArgumentException("The position doesn't contain a character.");
+        }
+
+        final GameCharacter attacker = isPlayerAttacking ? this.model.getPlayer()
+                : this.model.getCharacterFromPosition(combatPosition).get();
+        final GameCharacter defender = !isPlayerAttacking ? this.model.getPlayer()
+                : this.model.getCharacterFromPosition(combatPosition).get();
+
+        final double damage = attacker.getMoveSet()
+                .getMagicMoves()
+                .stream()
+                .filter(m -> m.name().equals(moveName))
+                .findFirst()
+                .get()
+                .power();
+        defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);
+        return defender.getHealth() <= 0;
     }
 
     @Override
@@ -144,5 +163,20 @@ public final class CharacterControllerImpl implements CharacterController {
         } else {
             throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
         }
+    }
+
+    @Override
+    public String getCharacterRandomMoveNameFromPosition(Position position) {
+        Set<MagicMove> moves = this.model.getCharacterFromPosition(position).get().getMoveSet().getMagicMoves();
+        Random random = new Random();
+        int randomIndex = random.nextInt(moves.size());
+        int i = 0;
+        for (MagicMove magicMove : moves) {
+            if (i == randomIndex) {
+                return magicMove.name();
+            }
+            i++;
+        }
+        return moves.stream().findFirst().get().name();
     }
 }

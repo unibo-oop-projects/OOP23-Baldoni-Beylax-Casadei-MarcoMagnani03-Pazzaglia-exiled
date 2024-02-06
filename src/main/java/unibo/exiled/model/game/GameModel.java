@@ -2,6 +2,7 @@ package unibo.exiled.model.game;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.map.CellType;
@@ -72,6 +73,12 @@ public interface GameModel {
      * @return The position of the player.
      */
     Position getPlayerPosition();
+
+    /**
+     * Gets the player
+     * @return the player
+     */
+    Player getPlayer();
 
     /**
      * Returns the items of the player.

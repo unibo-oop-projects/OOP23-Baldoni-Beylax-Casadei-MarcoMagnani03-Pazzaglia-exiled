@@ -96,10 +96,12 @@ public interface CharacterController {
 
     /**
      * Performs an attack routine.
-     *
-     * @param isPlayerAttacking True if the attacker is the player, false otherwise.
+     * @param isPlayerAttacking if is the player or the enemy attacking.
+     * @param moveName the name of the move performed.
+     * @param combatPosition the position of the combat.
+     * @return if the character that took damage is dead or not.
      */
-    void attack(boolean isPlayerAttacking);
+    boolean attack(boolean isPlayerAttacking, String moveName, Position combatPosition);
 
     /**
      * Sets the elemental class of the player.
@@ -145,4 +147,11 @@ public interface CharacterController {
      * @return The name of the class of the character
      */
     String getCharacterClassNameFromPosition(Position position);
+
+    /**
+     * Returns a random move name.
+     * @param position the position of the character from which get the move name.
+     * @return a move name.
+     */
+    String getCharacterRandomMoveNameFromPosition(Position position);
 }
