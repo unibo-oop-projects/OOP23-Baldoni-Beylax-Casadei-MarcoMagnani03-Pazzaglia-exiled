@@ -220,7 +220,8 @@ public final class GameView {
                         gameOverView.display();
                         mainFrame.dispose();
                     } else if (gameController.getMapController()
-                            .isEnemyInCell(gameController.getCharacterController().getPlayerPosition())) {
+                            .isEnemyInCell(gameController.getCharacterController()
+                                    .getPlayerPosition())) {
                         initializeCombat();
                         draw();
                     } else {
