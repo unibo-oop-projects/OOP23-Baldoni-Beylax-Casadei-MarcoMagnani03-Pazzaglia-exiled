@@ -94,7 +94,7 @@ public final class GameView {
         this.playerView = new CharacterView(
                 gameController.getCharacterController().getImagePathOfCharacter("player", "boy"));
         this.combatView = new CombatView(this.gameController);
-        final MenuView menuView = new MenuView(this, null);
+        final MenuView menuView = new MenuView(this, new NewGameView());
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
         final PlayerClassView classView = new PlayerClassView(this.gameController, this);
         this.playerClassPanel.add(classView);
