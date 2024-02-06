@@ -13,11 +13,13 @@ import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.Serial;
 
 /**
  * The view of the in-game menu.
  */
 public final class MenuView extends JPanel {
+    @Serial
     private static final long serialVersionUID = 4L;
 
     /**
@@ -47,7 +49,7 @@ public final class MenuView extends JPanel {
         cnst.gridy++;
         final ActionListener buttonListener = new MenuItemActionListener(game, newGameView);
 
-        if(game != null){ // Menu In-Game
+        if (game != null) { // Menu In-Game
             final GameButton resumeGameButton = new GameButton("RESUME");
             resumeGameButton.setActionCommand("close_menu");
             resumeGameButton.addActionListener(buttonListener);
@@ -70,5 +72,5 @@ public final class MenuView extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(buttonListPanel, BorderLayout.CENTER);
     }
-    
+
 }
