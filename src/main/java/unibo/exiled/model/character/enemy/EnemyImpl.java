@@ -17,7 +17,6 @@ import java.util.Optional;
 public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
     private final MoveSet moveSet;
     private final ElementalType type;
-    //TODO Replace with factory random.
     private final Optional<Item> heldItem;
 
     /**

@@ -140,8 +140,9 @@ public interface CharacterController {
 
     /**
      * Return the name of the class of the character at the specified position.
+     *
      * @param position The position of the character whose class name is to be obtained.
      * @return The name of the class of the character
      */
-    String getCharacterClassNameFromPosition(final Position position);
+    String getCharacterClassNameFromPosition(Position position);
 }

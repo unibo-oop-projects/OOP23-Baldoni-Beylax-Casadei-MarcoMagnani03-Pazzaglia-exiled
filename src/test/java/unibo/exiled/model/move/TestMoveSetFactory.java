@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-final class MoveSetFactoryImplTest {
+final class TestMoveSetFactory {
 
     @Test
     void testDefaultNormalMoveSet() {

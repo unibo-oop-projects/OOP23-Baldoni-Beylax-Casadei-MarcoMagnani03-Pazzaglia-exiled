@@ -19,13 +19,6 @@ public interface EnemyFactory {
     Enemy createBrutus();
 
     /**
-     * Creates a random enemy.
-     *
-     * @return The created random enemy.
-     */
-    Enemy createRandom();
-
-    /**
      * Creates a water Boss.
      *
      * @return A water enemy that drops one of the crystals to end the game.
@@ -52,4 +45,11 @@ public interface EnemyFactory {
      * @return A grass enemy that drops one of the crystals to end the game.
      */
     Enemy createGrassBoss();
+
+    /**
+     * Creates a random enemy.
+     *
+     * @return A random enemy in the factory.
+     */
+    Enemy createRandom();
 }

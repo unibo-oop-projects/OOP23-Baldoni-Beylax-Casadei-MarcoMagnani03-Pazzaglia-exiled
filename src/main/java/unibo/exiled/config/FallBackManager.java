@@ -41,7 +41,9 @@ public final class FallBackManager {
         MAP_SIZE("20"),
         DEFAULT_MODIFIER("1.0"),
         MOVES_LEARNING_INTERVAL("5"),
-        EXPERIENCE_MULTIPLIER("0.2");
+        EXPERIENCE_MULTIPLIER("0.2"),
+        STARTING_SIZE("10"),
+        SAFE_ZONE("4");
         private final String defaultValue;
 
         FallbackValues(final String defaultValue) {

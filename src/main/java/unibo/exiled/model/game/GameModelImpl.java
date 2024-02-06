@@ -2,13 +2,13 @@ package unibo.exiled.model.game;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.character.GameCharacter;
+import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.enemy.EnemyCollection;
-import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
+import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyFactory;
 import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
-import unibo.exiled.model.character.enemy.Enemy;
+import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
 import unibo.exiled.model.character.enemy.BossEnemy;
-import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.item.HealingItem;
@@ -80,14 +80,15 @@ public final class GameModelImpl implements GameModel {
     }
 
     private void enemyInitialization(final int number) {
-        final Random random = new Random();
         Position newEnemyPosition;
         final EnemyFactory factory = new EnemyFactoryImpl();
         for (int i = 0; i < number; i++) {
-            do {
-                newEnemyPosition = new Position(random.nextInt(mapModel.getSize()), random.nextInt(mapModel.getSize()));
-            } while (!isCellEmpty(newEnemyPosition) && isCornerOfMap(newEnemyPosition));
             final Enemy newEnemy = factory.createRandom();
+            do {
+                newEnemyPosition = new Position(RANDOM.nextInt(mapModel.getSize()), RANDOM.nextInt(mapModel.getSize()));
+            } while (!isCellEmpty(newEnemyPosition)
+                    || isCornerOfMap(newEnemyPosition)
+                    || !(getCellTypeOf(newEnemyPosition).getAssociatedType().equals(newEnemy.getType())));
             newEnemy.move(newEnemyPosition);
             this.enemyCollection.addEnemy(newEnemy);
         }
@@ -132,8 +133,13 @@ public final class GameModelImpl implements GameModel {
         }
     }
 
-    // Check if in the position there is already another enemy
-    private boolean checkOtherEnemies(final Position newPosition) {
+    /**
+     * Checks if the position is occupied by another enemy.
+     *
+     * @param newPosition The new calculated position.
+     * @return True if the position is free, false otherwise.
+     */
+    private boolean isEnemyInCell(final Position newPosition) {
         return this.enemyCollection.getEnemies().stream().noneMatch(enemy -> enemy.getPosition().equals(newPosition));
     }
 
@@ -193,10 +199,10 @@ public final class GameModelImpl implements GameModel {
                 if (!isEnemyNearThePlayer(enemy)) {
                     do {
                         rndDirection = Direction.values()[RANDOM.nextInt(4)];
-                    } while (!this.mapModel.isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
-                            && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
+                        newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
+                    } while (!this.mapModel.isInBoundaries(newPosition)
+                            && isEnemyInCell(newPosition));
                     enemy.setLastDirection(rndDirection);
-                    newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
                 } else {
                     /*
                      * If the enemy and the player are close by a certain range of cells,
@@ -214,7 +220,10 @@ public final class GameModelImpl implements GameModel {
                         enemy.setLastDirection(chaseDirection);
                     }
                 }
-                enemy.move(newPosition);
+                if (isEnemyInCell(newPosition)
+                        && getCellTypeOf(newPosition).getAssociatedType().equals(enemy.getType())) {
+                    enemy.move(newPosition);
+                }
             }
 
         }

@@ -134,7 +134,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * @return The experience points needed for the next level.
      */
     private int calculateNextLevelExperience() {
-        return this.expCap + this.expCap * Integer.parseInt(Constants.getConstantOf("EXPERIENCE_MULTIPLIER"));
+        //TODO: Non ho capito il modificatore che moltiplicavi, perchè int?
+        return this.expCap + this.expCap; //* Integer.parseInt(Constants.getConstantOf("EXPERIENCE_MULTIPLIER"));
     }
 
     /**
