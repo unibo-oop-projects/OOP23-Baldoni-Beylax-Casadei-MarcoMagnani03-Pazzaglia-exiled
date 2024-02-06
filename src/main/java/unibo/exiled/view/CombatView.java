@@ -25,7 +25,7 @@ import java.awt.FlowLayout;
  */
 public final class CombatView extends JPanel {
     private static final long serialVersionUID = 1L;
-    
+
     private static final int BUTTON_FONT_SIZE = 40;
 
     private final transient GameController gameController;
@@ -59,7 +59,8 @@ public final class CombatView extends JPanel {
         final String playerClass = this.gameController.getCharacterController().getPlayerClassName().toLowerCase();
         final JLabel playerLabel = new CharacterView(
                 this.gameController.getCharacterController().getImagePathOfCharacter(
-                        Constants.PLAYER_PATH + File.separator + playerClass, Constants.PLAYER_NAME + "_" + playerClass));
+                        Constants.PLAYER_PATH + File.separator + playerClass,
+                        Constants.PLAYER_NAME + "_" + playerClass));
         this.battlePanel.add(playerLabel);
 
         this.enemyLabel = new JLabel("", SwingConstants.CENTER);
@@ -113,7 +114,9 @@ public final class CombatView extends JPanel {
                 } catch (Exception error) {
                 }
                 // Enemy turn to attack
-                hasACharacterDied = this.gameController.getCharacterController().attack(false, this.gameController.getCharacterController().getCharacterRandomMoveNameFromPosition(combatPosition),
+                hasACharacterDied = this.gameController.getCharacterController().attack(false,
+                        this.gameController.getCharacterController()
+                                .getCharacterRandomMoveNameFromPosition(combatPosition),
                         this.combatPosition);
                 // TODO: Redraw barra della vita del player
             });
@@ -126,7 +129,7 @@ public final class CombatView extends JPanel {
         final double healthCap = gameController.getCharacterController()
                 .getCharacterHealthCapFromPosition(this.combatPosition);
         this.enemyHealthBar.setText("Health: " + health + " / " + healthCap);
-        if(health <= (healthCap / 100) * 25 ){
+        if (health <= (healthCap / 100) * 25) {
             this.enemyHealthBar.setForeground(Color.RED);
         }
     }
