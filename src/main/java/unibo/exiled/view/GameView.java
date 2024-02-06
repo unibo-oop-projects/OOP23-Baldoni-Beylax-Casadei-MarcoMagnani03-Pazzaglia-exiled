@@ -220,9 +220,9 @@ public final class GameView {
                         initializeCombat();
                         draw();
                     } else {
-                        playerView.changeImage(directionPressed, gameController.getCharacterController().
-                                getIfCharacterInPositionIsMoving(gameController.getCharacterController().
-                                        getPlayerPosition()));
+                        playerView.changeImage(directionPressed,
+                                gameController.getCharacterController().getIfCharacterInPositionIsMoving(
+                                        gameController.getCharacterController().getPlayerPosition()));
                         draw();
                     }
                 }
@@ -237,9 +237,23 @@ public final class GameView {
     }
 
     private void draw() {
-        this.gridPanel.removeAll();
-        for (int i = 0; i < this.gameController.getMapController().getMapSize(); i++) {
-            for (int j = 0; j < this.gameController.getMapController().getMapSize(); j++) {
+        final Position playerPosition = gameController.getCharacterController().getPlayerPosition();
+        final int mapSize = this.gameController.getMapController().getMapSize();
+        final int range = 5;
+
+        final int startingY = Math.max(0, playerPosition.y() - range);
+        final int endingY = Math.min(mapSize, playerPosition.y() + range + 1);
+        final int startingX = Math.max(0, playerPosition.x() - range);
+        final int endingX = Math.min(mapSize, playerPosition.x() + range + 1);
+
+        this.gamePanel.remove(this.gridPanel);
+
+        this.gridPanel = new JPanel(new GridLayout(endingY - startingY, endingX - startingX));
+
+        this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
+
+        for (int i = startingY; i < endingY; i++) {
+            for (int j = startingX; j < endingX; j++) {
                 placeCell(new Position(j, i));
             }
         }
@@ -247,6 +261,7 @@ public final class GameView {
         this.mainFrame.revalidate();
         this.mainFrame.repaint();
     }
+
 
     /**
      * Colors the map areas based on the respective type.
@@ -267,7 +282,7 @@ public final class GameView {
             label = new CharacterView(characterImagePath);
             ((CharacterView) label)
                     .changeImage(gameController.getMapController()
-                                    .getLastDirectionOfCharacterInPosition(position),
+                            .getLastDirectionOfCharacterInPosition(position),
                             gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
         } else {
             label = new JLabel();
@@ -308,6 +323,9 @@ public final class GameView {
         }
     }
 
+    /**
+     * Shows the combat view.
+     */
     private void initializeCombat() {
         this.combatView.setEnemy();
         this.showCombat();
