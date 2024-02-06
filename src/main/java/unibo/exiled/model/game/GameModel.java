@@ -157,4 +157,18 @@ public interface GameModel {
      * @param playerClass The ElementalType representing the new elemental class of the player.
      */
     void assignPlayerClass(PlayerClass playerClass);
+
+    /**
+     * Retrieves the current experience of the player.
+     *
+     * @return The current experience of the player.
+     */
+    int getPlayerCurrentExperience();
+
+    /**
+     * Retrieves the experience cap of the player.
+     *
+     * @return The experience cap of the player.
+     */
+    int getPlayerExperienceCap();
 }

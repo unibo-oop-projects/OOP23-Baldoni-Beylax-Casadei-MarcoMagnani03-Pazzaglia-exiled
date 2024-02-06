@@ -15,7 +15,6 @@ import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
-import unibo.exiled.view.items.GameProgressBar;
 import unibo.exiled.view.menu.MenuView;
 
 import javax.swing.JLabel;
@@ -157,19 +156,19 @@ public final class GameView {
     }
 
     private JPanel getProgressPanel() {
-        final GameProgressBar healthBar = new GameProgressBar();
-        healthBar.updateProgress(gameController.getCharacterController().getPlayerHealth());
-        final GameLabel levelLabel = new GameLabel(
-                "Level: " + gameController.getCharacterController().getPlayerLevel());
-        final GameLabel classLabel = new GameLabel(
-                "Class: " + gameController.getCharacterController().getPlayerClassName());
-
-        final JPanel statusPanel = new JPanel(new FlowLayout());
+        final GameLabel healthBar = new GameLabel("Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
+        + gameController.getCharacterController().getPlayerHealthCap());
+        final GameLabel levelLabel = new GameLabel("Level: " + gameController.getCharacterController().getPlayerLevel());
+        final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getPlayerClassName());
+        final int currentExperience = gameController.getCharacterController().getPlayerCurrentExperience();
+        final int experienceCap = gameController.getCharacterController().getPlayerExperienceCap();
+        final GameLabel experienceLabel = new GameLabel("Experience: " + currentExperience + " / " + experienceCap);
+        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5)); 
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
-
         statusPanel.add(healthBar);
         statusPanel.add(levelLabel);
         statusPanel.add(classLabel);
+        statusPanel.add(experienceLabel);
         return statusPanel;
     }
 

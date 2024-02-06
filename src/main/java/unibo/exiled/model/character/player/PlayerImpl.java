@@ -30,8 +30,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     private final MoveSet moveSet;
     private final int movesLearningInterval;
     private int level;
-    private double currentExp;
-    private double expCap;
+    private int currentExp;
+    private int expCap;
     private PlayerClass playerClass;
     private int levelToLearnAMove;
 
@@ -48,7 +48,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * @param movesLearningInterval The interval at which the player learns new
      *                              magical moves.
      */
-    public PlayerImpl(final double experienceCap, final double initialExperience, final int levelIncrease,
+    public PlayerImpl(final int experienceCap, final int initialExperience, final int levelIncrease,
                       final int movesNumber, final int movesLearningInterval) {
         super("boy", new AttributeFactoryImpl().createPlayerAttributes());
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
@@ -104,7 +104,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * @return the experience points of the player.
      */
     @Override
-    public double getExperience() {
+    public int getExperience() {
         return this.currentExp;
     }
 
@@ -133,8 +133,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      *
      * @return The experience points needed for the next level.
      */
-    private double calculateNextLevelExperience() {
-        return this.expCap + this.expCap * Double.parseDouble(Constants.getConstantOf("EXPERIENCE_MULTIPLIER"));
+    private int calculateNextLevelExperience() {
+        return this.expCap + this.expCap * Integer.parseInt(Constants.getConstantOf("EXPERIENCE_MULTIPLIER"));
     }
 
     /**
@@ -206,5 +206,10 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     public void useItem(final UsableItem item) {
         item.use(this);
         inventory.removeItem(item);
+    }
+
+    @Override
+    public int getCapExperience() {
+        return this.expCap;
     }
 }

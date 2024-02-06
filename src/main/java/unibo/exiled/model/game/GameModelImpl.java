@@ -53,8 +53,8 @@ public final class GameModelImpl implements GameModel {
         //Constants loading
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         final int moveNumber = Integer.parseInt(Constants.getConstantOf("NUM_PLAYER_MOVES"));
-        final double playerExperienceCap = Double.parseDouble(Constants.getConstantOf("PLAYER_EXPERIENCE_CAP"));
-        final double defaultExperience = Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE"));
+        final int playerExperienceCap = Integer.parseInt(Constants.getConstantOf("PLAYER_EXPERIENCE_CAP"));
+        final int defaultExperience = Integer.parseInt(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE"));
         final int playerLevelIncrease = Integer.parseInt(Constants.getConstantOf("PLAYER_LEVEL_INCREASE"));
         final int enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));
         final int mapSize = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
@@ -96,8 +96,8 @@ public final class GameModelImpl implements GameModel {
         this.enemyCollection.addEnemy(bossWater);
     }
 
-    private void playerInitialization(final double playerExperienceCap,
-                                      final double defaultExperience,
+    private void playerInitialization(final int playerExperienceCap,
+                                      final int defaultExperience,
                                       final int levelIncrease,
                                       final int moveNumber,
                                       final int movesLearningInterval) {
@@ -225,6 +225,16 @@ public final class GameModelImpl implements GameModel {
     @Override
     public int getPlayerLevel() {
         return player.getLevel();
+    }
+
+    @Override
+    public int getPlayerCurrentExperience() {
+        return player.getExperience();
+    }
+
+    @Override
+    public int getPlayerExperienceCap() {
+        return player.getCapExperience();
     }
 
     @Override

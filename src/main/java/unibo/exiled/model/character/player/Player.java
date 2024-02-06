@@ -21,7 +21,7 @@ public interface Player extends GameCharacter {
      *
      * @return the experience points of the player.
      */
-    double getExperience();
+    int getExperience();
 
     /**
      * Gets the inventory of the player.
@@ -58,5 +58,12 @@ public interface Player extends GameCharacter {
      * @param item The UsableItem to be used.
      */
     void useItem(UsableItem item);
+    
+    /**
+     * Gets the experience cap of the player.
+     *
+     * @return the experience cap of the player.
+     */
+    int getCapExperience();
 
 }

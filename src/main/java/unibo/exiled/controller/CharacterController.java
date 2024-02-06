@@ -34,6 +34,13 @@ public interface CharacterController {
     double getPlayerHealth();
 
     /**
+     * Gets the cap health of the player.
+     *
+     * @return A double representing the cap of the health of the player.
+     */
+    double getPlayerHealthCap();
+
+    /**
      * Gets the level of the player.
      *
      * @return A integer representing the level of the player.
@@ -46,6 +53,20 @@ public interface CharacterController {
      * @return A string representing the class name of the player.
      */
     String getPlayerClassName();
+
+        /**
+     * Retrieves the current experience of the player.
+     *
+     * @return The current experience of the player.
+     */
+    int getPlayerCurrentExperience();
+
+    /**
+     * Retrieves the experience cap of the player.
+     *
+     * @return The experience cap of the player.
+     */
+    int getPlayerExperienceCap();
 
     /**
      * Gets the position of the player.

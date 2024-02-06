@@ -45,8 +45,23 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
+    public double getPlayerHealthCap() {
+        return this.model.getPlayerAttributeOf(AttributeIdentifier.HEALTHCAP);
+    }
+
+    @Override
     public int getPlayerLevel() {
         return this.model.getPlayerLevel();
+    }
+
+    @Override
+    public int getPlayerCurrentExperience() {
+        return this.model.getPlayerCurrentExperience();
+    }
+
+    @Override
+    public int getPlayerExperienceCap() {
+        return this.model.getPlayerExperienceCap();
     }
 
     @Override
