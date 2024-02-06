@@ -1,6 +1,7 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
+import unibo.exiled.model.character.player.PlayerClassImpl;
 import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.TitleGameLabel;
@@ -81,15 +82,15 @@ public final class PlayerClassView extends JPanel {
      *
      * @param playerClass the class decided by the user.
      */
-    private void classDecision(final ElementalType playerClass) {
+    private void classDecision(final ElementalType playerType) {
         final int result = JOptionPane.showConfirmDialog(
                 this,
-                "Are you sure you want to choose " + playerClass.getName() + " class?",
+                "Are you sure you want to choose " + playerType.getName() + " class?",
                 "Confirmation",
                 JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
-            this.controller.getCharacterController().assignPlayerClass(playerClass);
+            this.controller.getCharacterController().assignPlayerClass(new PlayerClassImpl(playerType));
             this.gameView.initializeHUD();
             this.gameView.hidePlayerClass();
         }

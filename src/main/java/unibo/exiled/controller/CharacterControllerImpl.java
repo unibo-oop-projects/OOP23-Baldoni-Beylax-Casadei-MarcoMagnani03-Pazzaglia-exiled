@@ -1,9 +1,9 @@
 package unibo.exiled.controller;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getPlayerClassName() {
-        return this.model.getPlayerClass().getName();
+        return this.model.getPlayerClass().getElementalType().getName();
     }
 
     @Override
@@ -80,12 +80,11 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public void attack(final boolean cond) {
-        // TODO: Implement attack logic
-        throw new UnsupportedOperationException("Unimplemented method 'attack'");
+        
     }
 
     @Override
-    public void assignPlayerClass(final ElementalType playerClass) {
+    public void assignPlayerClass(final PlayerClass playerClass) {
         model.assignPlayerClass(playerClass);
     }
 

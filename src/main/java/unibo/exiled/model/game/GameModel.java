@@ -2,12 +2,12 @@ package unibo.exiled.model.game;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.Map;
@@ -50,7 +50,7 @@ public interface GameModel {
      *
      * @return The elemental class of the player.
      */
-    ElementalType getPlayerClass();
+    PlayerClass getPlayerClass();
 
     /**
      * Gest the player move set.
@@ -156,5 +156,5 @@ public interface GameModel {
      *
      * @param playerClass The ElementalType representing the new elemental class of the player.
      */
-    void assignPlayerClass(ElementalType playerClass);
+    void assignPlayerClass(PlayerClass playerClass);
 }

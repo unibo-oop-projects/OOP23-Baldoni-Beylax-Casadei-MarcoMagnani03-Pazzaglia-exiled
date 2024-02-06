@@ -2,8 +2,8 @@ package unibo.exiled.controller;
 
 import java.util.List;
 
+import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 /**
@@ -85,7 +85,7 @@ public interface CharacterController {
      *
      * @param playerClass The ElementalType representing the new elemental class of the player.
      */
-    void assignPlayerClass(ElementalType playerClass);
+    void assignPlayerClass(PlayerClass playerClass);
 
     /**
      * Gets the state of the character in a certain position.
