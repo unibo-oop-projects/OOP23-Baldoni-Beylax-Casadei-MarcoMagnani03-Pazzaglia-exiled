@@ -14,6 +14,7 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
 
     private final AttributeIdentifier boostedAttribute;
     private final int duration;
+    private int currentDuration;
     private final double powerUpValue;
 
     /**
@@ -29,6 +30,7 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
                        final AttributeIdentifier boostedAttribute) {
         super(name, description, ItemType.POWERUP);
         this.duration = duration;
+        this.currentDuration = duration;
         this.boostedAttribute = boostedAttribute;
         this.powerUpValue = powerUpValue;
     }
@@ -36,6 +38,13 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
     @Override
     public void use(final Player player) {
         player.increaseAttributeModifier(boostedAttribute, powerUpValue);
+    }
+
+    @Override
+    public void disable(final Player player) {
+        if(this.currentDuration==0){
+            player.decreaseAttributeModifier(boostedAttribute, powerUpValue);
+        }
     }
 
     /**
@@ -66,5 +75,10 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
      */
     public AttributeIdentifier getBoostedAttribute() {
         return this.boostedAttribute;
+    }
+
+    @Override
+    public void decreaseDuration() {
+        this.currentDuration--;
     }
 }
