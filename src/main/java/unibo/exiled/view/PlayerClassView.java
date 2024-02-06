@@ -9,6 +9,7 @@ import unibo.exiled.view.items.TitleGameLabel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.Serial;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
  * View where the player decides his class.
  */
 public final class PlayerClassView extends JPanel {
+    @Serial
     private static final long serialVersionUID = 7L;
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;
@@ -77,11 +79,6 @@ public final class PlayerClassView extends JPanel {
         return button;
     }
 
-    /**
-     * Method where the player class is set.
-     *
-     * @param playerClass the class decided by the user.
-     */
     private void classDecision(final ElementalType playerType) {
         final int result = JOptionPane.showConfirmDialog(
                 this,

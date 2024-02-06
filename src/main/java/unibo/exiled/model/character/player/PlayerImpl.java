@@ -24,15 +24,15 @@ import unibo.exiled.model.item.UsableItem;
 /**
  * This class represent the implementation of the player in the game.
  */
-public class PlayerImpl extends GameCharacterImpl implements Player {
+public final class PlayerImpl extends GameCharacterImpl implements Player {
     private final int levelInc;
+    private final Inventory inventory;
+    private final MoveSet moveSet;
+    private final int movesLearningInterval;
     private int level;
     private double currentExp;
     private double expCap;
-    private final Inventory inventory;
-    private final MoveSet moveSet;
     private PlayerClass playerClass;
-    private final int movesLearningInterval;
     private int levelToLearnAMove;
 
     /**
@@ -49,7 +49,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
      *                              magical moves.
      */
     public PlayerImpl(final double experienceCap, final double initialExperience, final int levelIncrease,
-            final int movesNumber, final int movesLearningInterval) {
+                      final int movesNumber, final int movesLearningInterval) {
         super("boy", new AttributeFactoryImpl().createPlayerAttributes());
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         this.inventory = initializeInventory();
@@ -80,7 +80,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
 
     /**
      * Gets the MoveSet of the character to be used in a battle.
-     * 
+     *
      * @return the MoveSet of the current character.
      */
     @Override
@@ -90,7 +90,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
 
     /**
      * Gets the level of the player.
-     * 
+     *
      * @return the level of the player.
      */
     @Override
@@ -100,7 +100,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
 
     /**
      * Gets the experience of the player.
-     * 
+     *
      * @return the experience points of the player.
      */
     @Override
@@ -110,7 +110,7 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
 
     /**
      * Gets the inventory of the player.
-     * 
+     *
      * @return the inventory containing the player's items.
      */
     @Override
@@ -169,11 +169,11 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
             Optional<MagicMove> newMove;
 
             // If the player knows all moves of their type, learn a move of a different type
-            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass.getElementalType()))) {
+            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass.elementalType()))) {
                 newMove = Optional.of(Moves.getTotallyRandomMove());
             } else {
                 do {
-                    newMove = Moves.getRandomMagicMoveByType(playerClass.getElementalType());
+                    newMove = Moves.getRandomMagicMoveByType(playerClass.elementalType());
                     // If there are no moves of the specified type, choose a completely random move
                     newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove()) : newMove;
                     // Continue searching until finding a move the player doesn't already know
@@ -186,43 +186,22 @@ public class PlayerImpl extends GameCharacterImpl implements Player {
         }
     }
 
-    /**
-     * Sets the elemental type chosen from the player.
-     * 
-     * @param playerClassChoice the class choosen.
-     */
-    @Override
-    public void setPlayerClass(final PlayerClass playerClassChoice) {
-        this.playerClass = playerClassChoice;
-    }
-
-    /**
-     * Gets the player class.
-     * 
-     * @return the player class.
-     */
     @Override
     public PlayerClass getPlayerClass() {
         return this.playerClass;
     }
 
-    /**
-     * Adds experience, if it exceeds the levelUp cap by increasing statistics.
-     * 
-     * @param exp experience provided to the user.
-     */
+    @Override
+    public void setPlayerClass(final PlayerClass playerClassChoice) {
+        this.playerClass = playerClassChoice;
+    }
+
     @Override
     public void addExperience(final double exp) {
         this.currentExp += exp;
         levelUp();
     }
 
-    /**
-     * Uses the specified UsableItem. The effect of the item is applied to the player,
-     * and the item is consumed from the player's inventory.
-     *
-     * @param item The UsableItem to be used.
-     */
     @Override
     public void useItem(final UsableItem item) {
         item.use(this);

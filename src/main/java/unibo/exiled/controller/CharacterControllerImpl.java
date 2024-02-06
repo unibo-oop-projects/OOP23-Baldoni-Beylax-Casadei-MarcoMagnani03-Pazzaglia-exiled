@@ -1,14 +1,16 @@
 package unibo.exiled.controller;
 
+import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.game.GameModel;
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * Implementation of the CharacterController interface.
@@ -49,7 +51,7 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getPlayerClassName() {
-        return this.model.getPlayerClass().getElementalType().getName();
+        return this.model.getPlayerClass().elementalType().getName();
     }
 
     @Override
@@ -69,27 +71,31 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public List<String> getMagicMoveNames() {
-        return this.model.getMagicMoves().stream().map(move -> move.name()).collect(Collectors.toUnmodifiableList());
+        return this.model.getMagicMoves().stream().map(MagicMove::name).toList();
     }
 
     @Override
     public List<String> getPlayerMoveSet() {
-        return this.model.getPlayerMoveSet().getMagicMoves().stream().map(move -> move.name())
-                .collect(Collectors.toUnmodifiableList());
+        return this.model.getPlayerMoveSet().getMagicMoves().stream().map(MagicMove::name).toList();
     }
 
     @Override
     public void attack(final boolean cond) {
-        
+        throw new UnsupportedOperationException("Unimplemented");
     }
 
     @Override
     public void assignPlayerClass(final PlayerClass playerClass) {
-        model.assignPlayerClass(playerClass);
+        this.model.assignPlayerClass(playerClass);
     }
 
     @Override
     public boolean getIfCharacterInPositionIsMoving(final Position position) {
-        return model.getCharacterFromPosition(position).get().spriteIsMoving();
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
+        if (gottenCharacter.isPresent()) {
+            return gottenCharacter.get().spriteIsMoving();
+        } else {
+            throw new IllegalArgumentException("The position doesn't contain a character.");
+        }
     }
 }

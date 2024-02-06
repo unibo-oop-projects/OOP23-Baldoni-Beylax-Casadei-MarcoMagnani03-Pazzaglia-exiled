@@ -53,7 +53,7 @@ final class TestPlayer {
     @Test
     void testSetAndGetPlayerClass() {
         player.setPlayerClass(new PlayerClassImpl(ElementalType.FIRE));
-        assertEquals(ElementalType.FIRE, player.getPlayerClass().getElementalType());
+        assertEquals(ElementalType.FIRE, player.getPlayerClass().elementalType());
     }
 
     @Test
