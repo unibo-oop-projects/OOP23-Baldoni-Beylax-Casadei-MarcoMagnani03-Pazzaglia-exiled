@@ -91,9 +91,19 @@ public final class GameModelImpl implements GameModel {
             newEnemy.move(newEnemyPosition);
             this.enemyCollection.addEnemy(newEnemy);
         }
+        //Boss creation
         final Enemy bossWater = factory.createWaterBoss();
         bossWater.move(this.mapModel.getCornerOfType(CellType.SWAMP));
         this.enemyCollection.addEnemy(bossWater);
+        final Enemy bossFire = factory.createFireBoss();
+        bossFire.move(this.mapModel.getCornerOfType(CellType.VOLCANO));
+        this.enemyCollection.addEnemy(bossFire);
+        final Enemy bossBolt = factory.createBoltBoss();
+        bossBolt.move(this.mapModel.getCornerOfType(CellType.STORM));
+        this.enemyCollection.addEnemy(bossBolt);
+        final Enemy bossGrass = factory.createGrassBoss();
+        bossGrass.move(this.mapModel.getCornerOfType(CellType.FOREST));
+        this.enemyCollection.addEnemy(bossGrass);
     }
 
     private void playerInitialization(final int playerExperienceCap,
