@@ -39,7 +39,6 @@ public final class GameView {
     private final CharacterView playerView;
     private final CombatView combatView;
     private final GameOverView gameOverView;
-    private final GameCompletedView gameCompletedView;
 
     // MVC Components(MC)
     private final JFrame mainFrame;
@@ -91,7 +90,7 @@ public final class GameView {
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
 
         this.gameOverView = new GameOverView();
-        this.gameCompletedView = new GameCompletedView();
+        //GameCompletedView gameCompletedView = new GameCompletedView();
         this.playerView = new CharacterView(
                 gameController.getCharacterController().getImagePathOfCharacter("player", "boy"));
         this.combatView = new CombatView(this.gameController);
