@@ -4,8 +4,8 @@ package unibo.exiled.model.menu;
  * Represents a menu item with associated text and command.
  */
 public class MenuItem {
-    private String itemText;
     private final Command itemCommand;
+    private String itemText;
 
     /**
      * Constructs a MenuItem with the specified text and command.
@@ -28,20 +28,20 @@ public class MenuItem {
     }
 
     /**
-     * Gets the command associated with the menu item.
-     *
-     * @return The command associated with the menu item.
-     */
-    public Command getItemCommand() {
-        return this.itemCommand;
-    }
-
-    /**
      * Sets the text of the menu item.
      *
      * @param text The new text for the menu item.
      */
     public void setItemText(final String text) {
         this.itemText = text;
+    }
+
+    /**
+     * Gets the command associated with the menu item.
+     *
+     * @return The command associated with the menu item.
+     */
+    public Command getItemCommand() {
+        return this.itemCommand;
     }
 }

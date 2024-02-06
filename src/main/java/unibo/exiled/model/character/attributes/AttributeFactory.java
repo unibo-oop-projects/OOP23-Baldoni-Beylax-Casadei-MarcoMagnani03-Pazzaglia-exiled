@@ -48,4 +48,11 @@ public interface AttributeFactory {
      *  @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createBrutusAttributes();
+
+    /**
+     * Creates the attributes of the Boss.
+     *
+     * @return A map of attributes with the overly specified values.
+     */
+    Map<AttributeIdentifier, Attribute> createBossAttributes();
 }

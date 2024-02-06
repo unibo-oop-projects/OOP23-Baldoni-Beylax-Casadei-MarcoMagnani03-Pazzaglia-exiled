@@ -6,12 +6,15 @@ import unibo.exiled.model.move.MoveSetFactory;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
 import unibo.exiled.model.utilities.ElementalType;
 
+import java.util.Optional;
 import java.util.Random;
 
 /**
  * The implementation of the enemy factory.
  */
 public final class EnemyFactoryImpl implements EnemyFactory {
+    private static final int REFLECTION_METHODS_OFFSET = 10;
+    private static final int ENEMY_CREATION_OMISSIONS = 4;
     private static final Random RANDOM = new Random();
     private final MoveSetFactory moveSetFactory;
     private final AttributeFactory attributeFactory;
@@ -31,7 +34,10 @@ public final class EnemyFactoryImpl implements EnemyFactory {
         return new EnemyImpl(
                 "Goblin",
                 moveSetFactory.defaultNormalMoveSet(1),
-                attributeFactory.createGoblinAttributes(), ElementalType.NORMAL) {
+                attributeFactory.createGoblinAttributes(),
+                ElementalType.NORMAL,
+                //TODO: Replace with the random creation.
+                Optional.empty()) {
             @Override
             public double getDroppedExperience() {
                 return defaultExperience;
@@ -44,7 +50,10 @@ public final class EnemyFactoryImpl implements EnemyFactory {
         return new EnemyImpl(
                 "Brutus",
                 moveSetFactory.defaultNormalMoveSet(1),
-                attributeFactory.createBrutusAttributes(), ElementalType.FIRE) {
+                attributeFactory.createBrutusAttributes(),
+                ElementalType.FIRE,
+                //TODO: Replace with the random creation.
+                Optional.empty()) {
             @Override
             public double getDroppedExperience() {
                 return defaultExperience * 2;
@@ -54,7 +63,8 @@ public final class EnemyFactoryImpl implements EnemyFactory {
 
     @Override
     public Enemy createRandom() {
-        final int factoryMethodsCount = this.getClass().getMethods().length - 10;
+        final int factoryMethodsCount = this.getClass().getMethods().length
+                - (REFLECTION_METHODS_OFFSET + ENEMY_CREATION_OMISSIONS);
         final int choice = RANDOM.nextInt(factoryMethodsCount);
         switch (choice) {
             case 0 -> {
@@ -65,5 +75,29 @@ public final class EnemyFactoryImpl implements EnemyFactory {
             }
             default -> throw new IllegalStateException("No enemy-creation method found!");
         }
+    }
+
+    @Override
+    public Enemy createWaterBoss() {
+        return new BossEnemy(
+                "Carlone",
+                moveSetFactory.defaultWaterMoveSet(4),
+                attributeFactory.createBossAttributes(),
+                ElementalType.WATER);
+    }
+
+    @Override
+    public Enemy createFireBoss() {
+        return null;
+    }
+
+    @Override
+    public Enemy createBoltBoss() {
+        return null;
+    }
+
+    @Override
+    public Enemy createGrassBoss() {
+        return null;
     }
 }

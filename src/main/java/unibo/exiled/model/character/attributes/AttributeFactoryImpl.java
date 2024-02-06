@@ -23,19 +23,21 @@ public final class AttributeFactoryImpl implements AttributeFactory {
 
     @Override
     public Map<AttributeIdentifier, Attribute> createPlayerAttributes() {
-
         return fromValues(BASE_HEALTH * 10, 1, 1, 1, BASE_HEALTH * 10);
     }
 
     @Override
     public Map<AttributeIdentifier, Attribute> createGoblinAttributes() {
-
         return fromValues(BASE_HEALTH, 1, 1, 1, BASE_HEALTH);
     }
 
     @Override
     public Map<AttributeIdentifier, Attribute> createBrutusAttributes() {
-
         return fromValues(BASE_HEALTH * 2, 1, 1, 1, BASE_HEALTH * 2);
+    }
+
+    @Override
+    public Map<AttributeIdentifier, Attribute> createBossAttributes() {
+        return fromValues(BASE_HEALTH * 10, 1, 1, 1, BASE_HEALTH * 3);
     }
 }

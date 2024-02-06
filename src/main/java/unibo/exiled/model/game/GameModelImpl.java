@@ -3,10 +3,11 @@ package unibo.exiled.model.game;
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.enemy.EnemyCollection;
-import unibo.exiled.model.character.enemy.Enemy;
-import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
 import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
 import unibo.exiled.model.character.enemy.EnemyFactory;
+import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
+import unibo.exiled.model.character.enemy.Enemy;
+import unibo.exiled.model.character.enemy.BossEnemy;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.item.HealingItem;
@@ -28,11 +29,12 @@ import unibo.exiled.model.character.attributes.CombinedAttribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.attributes.Attribute;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.Random;
+import java.util.Optional;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  * The implementation of the game core.
@@ -68,6 +70,15 @@ public final class GameModelImpl implements GameModel {
         this.enemyInitialization(enemyNumber);
     }
 
+    private boolean isCornerOfMap(final Position position) {
+        final int x = position.x();
+        final int y = position.y();
+        return x == 0 && y == 0
+                || x == getMapSize() && y == getMapSize()
+                || x == 0 && y == getMapSize()
+                || y == 0 && x == getMapSize();
+    }
+
     private void enemyInitialization(final int number) {
         final Random random = new Random();
         Position newEnemyPosition;
@@ -75,11 +86,14 @@ public final class GameModelImpl implements GameModel {
         for (int i = 0; i < number; i++) {
             do {
                 newEnemyPosition = new Position(random.nextInt(mapModel.getSize()), random.nextInt(mapModel.getSize()));
-            } while (!isCellEmpty(newEnemyPosition));
+            } while (!isCellEmpty(newEnemyPosition) && isCornerOfMap(newEnemyPosition));
             final Enemy newEnemy = factory.createRandom();
             newEnemy.move(newEnemyPosition);
             this.enemyCollection.addEnemy(newEnemy);
         }
+        final Enemy bossWater = factory.createWaterBoss();
+        bossWater.move(this.mapModel.getCornerOfType(CellType.SWAMP));
+        this.enemyCollection.addEnemy(bossWater);
     }
 
     private void playerInitialization(final double playerExperienceCap,
@@ -163,33 +177,36 @@ public final class GameModelImpl implements GameModel {
         Direction rndDirection;
 
         for (final Enemy enemy : this.enemyCollection) {
-            final Position currentEnemyPosition = enemy.getPosition();
-            Position newPosition = currentEnemyPosition;
-            if (!isEnemyNearThePlayer(enemy)) {
-                do {
-                    rndDirection = Direction.values()[RANDOM.nextInt(4)];
-                } while (!this.mapModel.isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
-                        && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
-                enemy.setLastDirection(rndDirection);
-                newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
-            } else {
-                /*
-                 * If the enemy and the player are close by a certain range of cells,
-                 * then the enemy will try to chase the player.
-                 */
-                final Position playerPosition = this.player.getPosition();
+            if (!(enemy instanceof BossEnemy)) {
+                final Position currentEnemyPosition = enemy.getPosition();
+                Position newPosition = currentEnemyPosition;
+                if (!isEnemyNearThePlayer(enemy)) {
+                    do {
+                        rndDirection = Direction.values()[RANDOM.nextInt(4)];
+                    } while (!this.mapModel.isInBoundaries(Positions.sum(currentEnemyPosition, rndDirection.getPosition()))
+                            && checkOtherEnemies(Positions.sum(currentEnemyPosition, rndDirection.getPosition())));
+                    enemy.setLastDirection(rndDirection);
+                    newPosition = Positions.sum(currentEnemyPosition, rndDirection.getPosition());
+                } else {
+                    /*
+                     * If the enemy and the player are close by a certain range of cells,
+                     * then the enemy will try to chase the player.
+                     */
+                    final Position playerPosition = this.player.getPosition();
 
-                final int distance = calculateDistance(currentEnemyPosition, playerPosition);
+                    final int distance = calculateDistance(currentEnemyPosition, playerPosition);
 
-                // This check is used to ensure that the player and the enemy meet when their
-                // distance is equal to 0.
-                if (distance != 0) {
-                    final Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
-                    newPosition = Positions.sum(currentEnemyPosition, chaseDirection.getPosition());
-                    enemy.setLastDirection(chaseDirection);
+                    // This check is used to ensure that the player and the enemy meet when their
+                    // distance is equal to 0.
+                    if (distance != 0) {
+                        final Direction chaseDirection = calculateChaseDirection(currentEnemyPosition, playerPosition);
+                        newPosition = Positions.sum(currentEnemyPosition, chaseDirection.getPosition());
+                        enemy.setLastDirection(chaseDirection);
+                    }
                 }
+                enemy.move(newPosition);
             }
-            enemy.move(newPosition);
+
         }
     }
 
@@ -260,6 +277,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     private Item getItem(final String itemName) {
+        //TODO: Lacks isPresent control.
         return player.getInventory().getItems()
                 .entrySet()
                 .stream()

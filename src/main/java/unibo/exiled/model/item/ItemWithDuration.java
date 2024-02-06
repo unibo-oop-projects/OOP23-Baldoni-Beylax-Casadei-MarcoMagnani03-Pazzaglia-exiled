@@ -16,13 +16,14 @@ public interface ItemWithDuration extends UsableItem {
     int getDuration();
 
     /**
-     * Disable the item when the duration is 0
-     * @param player The player on which the item is disabled. 
+     * Disable the item when the duration is 0.
+     *
+     * @param player The player on which the item is disabled.
      */
     void disable(Player player);
 
     /**
-     * Decrease the duration of the item by 1
+     * Decrease the duration of the item by 1.
      */
     void decreaseDuration();
 }

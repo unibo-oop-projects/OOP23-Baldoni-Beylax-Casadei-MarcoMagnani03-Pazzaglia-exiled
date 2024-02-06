@@ -282,7 +282,7 @@ public final class GameView {
             label = new CharacterView(characterImagePath);
             ((CharacterView) label)
                     .changeImage(gameController.getMapController()
-                            .getLastDirectionOfCharacterInPosition(position),
+                                    .getLastDirectionOfCharacterInPosition(position),
                             gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
         } else {
             label = new JLabel();
@@ -408,5 +408,4 @@ public final class GameView {
     public void close() {
         mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
     }
-    
 }

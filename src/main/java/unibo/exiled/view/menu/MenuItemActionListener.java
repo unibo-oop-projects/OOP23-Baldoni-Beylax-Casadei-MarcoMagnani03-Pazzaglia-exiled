@@ -4,20 +4,18 @@ import unibo.exiled.model.menu.Command;
 import unibo.exiled.view.GameView;
 import unibo.exiled.view.NewGameView;
 
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 
 /**
  * The action listener class for the menu. To retrieve input.
  */
 public final class MenuItemActionListener implements ActionListener {
-    private GameView game;
     private final NewGameView newGameView;
+    private GameView game;
 
     /**
      * The constructor of the in-game menu action listener.
@@ -49,9 +47,9 @@ public final class MenuItemActionListener implements ActionListener {
                     "Would you like to quit the game?", "Warning",
                     JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                if(this.game != null){
+                if (this.game != null) {
                     this.game.close();
-                }else{
+                } else {
                     this.newGameView.close();
                 }
             }

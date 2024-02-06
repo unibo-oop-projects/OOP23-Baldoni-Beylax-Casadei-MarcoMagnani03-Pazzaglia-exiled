@@ -1,7 +1,10 @@
 package unibo.exiled.model.character.enemy;
 
 import unibo.exiled.model.character.GameCharacter;
+import unibo.exiled.model.item.Item;
 import unibo.exiled.model.utilities.ElementalType;
+
+import java.util.Optional;
 
 /**
  * Interface representing an enemy character in the game.
@@ -21,4 +24,11 @@ public interface Enemy extends GameCharacter {
      * @return The Elemental Type of the enemy.
      */
     ElementalType getType();
+
+    /**
+     * The held item by the enemy.
+     *
+     * @return An optional containing the held item of the enemy.
+     */
+    Optional<Item> getHeldItem();
 }

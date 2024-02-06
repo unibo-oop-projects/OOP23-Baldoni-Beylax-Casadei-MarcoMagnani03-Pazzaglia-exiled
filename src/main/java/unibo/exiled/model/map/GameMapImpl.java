@@ -16,6 +16,7 @@ import unibo.exiled.model.utilities.Position;
 public final class GameMapImpl implements GameMap {
     private final int size;
     private final Map<Position, CellType> cellStates;
+    private final Map<CellType, Position> cellCorners;
 
     /**
      * Constructs a GameMapImpl with a specified size.
@@ -28,6 +29,7 @@ public final class GameMapImpl implements GameMap {
         if (size % 2 == 0) {
             this.size = size;
             this.cellStates = new HashMap<>();
+            this.cellCorners = new HashMap<>();
             final int startingSize = size / 2 - 3;
             this.fillCells(startingSize);
         } else {
@@ -72,9 +74,13 @@ public final class GameMapImpl implements GameMap {
         Collections.shuffle(cellTypes);
 
         this.fillCellRange(cellTypes.get(0), 0, this.size / 2, 0, this.size / 2);
+        this.cellCorners.put(cellTypes.get(0), new Position(0, 0));
         this.fillCellRange(cellTypes.get(1), this.size / 2, this.size, 0, this.size / 2);
+        this.cellCorners.put(cellTypes.get(1), new Position(0, this.size - 1));
         this.fillCellRange(cellTypes.get(2), 0, this.size / 2, this.size / 2, this.size);
+        this.cellCorners.put(cellTypes.get(2), new Position(this.size - 1, 0));
         this.fillCellRange(cellTypes.get(3), this.size / 2, this.size, this.size / 2, this.size);
+        this.cellCorners.put(cellTypes.get(3), new Position(this.size - 1, this.size - 1));
         this.fillCellRange(CellType.PLAINS, startingArea, this.size - startingArea, startingArea,
                 this.size - startingArea);
     }
@@ -82,6 +88,11 @@ public final class GameMapImpl implements GameMap {
     @Override
     public Map<Position, CellType> getCellStates() {
         return Collections.unmodifiableMap(this.cellStates);
+    }
+
+    @Override
+    public Position getCornerPositionOfElement(final CellType type) {
+        return this.cellCorners.get(type);
     }
 
     @Override

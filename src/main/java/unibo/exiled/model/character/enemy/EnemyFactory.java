@@ -24,4 +24,32 @@ public interface EnemyFactory {
      * @return The created random enemy.
      */
     Enemy createRandom();
+
+    /**
+     * Creates a water Boss.
+     *
+     * @return A water enemy that drops one of the crystals to end the game.
+     */
+    Enemy createWaterBoss();
+
+    /**
+     * Creates a fire boss.
+     *
+     * @return A fire enemy that drops one of the crystals to end the game.
+     */
+    Enemy createFireBoss();
+
+    /**
+     * Creates a bolt boss.
+     *
+     * @return A bolt enemy that drops one of the crystals to end the game.
+     */
+    Enemy createBoltBoss();
+
+    /**
+     * Creates a grass boss.
+     *
+     * @return A grass enemy that drops one of the crystals to end the game.
+     */
+    Enemy createGrassBoss();
 }
