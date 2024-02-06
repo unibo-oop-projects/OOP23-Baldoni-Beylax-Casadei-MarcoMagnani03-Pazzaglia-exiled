@@ -9,13 +9,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-
 /**
  * The action listener class for the menu. To retrieve input.
  */
 public final class MenuItemActionListener implements ActionListener {
-    private final NewGameView newGameView;
     private GameView game;
+    private final NewGameView newGameView;
 
     /**
      * The constructor of the in-game menu action listener.
@@ -36,13 +35,13 @@ public final class MenuItemActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(final ActionEvent e) {
-        if ("new_game".equals(e.getActionCommand())) {
+        if (e.getActionCommand().equals(Command.NEW_GAME.getCommandString())) {
             this.game = new GameView();
             this.game.display();
             this.newGameView.hide();
         } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
             this.game.hideMenu();
-        } else if ("quit".equals(e.getActionCommand())) {
+        } else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
             final int dialogResult = JOptionPane.showConfirmDialog(null,
                     "Would you like to quit the game?", "Warning",
                     JOptionPane.YES_NO_OPTION);
