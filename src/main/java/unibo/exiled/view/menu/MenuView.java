@@ -60,17 +60,6 @@ public final class MenuView extends JPanel {
         buttonListPanel.add(quitGameButton, cnst);
         cnst.gridy++;
 
-
-        /*for (final MenuItem menuItem : controller.getMenuItems()) { 
-            final GameButton btn = new GameButton(menuItem.getItemText());
-            btn.setActionCommand(menuItem.getItemCommand().getCommandString());
-            btn.addActionListener(buttonListener);
-            buttonListPanel.add(btn, cnst);
-            cnst.gridy++;
-        }*/
-
-
-
         this.setLayout(new BorderLayout());
         this.add(buttonListPanel, BorderLayout.CENTER);
     }

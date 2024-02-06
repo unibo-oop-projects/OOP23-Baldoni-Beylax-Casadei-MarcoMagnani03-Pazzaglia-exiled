@@ -403,9 +403,9 @@ public final class GameView {
     }
 
     /**
-     * Disposes the main frame.
+     * Close the main frame.
      */
-    public void terminateGame() {
+    public void close() {
         mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
     }
     

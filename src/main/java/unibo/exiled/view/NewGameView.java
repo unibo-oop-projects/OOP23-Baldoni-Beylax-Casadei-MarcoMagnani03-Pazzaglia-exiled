@@ -7,6 +7,7 @@ import unibo.exiled.view.menu.MenuView;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
+import java.awt.event.WindowEvent;
 
 /**
  * The new game selection menu view.
@@ -37,5 +38,12 @@ public final class NewGameView {
      */
     public void hide() {
         this.mainFrame.setVisible(false);
+    }
+
+    /**
+     * Close the main frame.
+     */
+    public void close() {
+        this.mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
     }
 }
