@@ -47,20 +47,28 @@ public final class MenuView extends JPanel {
         cnst.gridy++;
         final ActionListener buttonListener = new MenuItemActionListener(game, newGameView);
 
+        if(game != null){ // Menu In-Game
+            final GameButton resumeGameButton = new GameButton("RESUME");
+            resumeGameButton.setActionCommand("close_menu");
+            resumeGameButton.addActionListener(buttonListener);
+            buttonListPanel.add(resumeGameButton, cnst);
+            cnst.gridy++;
+        }
+
         final GameButton newGameButton = new GameButton("NEW GAME");
         newGameButton.setActionCommand("new_game");
         newGameButton.addActionListener(buttonListener);
+        buttonListPanel.add(newGameButton, cnst);
+        cnst.gridy++;
 
         final GameButton quitGameButton = new GameButton("QUIT");
         quitGameButton.setActionCommand("quit");
         quitGameButton.addActionListener(buttonListener);
-
-        buttonListPanel.add(newGameButton, cnst);
-        cnst.gridy++;
         buttonListPanel.add(quitGameButton, cnst);
         cnst.gridy++;
 
         this.setLayout(new BorderLayout());
         this.add(buttonListPanel, BorderLayout.CENTER);
     }
+    
 }
