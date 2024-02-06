@@ -14,8 +14,8 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
 
     private final AttributeIdentifier boostedAttribute;
     private final int duration;
-    private int currentDuration;
     private final double powerUpValue;
+    private int currentDuration;
 
     /**
      * Constructs a PowerUpItem with the specified attributes.
@@ -42,7 +42,7 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
 
     @Override
     public void disable(final Player player) {
-        if(this.currentDuration==0){
+        if (this.currentDuration == 0) {
             player.decreaseAttributeModifier(boostedAttribute, powerUpValue);
         }
     }

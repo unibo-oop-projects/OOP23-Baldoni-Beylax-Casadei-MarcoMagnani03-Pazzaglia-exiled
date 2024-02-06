@@ -22,4 +22,12 @@ public interface GameMap {
      * @return An unmodifiable map of positions and CellTypes to be used from the model.
      */
     Map<Position, CellType> getCellStates();
+
+    /**
+     * Gets the corner of the map of the selected type.
+     *
+     * @param type The desired corner cell type.
+     * @return The position of the Cell in the corner of the selected type.
+     */
+    Position getCornerPositionOfElement(CellType type);
 }

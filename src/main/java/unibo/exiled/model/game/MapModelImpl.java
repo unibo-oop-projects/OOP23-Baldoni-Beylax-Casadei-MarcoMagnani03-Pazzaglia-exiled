@@ -41,4 +41,9 @@ public final class MapModelImpl implements MapModel {
             throw new NoSuchElementException("The specified position isn't a cell.");
         }
     }
+
+    @Override
+    public Position getCornerOfType(final CellType type) {
+        return this.map.getCornerPositionOfElement(type);
+    }
 }

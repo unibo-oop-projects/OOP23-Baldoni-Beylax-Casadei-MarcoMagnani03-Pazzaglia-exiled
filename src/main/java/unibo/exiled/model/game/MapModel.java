@@ -29,4 +29,12 @@ public interface MapModel {
      * @return A CellType representing the type of the inserted position.
      */
     CellType getCellType(Position position);
+
+    /**
+     * Gets the corner of the selected type.
+     *
+     * @param type The type of the cell.
+     * @return The position representing the corner of a selected type.
+     */
+    Position getCornerOfType(CellType type);
 }
