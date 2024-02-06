@@ -79,21 +79,18 @@ public abstract class GameCharacterImpl implements GameCharacter {
      * @param increase True for increase, false for decrease.
      */
     private void modifyAttribute(final AttributeIdentifier id, final double modifier,
-            final double value, final boolean increase) {
+                                 final double value, final boolean increase) {
         final Attribute attributeToModify = this.attributes.get(id);
         final Map<AttributeIdentifier, Attribute> modifiedAttributes = new HashMap<>(this.attributes);
 
-        if (attributeToModify instanceof CombinedAttribute) {
-            final CombinedAttribute conv = (CombinedAttribute) attributeToModify;
+        if (attributeToModify instanceof CombinedAttribute conv) {
             modifiedAttributes.replace(id, new CombinedAttributeImpl(
                     increase ? conv.value() + value : conv.value() - value,
                     increase ? conv.modifier() + modifier : conv.modifier() - modifier));
-        } else if (attributeToModify instanceof MultiplierAttributeImpl) {
-            final MultiplierAttributeImpl conv = (MultiplierAttributeImpl) attributeToModify;
+        } else if (attributeToModify instanceof MultiplierAttributeImpl conv) {
             modifiedAttributes.replace(id, new MultiplierAttributeImpl(
                     increase ? conv.modifier() + modifier : conv.modifier() - modifier));
-        } else if (attributeToModify instanceof AdditiveAttributeImpl) {
-            final AdditiveAttributeImpl conv = (AdditiveAttributeImpl) attributeToModify;
+        } else if (attributeToModify instanceof AdditiveAttributeImpl conv) {
             modifiedAttributes.replace(id, new AdditiveAttributeImpl(
                     increase ? conv.value() + value : conv.value() - value));
         }
@@ -123,7 +120,8 @@ public abstract class GameCharacterImpl implements GameCharacter {
 
     @Override
     public final double getHealth() {
-        if (attributes.get(AttributeIdentifier.HEALTH).isModifier() && attributes.get(AttributeIdentifier.HEALTH).isValue()) {
+        if (attributes.get(AttributeIdentifier.HEALTH).isModifier()
+                && attributes.get(AttributeIdentifier.HEALTH).isValue()) {
             return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
         } else if (attributes.get(AttributeIdentifier.HEALTH).isValue()) {
             return ((AdditiveAttribute) attributes.get(AttributeIdentifier.HEALTH)).value();
@@ -134,7 +132,8 @@ public abstract class GameCharacterImpl implements GameCharacter {
 
     @Override
     public final double getHealthCap() {
-        if (attributes.get(AttributeIdentifier.HEALTHCAP).isModifier() && attributes.get(AttributeIdentifier.HEALTHCAP).isValue()) {
+        if (attributes.get(AttributeIdentifier.HEALTHCAP).isModifier()
+                && attributes.get(AttributeIdentifier.HEALTHCAP).isValue()) {
             return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).getEvaluated();
         } else if (attributes.get(AttributeIdentifier.HEALTHCAP).isValue()) {
             return ((AdditiveAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).value();

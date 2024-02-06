@@ -2,7 +2,6 @@ package unibo.exiled.controller;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
-import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.game.GameModel;
@@ -19,6 +18,7 @@ import java.util.Optional;
  */
 public final class CharacterControllerImpl implements CharacterController {
 
+    private static final String EXCEPTION_POSITION_MISSING_MESSAGE = "The position doesn't contain a character.";
     private final GameModel model;
 
     /**
@@ -112,7 +112,7 @@ public final class CharacterControllerImpl implements CharacterController {
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().spriteIsMoving();
         } else {
-            throw new IllegalArgumentException("The position doesn't contain a character.");
+            throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
         }
     }
 
@@ -122,7 +122,7 @@ public final class CharacterControllerImpl implements CharacterController {
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().getHealth();
         } else {
-            throw new IllegalArgumentException("The position doesn't contain a character.");
+            throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
         }
     }
 
@@ -132,7 +132,7 @@ public final class CharacterControllerImpl implements CharacterController {
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().getHealthCap();
         } else {
-            throw new IllegalArgumentException("The position doesn't contain a character.");
+            throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
         }
     }
 
@@ -142,7 +142,7 @@ public final class CharacterControllerImpl implements CharacterController {
         if (gottenCharacter.isPresent()) {
             return ((EnemyImpl) gottenCharacter.get()).getType().getName();
         } else {
-            throw new IllegalArgumentException("The position doesn't contain a character.");
+            throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
         }
     }
 }

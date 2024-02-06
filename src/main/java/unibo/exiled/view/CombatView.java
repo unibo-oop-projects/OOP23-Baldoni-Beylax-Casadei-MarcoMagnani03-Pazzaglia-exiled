@@ -23,8 +23,8 @@ import java.awt.FlowLayout;
  */
 public final class CombatView extends JPanel {
     private static final long serialVersionUID = 1L;
-    
-    private final int BUTTON_FONT_SIZE = 40;
+
+    private static final int BUTTON_FONT_SIZE = 40;
 
     private final transient GameController gameController;
 
@@ -77,10 +77,12 @@ public final class CombatView extends JPanel {
         enemyLabel.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
         enemyLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-        final GameLabel healthBar = new GameLabel("Health: " + gameController.getCharacterController().getCharacterHealthFromPosition(combatPosition) + " / "
-        + gameController.getCharacterController().getCharacterHealthCapFromPosition(combatPosition));
-        final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getCharacterClassNameFromPosition(combatPosition));
-        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5)); 
+        final GameLabel healthBar = new GameLabel("Health: "
+                + gameController.getCharacterController().getCharacterHealthFromPosition(combatPosition) + " / "
+                + gameController.getCharacterController().getCharacterHealthCapFromPosition(combatPosition));
+        final GameLabel classLabel = new GameLabel("Class: "
+                + gameController.getCharacterController().getCharacterClassNameFromPosition(combatPosition));
+        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
         statusPanel.add(healthBar);
         statusPanel.add(classLabel);
