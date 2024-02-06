@@ -80,24 +80,35 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     @Override
     public Enemy createWaterBoss() {
         return new BossEnemy(
-                "Carlone",
+                "Umidamiano",
                 moveSetFactory.defaultWaterMoveSet(4),
-                attributeFactory.createBossAttributes(),
                 ElementalType.WATER);
     }
 
     @Override
     public Enemy createFireBoss() {
-        return null;
+        return new BossEnemy(
+                "Piercalore",
+                moveSetFactory.defaultFireMoveSet(4),
+                ElementalType.FIRE
+        );
     }
 
     @Override
     public Enemy createBoltBoss() {
-        return null;
+        return new BossEnemy(
+                "Carlaccesa",
+                moveSetFactory.defaultBoltMoveSet(4),
+                ElementalType.BOLT
+        );
     }
 
     @Override
     public Enemy createGrassBoss() {
-        return null;
+        return new BossEnemy(
+                "Lucionerba",
+                moveSetFactory.defaultGrassMoveSet(4),
+                ElementalType.GRASS
+        );
     }
 }
