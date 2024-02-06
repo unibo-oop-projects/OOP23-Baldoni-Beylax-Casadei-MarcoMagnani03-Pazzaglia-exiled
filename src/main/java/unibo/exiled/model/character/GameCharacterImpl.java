@@ -4,6 +4,8 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.MultiplierAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttributeImpl;
+import unibo.exiled.model.character.attributes.MultiplierAttribute;
+import unibo.exiled.model.character.attributes.AdditiveAttribute;
 import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttribute;
 import unibo.exiled.model.utilities.Direction;
@@ -121,11 +123,24 @@ public abstract class GameCharacterImpl implements GameCharacter {
 
     @Override
     public final double getHealth() {
-        return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
+        if (attributes.get(AttributeIdentifier.HEALTH).isModifier() && attributes.get(AttributeIdentifier.HEALTH).isValue()) {
+            return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
+        } else if (attributes.get(AttributeIdentifier.HEALTH).isValue()) {
+            return ((AdditiveAttribute) attributes.get(AttributeIdentifier.HEALTH)).value();
+        } else {
+            return ((MultiplierAttribute) attributes.get(AttributeIdentifier.HEALTH)).modifier();
+        }
     }
 
+    @Override
     public final double getHealthCap() {
-        return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).getEvaluated();
+        if (attributes.get(AttributeIdentifier.HEALTHCAP).isModifier() && attributes.get(AttributeIdentifier.HEALTHCAP).isValue()) {
+            return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).getEvaluated();
+        } else if (attributes.get(AttributeIdentifier.HEALTHCAP).isValue()) {
+            return ((AdditiveAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).value();
+        } else {
+            return ((MultiplierAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).modifier();
+        }
     }
 
     @Override
