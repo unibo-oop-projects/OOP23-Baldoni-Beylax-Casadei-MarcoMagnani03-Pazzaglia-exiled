@@ -90,9 +90,10 @@ public final class GameView {
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
 
         this.gameOverView = new GameOverView();
-        //GameCompletedView gameCompletedView = new GameCompletedView();
-        this.playerView = new CharacterView(
-                gameController.getCharacterController().getImagePathOfCharacter("player", "boy"));
+        final String playerClass = this.gameController.getCharacterController().getPlayerClassName().toLowerCase();
+        this.playerView = new CharacterView( // TODO: finire la gestione del player class.
+            this.gameController.getCharacterController().getImagePathOfCharacter(
+                Constants.PLAYER_PATH + File.separator + playerClass, Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController);
         final MenuView menuView = new MenuView(this, new NewGameView());
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
@@ -280,7 +281,7 @@ public final class GameView {
             label = playerView;
         } else if (gameController.getMapController().isEnemyInCell(position)) {
             final List<String> characterImagePath = gameController.getCharacterController()
-                    .getImagePathOfCharacter("enemy",
+                    .getImagePathOfCharacter(Constants.ENEMY_PATH,
                             gameController.getMapController().getNameOfCharacterInPosition(position)
                                     + File.separator
                                     + gameController.getMapController().getNameOfCharacterInPosition(position));

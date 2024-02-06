@@ -50,7 +50,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      */
     public PlayerImpl(final int experienceCap, final int initialExperience, final int levelIncrease,
                       final int movesNumber, final int movesLearningInterval) {
-        super("boy", new AttributeFactoryImpl().createPlayerAttributes());
+        super(Constants.PLAYER_NAME, new AttributeFactoryImpl().createPlayerAttributes());
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         this.inventory = initializeInventory();
         this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet(movesNumber);

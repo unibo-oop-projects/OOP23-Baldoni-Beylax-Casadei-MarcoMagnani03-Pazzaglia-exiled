@@ -35,6 +35,7 @@ public final class Constants {
      * The main folder of the player.
      */
     public static final String PLAYER_PATH = "player";
+    public static final String ENEMY_PATH = "enemy";
     /**
      * The name of the player for image purposes.
      */
