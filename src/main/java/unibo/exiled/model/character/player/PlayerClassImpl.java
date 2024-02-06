@@ -6,7 +6,7 @@ public class PlayerClassImpl implements PlayerClass {
 
     private final ElementalType elementalType;
 
-    public PlayerClassImpl(ElementalType elementalType){
+    public PlayerClassImpl(final ElementalType elementalType){
         this.elementalType = elementalType;
     }
     @Override

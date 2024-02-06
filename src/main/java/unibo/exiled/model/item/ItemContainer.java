@@ -65,7 +65,7 @@ public final class ItemContainer {
      */
     public static Optional<Item> getRandomItemByType(final ItemType type) {
         final List<Item> itemByType = ITEMS.stream()
-                .filter(items -> items.getType() == type)
+                .filter(items -> items.getType().equals(type))
                 .toList();
 
         if (itemByType.isEmpty()) {
@@ -73,6 +73,24 @@ public final class ItemContainer {
         }
 
         return Optional.of(itemByType.get(RANDOM.nextInt(itemByType.size())));
+    }
+
+    /**
+     * Retrieves a random item from the container.
+     *
+     * @return An Optional containing a random item of the specified type if found,
+     * or randomly also an empty Optional.
+     */
+    public static Optional<Item> getRandomItem() {
+        final List<Item> itemByType = ITEMS.stream()
+        .filter(items -> items.getType().equals(ItemType.HEALTH) || items.getType().equals(ItemType.POWERUP))
+                .toList();
+
+        if (RANDOM.nextBoolean()) {
+                return Optional.of(itemByType.get(RANDOM.nextInt(ITEMS.size())));
+        } else {
+                return Optional.empty();
+        }
     }
 
 }
