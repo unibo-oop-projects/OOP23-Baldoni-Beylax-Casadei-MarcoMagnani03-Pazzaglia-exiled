@@ -17,20 +17,30 @@ public final class Moves {
     private static final Random RANDOM = new Random();
 
     private static final Set<MagicMove> MAGIC_MOVES = Set.of(
-            MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPACCIO.getName(),
-                    "Hits the enemy without much enthusiasm.", 5),
-            MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPONE.getName(),
-                    "Hits the enemy with a bit more enthusiasm.", 8),
-            MOVE_FACTORY.createFireMagicMove(MoveNames.FIREBALL.getName(),
-                    "Throws a really sad fireball at the enemy.", 5),
-            MOVE_FACTORY.createGrassMagicMove(MoveNames.LEAFBLADE.getName(),
-                    "Summons a blunted blade made of leaves.", 5),
-            MOVE_FACTORY.createBoltMagicMove(MoveNames.LIGHTBULB.getName(),
-                    "Lit oneself body to blind the enemy, not very effective.", 5),
-            MOVE_FACTORY.createWaterMagicMove(MoveNames.WATERPISTOL.getName(),
-                    "Spits water from the mouth, pretty disgusting but nothing more.", 5),
-            MOVE_FACTORY.createFireMagicMove(MoveNames.FLAMEWHIRL.getName(),
-                    "Creates a roundel of flaming braces to throw", 20)
+        MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPACCIO.getName(),
+        "Hits the enemy without much enthusiasm.", 5),
+        MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPONE.getName(),
+                "Hits the enemy with a bit more enthusiasm.", 8),
+        MOVE_FACTORY.createFireMagicMove(MoveNames.FIREBALL.getName(),
+                "Throws a really sad fireball at the enemy.", 5),
+        MOVE_FACTORY.createGrassMagicMove(MoveNames.LEAFBLADE.getName(),
+                "Summons a blunted blade made of leaves.", 5),
+        MOVE_FACTORY.createBoltMagicMove(MoveNames.LIGHTBULB.getName(),
+                "Lit oneself body to blind the enemy, not very effective.", 5),
+        MOVE_FACTORY.createWaterMagicMove(MoveNames.WATERPISTOL.getName(),
+                "Spits water from the mouth, pretty disgusting but nothing more.", 5),
+        MOVE_FACTORY.createFireMagicMove(MoveNames.FLAMEWHIRL.getName(),
+                "Creates a roundel of flaming braces to throw", 20),
+        MOVE_FACTORY.createNormalMagicMove(MoveNames.QUICKSLASH.getName(),
+                "Swiftly slashes through the enemy with precision.", 10),
+        MOVE_FACTORY.createGrassMagicMove(MoveNames.PETALSTORM.getName(),
+                "Summons a storm of sharp petals to damage the enemy.", 10),
+        MOVE_FACTORY.createBoltMagicMove(MoveNames.THUNDERSTRIKE.getName(),
+                "Summons a powerful lightning strike to hit the enemy.", 10),
+        MOVE_FACTORY.createWaterMagicMove(MoveNames.AQUAORB.getName(),
+                "Forms a sphere of water and hurls it at the enemy.", 10),
+        MOVE_FACTORY.createFireMagicMove(MoveNames.INFERNO.getName(),
+                "Unleashes a raging inferno to engulf the enemy.", 20)
     );
 
     private Moves() {
