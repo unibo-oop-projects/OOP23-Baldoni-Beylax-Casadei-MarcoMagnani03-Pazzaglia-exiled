@@ -75,8 +75,9 @@ public interface GameModel {
     Position getPlayerPosition();
 
     /**
-     * Gets the player
-     * @return the player
+     * Gets the player.
+     * 
+     * @return the player.
      */
     Player getPlayer();
 
@@ -161,7 +162,8 @@ public interface GameModel {
     /**
      * Sets the elemental class of the player.
      *
-     * @param playerClass The ElementalType representing the new elemental class of the player.
+     * @param playerClass The ElementalType representing the new elemental class of
+     *                    the player.
      */
     void assignPlayerClass(PlayerClass playerClass);
 

@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
+import java.util.Optional;
 
 /**
  * The new game selection menu view.
@@ -29,7 +30,7 @@ public final class NewGameView {
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
         this.mainFrame.setLayout(new BorderLayout());
-        this.mainFrame.add(new MenuView(null, this), BorderLayout.CENTER);
+        this.mainFrame.add(new MenuView(Optional.empty(), Optional.of(this)), BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
     }
 

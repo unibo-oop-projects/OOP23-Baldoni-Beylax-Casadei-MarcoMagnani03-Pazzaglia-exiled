@@ -1,7 +1,9 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
+import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.character.player.PlayerClassImpl;
+import unibo.exiled.model.game.GameModelImpl;
 import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.TitleGameLabel;
@@ -14,38 +16,42 @@ import java.io.Serial;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 /**
  * View where the player decides his class.
  */
-public final class PlayerClassView extends JPanel {
+public final class PlayerClassView {
     @Serial
     private static final long serialVersionUID = 7L;
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;
     private final transient GameController controller;
-    private final transient GameView gameView;
+    private final JFrame mainFrame;
 
     /**
      * PlayerClassView is a graphical user interface component where the player can
      * choose their character class.
      * It displays buttons representing different elemental classes, allowing the
      * player to make a selection.
-     *
-     * @param gameController The GameController instance managing the game logic.
-     * @param gameView       The GameView instance responsible for rendering the
-     *                       game interface.
      */
-    public PlayerClassView(final GameController gameController, final GameView gameView) {
-        this.controller = gameController;
-        this.gameView = gameView;
-        setLayout(new BorderLayout());
+    public PlayerClassView() {
+        this.mainFrame = new JFrame();
+        this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.mainFrame.setTitle("The Exiled");
+        this.mainFrame.setLocationByPlatform(true);
+        this.mainFrame.setFocusable(true);
+        this.mainFrame.setLayout(new BorderLayout());
+
+        this.controller = new GameControllerImpl(new GameModelImpl());
 
         final JPanel mainPanel = new JPanel(new BorderLayout());
-        add(mainPanel, BorderLayout.CENTER);
+        this.mainFrame.add(mainPanel, BorderLayout.CENTER);
 
         final JPanel buttonPanel = new JPanel(new GridLayout(2, 2, MARGIN, MARGIN));
 
@@ -81,15 +87,27 @@ public final class PlayerClassView extends JPanel {
 
     private void classDecision(final ElementalType playerType) {
         final int result = JOptionPane.showConfirmDialog(
-                this,
+                this.mainFrame,
                 "Are you sure you want to choose " + playerType.getName() + " class?",
                 "Confirmation",
                 JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
             this.controller.getCharacterController().assignPlayerClass(new PlayerClassImpl(playerType));
-            this.gameView.initializeHUD();
-            this.gameView.hidePlayerClass();
+            new GameView(this.controller).display();
+            this.hide();
         }
+    }
+
+    public void display(){
+        this.mainFrame.setVisible(true);
+    }
+
+    public void hide(){
+        this.mainFrame.setVisible(false);
+    }
+
+    public void close(){
+        this.mainFrame.dispose();
     }
 }

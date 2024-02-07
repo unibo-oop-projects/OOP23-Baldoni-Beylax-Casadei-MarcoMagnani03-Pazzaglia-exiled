@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
@@ -22,6 +23,7 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import java.awt.GridLayout;
+import java.awt.RenderingHints.Key;
 import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -36,9 +38,9 @@ import java.awt.event.KeyEvent;
  */
 public final class GameView {
     // Views
-    private final CharacterView playerView;
     private final CombatView combatView;
     private final GameOverView gameOverView;
+    private final CharacterView playerView;
 
     // MVC Components(MC)
     private final JFrame mainFrame;
@@ -47,7 +49,6 @@ public final class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
-    private final JPanel playerClassPanel;
 
     /**
      * The game controller that manages interaction between the model and the view.
@@ -58,10 +59,10 @@ public final class GameView {
     /**
      * Constructor of the main view.
      */
-    public GameView() {
+    public GameView(final GameController gameController) {
         final JPanel gameContainerPanel;
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        this.gameController = new GameControllerImpl(new GameModelImpl());
+        this.gameController = gameController;
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -72,7 +73,6 @@ public final class GameView {
 
         this.menuPanel = new JPanel();
         this.inventoryPanel = new JPanel();
-        this.playerClassPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
@@ -91,14 +91,13 @@ public final class GameView {
 
         this.gameOverView = new GameOverView();
         final String playerClass = this.gameController.getCharacterController().getPlayerClassName().toLowerCase();
-        this.playerView = new CharacterView( // TODO: finire la gestione del player class.
-            this.gameController.getCharacterController().getImagePathOfCharacter(
-                Constants.PLAYER_PATH + File.separator + playerClass, Constants.PLAYER_NAME + "_" + playerClass));
+        this.playerView = new CharacterView(
+                this.gameController.getCharacterController().getImagePathOfCharacter(
+                        Constants.PLAYER_PATH + File.separator + playerClass,
+                        Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController);
-        final MenuView menuView = new MenuView(this, new NewGameView());
+        final MenuView menuView = new MenuView(Optional.empty(), Optional.of(new NewGameView()));
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
-        final PlayerClassView classView = new PlayerClassView(this.gameController, this);
-        this.playerClassPanel.add(classView);
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
         this.combatPanel.add(combatView, BorderLayout.CENTER);
@@ -109,12 +108,10 @@ public final class GameView {
         contentPanel.setLayout(mainLayout);
 
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup()
-                .addComponent(playerClassPanel)
                 .addComponent(menuPanel)
                 .addComponent(gameHudPanel)
                 .addComponent(inventoryPanel));
         mainLayout.setVerticalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(playerClassPanel)
                 .addComponent(menuPanel)
                 .addComponent(gameHudPanel)
                 .addComponent(inventoryPanel));
@@ -122,7 +119,6 @@ public final class GameView {
         this.hideMenu();
         this.hideInventory();
         this.hideCombat();
-        this.showPlayerClass();
 
         this.initializeGridComponents();
         this.initializeHUD();
@@ -157,14 +153,17 @@ public final class GameView {
     }
 
     private JPanel getProgressPanel() {
-        final GameLabel healthBar = new GameLabel("Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
-        + gameController.getCharacterController().getPlayerHealthCap());
-        final GameLabel levelLabel = new GameLabel("Level: " + gameController.getCharacterController().getPlayerLevel());
-        final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getPlayerClassName());
+        final GameLabel healthBar = new GameLabel(
+                "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
+                        + gameController.getCharacterController().getPlayerHealthCap());
+        final GameLabel levelLabel = new GameLabel(
+                "Level: " + gameController.getCharacterController().getPlayerLevel());
+        final GameLabel classLabel = new GameLabel(
+                "Class: " + gameController.getCharacterController().getPlayerClassName());
         final int currentExperience = gameController.getCharacterController().getPlayerCurrentExperience();
         final int experienceCap = gameController.getCharacterController().getPlayerExperienceCap();
         final GameLabel experienceLabel = new GameLabel("Experience: " + currentExperience + " / " + experienceCap);
-        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5)); 
+        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
         statusPanel.add(healthBar);
         statusPanel.add(levelLabel);
@@ -187,16 +186,16 @@ public final class GameView {
 
             private static Direction getDirection(final KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_W -> {
+                    case KeyEvent.VK_W, KeyEvent.VK_UP -> {
                         return Direction.NORTH;
                     }
-                    case KeyEvent.VK_A -> {
+                    case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
                         return Direction.WEST;
                     }
-                    case KeyEvent.VK_S -> {
+                    case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
                         return Direction.SOUTH;
                     }
-                    case KeyEvent.VK_D -> {
+                    case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
                         return Direction.EAST;
                     }
                     default -> throw new IllegalStateException("Illegal pressed key.");
@@ -242,7 +241,7 @@ public final class GameView {
         this.mainFrame.addKeyListener(keyListener);
     }
 
-    private void draw() {
+    public void draw() {
         final Position playerPosition = gameController.getCharacterController().getPlayerPosition();
         final int mapSize = this.gameController.getMapController().getMapSize();
         final int range = 5;
@@ -268,7 +267,6 @@ public final class GameView {
         this.mainFrame.repaint();
     }
 
-
     /**
      * Colors the map areas based on the respective type.
      *
@@ -288,7 +286,7 @@ public final class GameView {
             label = new CharacterView(characterImagePath);
             ((CharacterView) label)
                     .changeImage(gameController.getMapController()
-                                    .getLastDirectionOfCharacterInPosition(position),
+                            .getLastDirectionOfCharacterInPosition(position),
                             gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
         } else {
             label = new JLabel();
@@ -335,22 +333,6 @@ public final class GameView {
     private void initializeCombat() {
         this.combatView.setEnemy();
         this.showCombat();
-    }
-
-    /**
-     * Shows the player class view.
-     */
-    public void showPlayerClass() {
-        this.gameHudPanel.setVisible(false);
-        this.playerClassPanel.setVisible(true);
-    }
-
-    /**
-     * Hides the player class view.
-     */
-    public void hidePlayerClass() {
-        this.gameHudPanel.setVisible(true);
-        this.playerClassPanel.setVisible(false);
     }
 
     /**

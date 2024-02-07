@@ -2,6 +2,7 @@ package unibo.exiled.view.menu;
 
 import unibo.exiled.view.GameView;
 import unibo.exiled.view.NewGameView;
+import unibo.exiled.view.PlayerClassView;
 import unibo.exiled.view.items.GameButton;
 
 import javax.swing.JPanel;
@@ -9,11 +10,15 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.MenuBar;
+
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.Serial;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * The view of the in-game menu.
@@ -25,12 +30,14 @@ public final class MenuView extends JPanel {
     /**
      * The constructor of the in-game view.
      *
-     * @param game        The main view of the game.
-     * @param newGameView The view of the new game.
+     * @param playerClassView The player class view of the game.
+     * @param newGameView     The view of the new game.
      */
-    public MenuView(final GameView game, final NewGameView newGameView) {
+    public MenuView(final Optional<PlayerClassView> playerClassView, final Optional<NewGameView> newGameView) {
         super();
-        newGameView.hide();
+        if(newGameView.isPresent()){
+            newGameView.get().hide();
+        }
         // CREATING STANDARD UI
         final JPanel buttonListPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints cnst = new GridBagConstraints();
@@ -47,9 +54,9 @@ public final class MenuView extends JPanel {
                 + "logo.png"));
         buttonListPanel.add(logoLabel);
         cnst.gridy++;
-        final ActionListener buttonListener = new MenuItemActionListener(game, newGameView);
+        final ActionListener buttonListener = new MenuItemActionListener(playerClassView, newGameView);
 
-        if (game != null) { // Menu In-Game
+        if (playerClassView.isPresent()) { // Menu In-Game
             final GameButton resumeGameButton = new GameButton("RESUME");
             resumeGameButton.setActionCommand("close_menu");
             resumeGameButton.addActionListener(buttonListener);
