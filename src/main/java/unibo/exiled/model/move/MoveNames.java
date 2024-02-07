@@ -32,8 +32,28 @@ public enum MoveNames {
     /**
      * A flame move.
      */
-    FLAMEWHIRL("Flaming Whirl");
-
+    FLAMEWHIRL("Flaming Whirl"),
+    /**
+     * A swift slashing move.
+     */
+    QUICKSLASH("Quick Slash"),
+    /**
+     * A storm of sharp petals.
+     */
+    PETALSTORM("Petal Storm"),
+    /**
+     * A powerful lightning strike.
+     */
+    THUNDERSTRIKE("Thunder Strike"),
+    /**
+     * A sphere of water attack.
+     */
+    AQUAORB("Aqua Orb"),
+    /**
+     * A raging inferno.
+     */
+    INFERNO("Inferno");
+    
     private final String name;
 
     /**
