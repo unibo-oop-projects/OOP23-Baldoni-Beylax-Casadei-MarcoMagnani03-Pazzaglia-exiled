@@ -4,13 +4,13 @@ import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.item.ItemContainer;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetFactory;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
 import unibo.exiled.model.utilities.ElementalType;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -35,7 +35,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
                                    final Map<AttributeIdentifier, Attribute> attributes,
                                    final ElementalType type,
                                    final double droppedExperience) {
-        return new EnemyImpl(name, moveSet, attributes, type, Optional.empty()) {
+        return new EnemyImpl(name, moveSet, attributes, type, ItemContainer.getRandomItem()) {
             @Override
             public double getDroppedExperience() {
                 return droppedExperience;

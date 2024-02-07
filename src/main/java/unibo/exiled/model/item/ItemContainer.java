@@ -87,7 +87,7 @@ public final class ItemContainer {
                 .toList();
 
         if (RANDOM.nextBoolean()) {
-                return Optional.of(itemByType.get(RANDOM.nextInt(ITEMS.size())));
+                return Optional.of(itemByType.get(RANDOM.nextInt(ITEMS.size()-1)));
         } else {
                 return Optional.empty();
         }
