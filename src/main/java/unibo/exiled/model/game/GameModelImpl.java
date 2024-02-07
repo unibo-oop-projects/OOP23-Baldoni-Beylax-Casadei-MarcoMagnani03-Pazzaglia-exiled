@@ -227,6 +227,11 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
+    public Optional<Player> getPlayer() {
+        return Optional.of(player);
+    }
+
+    @Override
     public double getPlayerAttributeOf(final AttributeIdentifier id) {
         final Attribute selectedAttribute = this.player.getAttributes().get(id);
         if (selectedAttribute.isModifier() && selectedAttribute.isValue()) {
@@ -281,6 +286,13 @@ public final class GameModelImpl implements GameModel {
             return Optional.of(player);
         } else {
             return Optional.empty();
+        }
+    }
+
+    @Override
+    public void removeEnemyFromPosition(final Position position) {
+        if (enemyCollection.getEnemyFromPosition(position).isPresent()) {
+            this.enemyCollection.removeEnemy(enemyCollection.getEnemyFromPosition(position).get());
         }
     }
 

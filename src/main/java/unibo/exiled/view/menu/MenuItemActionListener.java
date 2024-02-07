@@ -24,6 +24,7 @@ public final class MenuItemActionListener implements ActionListener {
      *
      * @param playerClassView The player class view (optional).
      * @param newGameView     The new-game view (optional).
+     * @param gameView        The game view (optional).
      */
     public MenuItemActionListener(final Optional<PlayerClassView> playerClassView,
             final Optional<NewGameView> newGameView, final Optional<GameView> gameView) {

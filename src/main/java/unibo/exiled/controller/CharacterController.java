@@ -154,4 +154,10 @@ public interface CharacterController {
      * @return a move name.
      */
     String getCharacterRandomMoveNameFromPosition(Position position);
+
+    /**
+     * Removes the enemy from a position.
+     * @param position the enemy position.
+     */
+    void removeEnemyFromPosition(Position position);
 }

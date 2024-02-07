@@ -2,6 +2,7 @@ package unibo.exiled.model.game;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.map.CellType;
@@ -29,6 +30,12 @@ public interface GameModel {
      * Moves the enemies in random directions.
      */
     void moveEnemies();
+
+    /**
+     * Returns the player.
+     * @return the player.
+     */
+    Optional<Player> getPlayer();
 
     /**
      * Gets the evaluated attribute of the player.
@@ -127,6 +134,12 @@ public interface GameModel {
      * @return An optional containing the character if found, empty otherwise.
      */
     Optional<GameCharacter> getCharacterFromPosition(Position pos);
+
+    /**
+     * Removes the enemy in the position.
+     * @param pos the position of the enemy to remove.
+     */
+    void removeEnemyFromPosition(Position pos);
 
     /**
      * Gets the type of the selected cell.

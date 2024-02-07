@@ -24,7 +24,6 @@ import javax.swing.GroupLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 
-import javax.management.openmbean.OpenDataException;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -37,6 +36,9 @@ import java.awt.event.KeyEvent;
  * The main view of the game, everything starts here.
  */
 public final class GameView {
+    private static final int STATUS_PANEL_H_GAP = 20;
+    private static final int STATUS_PANEL_V_GAP = 5;
+
     // Views
     private final CharacterView playerView;
     private final CombatView combatView;
@@ -49,6 +51,7 @@ public final class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
+    private final JPanel statusPanel;
 
     /**
      * The game controller that manages interaction between the model and the view.
@@ -59,7 +62,8 @@ public final class GameView {
     /**
      * Constructor of the main view.
      *
-     * @param gameController The game controller that manages interaction between the model and the view.
+     * @param gameController The game controller that manages interaction between
+     *                       the model and the view.
      */
     public GameView(final GameController gameController) {
         final JPanel gameContainerPanel;
@@ -78,6 +82,7 @@ public final class GameView {
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
+        this.statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
         gameContainerPanel = new JPanel();
 
         final GroupLayout gamePanelLayout = new GroupLayout(gameContainerPanel);
@@ -98,7 +103,7 @@ public final class GameView {
                 this.gameController.getCharacterController().getImagePathOfCharacter(
                         Constants.PLAYER_PATH + File.separator + playerClass,
                         Constants.PLAYER_NAME + "_" + playerClass));
-        this.combatView = new CombatView(this.gameController);
+        this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(Optional.empty(), Optional.of(new NewGameView()), Optional.of(this));
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
 
@@ -151,12 +156,16 @@ public final class GameView {
         flowButtonPanelNorth.add(menuButton);
 
         // Player information
-        final JPanel statusPanel = getProgressPanel();
+        refreshStatusPanel();
 
         flowButtonPanelSouth.add(statusPanel);
     }
 
-    private JPanel getProgressPanel() {
+    /**
+     * Refreshes the player status panel.
+     */
+    public void refreshStatusPanel() {
+        this.statusPanel.removeAll();
         final GameLabel healthBar = new GameLabel(
                 "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
                         + gameController.getCharacterController().getPlayerHealthCap());
@@ -167,13 +176,11 @@ public final class GameView {
         final int currentExperience = gameController.getCharacterController().getPlayerCurrentExperience();
         final int experienceCap = gameController.getCharacterController().getPlayerExperienceCap();
         final GameLabel experienceLabel = new GameLabel("Experience: " + currentExperience + " / " + experienceCap);
-        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
-        statusPanel.setBorder(BorderFactory.createEtchedBorder());
-        statusPanel.add(healthBar);
-        statusPanel.add(levelLabel);
-        statusPanel.add(classLabel);
-        statusPanel.add(experienceLabel);
-        return statusPanel;
+        this.statusPanel.setBorder(BorderFactory.createEtchedBorder());
+        this.statusPanel.add(healthBar);
+        this.statusPanel.add(levelLabel);
+        this.statusPanel.add(classLabel);
+        this.statusPanel.add(experienceLabel);
     }
 
     private void initializeGridComponents() {
@@ -271,7 +278,6 @@ public final class GameView {
         this.mainFrame.repaint();
     }
 
-
     /**
      * Colors the map areas based on the respective type.
      *
@@ -291,7 +297,7 @@ public final class GameView {
             label = new CharacterView(characterImagePath);
             ((CharacterView) label)
                     .changeImage(gameController.getMapController()
-                                    .getLastDirectionOfCharacterInPosition(position),
+                            .getLastDirectionOfCharacterInPosition(position),
                             gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
         } else {
             label = new JLabel();

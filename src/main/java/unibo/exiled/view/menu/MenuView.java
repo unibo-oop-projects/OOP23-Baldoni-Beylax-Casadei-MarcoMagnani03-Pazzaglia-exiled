@@ -30,6 +30,7 @@ public final class MenuView extends JPanel {
      *
      * @param playerClassView The player class view of the game.
      * @param newGameView     The view of the new game.
+     * @param gameView        The view of the game.
      */
     public MenuView(final Optional<PlayerClassView> playerClassView, final Optional<NewGameView> newGameView,
             final Optional<GameView> gameView) {

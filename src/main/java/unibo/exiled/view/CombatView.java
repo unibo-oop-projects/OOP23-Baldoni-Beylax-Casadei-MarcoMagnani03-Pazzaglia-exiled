@@ -21,6 +21,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * The view that starts when the player engages in a combat with an enemy.
@@ -28,31 +29,41 @@ import java.util.Locale;
 public final class CombatView extends JPanel {
     @Serial
     private static final long serialVersionUID = 1L;
-    private static final int MILLIS = 2000;
     private static final int BUTTON_FONT_SIZE = 40;
+    private static final int EXTERNAL_PADDING = 100;
+    private static final int ENEMY_PANEL_GAP = 50;
+    private static final int STATUS_PANEL_H_GAP = 20;
+    private static final int STATUS_PANEL_V_GAP = 5;
+    private static final int MOVE_SET_PANEL_GAP = 10;
+    private static final int BATTLE_PANEL_ROWS = 1;
+    private static final int BATTLE_PANEL_COLS = 2;
+    private static final int HEALTH_CRITICAL_PERCENTAGE = 25;
 
     private final transient GameController gameController;
+    private final transient GameView gameView;
 
     private final JPanel moveSetPanel;
     private final JPanel enemyPanel;
     private final JLabel enemyLabel;
     private final GameLabel enemyHealthBar;
     private final GameLabel enemyClassLabel;
-    private boolean hasACharacterDied = false;
     private transient Position combatPosition;
 
     /**
      * The constructor of the combat view.
      *
      * @param gameController The controller that manages the whole game.
+     * @param gameView       The game view where the map is displayed.
      */
-    public CombatView(final GameController gameController) {
+    public CombatView(final GameController gameController, final GameView gameView) {
         this.gameController = gameController;
+        this.gameView = gameView;
         this.setLayout(new BorderLayout());
 
-        this.moveSetPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        JPanel battlePanel = new JPanel(new GridLayout(1, 2));
-        battlePanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        this.moveSetPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, MOVE_SET_PANEL_GAP, MOVE_SET_PANEL_GAP));
+        JPanel battlePanel = new JPanel(new GridLayout(BATTLE_PANEL_ROWS, BATTLE_PANEL_COLS));
+        battlePanel.setBorder(BorderFactory.createEmptyBorder(EXTERNAL_PADDING, EXTERNAL_PADDING, EXTERNAL_PADDING,
+                EXTERNAL_PADDING));
 
         this.add(battlePanel, BorderLayout.CENTER);
         this.add(moveSetPanel, BorderLayout.SOUTH);
@@ -72,13 +83,15 @@ public final class CombatView extends JPanel {
 
         this.enemyHealthBar = new GameLabel("");
         this.enemyClassLabel = new GameLabel("");
-        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        final JPanel statusPanel = new JPanel(
+                new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
         statusPanel.add(this.enemyHealthBar);
         statusPanel.add(this.enemyClassLabel);
 
-        this.enemyPanel = new JPanel(new BorderLayout(50, 50));
-        this.enemyPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        this.enemyPanel = new JPanel(new BorderLayout(ENEMY_PANEL_GAP, ENEMY_PANEL_GAP));
+        this.enemyPanel.setBorder(BorderFactory.createEmptyBorder(EXTERNAL_PADDING, EXTERNAL_PADDING, EXTERNAL_PADDING,
+                EXTERNAL_PADDING));
         this.enemyPanel.add(enemyLabel, BorderLayout.NORTH);
         this.enemyPanel.add(statusPanel, BorderLayout.SOUTH);
 
@@ -105,35 +118,51 @@ public final class CombatView extends JPanel {
         refreshEnemy();
 
         // Create buttons for each move in the player's move set
+        this.moveSetPanel.removeAll();
         for (final String moveName : this.gameController.getCharacterController().getPlayerMoveSet()) {
             final JButton moveButton = new GameButton(moveName);
             this.moveSetPanel.add(moveButton);
             moveButton.addActionListener(e -> {
-                hasACharacterDied = this.gameController.getCharacterController().attack(true, moveName,
+                boolean isEnemyDead = this.gameController.getCharacterController().attack(true, moveName,
                         this.combatPosition);
                 refreshEnemy();
-                try {
-                    Thread.sleep(MILLIS);
-                } catch (final InterruptedException ignored) {
+                if (isEnemyDead) {
+                    this.gameController.getCharacterController().removeEnemyFromPosition(combatPosition);
+                    this.gameView.hideCombat();
                 }
+
+                Set.of(this.moveSetPanel.getComponents()).stream().map(b -> {
+                    b.setEnabled(false);
+                    return b;
+                });
+
                 // Enemy turn to attack
-                hasACharacterDied = this.gameController.getCharacterController().attack(false,
+                this.gameController.getCharacterController().attack(false,
                         this.gameController.getCharacterController()
                                 .getCharacterRandomMoveNameFromPosition(combatPosition),
                         this.combatPosition);
-                // TODO: Redraw barra della vita del player
+                this.gameView.refreshStatusPanel();
+                Set.of(this.moveSetPanel.getComponents()).stream().map(b -> {
+                    b.setEnabled(true);
+                    return b;
+                });
             });
         }
     }
 
+    /**
+     * Refreshes the enemy view.
+     */
     private void refreshEnemy() {
         final double health = gameController.getCharacterController()
                 .getCharacterHealthFromPosition(this.combatPosition);
         final double healthCap = gameController.getCharacterController()
                 .getCharacterHealthCapFromPosition(this.combatPosition);
         this.enemyHealthBar.setText("Health: " + health + " / " + healthCap);
-        if (health <= (healthCap / 100) * 25) {
+        if (health <= (healthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
             this.enemyHealthBar.setForeground(Color.RED);
+        } else {
+            this.enemyHealthBar.setForeground(Color.BLACK);
         }
     }
 }

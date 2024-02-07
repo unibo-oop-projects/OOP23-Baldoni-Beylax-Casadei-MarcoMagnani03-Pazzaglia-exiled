@@ -105,9 +105,10 @@ public final class CharacterControllerImpl implements CharacterController {
             throw new IllegalArgumentException("The position doesn't contain a character.");
         }
 
-        //TODO: Attenzione, spotbugs impedisce di chiamare getPlayer così, bisogna fare in un altro modo.
-        final GameCharacter attacker = this.model.getCharacterFromPosition(combatPosition).get();
-        final GameCharacter defender = this.model.getCharacterFromPosition(combatPosition).get();
+        final GameCharacter attacker = isPlayerAttacking ? this.model.getPlayer().get()
+                : this.model.getCharacterFromPosition(combatPosition).get();
+        final GameCharacter defender = !isPlayerAttacking ? this.model.getPlayer().get()
+                : this.model.getCharacterFromPosition(combatPosition).get();
 
         final double damage = attacker.getMoveSet()
                 .getMagicMoves()
@@ -177,5 +178,10 @@ public final class CharacterControllerImpl implements CharacterController {
             i++;
         }
         return moves.stream().findFirst().get().name();
+    }
+
+    @Override
+    public void removeEnemyFromPosition(final Position position) {
+        this.model.removeEnemyFromPosition(position);
     }
 }

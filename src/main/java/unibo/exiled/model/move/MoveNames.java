@@ -53,7 +53,7 @@ public enum MoveNames {
      * A raging inferno.
      */
     INFERNO("Inferno");
-    
+
     private final String name;
 
     /**
