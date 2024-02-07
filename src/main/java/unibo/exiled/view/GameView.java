@@ -4,12 +4,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
-import unibo.exiled.controller.GameControllerImpl;
-import unibo.exiled.model.game.GameModelImpl;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
@@ -23,7 +22,6 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import java.awt.GridLayout;
-import java.awt.RenderingHints.Key;
 import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -90,7 +88,8 @@ public final class GameView {
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
 
         this.gameOverView = new GameOverView();
-        final String playerClass = this.gameController.getCharacterController().getPlayerClassName().toLowerCase();
+        final String playerClass = this.gameController
+                .getCharacterController().getPlayerClassName().toLowerCase(Locale.ROOT);
         this.playerView = new CharacterView(
                 this.gameController.getCharacterController().getImagePathOfCharacter(
                         Constants.PLAYER_PATH + File.separator + playerClass,
@@ -288,7 +287,7 @@ public final class GameView {
             label = new CharacterView(characterImagePath);
             ((CharacterView) label)
                     .changeImage(gameController.getMapController()
-                            .getLastDirectionOfCharacterInPosition(position),
+                                    .getLastDirectionOfCharacterInPosition(position),
                             gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
         } else {
             label = new JLabel();

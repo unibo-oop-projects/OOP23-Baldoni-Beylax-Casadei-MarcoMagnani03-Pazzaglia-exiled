@@ -55,7 +55,7 @@ public interface GameModel {
 
     /**
      * Gest the player move set.
-     * 
+     *
      * @return The a move set.
      */
     MoveSet getPlayerMoveSet();
@@ -75,13 +75,6 @@ public interface GameModel {
     Position getPlayerPosition();
 
     /**
-     * Gets the player.
-     * 
-     * @return the player.
-     */
-    Player getPlayer();
-
-    /**
      * Returns the items of the player.
      *
      * @return The items of the player.
@@ -90,7 +83,7 @@ public interface GameModel {
 
     /**
      * Returns the description of a given item.
-     * 
+     *
      * @param itemName The name of the item.
      * @return the description of a given item.
      */

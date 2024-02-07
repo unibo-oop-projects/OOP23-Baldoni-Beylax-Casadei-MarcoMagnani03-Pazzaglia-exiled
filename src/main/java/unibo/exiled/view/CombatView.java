@@ -15,29 +15,31 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.io.File;
+import java.io.Serial;
 import java.util.List;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.util.Locale;
 
 /**
  * The view that starts when the player engages in a combat with an enemy.
  */
 public final class CombatView extends JPanel {
+    @Serial
     private static final long serialVersionUID = 1L;
-
+    private static final int MILLIS = 2000;
     private static final int BUTTON_FONT_SIZE = 40;
 
     private final transient GameController gameController;
 
-    private final JPanel battlePanel;
     private final JPanel moveSetPanel;
-    private boolean hasACharacterDied = false;
     private final JPanel enemyPanel;
     private final JLabel enemyLabel;
     private final GameLabel enemyHealthBar;
     private final GameLabel enemyClassLabel;
-    private Position combatPosition;
+    private boolean hasACharacterDied = false;
+    private transient Position combatPosition;
 
     /**
      * The constructor of the combat view.
@@ -48,20 +50,21 @@ public final class CombatView extends JPanel {
         this.gameController = gameController;
         this.setLayout(new BorderLayout());
 
-        this.moveSetPanel = new JPanel(new FlowLayout(1, 10, 10));
-        this.battlePanel = new JPanel(new GridLayout(1, 2));
-        this.battlePanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        this.moveSetPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JPanel battlePanel = new JPanel(new GridLayout(1, 2));
+        battlePanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
 
-        this.add(this.battlePanel, BorderLayout.CENTER);
+        this.add(battlePanel, BorderLayout.CENTER);
         this.add(moveSetPanel, BorderLayout.SOUTH);
 
         // Display the player character
-        final String playerClass = this.gameController.getCharacterController().getPlayerClassName().toLowerCase();
+        final String playerClass = this.gameController.getCharacterController()
+                .getPlayerClassName().toLowerCase(Locale.ROOT);
         final JLabel playerLabel = new CharacterView(
                 this.gameController.getCharacterController().getImagePathOfCharacter(
                         Constants.PLAYER_PATH + File.separator + playerClass,
                         Constants.PLAYER_NAME + "_" + playerClass));
-        this.battlePanel.add(playerLabel);
+        battlePanel.add(playerLabel);
 
         this.enemyLabel = new JLabel("", SwingConstants.CENTER);
         this.enemyLabel.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
@@ -79,7 +82,7 @@ public final class CombatView extends JPanel {
         this.enemyPanel.add(enemyLabel, BorderLayout.NORTH);
         this.enemyPanel.add(statusPanel, BorderLayout.SOUTH);
 
-        this.battlePanel.add(this.enemyPanel);
+        battlePanel.add(this.enemyPanel);
     }
 
     /**
@@ -110,8 +113,8 @@ public final class CombatView extends JPanel {
                         this.combatPosition);
                 refreshEnemy();
                 try {
-                    wait(2000);
-                } catch (Exception error) {
+                    Thread.sleep(MILLIS);
+                } catch (final InterruptedException ignored) {
                 }
                 // Enemy turn to attack
                 hasACharacterDied = this.gameController.getCharacterController().attack(false,

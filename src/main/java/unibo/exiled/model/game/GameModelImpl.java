@@ -364,9 +364,4 @@ public final class GameModelImpl implements GameModel {
     public void assignPlayerClass(final PlayerClass playerClass) {
         player.setPlayerClass(playerClass);
     }
-
-    @Override
-    public Player getPlayer() {
-        return this.player;
-    }
 }
