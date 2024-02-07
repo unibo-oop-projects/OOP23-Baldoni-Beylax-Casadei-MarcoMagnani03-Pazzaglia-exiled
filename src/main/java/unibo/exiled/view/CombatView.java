@@ -61,7 +61,7 @@ public final class CombatView extends JPanel {
         this.setLayout(new BorderLayout());
 
         this.moveSetPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, MOVE_SET_PANEL_GAP, MOVE_SET_PANEL_GAP));
-        JPanel battlePanel = new JPanel(new GridLayout(BATTLE_PANEL_ROWS, BATTLE_PANEL_COLS));
+        final JPanel battlePanel = new JPanel(new GridLayout(BATTLE_PANEL_ROWS, BATTLE_PANEL_COLS));
         battlePanel.setBorder(BorderFactory.createEmptyBorder(EXTERNAL_PADDING, EXTERNAL_PADDING, EXTERNAL_PADDING,
                 EXTERNAL_PADDING));
 
@@ -123,13 +123,9 @@ public final class CombatView extends JPanel {
             final JButton moveButton = new GameButton(moveName);
             this.moveSetPanel.add(moveButton);
             moveButton.addActionListener(e -> {
-                boolean isEnemyDead = this.gameController.getCharacterController().attack(true, moveName,
+                final boolean isEnemyDead = this.gameController.getCharacterController().attack(true, moveName,
                         this.combatPosition);
                 refreshEnemy();
-                if (isEnemyDead) {
-                    this.gameController.getCharacterController().removeEnemyFromPosition(combatPosition);
-                    this.gameView.hideCombat();
-                }
 
                 Set.of(this.moveSetPanel.getComponents()).stream().map(b -> {
                     b.setEnabled(false);
@@ -137,7 +133,7 @@ public final class CombatView extends JPanel {
                 });
 
                 // Enemy turn to attack
-                this.gameController.getCharacterController().attack(false,
+                final boolean isPlayerDead = this.gameController.getCharacterController().attack(false,
                         this.gameController.getCharacterController()
                                 .getCharacterRandomMoveNameFromPosition(combatPosition),
                         this.combatPosition);
@@ -146,6 +142,14 @@ public final class CombatView extends JPanel {
                     b.setEnabled(true);
                     return b;
                 });
+                if (isPlayerDead) {
+                    this.gameView.hideCombat();
+                    this.gameView.draw();
+                }
+                if (isEnemyDead) {
+                    this.gameController.getCharacterController().removeEnemyFromPosition(combatPosition);
+                    this.gameView.hideCombat();
+                }
             });
         }
     }

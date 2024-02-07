@@ -227,20 +227,16 @@ public final class GameView {
                     gameController.getCharacterController().movePlayer(directionPressed);
                     gameController.getCharacterController().moveEnemies();
 
-                    if (gameController.isOver()) {
-                        gameOverView.display();
-                        mainFrame.dispose();
-                    } else if (gameController.getMapController()
+                    if (gameController.getMapController()
                             .isEnemyInCell(gameController.getCharacterController()
                                     .getPlayerPosition())) {
                         initializeCombat();
-                        draw();
                     } else {
                         playerView.changeImage(directionPressed,
                                 gameController.getCharacterController().getIfCharacterInPositionIsMoving(
                                         gameController.getCharacterController().getPlayerPosition()));
-                        draw();
                     }
+                    draw();
                 }
             }
 
@@ -252,7 +248,15 @@ public final class GameView {
         this.mainFrame.addKeyListener(keyListener);
     }
 
-    private void draw() {
+    /**
+     * Draws the grid game panel
+     */
+    public void draw() {
+        if (this.gameController.isOver()) {
+            this.gameOverView.display();
+            this.mainFrame.dispose();
+        }
+
         final Position playerPosition = gameController.getCharacterController().getPlayerPosition();
         final int mapSize = this.gameController.getMapController().getMapSize();
         final int range = 5;
