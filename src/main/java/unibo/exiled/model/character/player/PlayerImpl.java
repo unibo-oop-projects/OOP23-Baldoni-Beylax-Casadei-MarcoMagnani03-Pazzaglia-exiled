@@ -26,6 +26,7 @@ import unibo.exiled.model.item.UsableItem;
  * This class represent the implementation of the player in the game.
  */
 public final class PlayerImpl extends GameCharacterImpl implements Player {
+    private static final Random RANDOM = new Random();
     private final int attributeIncBound;
     private final Inventory inventory;
     private final MoveSet moveSet;
@@ -154,10 +155,9 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * Boosts various attributes of the player upon leveling up.
      */
     private void boostAttributes() {
-        final Random rd = new Random();
-        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, rd.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
-        this.increaseAttributeModifier(AttributeIdentifier.DEFENSE, rd.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
-        this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, rd.nextInt(attributeIncBound));
+        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, RANDOM.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
+        this.increaseAttributeModifier(AttributeIdentifier.DEFENSE, RANDOM.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
+        this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, RANDOM.nextInt(attributeIncBound));
     }
 
     /**
