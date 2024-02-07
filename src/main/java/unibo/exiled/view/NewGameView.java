@@ -30,7 +30,7 @@ public final class NewGameView {
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
         this.mainFrame.setLayout(new BorderLayout());
-        this.mainFrame.add(new MenuView(Optional.empty(), Optional.of(this)), BorderLayout.CENTER);
+        this.mainFrame.add(new MenuView(Optional.empty(), Optional.of(this), Optional.empty()), BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
     }
 

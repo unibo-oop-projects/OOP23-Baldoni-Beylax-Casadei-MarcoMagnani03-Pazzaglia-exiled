@@ -10,14 +10,12 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.MenuBar;
 
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.Serial;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -33,9 +31,10 @@ public final class MenuView extends JPanel {
      * @param playerClassView The player class view of the game.
      * @param newGameView     The view of the new game.
      */
-    public MenuView(final Optional<PlayerClassView> playerClassView, final Optional<NewGameView> newGameView) {
+    public MenuView(final Optional<PlayerClassView> playerClassView, final Optional<NewGameView> newGameView,
+            final Optional<GameView> gameView) {
         super();
-        if(newGameView.isPresent()){
+        if (newGameView.isPresent()) {
             newGameView.get().hide();
         }
         // CREATING STANDARD UI
@@ -54,9 +53,9 @@ public final class MenuView extends JPanel {
                 + "logo.png"));
         buttonListPanel.add(logoLabel);
         cnst.gridy++;
-        final ActionListener buttonListener = new MenuItemActionListener(playerClassView, newGameView);
+        final ActionListener buttonListener = new MenuItemActionListener(playerClassView, newGameView, gameView);
 
-        if (playerClassView.isPresent()) { // Menu In-Game
+        if (gameView.isPresent()) { // Menu In-Game
             final GameButton resumeGameButton = new GameButton("RESUME");
             resumeGameButton.setActionCommand("close_menu");
             resumeGameButton.addActionListener(buttonListener);

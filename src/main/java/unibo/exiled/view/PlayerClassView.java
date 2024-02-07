@@ -72,6 +72,12 @@ public final class PlayerClassView {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Creates a button for selecting the player's class.
+     *
+     * @param elementalType The elemental type associated with the button.
+     * @return The created JButton.
+     */
     private JButton createButton(final ElementalType elementalType) {
         final JButton button = new JButton(elementalType.getName());
         button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
@@ -85,6 +91,11 @@ public final class PlayerClassView {
         return button;
     }
 
+    /**
+     * Handles the decision when the player selects a class.
+     *
+     * @param playerType The elemental type chosen by the player.
+     */
     private void classDecision(final ElementalType playerType) {
         final int result = JOptionPane.showConfirmDialog(
                 this.mainFrame,
@@ -99,15 +110,24 @@ public final class PlayerClassView {
         }
     }
 
-    public void display(){
+    /**
+     * Displays the player class selection view.
+     */
+    public void display() {
         this.mainFrame.setVisible(true);
     }
 
-    public void hide(){
+    /**
+     * Hides the player class selection view.
+     */
+    public void hide() {
         this.mainFrame.setVisible(false);
     }
 
-    public void close(){
+    /**
+     * Closes the player class selection view.
+     */
+    public void close() {
         this.mainFrame.dispose();
     }
 }

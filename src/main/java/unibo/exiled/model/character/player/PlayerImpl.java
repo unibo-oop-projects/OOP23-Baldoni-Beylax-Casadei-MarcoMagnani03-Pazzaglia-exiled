@@ -36,22 +36,21 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     private int expCap;
     private PlayerClass playerClass;
     private int levelToLearnAMove;
-    private final static float ATTRIBUTE_INCREMENT_MODULATOR = 20.0f;
+    private static final float ATTRIBUTE_INCREMENT_MODULATOR = 20.0f;
 
     /**
      * Constructs a new player with specified attributes, experience cap, initial
      * experience, and learning intervals.
      *
-     * @param experienceCap         The maximum experience points required for a
-     *                              level up.
-     * @param initialExperience     The starting experience points of the player.
+     * @param experienceCap          The maximum experience points required for a
+     *                               level up.
+     * @param initialExperience      The starting experience points of the player.
      * @param attributeIncreaseBound The max increment value for each level up.
-     *                              possesses.
-     * @param movesLearningInterval The interval at which the player learns new
-     *                              magical moves.
+     * @param movesLearningInterval  The interval at which the player learns new
+     *                               magical moves.
      */
     public PlayerImpl(final int experienceCap, final int initialExperience, final int attributeIncreaseBound,
-                      final int movesLearningInterval) {
+            final int movesLearningInterval) {
         super(Constants.PLAYER_NAME, new AttributeFactoryImpl().createPlayerAttributes());
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         this.inventory = initializeInventory();
@@ -155,8 +154,10 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * Boosts various attributes of the player upon leveling up.
      */
     private void boostAttributes() {
-        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, RANDOM.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
-        this.increaseAttributeModifier(AttributeIdentifier.DEFENSE, RANDOM.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
+        this.increaseAttributeModifier(AttributeIdentifier.ATTACK,
+                RANDOM.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
+        this.increaseAttributeModifier(AttributeIdentifier.DEFENSE,
+                RANDOM.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
         this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, RANDOM.nextInt(attributeIncBound));
     }
 

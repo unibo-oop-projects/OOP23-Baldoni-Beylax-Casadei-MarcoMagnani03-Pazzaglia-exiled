@@ -23,6 +23,8 @@ import java.awt.Color;
 import javax.swing.GroupLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
+
+import javax.management.openmbean.OpenDataException;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -56,6 +58,8 @@ public final class GameView {
 
     /**
      * Constructor of the main view.
+     *
+     * @param gameController The game controller that manages interaction between the model and the view.
      */
     public GameView(final GameController gameController) {
         final JPanel gameContainerPanel;
@@ -95,7 +99,7 @@ public final class GameView {
                         Constants.PLAYER_PATH + File.separator + playerClass,
                         Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController);
-        final MenuView menuView = new MenuView(Optional.empty(), Optional.of(new NewGameView()));
+        final MenuView menuView = new MenuView(Optional.empty(), Optional.of(new NewGameView()), Optional.of(this));
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
 
         this.menuPanel.add(menuView);
