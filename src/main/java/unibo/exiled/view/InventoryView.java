@@ -25,12 +25,14 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.Serial;
 import java.util.Map;
 
 /**
  * The view panel of the player's inventory.
  */
 public final class InventoryView extends JPanel {
+    @Serial
     private static final long serialVersionUID = 2L;
 
     private static final Color HEALING_ITEM_COLOR = new Color(141, 254, 141);
@@ -82,6 +84,13 @@ public final class InventoryView extends JPanel {
         add(centralPanel, BorderLayout.CENTER);
 
         // North
+        final JPanel northPanel = getNorthPanel(game);
+        add(northPanel, BorderLayout.NORTH);
+
+        updateInventoryList();
+    }
+
+    private static JPanel getNorthPanel(final GameView game) {
         final JLabel titleLabel = new TitleGameLabel("Inventory");
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -92,9 +101,7 @@ public final class InventoryView extends JPanel {
         northPanel.add(exitButton, BorderLayout.WEST);
         northPanel.add(titleLabel, BorderLayout.CENTER);
         northPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, 0, TOP_BOTTOM_MARGIN, 0));
-        add(northPanel, BorderLayout.NORTH);
-
-        updateInventoryList();
+        return northPanel;
     }
 
     private int getScreenWidth() {
@@ -152,11 +159,12 @@ public final class InventoryView extends JPanel {
     }
 
     private final class ItemListRenderer extends DefaultListCellRenderer {
+        @Serial
         private static final long serialVersionUID = 3L;
 
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
-                final boolean isSelected, final boolean cellHasFocus) {
+                                                      final boolean isSelected, final boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof String item) {
                 final Map<String, Integer> itemsList = gameController.getItemsController().getItems();
@@ -183,10 +191,8 @@ public final class InventoryView extends JPanel {
                                 + gameController.getItemsController().getItemDuration(item));
                     }
 
-                    case RESOURCE -> {
-                        setText(" " + item + " - Quantity: " + quantity + " - Description: "
-                                + description);
-                    }
+                    case RESOURCE -> setText(" " + item + " - Quantity: " + quantity + " - Description: "
+                            + description);
 
                     default -> {
                     }

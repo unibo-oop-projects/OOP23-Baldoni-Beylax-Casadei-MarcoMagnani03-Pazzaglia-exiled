@@ -55,4 +55,11 @@ public interface AttributeFactory {
      * @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createBossAttributes();
+
+    /**
+     * Creates tje attributes for the Whirler.
+     *
+     * @return A map of attributes with the overly specified values.
+     */
+    Map<AttributeIdentifier, Attribute> createWhirlerAttributes();
 }

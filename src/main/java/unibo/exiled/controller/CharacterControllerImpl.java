@@ -21,6 +21,7 @@ import java.util.Set;
 public final class CharacterControllerImpl implements CharacterController {
 
     private static final String EXCEPTION_POSITION_MISSING_MESSAGE = "The position doesn't contain a character.";
+    private static final Random RANDOM = new Random();
     private final GameModel model;
 
     /**
@@ -99,15 +100,14 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public boolean attack(final boolean isPlayerAttacking, final String moveName, Position combatPosition) {
-        if (!this.model.getCharacterFromPosition(combatPosition).isPresent()) {
+    public boolean attack(final boolean isPlayerAttacking, final String moveName, final Position combatPosition) {
+        if (this.model.getCharacterFromPosition(combatPosition).isEmpty()) {
             throw new IllegalArgumentException("The position doesn't contain a character.");
         }
 
-        final GameCharacter attacker = isPlayerAttacking ? this.model.getPlayer()
-                : this.model.getCharacterFromPosition(combatPosition).get();
-        final GameCharacter defender = !isPlayerAttacking ? this.model.getPlayer()
-                : this.model.getCharacterFromPosition(combatPosition).get();
+        //TODO: Attenzione, spotbugs impedisce di chiamare getPlayer così, bisogna fare in un altro modo.
+        final GameCharacter attacker = this.model.getCharacterFromPosition(combatPosition).get();
+        final GameCharacter defender = this.model.getCharacterFromPosition(combatPosition).get();
 
         final double damage = attacker.getMoveSet()
                 .getMagicMoves()
@@ -166,12 +166,11 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public String getCharacterRandomMoveNameFromPosition(Position position) {
-        Set<MagicMove> moves = this.model.getCharacterFromPosition(position).get().getMoveSet().getMagicMoves();
-        Random random = new Random();
-        int randomIndex = random.nextInt(moves.size());
+    public String getCharacterRandomMoveNameFromPosition(final Position position) {
+        final Set<MagicMove> moves = this.model.getCharacterFromPosition(position).get().getMoveSet().getMagicMoves();
+        final int randomIndex = RANDOM.nextInt(moves.size());
         int i = 0;
-        for (MagicMove magicMove : moves) {
+        for (final MagicMove magicMove : moves) {
             if (i == randomIndex) {
                 return magicMove.name();
             }

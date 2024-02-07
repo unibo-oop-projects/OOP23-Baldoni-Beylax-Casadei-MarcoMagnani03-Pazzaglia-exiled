@@ -8,6 +8,7 @@ import java.util.Map;
 public final class AttributeFactoryImpl implements AttributeFactory {
 
     private static final int BASE_HEALTH = 10;
+    private static final double WHIRLER_MODIFIER = 1.1;
 
     private Map<AttributeIdentifier, Attribute> fromValues(final double health,
                                                            final double healthModifier,
@@ -38,6 +39,11 @@ public final class AttributeFactoryImpl implements AttributeFactory {
 
     @Override
     public Map<AttributeIdentifier, Attribute> createBossAttributes() {
-        return fromValues(BASE_HEALTH * 10, 1, 1, 1, BASE_HEALTH * 3);
+        return fromValues(BASE_HEALTH * 10, 1, 1, 1, BASE_HEALTH * 10);
+    }
+
+    @Override
+    public Map<AttributeIdentifier, Attribute> createWhirlerAttributes() {
+        return fromValues(BASE_HEALTH * 2, 1, WHIRLER_MODIFIER, WHIRLER_MODIFIER, BASE_HEALTH * 2);
     }
 }

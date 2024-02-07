@@ -11,7 +11,7 @@ final class TestMoveSetFactory {
     @Test
     void testDefaultNormalMoveSet() {
         final MoveSetFactoryImpl factory = new MoveSetFactoryImpl();
-        final MoveSet moveSet = factory.defaultNormalMoveSet(3);
+        final MoveSet moveSet = factory.defaultNormalMoveSet();
         assertNotNull(moveSet);
         // Test if Moves.getMoveByName() and Moves.getMoveByName().get() are called
         assertEquals(1, moveSet.getMagicMoves().size());
@@ -20,7 +20,7 @@ final class TestMoveSetFactory {
     @Test
     void testDefaultFireMoveSet() {
         final MoveSetFactoryImpl factory = new MoveSetFactoryImpl();
-        final MoveSet moveSet = factory.defaultFireMoveSet(3);
+        final MoveSet moveSet = factory.defaultFireMoveSet();
         assertNotNull(moveSet);
         // Test if Moves.getMoveByName() and Moves.getMoveByName().get() are called
         assertEquals(1, moveSet.getMagicMoves().size());
@@ -29,7 +29,7 @@ final class TestMoveSetFactory {
     @Test
     void testDefaultGrassMoveSet() {
         final MoveSetFactoryImpl factory = new MoveSetFactoryImpl();
-        final MoveSet moveSet = factory.defaultGrassMoveSet(3);
+        final MoveSet moveSet = factory.defaultGrassMoveSet();
         assertNotNull(moveSet);
         // Test if Moves.getMoveByName() and Moves.getMoveByName().get() are called
         assertEquals(1, moveSet.getMagicMoves().size());
@@ -38,7 +38,7 @@ final class TestMoveSetFactory {
     @Test
     void testDefaultBoltMoveSet() {
         final MoveSetFactoryImpl factory = new MoveSetFactoryImpl();
-        final MoveSet moveSet = factory.defaultBoltMoveSet(3);
+        final MoveSet moveSet = factory.defaultBoltMoveSet();
         assertNotNull(moveSet);
         // Test if Moves.getMoveByName() and Moves.getMoveByName().get() are called
         assertEquals(1, moveSet.getMagicMoves().size());
@@ -47,7 +47,7 @@ final class TestMoveSetFactory {
     @Test
     void testDefaultWaterMoveSet() {
         final MoveSetFactoryImpl factory = new MoveSetFactoryImpl();
-        final MoveSet moveSet = factory.defaultWaterMoveSet(3);
+        final MoveSet moveSet = factory.defaultWaterMoveSet();
         assertNotNull(moveSet);
         // Test if Moves.getMoveByName() and Moves.getMoveByName().get() are called
         assertEquals(1, moveSet.getMagicMoves().size());

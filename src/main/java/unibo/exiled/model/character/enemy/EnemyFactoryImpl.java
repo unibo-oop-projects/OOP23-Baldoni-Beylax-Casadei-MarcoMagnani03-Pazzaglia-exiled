@@ -18,6 +18,7 @@ import java.util.Random;
  */
 public final class EnemyFactoryImpl implements EnemyFactory {
     private static final Random RANDOM = new Random();
+    private static final int DROPPED_EXPERIENCE_BASE = 10;
     private final MoveSetFactory moveSetFactory;
     private final AttributeFactory attributeFactory;
 
@@ -45,7 +46,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     @Override
     public Enemy createGoblin() {
         return createFromValues(SelectableEnemies.GOBLIN.name,
-                moveSetFactory.defaultGrassMoveSet(1),
+                moveSetFactory.defaultGrassMoveSet(),
                 attributeFactory.createGoblinAttributes(),
                 ElementalType.GRASS,
                 SelectableEnemies.GOBLIN.droppedExperience);
@@ -55,7 +56,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     public Enemy createBrutus() {
         return this.createFromValues(
                 SelectableEnemies.BRUTUS.name,
-                moveSetFactory.defaultFireMoveSet(1),
+                moveSetFactory.defaultFireMoveSet(),
                 attributeFactory.createBrutusAttributes(),
                 ElementalType.FIRE,
                 SelectableEnemies.BRUTUS.droppedExperience
@@ -66,7 +67,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     public Enemy createWaterBoss() {
         return new BossEnemy(
                 "Umidamiano",
-                moveSetFactory.defaultWaterMoveSet(4),
+                moveSetFactory.defaultWaterMoveSet(),
                 ElementalType.WATER);
     }
 
@@ -74,7 +75,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     public Enemy createFireBoss() {
         return new BossEnemy(
                 "Piercalore",
-                moveSetFactory.defaultFireMoveSet(4),
+                moveSetFactory.defaultFireMoveSet(),
                 ElementalType.FIRE
         );
     }
@@ -83,7 +84,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     public Enemy createBoltBoss() {
         return new BossEnemy(
                 "Carlaccesa",
-                moveSetFactory.defaultBoltMoveSet(4),
+                moveSetFactory.defaultBoltMoveSet(),
                 ElementalType.BOLT
         );
     }
@@ -92,7 +93,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     public Enemy createGrassBoss() {
         return new BossEnemy(
                 "Lucionerba",
-                moveSetFactory.defaultGrassMoveSet(4),
+                moveSetFactory.defaultGrassMoveSet(),
                 ElementalType.GRASS
         );
     }
@@ -108,15 +109,25 @@ public final class EnemyFactoryImpl implements EnemyFactory {
             case GOBLIN -> {
                 return this.createGoblin();
             }
-            default -> {
-                throw new IllegalStateException("Enemy generation failed.");
+            case WHIRLER -> {
+                return this.createWhirler();
             }
+            default -> throw new IllegalStateException("Enemy generation failed.");
         }
     }
 
+    @Override
+    public Enemy createWhirler() {
+        return createFromValues(SelectableEnemies.WHIRLER.name,
+                moveSetFactory.whirlerMoveset(),
+                attributeFactory.createWhirlerAttributes(),
+                ElementalType.FIRE, SelectableEnemies.WHIRLER.droppedExperience);
+    }
+
     private enum SelectableEnemies {
-        GOBLIN("Goblin", 10),
-        BRUTUS("Brutus", 20);
+        GOBLIN("Goblin", DROPPED_EXPERIENCE_BASE),
+        BRUTUS("Brutus", DROPPED_EXPERIENCE_BASE * 2),
+        WHIRLER("Whirler", DROPPED_EXPERIENCE_BASE * 2);
 
         private final int droppedExperience;
         private final String name;

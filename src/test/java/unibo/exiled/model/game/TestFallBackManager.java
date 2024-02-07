@@ -11,7 +11,7 @@ import unibo.exiled.config.Constants;
  * Tests the fallback manager.
  */
 class TestFallBackManager {
-    private static final int DEFAULT_MAP_SIZE = 20;
+    private static final int DEFAULT_MAP_SIZE = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
 
     @Test
     void testNull() {

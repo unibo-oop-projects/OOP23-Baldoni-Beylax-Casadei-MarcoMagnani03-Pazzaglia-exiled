@@ -2,7 +2,6 @@ package unibo.exiled.model.game;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
-import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.map.CellType;
@@ -55,7 +54,7 @@ public interface GameModel {
 
     /**
      * Gest the player move set.
-     * 
+     *
      * @return The a move set.
      */
     MoveSet getPlayerMoveSet();
@@ -75,12 +74,6 @@ public interface GameModel {
     Position getPlayerPosition();
 
     /**
-     * Gets the player
-     * @return the player
-     */
-    Player getPlayer();
-
-    /**
      * Returns the items of the player.
      *
      * @return The items of the player.
@@ -89,7 +82,7 @@ public interface GameModel {
 
     /**
      * Returns the description of a given item.
-     * 
+     *
      * @param itemName The name of the item.
      * @return the description of a given item.
      */

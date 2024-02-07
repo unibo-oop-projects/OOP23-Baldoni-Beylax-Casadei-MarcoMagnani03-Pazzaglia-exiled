@@ -30,6 +30,7 @@ import java.awt.Container;
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
 import java.awt.event.KeyEvent;
+import java.util.Locale;
 
 /**
  * The main view of the game, everything starts here.
@@ -90,10 +91,13 @@ public final class GameView {
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
 
         this.gameOverView = new GameOverView();
-        final String playerClass = this.gameController.getCharacterController().getPlayerClassName().toLowerCase();
-        this.playerView = new CharacterView( // TODO: finire la gestione del player class.
-            this.gameController.getCharacterController().getImagePathOfCharacter(
-                Constants.PLAYER_PATH + File.separator + playerClass, Constants.PLAYER_NAME + "_" + playerClass));
+        final String playerClass = this.gameController.getCharacterController()
+                .getPlayerClassName().toLowerCase(Locale.ROOT);
+        //TODO: Finire la gestione del player class.
+        this.playerView = new CharacterView(
+                this.gameController.getCharacterController().getImagePathOfCharacter(
+                        Constants.PLAYER_PATH + File.separator + playerClass,
+                        Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController);
         final MenuView menuView = new MenuView(this, new NewGameView());
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
@@ -158,13 +162,13 @@ public final class GameView {
 
     private JPanel getProgressPanel() {
         final GameLabel healthBar = new GameLabel("Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
-        + gameController.getCharacterController().getPlayerHealthCap());
+                + gameController.getCharacterController().getPlayerHealthCap());
         final GameLabel levelLabel = new GameLabel("Level: " + gameController.getCharacterController().getPlayerLevel());
         final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getPlayerClassName());
         final int currentExperience = gameController.getCharacterController().getPlayerCurrentExperience();
         final int experienceCap = gameController.getCharacterController().getPlayerExperienceCap();
         final GameLabel experienceLabel = new GameLabel("Experience: " + currentExperience + " / " + experienceCap);
-        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5)); 
+        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
         statusPanel.add(healthBar);
         statusPanel.add(levelLabel);

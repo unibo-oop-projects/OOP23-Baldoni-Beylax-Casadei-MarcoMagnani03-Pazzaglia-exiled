@@ -43,17 +43,16 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      *                              level up.
      * @param initialExperience     The starting experience points of the player.
      * @param levelIncrease         The increment value for each level up.
-     * @param movesNumber           The initial number of magical moves the player
      *                              possesses.
      * @param movesLearningInterval The interval at which the player learns new
      *                              magical moves.
      */
     public PlayerImpl(final int experienceCap, final int initialExperience, final int levelIncrease,
-                      final int movesNumber, final int movesLearningInterval) {
+                      final int movesLearningInterval) {
         super(Constants.PLAYER_NAME, new AttributeFactoryImpl().createPlayerAttributes());
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         this.inventory = initializeInventory();
-        this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet(movesNumber);
+        this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet();
         this.expCap = experienceCap;
         this.currentExp = initialExperience;
         this.levelInc = levelIncrease;

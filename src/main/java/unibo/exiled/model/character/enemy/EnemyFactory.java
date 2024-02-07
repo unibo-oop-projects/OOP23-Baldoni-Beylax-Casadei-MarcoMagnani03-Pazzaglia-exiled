@@ -52,4 +52,11 @@ public interface EnemyFactory {
      * @return A random enemy in the factory.
      */
     Enemy createRandom();
+
+    /**
+     * Creates a Whirler.
+     *
+     * @return A whirler enemy.
+     */
+    Enemy createWhirler();
 }

@@ -20,10 +20,6 @@ import java.io.File;
  * This class represent the GameOver view.
  */
 public final class GameOverView {
-    //Screen constants
-    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final double screenWidth = screenSize.getWidth();
-    private final double screenHeight = screenSize.getHeight();
 
     //MVC Components (MC)
     private final JFrame mainFrame;
@@ -37,6 +33,10 @@ public final class GameOverView {
      */
     public GameOverView() {
         this.mainFrame = new JFrame();
+        //Screen constants
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final double screenWidth = screenSize.getWidth();
+        final double screenHeight = screenSize.getHeight();
         this.mainFrame.setSize((int) screenWidth / 3, (int) screenHeight / 2);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled - Game Over");
