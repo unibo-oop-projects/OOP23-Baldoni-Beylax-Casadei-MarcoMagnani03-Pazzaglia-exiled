@@ -1,6 +1,7 @@
 package unibo.exiled.model.character.player;
 
 import java.util.Optional;
+import java.util.Random;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.character.GameCharacterImpl;
@@ -25,7 +26,7 @@ import unibo.exiled.model.item.UsableItem;
  * This class represent the implementation of the player in the game.
  */
 public final class PlayerImpl extends GameCharacterImpl implements Player {
-    private final int levelInc;
+    private final int attributeIncBound;
     private final Inventory inventory;
     private final MoveSet moveSet;
     private final int movesLearningInterval;
@@ -34,6 +35,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     private int expCap;
     private PlayerClass playerClass;
     private int levelToLearnAMove;
+    private final static float ATTRIBUTE_INCREMENT_MODULATOR = 20.0f;
 
     /**
      * Constructs a new player with specified attributes, experience cap, initial
@@ -42,12 +44,12 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * @param experienceCap         The maximum experience points required for a
      *                              level up.
      * @param initialExperience     The starting experience points of the player.
-     * @param levelIncrease         The increment value for each level up.
+     * @param attributeIncreaseBound The max increment value for each level up.
      *                              possesses.
      * @param movesLearningInterval The interval at which the player learns new
      *                              magical moves.
      */
-    public PlayerImpl(final int experienceCap, final int initialExperience, final int levelIncrease,
+    public PlayerImpl(final int experienceCap, final int initialExperience, final int attributeIncreaseBound,
                       final int movesLearningInterval) {
         super(Constants.PLAYER_NAME, new AttributeFactoryImpl().createPlayerAttributes());
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
@@ -55,7 +57,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet();
         this.expCap = experienceCap;
         this.currentExp = initialExperience;
-        this.levelInc = levelIncrease;
+        this.attributeIncBound = attributeIncreaseBound;
         this.movesLearningInterval = movesLearningInterval;
         this.levelToLearnAMove = 0;
         this.playerClass = new PlayerClassImpl(ElementalType.NORMAL);
@@ -152,9 +154,10 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * Boosts various attributes of the player upon leveling up.
      */
     private void boostAttributes() {
-        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10.0f);
-        this.increaseAttributeModifier(AttributeIdentifier.DEFENSE, levelInc / 10.0f);
-        this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, levelInc);
+        final Random rd = new Random();
+        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, rd.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
+        this.increaseAttributeModifier(AttributeIdentifier.DEFENSE, rd.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
+        this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, rd.nextInt(attributeIncBound));
     }
 
     /**
