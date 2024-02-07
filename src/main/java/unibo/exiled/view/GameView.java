@@ -49,7 +49,6 @@ public final class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
-    private final JPanel playerClassPanel;
 
     /**
      * The game controller that manages interaction between the model and the view.
@@ -60,10 +59,10 @@ public final class GameView {
     /**
      * Constructor of the main view.
      */
-    public GameView() {
+    public GameView(final GameController gameController) {
         final JPanel gameContainerPanel;
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        this.gameController = new GameControllerImpl(new GameModelImpl());
+        this.gameController = gameController;
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
