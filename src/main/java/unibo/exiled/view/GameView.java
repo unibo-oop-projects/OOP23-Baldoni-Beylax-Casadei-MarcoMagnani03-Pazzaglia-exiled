@@ -249,7 +249,7 @@ public final class GameView {
     }
 
     /**
-     * Draws the grid game panel
+     * Draws the grid game panel.
      */
     public void draw() {
         if (this.gameController.isOver()) {
