@@ -64,8 +64,7 @@ final class TestPlayer {
         assertEquals(expectedLevel, player.getLevel());
     }
 
-    //TODO: Marco sistema il test.
-    /*@Test
+    @Test
     void testLevelUp() {
         final double experienceToAdd = 230;
         final double expectedExperience = 10;
@@ -73,7 +72,7 @@ final class TestPlayer {
         player.addExperience(experienceToAdd);
         assertEquals(expectedExperience, player.getExperience());
         assertEquals(expectedLevel, player.getLevel());
-    }*/
+    }
 
     @Test
     void testUseHealingItem() {

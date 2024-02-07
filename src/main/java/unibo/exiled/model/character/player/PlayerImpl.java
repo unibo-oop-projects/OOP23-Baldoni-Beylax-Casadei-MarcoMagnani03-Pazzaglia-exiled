@@ -133,8 +133,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * @return The experience points needed for the next level.
      */
     private int calculateNextLevelExperience() {
-        //TODO: Non ho capito il modificatore che moltiplicavi, perchè int?
-        return this.expCap + this.expCap; //* Integer.parseInt(Constants.getConstantOf("EXPERIENCE_MULTIPLIER"));
+        return (int) (this.expCap + this.expCap * Double.parseDouble(Constants.getConstantOf("EXPERIENCE_MULTIPLIER")));
     }
 
     /**
@@ -145,7 +144,6 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         this.level++;
         this.currentExp -= expCap;
         this.expCap = calculateNextLevelExperience();
-        this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10.0f);
         learnNewMove();
         boostAttributes();
     }
@@ -155,9 +153,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      */
     private void boostAttributes() {
         this.increaseAttributeModifier(AttributeIdentifier.ATTACK, levelInc / 10.0f);
-        this.increaseAttributeValue(AttributeIdentifier.HEALTH, levelInc);
+        this.increaseAttributeModifier(AttributeIdentifier.DEFENSE, levelInc / 10.0f);
         this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, levelInc);
-        this.increaseAttributeValue(AttributeIdentifier.DEFENSE, levelInc);
     }
 
     /**
