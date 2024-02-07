@@ -38,9 +38,9 @@ import java.awt.event.KeyEvent;
  */
 public final class GameView {
     // Views
+    private final CharacterView playerView;
     private final CombatView combatView;
     private final GameOverView gameOverView;
-    private final CharacterView playerView;
 
     // MVC Components(MC)
     private final JFrame mainFrame;
@@ -49,6 +49,7 @@ public final class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
+    private final JPanel playerClassPanel;
 
     /**
      * The game controller that manages interaction between the model and the view.
@@ -59,10 +60,10 @@ public final class GameView {
     /**
      * Constructor of the main view.
      */
-    public GameView(final GameController gameController) {
+    public GameView() {
         final JPanel gameContainerPanel;
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        this.gameController = gameController;
+        this.gameController = new GameControllerImpl(new GameModelImpl());
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -98,6 +99,7 @@ public final class GameView {
         this.combatView = new CombatView(this.gameController);
         final MenuView menuView = new MenuView(Optional.empty(), Optional.of(new NewGameView()));
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
+
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(inventoryView);
         this.combatPanel.add(combatView, BorderLayout.CENTER);
@@ -186,16 +188,16 @@ public final class GameView {
 
             private static Direction getDirection(final KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                    case KeyEvent.VK_W -> {
                         return Direction.NORTH;
                     }
-                    case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
+                    case KeyEvent.VK_A -> {
                         return Direction.WEST;
                     }
-                    case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                    case KeyEvent.VK_S -> {
                         return Direction.SOUTH;
                     }
-                    case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
+                    case KeyEvent.VK_D -> {
                         return Direction.EAST;
                     }
                     default -> throw new IllegalStateException("Illegal pressed key.");
@@ -241,7 +243,7 @@ public final class GameView {
         this.mainFrame.addKeyListener(keyListener);
     }
 
-    public void draw() {
+    private void draw() {
         final Position playerPosition = gameController.getCharacterController().getPlayerPosition();
         final int mapSize = this.gameController.getMapController().getMapSize();
         final int range = 5;
@@ -266,6 +268,7 @@ public final class GameView {
         this.mainFrame.revalidate();
         this.mainFrame.repaint();
     }
+
 
     /**
      * Colors the map areas based on the respective type.

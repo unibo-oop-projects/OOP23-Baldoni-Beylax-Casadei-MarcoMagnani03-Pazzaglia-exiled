@@ -28,7 +28,11 @@ public enum MoveNames {
     /**
      * A water basic move.
      */
-    WATERPISTOL("Water Pistol");
+    WATERPISTOL("Water Pistol"),
+    /**
+     * A flame move.
+     */
+    FLAMEWHIRL("Flaming Whirl");
 
     private final String name;
 

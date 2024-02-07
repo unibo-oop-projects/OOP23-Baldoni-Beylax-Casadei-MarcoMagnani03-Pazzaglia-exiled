@@ -52,7 +52,6 @@ public final class GameModelImpl implements GameModel {
     public GameModelImpl() {
         //Constants loading
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        final int moveNumber = Integer.parseInt(Constants.getConstantOf("NUM_PLAYER_MOVES"));
         final int playerExperienceCap = Integer.parseInt(Constants.getConstantOf("PLAYER_EXPERIENCE_CAP"));
         final int defaultExperience = Integer.parseInt(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE"));
         final int playerLevelIncrease = Integer.parseInt(Constants.getConstantOf("PLAYER_LEVEL_INCREASE"));
@@ -64,7 +63,6 @@ public final class GameModelImpl implements GameModel {
         this.playerInitialization(playerExperienceCap,
                 defaultExperience,
                 playerLevelIncrease,
-                moveNumber,
                 movesLearningInterval);
         this.enemyCollection = new EnemyCollectionImpl();
         this.enemyInitialization(enemyNumber);
@@ -110,10 +108,9 @@ public final class GameModelImpl implements GameModel {
     private void playerInitialization(final int playerExperienceCap,
                                       final int defaultExperience,
                                       final int levelIncrease,
-                                      final int moveNumber,
                                       final int movesLearningInterval) {
         this.player = new PlayerImpl(playerExperienceCap,
-                defaultExperience, levelIncrease, moveNumber, movesLearningInterval);
+                defaultExperience, levelIncrease, movesLearningInterval);
         this.player.move(new Position(mapModel.getSize() / 2, mapModel.getSize() / 2));
     }
 
@@ -227,11 +224,6 @@ public final class GameModelImpl implements GameModel {
             }
 
         }
-    }
-
-    @Override
-    public Player getPlayer() {
-        return this.player;
     }
 
     @Override

@@ -17,14 +17,14 @@ final class TestItem {
 
     @Test
     void testPowerUpItemUsage() {
-        final Player player = new PlayerImpl(0, 0, 0, 0, 0);
+        final Player player = new PlayerImpl(0, 0, 0, 0);
         final PowerUpItem powerUpItem = new PowerUpItem("Strength Boost", "Increases attack strength", 10.0, 3,
                 AttributeIdentifier.ATTACK);
         final double initialAttributeValue =
-        ((MultiplierAttribute) player.getAttributes().get(AttributeIdentifier.ATTACK)).modifier();
+                ((MultiplierAttribute) player.getAttributes().get(AttributeIdentifier.ATTACK)).modifier();
         powerUpItem.use(player);
         final double newAttributeValue =
-        ((MultiplierAttribute) player.getAttributes().get(AttributeIdentifier.ATTACK)).modifier();
+                ((MultiplierAttribute) player.getAttributes().get(AttributeIdentifier.ATTACK)).modifier();
         assertEquals(initialAttributeValue + 10.0, newAttributeValue, 0);
         assertEquals(3, powerUpItem.getDuration());
         assertEquals(AttributeIdentifier.ATTACK, powerUpItem.getBoostedAttribute());
@@ -32,7 +32,7 @@ final class TestItem {
 
     @Test
     void testHealingItemUsage() {
-        final Player player = new PlayerImpl(0, 0, 0, 0, 0);
+        final Player player = new PlayerImpl(0, 0, 0, 0);
         final HealingItem healingItem = new HealingItem("Health Potion", "Restores health", HEALING_ITEM_AMOUNT);
         player.decreaseAttributeValue(AttributeIdentifier.HEALTH, DECREASE_HEALTH);
         final double initialHealth = player.getHealth();

@@ -6,6 +6,7 @@ import unibo.exiled.model.utilities.Direction;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.io.Serial;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
  * The class handles the sprites of the character's movement.
  */
 public final class CharacterView extends JLabel {
+    @Serial
     private static final long serialVersionUID = 5L;
     private static final String FIRST_IMAGE = "_1.png";
     private static final String SECOND_IMAGE = "_2.png";

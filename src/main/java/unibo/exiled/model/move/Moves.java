@@ -2,7 +2,6 @@ package unibo.exiled.model.move;
 
 import java.util.Set;
 import java.util.Optional;
-import java.util.Collections;
 import java.util.Random;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +28,9 @@ public final class Moves {
             MOVE_FACTORY.createBoltMagicMove(MoveNames.LIGHTBULB.getName(),
                     "Lit oneself body to blind the enemy, not very effective.", 5),
             MOVE_FACTORY.createWaterMagicMove(MoveNames.WATERPISTOL.getName(),
-                    "Spits water from the mouth, pretty disgusting but nothing more.", 5)
+                    "Spits water from the mouth, pretty disgusting but nothing more.", 5),
+            MOVE_FACTORY.createFireMagicMove(MoveNames.FLAMEWHIRL.getName(),
+                    "Creates a roundel of flaming braces to throw", 20)
     );
 
     private Moves() {
@@ -51,7 +52,7 @@ public final class Moves {
      * @return An unmodifiable set of every move in the game.
      */
     public static Set<MagicMove> getAllMagicMoves() {
-        return Collections.unmodifiableSet(MAGIC_MOVES);
+        return MAGIC_MOVES;
     }
 
     /**
