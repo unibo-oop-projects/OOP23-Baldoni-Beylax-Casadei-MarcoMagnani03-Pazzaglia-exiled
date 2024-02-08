@@ -1,5 +1,6 @@
 package unibo.exiled.model.character.player;
 
+import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.UsableItem;
@@ -35,14 +36,14 @@ public interface Player extends GameCharacter {
      *
      * @return the player class.
      */
-    PlayerClass getPlayerClass();
+    CharacterClass getPlayerClass();
 
     /**
      * Sets the elemental type chosen from the player.
      *
      * @param playerClass the class choosen.
      */
-    void setPlayerClass(PlayerClass playerClass);
+    void setPlayerClass(CharacterClass playerClass);
 
     /**
      * Adds experience, if it exceeds the levelUp cap by increasing statistics.

@@ -1,11 +1,11 @@
-package unibo.exiled.model.character.player;
+package unibo.exiled.model.character;
 
 import unibo.exiled.model.utilities.ElementalType;
 
 /**
  * An interface that represent the elemental type of the player.
  */
-public interface PlayerClass {
+public interface CharacterClass {
     /**
      * Gets the modifier associated with the player class.
      *

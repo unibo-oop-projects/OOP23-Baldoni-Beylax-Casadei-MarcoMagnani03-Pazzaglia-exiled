@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.Random;
 
 import unibo.exiled.config.Constants;
+import unibo.exiled.model.character.CharacterClass;
+import unibo.exiled.model.character.CharacterClassImpl;
 import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -34,7 +36,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     private int level;
     private int currentExp;
     private int expCap;
-    private PlayerClass playerClass;
+    private CharacterClass playerClass;
     private int levelToLearnAMove;
     private static final float ATTRIBUTE_INCREMENT_MODULATOR = 20.0f;
 
@@ -60,7 +62,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         this.attributeIncBound = attributeIncreaseBound;
         this.movesLearningInterval = movesLearningInterval;
         this.levelToLearnAMove = 0;
-        this.playerClass = new PlayerClassImpl(ElementalType.NORMAL);
+        this.playerClass = new CharacterClassImpl(ElementalType.NORMAL);
     }
 
     // This method is used for testing purposes only.
@@ -188,12 +190,12 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     @Override
-    public PlayerClass getPlayerClass() {
+    public CharacterClass getPlayerClass() {
         return this.playerClass;
     }
 
     @Override
-    public void setPlayerClass(final PlayerClass playerClassChoice) {
+    public void setPlayerClass(final CharacterClass playerClassChoice) {
         this.playerClass = playerClassChoice;
     }
 
