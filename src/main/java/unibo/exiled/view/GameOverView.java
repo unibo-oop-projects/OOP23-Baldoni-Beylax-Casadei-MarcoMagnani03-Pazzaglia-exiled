@@ -2,93 +2,102 @@ package unibo.exiled.view;
 
 import unibo.exiled.view.items.GameButton;
 
-import java.awt.BorderLayout;
-import java.awt.Toolkit;
-import java.awt.Dimension;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JLabel;
-import javax.swing.WindowConstants;
 import java.io.File;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import java.awt.FlowLayout;
+import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
+import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 /**
- * This class represent the GameOver view.
+ * This class represents the GameOver view.
  */
 public final class GameOverView {
 
-    //MVC Components (MC)
+    // MVC Components.
     private final JFrame mainFrame;
 
-    //The buttons to restart or exit the game.
+    // Buttons to restart or exit the game.
     private final GameButton restartButton = new GameButton("Restart");
     private final GameButton quitButton = new GameButton("Quit");
 
+    // Path to the game over image file.
+    private static final String GAME_OVER_IMAGE_PATH = "src"
+            + File.separator
+            + "main"
+            + File.separator
+            + "java"
+            + File.separator
+            + "unibo"
+            + File.separator
+            + "exiled"
+            + File.separator
+            + "resources"
+            + File.separator
+            + "gameover.png";
+
     /**
-     * The constructor of the GameOver view.
+     * Constructs a GameOver view.
      */
     public GameOverView() {
         this.mainFrame = new JFrame();
-        //Screen constants
-        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final double screenWidth = screenSize.getWidth();
-        final double screenHeight = screenSize.getHeight();
-        this.mainFrame.setSize((int) screenWidth / 3, (int) screenHeight / 2);
+        this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.mainFrame.setTitle("The Exiled - Game Over");
+        this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setLocationByPlatform(true);
+        this.mainFrame.setFocusable(true);
+        this.mainFrame.setLayout(new BorderLayout());
 
-        this.initializeHud();
-        this.initializeListeners();
+        initializeUI();
+        initializeListeners();
     }
 
-    private void initializeHud() {
-        final JPanel gameOverPanel = new JPanel(new BorderLayout());
-        final JLabel gameOverLabel = new JLabel(new ImageIcon("src"
-                + File.separator
-                + "main"
-                + File.separator
-                + "java"
-                + File.separator + "unibo" + File.separator + "exiled" + File.separator
-                + "resources" + File.separator + "gameover.png"));
+    /**
+     * Initializes the user interface of the GameOver view.
+     */
+    private void initializeUI() {
+        JPanel gameOverPanel = new JPanel(new BorderLayout());
+        JLabel gameOverLabel = new JLabel(new ImageIcon(GAME_OVER_IMAGE_PATH));
         gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
 
-        final JPanel flowPanel = new JPanel(new FlowLayout());
-        gameOverPanel.add(flowPanel, BorderLayout.SOUTH);
-
-        flowPanel.add(restartButton);
-        flowPanel.add(quitButton);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(this.restartButton);
+        buttonPanel.add(this.quitButton);
+        gameOverPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         this.mainFrame.getContentPane().add(gameOverPanel);
     }
 
+    /**
+     * Initializes action listeners for the restart and quit buttons.
+     */
     private void initializeListeners() {
-        restartButton.addActionListener(e -> {
-            final int dialogResult = JOptionPane.showConfirmDialog(null,
-                    "Would you like to restart the game?", "Warning",
-                    JOptionPane.YES_NO_OPTION);
+        this.restartButton.addActionListener(e -> {
+            int dialogResult = JOptionPane.showConfirmDialog(null,
+                    "Would you like to restart the game?", "Warning", JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                mainFrame.dispose();
-                new NewGameView(); // Restarting the game
+                this.mainFrame.dispose();
+                new NewGameView(); // Restart the game
             }
         });
 
-        quitButton.addActionListener(e -> {
-            final int dialogResult = JOptionPane.showConfirmDialog(null,
-                    "Would you like to quit the game?", "Warning",
-                    JOptionPane.YES_NO_OPTION);
+        this.quitButton.addActionListener(e -> {
+            int dialogResult = JOptionPane.showConfirmDialog(null,
+                    "Would you like to quit the game?", "Warning", JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
+                this.mainFrame.dispatchEvent(new WindowEvent(this.mainFrame, WindowEvent.WINDOW_CLOSING)); // Close the
+                                                                                                           // game
             }
         });
     }
 
     /**
-     * This method makes the GameOver view visible.
+     * Displays the GameOver view.
      */
     public void display() {
         this.mainFrame.setVisible(true);
