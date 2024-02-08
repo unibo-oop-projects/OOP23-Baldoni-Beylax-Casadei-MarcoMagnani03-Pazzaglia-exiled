@@ -57,7 +57,6 @@ public final class CombatView extends JPanel {
     private final JPanel enemyStatusPanel;
     private final GameLabel enemyHealthBar;
     private final GameLabel enemyClassLabel;
-    private transient CharacterView enemyImage;
 
     private transient Timer enemyAttackTimer;
 
@@ -92,7 +91,6 @@ public final class CombatView extends JPanel {
         this.enemyLabel = new JLabel("", SwingConstants.CENTER);
         this.enemyLabel.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
         this.enemyLabel.setVerticalAlignment(SwingConstants.CENTER);
-        this.enemyImage = null;
 
         this.enemyHealthBar = new GameLabel("");
         this.enemyClassLabel = new GameLabel("");
@@ -115,13 +113,15 @@ public final class CombatView extends JPanel {
      * Sets the enemy character in the combat view.
      */
     public void setEnemy() {
+        this.combatPosition = this.gameController.getCharacterController().getPlayerPosition();
+
         // Remove old enemy
         final List<String> enemyImagePath = this.gameController.getCharacterController().getImagePathOfCharacter(
                 Constants.ENEMY_PATH,
                 this.gameController.getMapController().getNameOfCharacterInPosition(combatPosition)
                         + File.separator
                         + this.gameController.getMapController().getNameOfCharacterInPosition(this.combatPosition));
-        this.enemyImage = new CharacterView(enemyImagePath);
+        final CharacterView enemyImage = new CharacterView(enemyImagePath);
         this.enemyMove.setText("");
         this.enemyLabel
                 .setText(this.gameController.getMapController().getNameOfCharacterInPosition(this.combatPosition));
@@ -131,16 +131,15 @@ public final class CombatView extends JPanel {
 
         this.enemyPanel.add(this.enemyLabel);
 
-        if (!this.enemyImage.getParent().equals(this.enemyPanel)) {
+        if (enemyImage.getParent() == null) {
             this.enemyPanel.add(enemyImage);
         }
 
-        this.enemyPanel.add(this.enemyImage);
+        this.enemyPanel.add(enemyImage);
         this.enemyPanel.add(this.enemyStatusPanel);
         this.enemyPanel.add(this.enemyMove);
         refreshEnemy();
 
-        this.combatPosition = this.gameController.getCharacterController().getPlayerPosition();
         // Create buttons for each move in the player's move set
         this.moveSetPanel.removeAll();
         for (final String moveName : this.gameController.getCharacterController().getPlayerMoveSet()) {
