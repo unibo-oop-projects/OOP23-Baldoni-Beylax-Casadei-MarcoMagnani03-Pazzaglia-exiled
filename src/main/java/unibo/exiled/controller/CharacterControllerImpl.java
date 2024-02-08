@@ -1,11 +1,10 @@
 package unibo.exiled.controller;
 
+import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyImpl;
-import unibo.exiled.model.character.player.Player;
-import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.utilities.Direction;
@@ -151,7 +150,7 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public void assignPlayerClass(final PlayerClass playerClass) {
+    public void assignPlayerClass(final CharacterClass playerClass) {
         this.model.assignPlayerClass(playerClass);
     }
 

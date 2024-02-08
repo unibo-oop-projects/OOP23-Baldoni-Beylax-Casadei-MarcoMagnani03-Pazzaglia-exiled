@@ -1,6 +1,7 @@
 package unibo.exiled.model.game;
 
 import unibo.exiled.config.Constants;
+import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.enemy.EnemyCollection;
@@ -9,7 +10,6 @@ import unibo.exiled.model.character.enemy.EnemyFactory;
 import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
 import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
 import unibo.exiled.model.character.enemy.BossEnemy;
-import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.item.HealingItem;
 import unibo.exiled.model.item.Item;
@@ -263,7 +263,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public PlayerClass getPlayerClass() {
+    public CharacterClass getPlayerClass() {
         return player.getPlayerClass();
     }
 
@@ -377,7 +377,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void assignPlayerClass(final PlayerClass playerClass) {
+    public void assignPlayerClass(final CharacterClass playerClass) {
         player.setPlayerClass(playerClass);
     }
 }

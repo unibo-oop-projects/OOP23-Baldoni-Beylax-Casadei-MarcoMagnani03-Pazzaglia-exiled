@@ -1,9 +1,9 @@
 package unibo.exiled.model.game;
 
+import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.player.Player;
-import unibo.exiled.model.character.player.PlayerClass;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.move.MagicMove;
@@ -58,7 +58,7 @@ public interface GameModel {
      *
      * @return The elemental class of the player.
      */
-    PlayerClass getPlayerClass();
+    CharacterClass getPlayerClass();
 
     /**
      * Gest the player move set.
@@ -172,7 +172,7 @@ public interface GameModel {
      * @param playerClass The ElementalType representing the new elemental class of
      *                    the player.
      */
-    void assignPlayerClass(PlayerClass playerClass);
+    void assignPlayerClass(CharacterClass playerClass);
 
     /**
      * Retrieves the current experience of the player.

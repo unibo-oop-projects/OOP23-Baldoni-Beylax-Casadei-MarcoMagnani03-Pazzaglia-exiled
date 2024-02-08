@@ -1,4 +1,4 @@
-package unibo.exiled.model.character.player;
+package unibo.exiled.model.character;
 
 import unibo.exiled.model.utilities.ElementalType;
 
@@ -7,7 +7,7 @@ import unibo.exiled.model.utilities.ElementalType;
  *
  * @param elementalType The elemental type (class) of the player.
  */
-public record PlayerClassImpl(ElementalType elementalType) implements PlayerClass {
+public record CharacterClassImpl(ElementalType elementalType) implements CharacterClass {
 
     @Override
     public double getAttributeModifier() {

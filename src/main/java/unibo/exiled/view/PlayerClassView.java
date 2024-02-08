@@ -2,7 +2,7 @@ package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
-import unibo.exiled.model.character.player.PlayerClassImpl;
+import unibo.exiled.model.character.CharacterClassImpl;
 import unibo.exiled.model.game.GameModelImpl;
 import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.FontManager;
@@ -106,7 +106,7 @@ public final class PlayerClassView {
                 JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
-            this.controller.getCharacterController().assignPlayerClass(new PlayerClassImpl(playerType));
+            this.controller.getCharacterController().assignPlayerClass(new CharacterClassImpl(playerType));
             new GameView(this.controller).display();
             this.hide();
         }

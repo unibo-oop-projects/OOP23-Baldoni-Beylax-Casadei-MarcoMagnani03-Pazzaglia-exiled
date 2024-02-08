@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import unibo.exiled.config.Constants;
+import unibo.exiled.model.character.CharacterClassImpl;
 import unibo.exiled.model.item.HealingItem;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.Item;
@@ -50,7 +51,7 @@ final class TestPlayer {
 
     @Test
     void testSetAndGetPlayerClass() {
-        player.setPlayerClass(new PlayerClassImpl(ElementalType.FIRE));
+        player.setPlayerClass(new CharacterClassImpl(ElementalType.FIRE));
         assertEquals(ElementalType.FIRE, player.getPlayerClass().elementalType());
     }
 
