@@ -52,6 +52,7 @@ public final class CombatView extends JPanel {
 
     private final JPanel moveSetPanel;
     private final JPanel enemyPanel;
+    private final JPanel enemyImagePanel;
     private final JLabel enemyLabel;
     private final JLabel enemyMove;
     private final JPanel enemyStatusPanel;
@@ -91,6 +92,7 @@ public final class CombatView extends JPanel {
         this.enemyLabel = new JLabel("", SwingConstants.CENTER);
         this.enemyLabel.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
         this.enemyLabel.setVerticalAlignment(SwingConstants.CENTER);
+        this.enemyImagePanel = new JPanel(new BorderLayout());
 
         this.enemyHealthBar = new GameLabel("");
         this.enemyClassLabel = new GameLabel("");
@@ -105,6 +107,11 @@ public final class CombatView extends JPanel {
         this.enemyPanel
                 .setBorder(BorderFactory.createEmptyBorder(EXTERNAL_NO_PADDING, EXTERNAL_PADDING, EXTERNAL_PADDING,
                         EXTERNAL_PADDING));
+
+        this.enemyPanel.add(this.enemyLabel);
+        this.enemyPanel.add(this.enemyImagePanel);
+        this.enemyPanel.add(this.enemyStatusPanel);
+        this.enemyPanel.add(this.enemyMove);
 
         battlePanel.add(this.enemyPanel);
     }
@@ -129,15 +136,8 @@ public final class CombatView extends JPanel {
                 "Class: " + gameController.getCharacterController()
                         .getCharacterClassNameFromPosition(this.combatPosition));
 
-        this.enemyPanel.add(this.enemyLabel);
-
-        if (enemyImage.getParent() == null) {
-            this.enemyPanel.add(enemyImage);
-        }
-
-        this.enemyPanel.add(enemyImage);
-        this.enemyPanel.add(this.enemyStatusPanel);
-        this.enemyPanel.add(this.enemyMove);
+        this.enemyImagePanel.removeAll();
+        this.enemyImagePanel.add(enemyImage);
         refreshEnemy();
 
         // Create buttons for each move in the player's move set
@@ -147,7 +147,7 @@ public final class CombatView extends JPanel {
             final JButton moveButton = new GameButton(moveName + " (" + moveDamage + ")");
             this.moveSetPanel.add(moveButton);
             moveButton.addActionListener(e -> {
-                this.enemyMove.setText("");
+                this.enemyMove.setText("Enemy attacking...");
 
                 final boolean isEnemyDead = this.gameController.getCharacterController().attack(true, moveName,
                         this.combatPosition);
