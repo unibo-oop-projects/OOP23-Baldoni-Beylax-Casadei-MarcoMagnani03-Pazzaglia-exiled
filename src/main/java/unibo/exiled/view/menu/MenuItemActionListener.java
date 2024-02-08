@@ -44,7 +44,8 @@ public final class MenuItemActionListener implements ActionListener {
         if (e.getActionCommand().equals(Command.NEW_GAME.getCommandString())) {
             this.playerClassView = Optional.of(new PlayerClassView());
             this.playerClassView.get().display();
-            this.newGameView.ifPresent(NewGameView::hide);
+            this.newGameView.ifPresent(NewGameView::close);
+            this.gameView.ifPresent(GameView::close);
         } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
             this.gameView.ifPresent(GameView::hideMenu);
         } else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
