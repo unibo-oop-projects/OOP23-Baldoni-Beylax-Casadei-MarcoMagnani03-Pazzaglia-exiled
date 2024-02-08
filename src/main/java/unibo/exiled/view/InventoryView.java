@@ -103,6 +103,7 @@ public final class InventoryView extends JPanel {
         northPanel.add(exitButton, BorderLayout.WEST);
         northPanel.add(titleLabel, BorderLayout.CENTER);
         northPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, 0, TOP_BOTTOM_MARGIN, 0));
+        
         return northPanel;
     }
 
