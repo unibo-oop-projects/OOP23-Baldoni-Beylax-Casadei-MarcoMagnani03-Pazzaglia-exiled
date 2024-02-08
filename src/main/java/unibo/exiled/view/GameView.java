@@ -8,12 +8,12 @@ import java.util.Optional;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
+import unibo.exiled.controller.MenuControllerImpl;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
-import unibo.exiled.view.menu.MenuView;
 
 import javax.swing.JLabel;
 import javax.swing.JFrame;
@@ -103,7 +103,7 @@ public final class GameView {
                         Constants.PLAYER_PATH + File.separator + playerClass,
                         Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController, this);
-        final MenuView menuView = new MenuView(Optional.empty(), Optional.of(new NewGameView()), Optional.of(this));
+        final MenuView menuView = new MenuView(new MenuControllerImpl().getInGameMenuItems(), Optional.of(this));
         final InventoryView inventoryView = new InventoryView(this.gameController, this);
 
         this.menuPanel.add(menuView);

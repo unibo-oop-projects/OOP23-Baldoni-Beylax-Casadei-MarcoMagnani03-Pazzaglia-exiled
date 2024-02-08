@@ -39,7 +39,7 @@ public final class GameCompletedView {
         final double screenHeight = screenSize.getHeight();
         final double screenWidth = screenSize.getWidth();
         this.mainFrame.setSize((int) screenWidth / 3, (int) screenHeight / 2);
-        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setLocationByPlatform(true);
 
