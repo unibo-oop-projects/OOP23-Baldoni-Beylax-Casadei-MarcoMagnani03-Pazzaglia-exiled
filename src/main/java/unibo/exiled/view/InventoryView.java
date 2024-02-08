@@ -1,6 +1,7 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
+import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.TitleGameLabel;
@@ -35,6 +36,7 @@ public final class InventoryView extends JPanel {
     @Serial
     private static final long serialVersionUID = 2L;
 
+    private static final int FONT_SIZE = 12;
     private static final Color HEALING_ITEM_COLOR = new Color(141, 254, 141);
     private static final Color POWER_UP_ITEM_COLOR = new Color(254, 141, 141);
     private static final Border LIST_ITEM_BORDER = new LineBorder(Color.BLACK, 1);
@@ -198,6 +200,7 @@ public final class InventoryView extends JPanel {
                     }
                 }
                 setBorder(LIST_ITEM_BORDER);
+                setFont(FontManager.getCustomFont(FONT_SIZE));
             }
             setHorizontalAlignment(SwingConstants.CENTER);
 
