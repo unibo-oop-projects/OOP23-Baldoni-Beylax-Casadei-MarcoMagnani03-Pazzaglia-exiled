@@ -13,7 +13,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.Serial;
 
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -53,23 +52,27 @@ public final class PlayerClassView {
         final JPanel mainPanel = new JPanel(new BorderLayout());
         this.mainFrame.add(mainPanel, BorderLayout.CENTER);
 
-        final JPanel buttonPanel = new JPanel(new GridLayout(2, 2, MARGIN, MARGIN));
-
+        final JPanel buttonNormalPanel = new JPanel(new GridLayout(1, 1, MARGIN, MARGIN));
+        final JButton normalButton = createButton(ElementalType.NORMAL);
+        
+        
+        final JPanel buttonClassPanel = new JPanel(new GridLayout(2, 2, MARGIN, MARGIN));
         final JButton fireButton = createButton(ElementalType.FIRE);
         final JButton waterButton = createButton(ElementalType.WATER);
         final JButton boltButton = createButton(ElementalType.BOLT);
         final JButton grassButton = createButton(ElementalType.GRASS);
 
-        buttonPanel.add(fireButton);
-        buttonPanel.add(waterButton);
-        buttonPanel.add(boltButton);
-        buttonPanel.add(grassButton);
+        buttonClassPanel.add(fireButton);
+        buttonClassPanel.add(waterButton);
+        buttonClassPanel.add(boltButton);
+        buttonClassPanel.add(grassButton);
+        buttonNormalPanel.add(normalButton);
 
         final JLabel titleLabel = new TitleGameLabel("Choose Your Class");
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
-        mainPanel.add(Box.createVerticalStrut(MARGIN), BorderLayout.CENTER);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(buttonClassPanel, BorderLayout.CENTER);
+        mainPanel.add(buttonNormalPanel, BorderLayout.SOUTH);
     }
 
     /**
