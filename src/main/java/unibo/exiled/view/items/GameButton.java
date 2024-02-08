@@ -3,11 +3,9 @@ package unibo.exiled.view.items;
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.utilities.FontManager;
 
-import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JButton;
@@ -24,10 +22,7 @@ public final class GameButton extends JButton {
     private static final int PRIMARY_BLUE = 255;
     private final Color primaryColor = new Color(PRIMARY_RED, PRIMARY_GREEN, PRIMARY_BLUE);
 
-    private static final int SECONDARY_RED = 0;
-    private static final int SECONDARY_GREEN = 51;
-    private static final int SECONDARY_BLUE = 204;
-    private final Color secondaryColor = new Color(SECONDARY_RED, SECONDARY_GREEN, SECONDARY_BLUE);
+    private static final int DARKER_FACTOR = 90;
 
     /**
      * Constructs a GameButton with the specified text.
@@ -48,23 +43,15 @@ public final class GameButton extends JButton {
 
         setBorderPainted(false);
         setContentAreaFilled(false);
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(final MouseEvent evt) {
-                setBackground(secondaryColor);
-            }
-
-            @Override
-            public void mouseExited(final MouseEvent evt) {
-                setBackground(primaryColor);
-            }
-        });
     }
 
     @Override
     protected void paintComponent(final Graphics g) {
         if (getModel().isArmed()) {
+            final int red = Math.max(0, getBackground().getRed() - DARKER_FACTOR);
+            final int green = Math.max(0,  getBackground().getGreen() - DARKER_FACTOR);
+            final int blue = Math.max(0,  getBackground().getBlue() - DARKER_FACTOR);
+            final Color secondaryColor = new Color(red, green, blue);
             g.setColor(secondaryColor);
         } else {
             g.setColor(getBackground());
@@ -76,5 +63,13 @@ public final class GameButton extends JButton {
         graphics.fill(new RoundRectangle2D.Double(0, 0, width, height, ROUNDED_PARAM, ROUNDED_PARAM));
 
         super.paintComponent(g);
+    }
+
+    /**
+     * Change the font size of the button.
+     * @param newsize new font size of the button.
+     */
+    public void setFontSize(final int newsize) {
+        setFont(FontManager.getCustomFont(newsize));
     }
 }

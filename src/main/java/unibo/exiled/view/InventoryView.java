@@ -6,25 +6,14 @@ import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.GridLayout;
 import java.io.Serial;
 import java.util.Map;
 
@@ -37,57 +26,46 @@ public final class InventoryView extends JPanel {
 
     private static final Color HEALING_ITEM_COLOR = new Color(141, 254, 141);
     private static final Color POWER_UP_ITEM_COLOR = new Color(254, 141, 141);
-    private static final Border LIST_ITEM_BORDER = new LineBorder(Color.BLACK, 1);
-    private static final int LIST_ITEM_HEIGHT = 30;
-    private static final int LEFT_RIGHT_MARGIN = 100;
+    private static final Color RESOURSE_ITEM_COLOR = new Color(100, 100, 100);
     private static final int TOP_BOTTOM_MARGIN = 15;
+    private static final int INVENTORY_BUTTON_MARGIN_LEFT_RIGHT = 20;
+    private static final int INVENTORY_BUTTON_MARGIN_UP_BOTTOM = 45;
+    private static final int ITEM_BUTTON_FONT_SIZE = 15;
     private final transient GameController gameController;
-    private final DefaultListModel<String> listModel;
     private final JLabel emptyInventoryLabel;
-    private final JScrollPane scrollPane;
-    private final JList<String> itemNamesList;
+    private final JPanel inventoryButtonsPanel;
 
     /**
      * The constructor of the inventory view.
      *
      * @param gameController The controller of the Game.
-     * @param game           The GameView associated at the game.
+     * @param game           The GameView associated with the game.
      */
     public InventoryView(final GameController gameController, final GameView game) {
         this.gameController = gameController;
         setLayout(new BorderLayout());
 
-        listModel = new DefaultListModel<>();
-        itemNamesList = new JList<>(listModel);
-        itemNamesList.addListSelectionListener(new ItemListSelectionListener());
-        itemNamesList.setCellRenderer(new ItemListRenderer());
-
-        final Dimension listItemSize = new Dimension(100, LIST_ITEM_HEIGHT);
-        final int listItemWidth = getScreenWidth();
-
-        itemNamesList.setFixedCellHeight(LIST_ITEM_HEIGHT);
-        itemNamesList.setFixedCellWidth(listItemWidth - LEFT_RIGHT_MARGIN);
-        scrollPane = new JScrollPane(itemNamesList);
-
-        scrollPane.setSize(listItemSize);
+        inventoryButtonsPanel = new JPanel();
+        inventoryButtonsPanel.setLayout(new GridLayout(0, 2,
+        INVENTORY_BUTTON_MARGIN_LEFT_RIGHT, INVENTORY_BUTTON_MARGIN_UP_BOTTOM)); 
 
         emptyInventoryLabel = new GameLabel("The inventory is empty");
         emptyInventoryLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        // Center
+        final JScrollPane scrollPane = new JScrollPane(inventoryButtonsPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         final JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.add(scrollPane, BorderLayout.CENTER);
         centralPanel.add(emptyInventoryLabel, BorderLayout.SOUTH);
-        centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
-        centralPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, 0,
-                TOP_BOTTOM_MARGIN, 0));
+        centralPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, 0, TOP_BOTTOM_MARGIN, 0));
         add(centralPanel, BorderLayout.CENTER);
 
-        // North
         final JPanel northPanel = getNorthPanel(game);
         add(northPanel, BorderLayout.NORTH);
 
-        updateInventoryList();
+        updateInventoryButtons();
     }
 
     private static JPanel getNorthPanel(final GameView game) {
@@ -104,105 +82,72 @@ public final class InventoryView extends JPanel {
         return northPanel;
     }
 
-    private int getScreenWidth() {
-        final Toolkit toolkit = Toolkit.getDefaultToolkit();
-        return toolkit.getScreenSize().width;
-    }
-
     /**
-     * Updates the viewed list inside the inventory and repaints it.
+     * Updates the viewed buttons inside the inventory and repaints it.
      */
-    public void updateInventoryList() {
-        listModel.clear();
+    public void updateInventoryButtons() {
+        inventoryButtonsPanel.removeAll();
 
         final Map<String, Integer> itemsList = gameController.getItemsController().getItems();
 
         if (itemsList.isEmpty()) {
             emptyInventoryLabel.setVisible(true);
-            scrollPane.setVisible(false);
         } else {
+            emptyInventoryLabel.setVisible(false);
             for (final Map.Entry<String, Integer> entry : itemsList.entrySet()) {
                 final String itemName = entry.getKey();
-                listModel.addElement(itemName);
+                final int quantity = entry.getValue();
+                final GameButton itemButton = createItemButton(itemName, quantity);
+                inventoryButtonsPanel.add(itemButton);
             }
-            emptyInventoryLabel.setVisible(false);
         }
 
         revalidate();
         repaint();
     }
 
-    private final class ItemListSelectionListener implements ListSelectionListener {
-        @Override
-        public void valueChanged(final ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()) {
-                final String selectedItemName = itemNamesList.getSelectedValue();
-                if (selectedItemName != null) {
-                    final int confirmation = JOptionPane.showConfirmDialog(null,
-                            "Are you sure you want to use "
-                                    + selectedItemName + "?",
-                            "Confirm Use", JOptionPane.YES_NO_OPTION);
-                    if (confirmation == JOptionPane.YES_OPTION) {
-                        final boolean useResult = gameController.getItemsController().useItem(selectedItemName);
-                        if (useResult) {
-                            JOptionPane.showMessageDialog(null, "Used " + selectedItemName,
-                                    "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "The selected item is not usable",
-                                    "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                        updateInventoryList();
-                    }
-                }
-            }
+    private GameButton createItemButton(final String itemName, final int quantity) {
+        final GameButton itemButton = new GameButton("");
+        itemButton.setFontSize(ITEM_BUTTON_FONT_SIZE);
+        switch (gameController.getItemsController().getItemType(itemName)) {
+            case HEALTH:
+                itemButton.setBackground(HEALING_ITEM_COLOR);
+                itemButton.setText("<html>" + itemName + "<br>Quantity: " + quantity + "<br>Description: "
+                        + gameController.getItemsController().getItemDescription(itemName)
+                        + "<br>Heal: " + gameController.getItemsController().getItemValor(itemName) + "</html>");
+                break;
+            case POWERUP:
+                itemButton.setBackground(POWER_UP_ITEM_COLOR);
+                itemButton.setText("<html>" + itemName + "<br>Quantity: " + quantity
+                        + "<br>Description: " + gameController.getItemsController().getItemDescription(itemName)
+                        + "<br>PowerUp: " + gameController.getItemsController().getItemValor(itemName)
+                        + "<br>Attribute: " + gameController.getItemsController().getItemBoostedAttributeName(itemName)
+                        + "<br>Duration: " + gameController.getItemsController().getItemDuration(itemName) + "</html>");
+                break;
+            case RESOURCE:
+                itemButton.setBackground(RESOURSE_ITEM_COLOR);
+                itemButton.setText("<html>" + itemName + "<br>Quantity: " + quantity
+                        + "<br>Description: " + gameController.getItemsController().getItemDescription(itemName) + "</html>");
+                itemButton.setEnabled(false);
+                break;
+            default:
+                break;
         }
+        itemButton.addActionListener(e -> handleItemButtonClick(itemName));
+        return itemButton;
     }
 
-    private final class ItemListRenderer extends DefaultListCellRenderer {
-        @Serial
-        private static final long serialVersionUID = 3L;
-
-        @Override
-        public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
-                                                      final boolean isSelected, final boolean cellHasFocus) {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value instanceof String item) {
-                final Map<String, Integer> itemsList = gameController.getItemsController().getItems();
-
-                final int quantity = itemsList.get(item);
-                final String description = gameController.getItemsController().getItemDescription(item);
-
-                switch (gameController.getItemsController().getItemType(item)) {
-                    case HEALTH -> {
-                        setBackground(HEALING_ITEM_COLOR);
-                        setText(" " + item + " - Quantity: " + quantity + " - Description: "
-                                + description + " - Heal: " + gameController.getItemsController().getItemValor(item));
-                    }
-
-                    case POWERUP -> {
-                        setBackground(POWER_UP_ITEM_COLOR);
-                        setText(" "
-                                + item + " - Quantity: " + quantity
-                                + " - Description: "
-                                + description + " - PowerUp: " + gameController.getItemsController().getItemValor(item)
-                                + " - Attribute: "
-                                + gameController.getItemsController().getItemBoostedAttributeName(item)
-                                + " - Duration: "
-                                + gameController.getItemsController().getItemDuration(item));
-                    }
-
-                    case RESOURCE -> setText(" " + item + " - Quantity: " + quantity + " - Description: "
-                            + description);
-
-                    default -> {
-                    }
-                }
-                setBorder(LIST_ITEM_BORDER);
+    private void handleItemButtonClick(final String itemName) {
+        final int confirmation = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to use " + itemName + "?",
+                "Confirm Use", JOptionPane.YES_NO_OPTION);
+        if (confirmation == JOptionPane.YES_OPTION) {
+            final boolean useResult = gameController.getItemsController().useItem(itemName);
+            if (useResult) {
+                JOptionPane.showMessageDialog(null, "Used " + itemName,
+                        "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
             }
-            setHorizontalAlignment(SwingConstants.CENTER);
-
-            return this;
+            updateInventoryButtons();
         }
     }
-
 }
