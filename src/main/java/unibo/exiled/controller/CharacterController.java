@@ -69,6 +69,13 @@ public interface CharacterController {
     int getPlayerExperienceCap();
 
     /**
+     * Adds experience to the player.
+     * 
+     * @param amount the experience the player gained killink an enemy.
+     */
+    void addPlayerExperience(double amount);
+
+    /**
      * Gets the position of the player.
      *
      * @return The position of the player.
@@ -92,6 +99,7 @@ public interface CharacterController {
 
     /**
      * Returns the damage of a magic move.
+     * 
      * @param magicMoveName the name of the move to find.
      * @return the damage of the move.
      */
@@ -179,4 +187,12 @@ public interface CharacterController {
      * @param position the enemy position.
      */
     void removeEnemyFromPosition(Position position);
+
+    /**
+     * Gets the enemy dropped experience.
+     * 
+     * @param position the position of the enemy.
+     * @return the experience droped from the enemy.
+     */
+    double getEnemyExperienceDropFromPosition(Position position);
 }

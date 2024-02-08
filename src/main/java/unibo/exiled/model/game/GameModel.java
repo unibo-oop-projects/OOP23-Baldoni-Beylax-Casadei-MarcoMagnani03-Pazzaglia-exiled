@@ -33,6 +33,7 @@ public interface GameModel {
 
     /**
      * Returns the player.
+     * 
      * @return the player.
      */
     Optional<Player> getPlayer();
@@ -137,6 +138,7 @@ public interface GameModel {
 
     /**
      * Removes the enemy in the position.
+     * 
      * @param pos the position of the enemy to remove.
      */
     void removeEnemyFromPosition(Position pos);
@@ -185,4 +187,11 @@ public interface GameModel {
      * @return The experience cap of the player.
      */
     int getPlayerExperienceCap();
+
+    /**
+     * Adds experience to the player.
+     * 
+     * @param amount the experience the player gained killink an enemy.
+     */
+    void addPlayerExperience(double amount);
 }

@@ -3,6 +3,7 @@ package unibo.exiled.controller;
 import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.move.MagicMove;
@@ -62,6 +63,11 @@ public final class CharacterControllerImpl implements CharacterController {
     @Override
     public int getPlayerCurrentExperience() {
         return this.model.getPlayerCurrentExperience();
+    }
+
+    @Override
+    public void addPlayerExperience(double amount) {
+        this.model.addPlayerExperience(amount);
     }
 
     @Override
@@ -205,5 +211,16 @@ public final class CharacterControllerImpl implements CharacterController {
     @Override
     public void removeEnemyFromPosition(final Position position) {
         this.model.removeEnemyFromPosition(position);
+    }
+
+    @Override
+    public double getEnemyExperienceDropFromPosition(final Position position) {
+        final Optional<GameCharacter> enemy = this.model.getCharacterFromPosition(position);
+
+        if (enemy.isPresent()) {
+            return ((Enemy) enemy.get()).getDroppedExperience();
+        } else {
+            throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
+        }
     }
 }

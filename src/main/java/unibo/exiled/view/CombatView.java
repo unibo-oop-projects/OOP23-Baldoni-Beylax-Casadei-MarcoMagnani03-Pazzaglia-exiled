@@ -33,7 +33,7 @@ public final class CombatView extends JPanel {
     @Serial
     private static final long serialVersionUID = 1L;
     private static final int ENEMY_ATTACK_DELAY = 2000;
-    private static final int ENEMY_LIFE_GLITCH_DELAY = 350;
+    private static final int ENEMY_LIFE_GLITCH_DELAY = 150;
     private static final int BUTTON_FONT_SIZE = 40;
     private static final int EXTERNAL_PADDING = 100;
     private static final int EXTERNAL_NO_PADDING = 0;
@@ -164,7 +164,11 @@ public final class CombatView extends JPanel {
                 this.enemyAttackTimer.start();
 
                 if (isEnemyDead) {
+                    final double experienceDropped = this.gameController.getCharacterController()
+                            .getEnemyExperienceDropFromPosition(combatPosition);
+                    this.gameController.getCharacterController().addPlayerExperience(experienceDropped);
                     this.gameController.getCharacterController().removeEnemyFromPosition(combatPosition);
+                    this.gameView.refreshStatusPanel();
                     this.gameView.hideCombat();
                 } else {
                     // Disable buttons

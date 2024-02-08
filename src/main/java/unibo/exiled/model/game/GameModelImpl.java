@@ -35,7 +35,6 @@ import java.util.Optional;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * The implementation of the game core.
  */
@@ -50,7 +49,7 @@ public final class GameModelImpl implements GameModel {
      * The constructor of the game core.
      */
     public GameModelImpl() {
-        //Constants loading
+        // Constants loading
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         final int playerExperienceCap = Integer.parseInt(Constants.getConstantOf("PLAYER_EXPERIENCE_CAP"));
         final int defaultExperience = Integer.parseInt(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE"));
@@ -90,7 +89,7 @@ public final class GameModelImpl implements GameModel {
             newEnemy.move(newEnemyPosition);
             this.enemyCollection.addEnemy(newEnemy);
         }
-        //Boss creation
+        // Boss creation
         final Enemy bossWater = factory.createWaterBoss();
         bossWater.move(this.mapModel.getCornerOfType(CellType.SWAMP));
         this.enemyCollection.addEnemy(bossWater);
@@ -106,9 +105,9 @@ public final class GameModelImpl implements GameModel {
     }
 
     private void playerInitialization(final int playerExperienceCap,
-                                      final int defaultExperience,
-                                      final int levelIncrease,
-                                      final int movesLearningInterval) {
+            final int defaultExperience,
+            final int levelIncrease,
+            final int movesLearningInterval) {
         this.player = new PlayerImpl(playerExperienceCap,
                 defaultExperience, levelIncrease, movesLearningInterval);
         this.player.move(new Position(mapModel.getSize() / 2, mapModel.getSize() / 2));
@@ -259,6 +258,11 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
+    public void addPlayerExperience(double amount) {
+        player.addExperience(amount);
+    }
+
+    @Override
     public CharacterClass getPlayerClass() {
         return player.getPlayerClass();
     }
@@ -315,7 +319,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     private Item getItem(final String itemName) {
-        //TODO: Lacks isPresent control.
+        // TODO: Lacks isPresent control.
         return player.getInventory().getItems()
                 .entrySet()
                 .stream()
