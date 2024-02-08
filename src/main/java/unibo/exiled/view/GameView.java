@@ -36,6 +36,7 @@ import javax.swing.border.LineBorder;
 public final class GameView {
     private static final int STATUS_PANEL_H_GAP = 20;
     private static final int STATUS_PANEL_V_GAP = 5;
+    private static final int HEALTH_CRITICAL_PERCENTAGE = 20;
 
     // Views
     private final CharacterView playerView;
@@ -164,9 +165,16 @@ public final class GameView {
      */
     public void refreshStatusPanel() {
         this.statusPanel.removeAll();
+        final double playerHealth = gameController.getCharacterController().getPlayerHealth();
+        final double playerHealthCap = gameController.getCharacterController().getPlayerHealthCap();
         final GameLabel healthBar = new GameLabel(
                 "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
                         + gameController.getCharacterController().getPlayerHealthCap());
+        if (playerHealth <= (playerHealthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
+            healthBar.setForeground(Color.RED);
+        } else {
+            healthBar.setForeground(Color.GREEN);
+        }
         final GameLabel levelLabel = new GameLabel(
                 "Level: " + gameController.getCharacterController().getPlayerLevel());
         final GameLabel classLabel = new GameLabel(

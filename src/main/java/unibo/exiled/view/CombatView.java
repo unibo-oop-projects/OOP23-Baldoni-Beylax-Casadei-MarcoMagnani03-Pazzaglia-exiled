@@ -221,7 +221,7 @@ public final class CombatView extends JPanel {
         if (health <= (healthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
             this.enemyHealthBar.setForeground(Color.RED);
         } else {
-            this.enemyHealthBar.setForeground(Color.BLACK);
+            this.enemyHealthBar.setForeground(Color.GREEN);
         }
 
         this.revalidate();
