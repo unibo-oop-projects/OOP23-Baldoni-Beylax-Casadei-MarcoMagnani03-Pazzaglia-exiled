@@ -34,6 +34,7 @@ public final class InventoryView extends JPanel {
     private static final int INVENTORY_BUTTON_MARGIN_UP_BOTTOM = 45;
     private static final int ITEM_BUTTON_FONT_SIZE = 15;
     private final transient GameController gameController;
+    private final transient GameView gameView;
     private final JLabel emptyInventoryLabel;
     private final JPanel inventoryButtonsPanel;
 
@@ -45,6 +46,7 @@ public final class InventoryView extends JPanel {
      */
     public InventoryView(final GameController gameController, final GameView game) {
         this.gameController = gameController;
+        this.gameView = game;
         setLayout(new BorderLayout());
 
         inventoryButtonsPanel = new JPanel();
@@ -149,6 +151,11 @@ public final class InventoryView extends JPanel {
             if (useResult) {
                 JOptionPane.showMessageDialog(null, "Used " + itemName,
                         "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+                setFont(FontManager.getCustomFont(FONT_SIZE));
+                gameView.refreshStatusPanel();
+            } else {
+                JOptionPane.showMessageDialog(null, "Errore nell'utilizzo di " + itemName,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
                 setFont(FontManager.getCustomFont(FONT_SIZE));
             }
             updateInventoryButtons();
