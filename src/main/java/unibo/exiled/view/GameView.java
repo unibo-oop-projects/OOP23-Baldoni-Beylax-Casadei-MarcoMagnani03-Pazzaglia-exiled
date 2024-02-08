@@ -179,6 +179,9 @@ public final class GameView {
         this.statusPanel.add(levelLabel);
         this.statusPanel.add(classLabel);
         this.statusPanel.add(experienceLabel);
+
+        this.statusPanel.revalidate();
+        this.statusPanel.repaint();
     }
 
     private void initializeGridComponents() {

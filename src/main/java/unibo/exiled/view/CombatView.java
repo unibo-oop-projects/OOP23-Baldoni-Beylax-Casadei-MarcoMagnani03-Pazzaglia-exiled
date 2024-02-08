@@ -10,18 +10,21 @@ import unibo.exiled.view.items.GameLabel;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.Serial;
 import java.util.List;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.Locale;
-import java.util.Set;
 
 /**
  * The view that starts when the player engages in a combat with an enemy.
@@ -29,10 +32,14 @@ import java.util.Set;
 public final class CombatView extends JPanel {
     @Serial
     private static final long serialVersionUID = 1L;
+    private static final int ENEMY_ATTACK_DELAY = 2000;
+    private static final int ENEMY_LIFE_GLITCH_DELAY = 350;
     private static final int BUTTON_FONT_SIZE = 40;
     private static final int EXTERNAL_PADDING = 100;
-    private static final int ENEMY_PANEL_GAP = 50;
-    private static final int STATUS_PANEL_H_GAP = 20;
+    private static final int EXTERNAL_NO_PADDING = 0;
+    private static final int ENEMY_PANEL_ROWS = 5;
+    private static final int ENEMY_PANEL_COLS = 1;
+    private static final int STATUS_PANEL_H_GAP = 5;
     private static final int STATUS_PANEL_V_GAP = 5;
     private static final int MOVE_SET_PANEL_GAP = 10;
     private static final int BATTLE_PANEL_ROWS = 1;
@@ -41,13 +48,18 @@ public final class CombatView extends JPanel {
 
     private final transient GameController gameController;
     private final transient GameView gameView;
+    private transient Position combatPosition;
 
     private final JPanel moveSetPanel;
     private final JPanel enemyPanel;
     private final JLabel enemyLabel;
+    private final JLabel enemyMove;
+    private final JPanel enemyStatusPanel;
     private final GameLabel enemyHealthBar;
     private final GameLabel enemyClassLabel;
-    private transient Position combatPosition;
+    private transient CharacterView enemyImage;
+
+    private transient Timer enemyAttackTimer;
 
     /**
      * The constructor of the combat view.
@@ -80,20 +92,21 @@ public final class CombatView extends JPanel {
         this.enemyLabel = new JLabel("", SwingConstants.CENTER);
         this.enemyLabel.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
         this.enemyLabel.setVerticalAlignment(SwingConstants.CENTER);
+        this.enemyImage = null;
 
         this.enemyHealthBar = new GameLabel("");
         this.enemyClassLabel = new GameLabel("");
-        final JPanel statusPanel = new JPanel(
+        this.enemyMove = new GameLabel("");
+        this.enemyStatusPanel = new JPanel(
                 new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
-        statusPanel.setBorder(BorderFactory.createEtchedBorder());
-        statusPanel.add(this.enemyHealthBar);
-        statusPanel.add(this.enemyClassLabel);
+        enemyStatusPanel.setBorder(BorderFactory.createEtchedBorder());
+        enemyStatusPanel.add(this.enemyHealthBar);
+        enemyStatusPanel.add(this.enemyClassLabel);
 
-        this.enemyPanel = new JPanel(new BorderLayout(ENEMY_PANEL_GAP, ENEMY_PANEL_GAP));
-        this.enemyPanel.setBorder(BorderFactory.createEmptyBorder(EXTERNAL_PADDING, EXTERNAL_PADDING, EXTERNAL_PADDING,
-                EXTERNAL_PADDING));
-        this.enemyPanel.add(enemyLabel, BorderLayout.NORTH);
-        this.enemyPanel.add(statusPanel, BorderLayout.SOUTH);
+        this.enemyPanel = new JPanel(new GridLayout(ENEMY_PANEL_ROWS, ENEMY_PANEL_COLS));
+        this.enemyPanel
+                .setBorder(BorderFactory.createEmptyBorder(EXTERNAL_NO_PADDING, EXTERNAL_PADDING, EXTERNAL_PADDING,
+                        EXTERNAL_PADDING));
 
         battlePanel.add(this.enemyPanel);
     }
@@ -102,53 +115,96 @@ public final class CombatView extends JPanel {
      * Sets the enemy character in the combat view.
      */
     public void setEnemy() {
-        this.combatPosition = this.gameController.getCharacterController().getPlayerPosition();
+        // Remove old enemy
         final List<String> enemyImagePath = this.gameController.getCharacterController().getImagePathOfCharacter(
                 Constants.ENEMY_PATH,
                 this.gameController.getMapController().getNameOfCharacterInPosition(combatPosition)
                         + File.separator
                         + this.gameController.getMapController().getNameOfCharacterInPosition(this.combatPosition));
-        final JLabel enemyImage = new CharacterView(enemyImagePath);
+        this.enemyImage = new CharacterView(enemyImagePath);
+        this.enemyMove.setText("");
         this.enemyLabel
                 .setText(this.gameController.getMapController().getNameOfCharacterInPosition(this.combatPosition));
         this.enemyClassLabel.setText(
                 "Class: " + gameController.getCharacterController()
                         .getCharacterClassNameFromPosition(this.combatPosition));
-        this.enemyPanel.add(enemyImage, BorderLayout.CENTER);
+
+        this.enemyPanel.add(this.enemyLabel);
+
+        if (!this.enemyImage.getParent().equals(this.enemyPanel)) {
+            this.enemyPanel.add(enemyImage);
+        }
+
+        this.enemyPanel.add(this.enemyImage);
+        this.enemyPanel.add(this.enemyStatusPanel);
+        this.enemyPanel.add(this.enemyMove);
         refreshEnemy();
 
+        this.combatPosition = this.gameController.getCharacterController().getPlayerPosition();
         // Create buttons for each move in the player's move set
         this.moveSetPanel.removeAll();
         for (final String moveName : this.gameController.getCharacterController().getPlayerMoveSet()) {
-            final JButton moveButton = new GameButton(moveName);
+            final double moveDamage = this.gameController.getCharacterController().getMagicMoveDamage(moveName);
+            final JButton moveButton = new GameButton(moveName + " (" + moveDamage + ")");
             this.moveSetPanel.add(moveButton);
             moveButton.addActionListener(e -> {
+                this.enemyMove.setText("");
+
                 final boolean isEnemyDead = this.gameController.getCharacterController().attack(true, moveName,
                         this.combatPosition);
                 refreshEnemy();
-
-                Set.of(this.moveSetPanel.getComponents()).stream().map(b -> {
-                    b.setEnabled(false);
-                    return b;
+                this.enemyHealthBar.setForeground(Color.ORANGE);
+                this.enemyAttackTimer = new Timer(ENEMY_LIFE_GLITCH_DELAY, new ActionListener() {
+                    @Override
+                    public void actionPerformed(final ActionEvent evt) {
+                        enemyHealthBar.setForeground(Color.BLACK);
+                        refreshEnemy();
+                    }
                 });
+                this.enemyAttackTimer.setRepeats(false);
+                this.enemyAttackTimer.start();
 
-                // Enemy turn to attack
-                final boolean isPlayerDead = this.gameController.getCharacterController().attack(false,
-                        this.gameController.getCharacterController()
-                                .getCharacterRandomMoveNameFromPosition(combatPosition),
-                        this.combatPosition);
-                this.gameView.refreshStatusPanel();
-                Set.of(this.moveSetPanel.getComponents()).stream().map(b -> {
-                    b.setEnabled(true);
-                    return b;
-                });
-                if (isPlayerDead) {
-                    this.gameView.hideCombat();
-                    this.gameView.draw();
-                }
                 if (isEnemyDead) {
                     this.gameController.getCharacterController().removeEnemyFromPosition(combatPosition);
                     this.gameView.hideCombat();
+                } else {
+                    // Disable buttons
+                    for (final Component button : this.moveSetPanel.getComponents()) {
+                        button.setEnabled(false);
+                    }
+
+                    this.enemyAttackTimer = new Timer(ENEMY_ATTACK_DELAY, new ActionListener() {
+                        @Override
+                        public void actionPerformed(final ActionEvent evt) {
+                            // Enemy turn to attack
+                            final String enemyMoveName = gameController.getCharacterController()
+                                    .getCharacterRandomMoveNameFromPosition(combatPosition);
+                            final String enemyMoveDescription = gameController.getCharacterController()
+                                    .getMagicMoveDescription(enemyMoveName);
+                            final double enemyMoveDamage = gameController.getCharacterController()
+                                    .getMagicMoveDamage(enemyMoveName);
+                            final boolean isPlayerDead = gameController.getCharacterController().attack(false,
+                                    enemyMoveName,
+                                    combatPosition);
+
+                            enemyMove.setText(
+                                    "<html>Enemy used: " + enemyMoveName + "(" + enemyMoveDamage + ")" + "<br><br>"
+                                            + enemyMoveDescription + "</html>");
+                            gameView.refreshStatusPanel();
+
+                            if (isPlayerDead) {
+                                gameView.hideCombat();
+                                gameView.draw();
+                            } else {
+                                // Enable buttons
+                                for (final Component button : moveSetPanel.getComponents()) {
+                                    button.setEnabled(true);
+                                }
+                            }
+                        }
+                    });
+                    this.enemyAttackTimer.setRepeats(false);
+                    this.enemyAttackTimer.start();
                 }
             });
         }
@@ -168,5 +224,8 @@ public final class CombatView extends JPanel {
         } else {
             this.enemyHealthBar.setForeground(Color.BLACK);
         }
+
+        this.revalidate();
+        this.repaint();
     }
 }

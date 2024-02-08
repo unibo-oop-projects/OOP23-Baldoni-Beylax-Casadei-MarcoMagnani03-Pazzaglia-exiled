@@ -83,6 +83,21 @@ public interface CharacterController {
     List<String> getMagicMoveNames();
 
     /**
+     * Returns the description of a magic move.
+     * 
+     * @param magicMoveName the name of the move to find.
+     * @return the description of a magic move.
+     */
+    String getMagicMoveDescription(String magicMoveName);
+
+    /**
+     * Returns the damage of a magic move.
+     * @param magicMoveName the name of the move to find.
+     * @return the damage of the move.
+     */
+    double getMagicMoveDamage(String magicMoveName);
+
+    /**
      * Gets the move set of the player.
      *
      * @return A list of the player moves.
@@ -96,9 +111,10 @@ public interface CharacterController {
 
     /**
      * Performs an attack routine.
+     * 
      * @param isPlayerAttacking if is the player or the enemy attacking.
-     * @param moveName the name of the move performed.
-     * @param combatPosition the position of the combat.
+     * @param moveName          the name of the move performed.
+     * @param combatPosition    the position of the combat.
      * @return if the character that took damage is dead or not.
      */
     boolean attack(boolean isPlayerAttacking, String moveName, Position combatPosition);
@@ -143,13 +159,15 @@ public interface CharacterController {
     /**
      * Return the name of the class of the character at the specified position.
      *
-     * @param position The position of the character whose class name is to be obtained.
+     * @param position The position of the character whose class name is to be
+     *                 obtained.
      * @return The name of the class of the character
      */
     String getCharacterClassNameFromPosition(Position position);
 
     /**
      * Returns a random move name.
+     * 
      * @param position the position of the character from which get the move name.
      * @return a move name.
      */
@@ -157,6 +175,7 @@ public interface CharacterController {
 
     /**
      * Removes the enemy from a position.
+     * 
      * @param position the enemy position.
      */
     void removeEnemyFromPosition(Position position);
