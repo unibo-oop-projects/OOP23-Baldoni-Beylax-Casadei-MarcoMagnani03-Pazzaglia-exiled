@@ -103,7 +103,7 @@ public final class InventoryView extends JPanel {
         northPanel.add(exitButton, BorderLayout.WEST);
         northPanel.add(titleLabel, BorderLayout.CENTER);
         northPanel.setBorder(BorderFactory.createEmptyBorder(TOP_BOTTOM_MARGIN, 0, TOP_BOTTOM_MARGIN, 0));
-        
+
         return northPanel;
     }
 
@@ -167,7 +167,7 @@ public final class InventoryView extends JPanel {
 
         @Override
         public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
-                                                      final boolean isSelected, final boolean cellHasFocus) {
+                final boolean isSelected, final boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof String item) {
                 final Map<String, Integer> itemsList = gameController.getItemsController().getItems();

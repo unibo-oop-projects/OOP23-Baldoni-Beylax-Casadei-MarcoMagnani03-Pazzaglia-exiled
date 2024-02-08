@@ -54,8 +54,7 @@ public final class PlayerClassView {
 
         final JPanel buttonNormalPanel = new JPanel(new GridLayout(1, 1, MARGIN, MARGIN));
         final JButton normalButton = createButton(ElementalType.NORMAL);
-        
-        
+
         final JPanel buttonClassPanel = new JPanel(new GridLayout(2, 2, MARGIN, MARGIN));
         final JButton fireButton = createButton(ElementalType.FIRE);
         final JButton waterButton = createButton(ElementalType.WATER);

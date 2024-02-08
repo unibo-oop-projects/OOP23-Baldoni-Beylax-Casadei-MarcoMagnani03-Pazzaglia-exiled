@@ -9,7 +9,7 @@ import unibo.exiled.model.utilities.Direction;
 /**
  * A KeyListener implementation that handles player movement in the game.
  */
-public class MovementKeyListener implements KeyListener {
+public final class MovementKeyListener implements KeyListener {
     private final GameController gameController;
     private final GameView gameView;
 
@@ -21,7 +21,7 @@ public class MovementKeyListener implements KeyListener {
      *                       logic.
      * @param gameView       The game view responsible for rendering the game.
      */
-    public MovementKeyListener(GameController gameController, GameView gameView) {
+    public MovementKeyListener(final GameController gameController, final GameView gameView) {
         this.gameController = gameController;
         this.gameView = gameView;
     }
@@ -57,7 +57,7 @@ public class MovementKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-        if(gameView.isInGame()){
+        if (gameView.isInGame()) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 gameView.showMenu();
             } else if (isValidMovementKey(e) && !gameView.isInCombat()) {
@@ -68,7 +68,6 @@ public class MovementKeyListener implements KeyListener {
             }
         }
     }
-    
 
     /**
      * Checks if the pressed key is a valid movement key.
@@ -76,8 +75,8 @@ public class MovementKeyListener implements KeyListener {
      * @param e The KeyEvent corresponding to the pressed key.
      * @return True if the pressed key is a valid movement key, false otherwise.
      */
-    private boolean isValidMovementKey(KeyEvent e) {
-        int keyCode = e.getKeyCode();
+    private boolean isValidMovementKey(final KeyEvent e) {
+        final int keyCode = e.getKeyCode();
         return keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_S
                 || keyCode == KeyEvent.VK_D;
     }
@@ -87,7 +86,7 @@ public class MovementKeyListener implements KeyListener {
      *
      * @param direction The direction in which to move the player and enemies.
      */
-    private void movePlayerAndEnemies(Direction direction) {
+    private void movePlayerAndEnemies(final Direction direction) {
         gameController.getCharacterController().movePlayer(direction);
         gameController.getCharacterController().moveEnemies();
     }
@@ -97,7 +96,7 @@ public class MovementKeyListener implements KeyListener {
      *
      * @param direction The direction in which the player is moving.
      */
-    private void updatePlayerView(Direction direction) {
+    private void updatePlayerView(final Direction direction) {
         if (gameController.getMapController()
                 .isEnemyInCell(gameController.getCharacterController().getPlayerPosition())) {
             gameView.initializeCombat();
