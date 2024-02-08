@@ -47,62 +47,62 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public double getPlayerHealth() {
-        return this.model.getPlayerAttributeOf(AttributeIdentifier.HEALTH);
+        return this.model.getCharacterModel().getPlayerAttributeOf(AttributeIdentifier.HEALTH);
     }
 
     @Override
     public double getPlayerHealthCap() {
-        return this.model.getPlayerAttributeOf(AttributeIdentifier.HEALTHCAP);
+        return this.model.getCharacterModel().getPlayerAttributeOf(AttributeIdentifier.HEALTHCAP);
     }
 
     @Override
     public int getPlayerLevel() {
-        return this.model.getPlayerLevel();
+        return this.model.getCharacterModel().getPlayerLevel();
     }
 
     @Override
     public int getPlayerCurrentExperience() {
-        return this.model.getPlayerCurrentExperience();
+        return this.model.getCharacterModel().getPlayerCurrentExperience();
     }
 
     @Override
     public void addPlayerExperience(double amount) {
-        this.model.addPlayerExperience(amount);
+        this.model.getCharacterModel().addPlayerExperience(amount);
     }
 
     @Override
     public int getPlayerExperienceCap() {
-        return this.model.getPlayerExperienceCap();
+        return this.model.getCharacterModel().getPlayerExperienceCap();
     }
 
     @Override
     public String getPlayerClassName() {
-        return this.model.getPlayerClass().elementalType().getName();
+        return this.model.getCharacterModel().getPlayerClass().elementalType().getName();
     }
 
     @Override
     public void movePlayer(final Direction direction) {
-        this.model.movePlayer(direction);
+        this.model.getCharacterModel().movePlayer(direction);
     }
 
     @Override
     public void moveEnemies() {
-        this.model.moveEnemies();
+        this.model.getCharacterModel().moveEnemies();
     }
 
     @Override
     public Position getPlayerPosition() {
-        return this.model.getPlayerPosition();
+        return this.model.getCharacterModel().getPlayerPosition();
     }
 
     @Override
     public List<String> getMagicMoveNames() {
-        return this.model.getMagicMoves().stream().map(MagicMove::name).toList();
+        return this.model.getItemsModel().getMagicMoves().stream().map(MagicMove::name).toList();
     }
 
     @Override
     public String getMagicMoveDescription(final String moveName) {
-        final Optional<MagicMove> move = this.model.getMagicMoves().stream().filter(m -> m.name().equals(moveName))
+        final Optional<MagicMove> move = this.model.getItemsModel().getMagicMoves().stream().filter(m -> m.name().equals(moveName))
                 .findFirst();
         if (move.isPresent()) {
             return move.get().description();
@@ -113,7 +113,7 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public double getMagicMoveDamage(final String moveName) {
-        final Optional<MagicMove> move = this.model.getMagicMoves().stream().filter(m -> m.name().equals(moveName))
+        final Optional<MagicMove> move = this.model.getItemsModel().getMagicMoves().stream().filter(m -> m.name().equals(moveName))
                 .findFirst();
         if (move.isPresent()) {
             return move.get().power();
@@ -124,19 +124,19 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public List<String> getPlayerMoveSet() {
-        return this.model.getPlayerMoveSet().getMagicMoves().stream().map(MagicMove::name).toList();
+        return this.model.getCharacterModel().getPlayerMoveSet().getMagicMoves().stream().map(MagicMove::name).toList();
     }
 
     @Override
     public boolean attack(final boolean isPlayerAttacking, final String moveName, final Position combatPosition) {
-        if (this.model.getCharacterFromPosition(combatPosition).isEmpty()) {
+        if (this.model.getCharacterModel().getCharacterFromPosition(combatPosition).isEmpty()) {
             throw new IllegalArgumentException("The position doesn't contain a character.");
         }
 
-        final GameCharacter attacker = isPlayerAttacking ? this.model.getPlayer().get()
-                : this.model.getCharacterFromPosition(combatPosition).get();
-        final GameCharacter defender = !isPlayerAttacking ? this.model.getPlayer().get()
-                : this.model.getCharacterFromPosition(combatPosition).get();
+        final GameCharacter attacker = isPlayerAttacking ? this.model.getCharacterModel().getPlayer().get()
+                : this.model.getCharacterModel().getCharacterFromPosition(combatPosition).get();
+        final GameCharacter defender = !isPlayerAttacking ? this.model.getCharacterModel().getPlayer().get()
+                : this.model.getCharacterModel().getCharacterFromPosition(combatPosition).get();
 
         final double damage = attacker.getMoveSet()
                 .getMagicMoves()
@@ -151,12 +151,12 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public void assignPlayerClass(final CharacterClass playerClass) {
-        this.model.assignPlayerClass(playerClass);
+        this.model.getCharacterModel().assignPlayerClass(playerClass);
     }
 
     @Override
     public boolean getIfCharacterInPositionIsMoving(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel().getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().spriteIsMoving();
         } else {
@@ -166,7 +166,7 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public double getCharacterHealthFromPosition(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel().getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().getHealth();
         } else {
@@ -176,7 +176,7 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public double getCharacterHealthCapFromPosition(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel().getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().getHealthCap();
         } else {
@@ -186,7 +186,7 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getCharacterClassNameFromPosition(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel().getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return ((EnemyImpl) gottenCharacter.get()).getType().getName();
         } else {
@@ -196,7 +196,7 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getCharacterRandomMoveNameFromPosition(final Position position) {
-        final Set<MagicMove> moves = this.model.getCharacterFromPosition(position).get().getMoveSet().getMagicMoves();
+        final Set<MagicMove> moves = this.model.getCharacterModel().getCharacterFromPosition(position).get().getMoveSet().getMagicMoves();
         final int randomIndex = RANDOM.nextInt(moves.size());
         int i = 0;
         for (final MagicMove magicMove : moves) {
@@ -210,12 +210,12 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public void removeEnemyFromPosition(final Position position) {
-        this.model.removeEnemyFromPosition(position);
+        this.model.getCharacterModel().removeEnemyFromPosition(position);
     }
 
     @Override
     public double getEnemyExperienceDropFromPosition(final Position position) {
-        final Optional<GameCharacter> enemy = this.model.getCharacterFromPosition(position);
+        final Optional<GameCharacter> enemy = this.model.getCharacterModel().getCharacterFromPosition(position);
 
         if (enemy.isPresent()) {
             return ((Enemy) enemy.get()).getDroppedExperience();

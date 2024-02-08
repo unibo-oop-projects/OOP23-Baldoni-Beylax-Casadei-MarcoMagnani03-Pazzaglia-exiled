@@ -25,20 +25,20 @@ final class TestGameModel {
     @Test
     void testConstructorAndInitialization() {
         assertNotNull(gameModel);
-        assertEquals(defaultMapSize, gameModel.getMapSize());
-        assertNotNull(gameModel.getPlayerPosition());
-        assertNotNull(gameModel.getCharacterFromPosition(gameModel.getPlayerPosition()));
-        assertNotNull(gameModel.getCellTypeOf(gameModel.getPlayerPosition()));
-        assertNotNull(gameModel.getItems());
-        assertEquals(0, gameModel.getPlayerLevel());
-        assertNotNull(gameModel.getPlayerClass());
-        assertNotNull(gameModel.getPlayerMoveSet());
+        assertEquals(defaultMapSize, gameModel.getMapModel().getSize());
+        assertNotNull(gameModel.getCharacterModel().getPlayerPosition());
+        assertNotNull(gameModel.getCharacterModel().getCharacterFromPosition(gameModel.getCharacterModel().getPlayerPosition()));
+        assertNotNull(gameModel.getMapModel().getCellType(gameModel.getCharacterModel().getPlayerPosition()));
+        assertNotNull(gameModel.getItemsModel().getItems());
+        assertEquals(0, gameModel.getCharacterModel().getPlayerLevel());
+        assertNotNull(gameModel.getCharacterModel().getPlayerClass());
+        assertNotNull(gameModel.getCharacterModel().getPlayerMoveSet());
     }
 
     @Test
     void testMovePlayer() {
-        final Position positionBeforeMoving = gameModel.getPlayerPosition();
-        gameModel.movePlayer(Direction.NORTH);
-        assertEquals(Positions.sum(positionBeforeMoving, Direction.NORTH.getPosition()), gameModel.getPlayerPosition());
+        final Position positionBeforeMoving = gameModel.getCharacterModel().getPlayerPosition();
+        gameModel.getCharacterModel().movePlayer(Direction.NORTH);
+        assertEquals(Positions.sum(positionBeforeMoving, Direction.NORTH.getPosition()), gameModel.getCharacterModel().getPlayerPosition());
     }
 }

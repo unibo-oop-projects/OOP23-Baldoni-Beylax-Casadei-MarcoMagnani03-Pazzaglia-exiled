@@ -1,5 +1,6 @@
 package unibo.exiled.model.game;
 
+import unibo.exiled.config.Constants;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.map.GameMap;
 import unibo.exiled.model.map.GameMapImpl;
@@ -19,7 +20,10 @@ public final class MapModelImpl implements MapModel {
      *
      * @param size The size of the map to create.
      */
-    public MapModelImpl(final int size) {
+    public MapModelImpl() {
+
+        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
+        final int size = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
         this.map = new GameMapImpl(Objects.requireNonNull(size));
     }
 
@@ -45,5 +49,16 @@ public final class MapModelImpl implements MapModel {
     @Override
     public Position getCornerOfType(final CellType type) {
         return this.map.getCornerPositionOfElement(type);
+    }
+
+
+    @Override
+    public boolean isCornerOfMap(final Position position) {
+        final int x = position.x();
+        final int y = position.y();
+        return x == 0 && y == 0
+                || x == getSize() && y == getSize()
+                || x == 0 && y == getSize()
+                || y == 0 && x == getSize();
     }
 }

@@ -27,18 +27,18 @@ public final class MapControllerImpl implements MapController {
 
     @Override
     public int getMapSize() {
-        return model.getMapSize();
+        return model.getMapModel().getSize();
     }
 
     @Override
     public CellType getCellType(final Position position) {
-        return model.getCellTypeOf(position);
+        return model.getMapModel().getCellType(position);
     }
 
 
     @Override
     public boolean isEnemyInCell(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = model.getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = model.getCharacterModel().getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get() instanceof Enemy;
         } else {
@@ -48,7 +48,7 @@ public final class MapControllerImpl implements MapController {
 
     @Override
     public String getNameOfCharacterInPosition(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = model.getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = model.getCharacterModel().getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().getName();
         } else {
@@ -58,6 +58,6 @@ public final class MapControllerImpl implements MapController {
 
     @Override
     public Direction getLastDirectionOfCharacterInPosition(final Position position) {
-        return model.getCharacterFromPosition(position).get().getLastDirection();
+        return model.getCharacterModel().getCharacterFromPosition(position).get().getLastDirection();
     }
 }

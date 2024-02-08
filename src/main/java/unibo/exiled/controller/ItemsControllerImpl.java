@@ -24,36 +24,36 @@ public final class ItemsControllerImpl implements ItemsController {
 
     @Override
     public Map<String, Integer> getItems() {
-        return model.getItems();
+        return model.getItemsModel().getItems();
     }
 
     @Override
     public String getItemDescription(final String itemName) {
-        return model.getItemDescription(itemName);
+        return model.getItemsModel().getItemDescription(itemName);
     }
 
     @Override
     public double getItemValor(final String itemName) {
-        return model.getItemValor(itemName);
+        return model.getItemsModel().getItemValor(itemName);
     }
 
     @Override
     public ItemType getItemType(final String itemName) {
-        return model.getItemType(itemName);
+        return model.getItemsModel().getItemType(itemName);
     }
 
     @Override
     public String getItemBoostedAttributeName(final String itemName) {
-        return model.getItemBoostedAttributeName(itemName);
+        return model.getItemsModel().getItemBoostedAttributeName(itemName);
     }
 
     @Override
     public int getItemDuration(final String itemName) {
-        return model.getItemDuration(itemName);
+        return model.getItemsModel().getItemDuration(itemName);
     }
 
     @Override
     public boolean useItem(final String itemName) {
-        return model.useItem(itemName);
+        return model.getItemsModel().useItem(itemName);
     }
 }

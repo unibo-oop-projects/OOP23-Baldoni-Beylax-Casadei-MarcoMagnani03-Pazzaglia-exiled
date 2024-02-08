@@ -37,4 +37,6 @@ public interface MapModel {
      * @return The position representing the corner of a selected type.
      */
     Position getCornerOfType(CellType type);
+
+    boolean isCornerOfMap(final Position position);
 }
