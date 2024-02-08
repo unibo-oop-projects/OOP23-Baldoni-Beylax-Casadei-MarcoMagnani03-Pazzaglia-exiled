@@ -1,6 +1,5 @@
 package unibo.exiled.view;
 
-import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Optional;
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.model.map.CellType;
-import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
@@ -20,6 +18,7 @@ import unibo.exiled.view.menu.MenuView;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
 import java.awt.Color;
+
 import javax.swing.GroupLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
@@ -30,7 +29,6 @@ import javax.swing.WindowConstants;
 import java.awt.Container;
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
-import java.awt.event.KeyEvent;
 
 /**
  * The main view of the game, everything starts here.
@@ -131,7 +129,7 @@ public final class GameView {
 
         this.initializeGridComponents();
         this.initializeHUD();
-        this.initializeKeyListeners();
+        this.mainFrame.addKeyListener(new MovementKeyListener(gameController, this));
     }
 
     /**
@@ -189,63 +187,6 @@ public final class GameView {
                         this.gameController.getMapController().getMapSize()));
         draw();
         this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
-    }
-
-    private void initializeKeyListeners() {
-        // Listener initialization
-        final KeyListener keyListener = new KeyListener() {
-
-            private static Direction getDirection(final KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_W -> {
-                        return Direction.NORTH;
-                    }
-                    case KeyEvent.VK_A -> {
-                        return Direction.WEST;
-                    }
-                    case KeyEvent.VK_S -> {
-                        return Direction.SOUTH;
-                    }
-                    case KeyEvent.VK_D -> {
-                        return Direction.EAST;
-                    }
-                    default -> throw new IllegalStateException("Illegal pressed key.");
-                }
-            }
-
-            @Override
-            public void keyTyped(final KeyEvent e) {
-            }
-
-            @Override
-            public void keyPressed(final KeyEvent e) {
-                if ((e.getKeyCode() == KeyEvent.VK_W
-                        || e.getKeyCode() == KeyEvent.VK_A
-                        || e.getKeyCode() == KeyEvent.VK_S
-                        || e.getKeyCode() == KeyEvent.VK_D) && !combatPanel.isVisible()) {
-                    final Direction directionPressed = getDirection(e);
-                    gameController.getCharacterController().movePlayer(directionPressed);
-                    gameController.getCharacterController().moveEnemies();
-
-                    if (gameController.getMapController()
-                            .isEnemyInCell(gameController.getCharacterController()
-                                    .getPlayerPosition())) {
-                        initializeCombat();
-                    } else {
-                        playerView.changeImage(directionPressed,
-                                gameController.getCharacterController().getIfCharacterInPositionIsMoving(
-                                        gameController.getCharacterController().getPlayerPosition()));
-                    }
-                    draw();
-                }
-            }
-
-            @Override
-            public void keyReleased(final KeyEvent e) {
-            }
-        };
-
-        this.mainFrame.addKeyListener(keyListener);
     }
 
     /**
@@ -343,9 +284,36 @@ public final class GameView {
     }
 
     /**
+     * Returns true if the game is currently in combat mode.
+     *
+     * @return true if the game is in combat mode, otherwise false.
+     */
+    public boolean isInCombat() {
+        return this.combatPanel.isVisible();
+    }
+
+    /**
+     * Returns true if the game map is currently in-game mode.
+     *
+     * @return true if the game map is in-game mode, otherwise false.
+     */
+    public boolean isInGame() {
+        return this.gameHudPanel.isVisible();
+    }
+
+    /**
+     * Returns the player's character view.
+     *
+     * @return the player's character view.
+     */
+    public CharacterView getPlayerView() {
+        return this.playerView;
+    }
+
+    /**
      * Shows the combat view.
      */
-    private void initializeCombat() {
+    public void initializeCombat() {
         this.combatView.setEnemy();
         this.showCombat();
     }

@@ -7,47 +7,47 @@ import java.util.Map;
  */
 public interface AttributeFactory {
     /**
-     * Creates the attributes of the player.<br>
-     * <ul>
-     *    <li>
-     *         Health and HealthCap: 100
-     *     </li>
-     *     <li>
-     *          All modifiers: 1
-     *      </li>
-     *  </ul>
-     *
+     * Creates the attributes of the player.
+     * 
      * @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createPlayerAttributes();
 
     /**
-     * Creates the attributes of the goblin, the weakest enemy.<br>
-     * <ul>
-     *    <li>
-     *        Health and HealthCap: 10
-     *     </li>
-     *     <li>
-     *         All modifiers: 1
-     *     </li>
-     * </ul>
+     * Creates the attributes of the goblin, the weakest enemy.
+     * 
      *  @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createGoblinAttributes();
 
     /**
-     * Creates the attributes of the brutus.<br>
-     * <ul>
-     *      <li>
-     *          Health and HealthCap: 20
-     *      </li>
-     *      <li>
-     *          All modifiers: 1
-     *      </li>
-     *  </ul>
+     * Creates the attributes of the brutus.
+     * 
      *  @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createBrutusAttributes();
+
+    /**
+     * Creates the attributes for the Whirler.
+     *
+     * @return A map of attributes with the overly specified values.
+     */
+    Map<AttributeIdentifier, Attribute> createWhirlerAttributes();
+
+    /**
+     * Creates the attributes for the Aquashade.
+     *
+     * @return A map of attributes with the overly specified values.
+     */
+    Map<AttributeIdentifier, Attribute> creatAquashadeAttributes();
+
+    /**
+     * Creates the attributes for the Aquashade.
+     *
+     * @return A map of attributes with the overly specified values.
+     */
+    Map<AttributeIdentifier, Attribute> creatWavebreakerAttributes();
+
 
     /**
      * Creates the attributes of the Boss.
@@ -55,11 +55,4 @@ public interface AttributeFactory {
      * @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createBossAttributes();
-
-    /**
-     * Creates tje attributes for the Whirler.
-     *
-     * @return A map of attributes with the overly specified values.
-     */
-    Map<AttributeIdentifier, Attribute> createWhirlerAttributes();
 }
