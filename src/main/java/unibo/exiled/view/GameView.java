@@ -134,8 +134,7 @@ public final class GameView {
      * Refreshes the player status panel.
      */
     public void refreshStatusPanel() {
-        this.gameHudPanel.removeAll();
-        this.gameHudPanel.add(this.hud.initialize()); 
+        initializeHUD();
     }
 
     /**
