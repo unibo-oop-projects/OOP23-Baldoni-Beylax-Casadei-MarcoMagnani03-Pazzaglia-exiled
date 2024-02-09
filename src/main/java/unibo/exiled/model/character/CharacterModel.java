@@ -11,9 +11,12 @@ import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * The model representing a character in the game, the player or an enemy.
  */
+@Immutable
 public interface CharacterModel {
     /**
      * Moves the player in the selected direction.

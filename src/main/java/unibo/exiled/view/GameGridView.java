@@ -21,11 +21,12 @@ import java.util.List;
  * It places cells in the grid based on the cell type and content.
  */
 public class GameGridView {
+    private static final int PLAYER_GRID_VISIBILITY = 5;
     private final GameController gameController;
+    //TODO: Remove field
     private final JPanel gamePanel;
     private final CharacterView playerView;
     private JPanel gridPanel;
-    private static final int PLAYER_GRID_VISIBILITY = 5;
 
     /**
      * Constructs a Grid instance with the specified game controller, game panel, and player view.
@@ -35,7 +36,7 @@ public class GameGridView {
      * @param playerView     The view representing the player.
      */
     public GameGridView(final GameController gameController, final JPanel gamePanel,
-    final CharacterView playerView) {
+                        final CharacterView playerView) {
         this.gameController = gameController;
         this.gamePanel = gamePanel;
         this.playerView = playerView;
@@ -48,7 +49,7 @@ public class GameGridView {
      */
     public void initializeGrid() {
         drawGrid();
-        this.gamePanel.removeAll(); 
+        this.gamePanel.removeAll();
         this.gamePanel.add(gridPanel, BorderLayout.CENTER);
         this.gamePanel.revalidate();
         this.gamePanel.repaint();
@@ -56,7 +57,6 @@ public class GameGridView {
 
     /**
      * Draws the grid game panel.
-     *
      */
     private void drawGrid() {
         final Position playerPosition = gameController.getCharacterController().getPlayerPosition();
@@ -88,7 +88,7 @@ public class GameGridView {
     /**
      * Places a cell in the grid based on the cell type and content.
      *
-     * @param position  The position of the cell.
+     * @param position The position of the cell.
      */
     private void placeCell(final Position position) {
         final JLabel label;

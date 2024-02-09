@@ -1,5 +1,6 @@
 package unibo.exiled.model.menu;
 
+import javax.annotation.concurrent.Immutable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
  * Implementation of the Menu interface that represents a menu containing
  * multiple menu items.
  */
+@Immutable
 public class MenuImpl implements Menu {
     private final List<MenuItem> menuItems;
 

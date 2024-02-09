@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.Serial;
 import java.util.List;
+import javax.annotation.concurrent.Immutable;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
  * It extends the JLabel class to display images within a Swing component.
  * The class handles the sprites of the character's movement.
  */
+@Immutable
 public final class CharacterView extends JLabel {
     @Serial
     private static final long serialVersionUID = 5L;
@@ -26,9 +28,8 @@ public final class CharacterView extends JLabel {
     private final String downSprite;
     private final String rightSprite;
     private final String leftSprite;
+    private final String path;
     private transient Image image;
-    private String imgAnimationName;
-    private String path = Constants.DEF_RESOURCE_PATH;
 
     /**
      * Constructs a new CharacterView instance with the specified sprite images.
@@ -44,7 +45,7 @@ public final class CharacterView extends JLabel {
     public CharacterView(final List<String> sprites) {
 
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        path += sprites.get(0) + File.separator;
+        this.path = Constants.DEF_RESOURCE_PATH + sprites.get(0) + File.separator;
 
         this.image = new ImageIcon(path + sprites.get(2) + FIRST_IMAGE).getImage();
 
@@ -61,16 +62,26 @@ public final class CharacterView extends JLabel {
      * @param isMoving If the character is currently in its moving state.
      */
     public void changeImage(final Direction dir, final boolean isMoving) {
+        final String imgAnimationName;
         switch (dir) {
-            case NORTH -> checkAnimation(this.upSprite, isMoving);
+            case NORTH -> {
+                imgAnimationName = checkAnimation(this.upSprite, isMoving);
+            }
 
-            case SOUTH -> checkAnimation(this.downSprite, isMoving);
+            case SOUTH -> {
+                imgAnimationName = checkAnimation(this.downSprite, isMoving);
+            }
 
-            case WEST -> checkAnimation(this.leftSprite, isMoving);
+            case WEST -> {
+                imgAnimationName = checkAnimation(this.leftSprite, isMoving);
+            }
 
-            case EAST -> checkAnimation(this.rightSprite, isMoving);
+            case EAST -> {
+                imgAnimationName = checkAnimation(this.rightSprite, isMoving);
+            }
 
             default -> {
+                throw new IllegalArgumentException("Unknown direction");
             }
         }
         this.image = new ImageIcon(path + imgAnimationName).getImage();
@@ -81,12 +92,13 @@ public final class CharacterView extends JLabel {
      *
      * @param animationName The base name of the animation sprite.
      * @param isMoving      If the character is currently in the moving state.
+     * @return A string with the suffix of the sprite based on the animation.
      */
-    private void checkAnimation(final String animationName, final boolean isMoving) {
+    private String checkAnimation(final String animationName, final boolean isMoving) {
         if (!isMoving) {
-            imgAnimationName = animationName + FIRST_IMAGE;
+            return animationName + FIRST_IMAGE;
         } else {
-            imgAnimationName = animationName + SECOND_IMAGE;
+            return animationName + SECOND_IMAGE;
         }
     }
 

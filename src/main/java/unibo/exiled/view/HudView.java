@@ -17,7 +17,9 @@ import unibo.exiled.view.items.GameLabel;
 public final class HudView {
     private static final int HEALTH_CRITICAL_PERCENTAGE = 20;
     private final GameView gameView;
+    //TODO: Remove field.
     private final JPanel gameHudPanel;
+    //TODO: Remove field.
     private final JPanel gameStatusPanel;
     private final GameController gameController;
 

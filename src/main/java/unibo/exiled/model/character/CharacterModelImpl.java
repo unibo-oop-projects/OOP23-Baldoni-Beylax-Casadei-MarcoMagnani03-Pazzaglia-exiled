@@ -27,16 +27,19 @@ import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * The character model implementation.
  */
+@Immutable
 public final class CharacterModelImpl implements CharacterModel {
     private static final Random RANDOM = new Random();
     private static final int RANGE_PLAYER_ENEMY = 2;
 
     private final GameModel model;
     private final EnemyCollection enemyCollection;
-    private Player player;
+    private final Player player;
 
     /**
      * The constructor of the character model.
@@ -53,23 +56,14 @@ public final class CharacterModelImpl implements CharacterModel {
         final int enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));
         final int movesLearningInterval = Integer.parseInt(Constants.getConstantOf("MOVES_LEARNING_INTERVAL"));
 
-        this.playerInitialization(playerExperienceCap,
-                defaultExperience,
-                playerLevelIncrease,
-                movesLearningInterval);
+        //Player initialization.
+        this.player = new PlayerImpl(playerExperienceCap,
+                defaultExperience, playerLevelIncrease, movesLearningInterval);
+        this.player.move(new Position(model.getMapModel().getSize() / 2, model.getMapModel().getSize() / 2));
 
         this.enemyCollection = new EnemyCollectionImpl();
         this.enemyInitialization(enemyNumber);
 
-    }
-
-    private void playerInitialization(final int playerExperienceCap,
-                                      final int defaultExperience,
-                                      final int levelIncrease,
-                                      final int movesLearningInterval) {
-        this.player = new PlayerImpl(playerExperienceCap,
-                defaultExperience, levelIncrease, movesLearningInterval);
-        this.player.move(new Position(model.getMapModel().getSize() / 2, model.getMapModel().getSize() / 2));
     }
 
     private void enemyInitialization(final int number) {
