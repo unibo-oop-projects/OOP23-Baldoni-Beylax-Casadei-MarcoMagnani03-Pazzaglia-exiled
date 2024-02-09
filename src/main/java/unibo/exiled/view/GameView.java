@@ -12,8 +12,6 @@ import unibo.exiled.controller.MenuControllerImpl;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.character.CharacterView;
-import unibo.exiled.view.items.GameButton;
-import unibo.exiled.view.items.GameLabel;
 
 import javax.swing.JLabel;
 import javax.swing.JFrame;
@@ -23,7 +21,6 @@ import javax.swing.GroupLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.Container;
@@ -36,13 +33,14 @@ import javax.swing.border.LineBorder;
 public final class GameView {
     private static final int STATUS_PANEL_H_GAP = 20;
     private static final int STATUS_PANEL_V_GAP = 5;
-    private static final int HEALTH_CRITICAL_PERCENTAGE = 20;
+    public static final int HEALTH_CRITICAL_PERCENTAGE = 20;
 
     // Views
     private final CharacterView playerView;
     private final CombatView combatView;
     private final InventoryView inventoryView;
     private final GameOverView gameOverView;
+    private final Hud hud;
 
     // MVC Components(MC)
     private final JFrame mainFrame;
@@ -106,6 +104,7 @@ public final class GameView {
                         Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(new MenuControllerImpl().getInGameMenuItems(), Optional.of(this));
+        this.hud = new Hud(this, gameController);
 
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(this.inventoryView);
@@ -138,59 +137,15 @@ public final class GameView {
      * This method sets up buttons for inventory and menu, displays player health,
      * level, and class information.
      */
-    void initializeHUD() {
-        final JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
-        final JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
-        this.gameHudPanel.add(flowButtonPanelNorth, BorderLayout.NORTH);
-        this.gameHudPanel.add(flowButtonPanelSouth, BorderLayout.SOUTH);
-
-        // Inventory button
-        final GameButton inventoryButton = new GameButton("Inventory");
-        inventoryButton.addActionListener(e -> showInventory());
-
-        // Menu button
-        final GameButton menuButton = new GameButton("Menu");
-        menuButton.addActionListener(e -> showMenu());
-
-        flowButtonPanelNorth.add(inventoryButton);
-        flowButtonPanelNorth.add(menuButton);
-
-        // Player information
-        refreshStatusPanel();
-
-        flowButtonPanelSouth.add(statusPanel);
+    private void initializeHUD() {
+        this.hud.initialize();
     }
 
     /**
      * Refreshes the player status panel.
      */
     public void refreshStatusPanel() {
-        this.statusPanel.removeAll();
-        final double playerHealth = gameController.getCharacterController().getPlayerHealth();
-        final double playerHealthCap = gameController.getCharacterController().getPlayerHealthCap();
-        final GameLabel healthBar = new GameLabel(
-                "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
-                        + gameController.getCharacterController().getPlayerHealthCap());
-        if (playerHealth <= (playerHealthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
-            healthBar.setForeground(Color.RED);
-        } else {
-            healthBar.setForeground(Color.GREEN);
-        }
-        final GameLabel levelLabel = new GameLabel(
-                "Level: " + gameController.getCharacterController().getPlayerLevel());
-        final GameLabel classLabel = new GameLabel(
-                "Class: " + gameController.getCharacterController().getPlayerClassName());
-        final int currentExperience = gameController.getCharacterController().getPlayerCurrentExperience();
-        final int experienceCap = gameController.getCharacterController().getPlayerExperienceCap();
-        final GameLabel experienceLabel = new GameLabel("Experience: " + currentExperience + " / " + experienceCap);
-        this.statusPanel.setBorder(BorderFactory.createEtchedBorder());
-        this.statusPanel.add(healthBar);
-        this.statusPanel.add(levelLabel);
-        this.statusPanel.add(classLabel);
-        this.statusPanel.add(experienceLabel);
-
-        this.statusPanel.revalidate();
-        this.statusPanel.repaint();
+        this.hud.refreshStatusPanel();
     }
 
     private void initializeGridComponents() {
@@ -380,6 +335,22 @@ public final class GameView {
     public void hideCombat() {
         this.gamePanel.setVisible(true);
         this.combatPanel.setVisible(false);
+    }
+
+    /**
+     * Method used to get the Hud Panel
+     * @return the Hud panel
+     */
+    public JPanel getGameHudPanel() {
+        return this.gameHudPanel;
+    }
+
+    /**
+     * Method used to get the Status Panel
+     * @return the Status panel
+     */
+    public JPanel getStatusPanel() {
+        return this.statusPanel;
     }
 
     /**
