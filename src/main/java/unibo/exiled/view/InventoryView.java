@@ -154,7 +154,7 @@ public final class InventoryView extends JPanel {
                 setFont(FontManager.getCustomFont(FONT_SIZE));
                 gameView.refreshStatusPanel();
             } else {
-                JOptionPane.showMessageDialog(null, "Errore nell'utilizzo di " + itemName,
+                JOptionPane.showMessageDialog(null, "Error using the item " + itemName,
                         "ERROR", JOptionPane.ERROR_MESSAGE);
                 setFont(FontManager.getCustomFont(FONT_SIZE));
             }
