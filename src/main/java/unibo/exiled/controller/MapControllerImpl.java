@@ -38,11 +38,7 @@ public final class MapControllerImpl implements MapController {
     @Override
     public boolean isEnemyInCell(final Position position) {
         final Optional<GameCharacter> gottenCharacter = model.getCharacterFromPosition(position);
-        if (gottenCharacter.isPresent()) {
-            return gottenCharacter.get() instanceof Enemy;
-        } else {
-            return false;
-        }
+        return gottenCharacter.filter(gameCharacter -> gameCharacter instanceof Enemy).isPresent();
     }
 
     @Override

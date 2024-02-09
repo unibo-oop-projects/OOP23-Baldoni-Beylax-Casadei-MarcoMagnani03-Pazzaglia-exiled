@@ -4,7 +4,6 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.MultiplierAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttributeImpl;
-import unibo.exiled.model.character.attributes.MultiplierAttribute;
 import unibo.exiled.model.character.attributes.AdditiveAttribute;
 import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttribute;
@@ -20,11 +19,11 @@ import java.util.Map;
  */
 public abstract class GameCharacterImpl implements GameCharacter {
     private final String name;
-    private boolean isMoving = true;
     /**
      * An association between the identifier of the attribute and its values.
      */
     private Map<AttributeIdentifier, Attribute> attributes;
+    private boolean isMoving = true;
     private Position position;
     private Direction lastDirection = Direction.SOUTH;
 
@@ -76,70 +75,51 @@ public abstract class GameCharacterImpl implements GameCharacter {
      * @param id       The attribute to modify.
      * @param modifier The modifier to add or subtract.
      * @param value    The value to add or subtract.
-     * @param increase True for increase, false for decrease.
      */
-    private void modifyAttribute(final AttributeIdentifier id, final double modifier,
-                                 final double value, final boolean increase) {
+    private void modifyAttribute(final AttributeIdentifier id,
+                                 final double modifier,
+                                 final double value) {
+        final Map<AttributeIdentifier, Attribute> attributesCopy = new HashMap<>(this.attributes);
         final Attribute attributeToModify = this.attributes.get(id);
-        final Map<AttributeIdentifier, Attribute> modifiedAttributes = new HashMap<>(this.attributes);
-
         if (attributeToModify instanceof CombinedAttribute conv) {
-            modifiedAttributes.replace(id, new CombinedAttributeImpl(
-                    increase ? conv.value() + value : conv.value() - value,
-                    increase ? conv.modifier() + modifier : conv.modifier() - modifier));
+            attributesCopy.replace(id, new CombinedAttributeImpl(conv.value() + value,
+                    conv.modifier() + modifier));
         } else if (attributeToModify instanceof MultiplierAttributeImpl conv) {
-            modifiedAttributes.replace(id, new MultiplierAttributeImpl(
-                    increase ? conv.modifier() + modifier : conv.modifier() - modifier));
+            attributesCopy.replace(id, new MultiplierAttributeImpl(conv.modifier() + modifier));
         } else if (attributeToModify instanceof AdditiveAttributeImpl conv) {
-            modifiedAttributes.replace(id, new AdditiveAttributeImpl(
-                    increase ? conv.value() + value : conv.value() - value));
+            attributesCopy.replace(id, new AdditiveAttributeImpl(conv.value() + value));
         }
-
-        this.attributes = modifiedAttributes;
+        this.attributes = attributesCopy;
     }
 
     @Override
     public final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
-        modifyAttribute(id, modifier, 0, true);
+        this.modifyAttribute(id, modifier, 0);
     }
 
     @Override
     public final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
-        modifyAttribute(id, 0, value, true);
+        this.modifyAttribute(id, 0, value);
     }
 
     @Override
     public final void decreaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
-        modifyAttribute(id, modifier, 0, false);
+        this.increaseAttributeModifier(id, -modifier);
     }
 
     @Override
     public final void decreaseAttributeValue(final AttributeIdentifier id, final double value) {
-        modifyAttribute(id, 0, value, false);
+        this.increaseAttributeValue(id, -value);
     }
 
     @Override
     public final double getHealth() {
-        if (attributes.get(AttributeIdentifier.HEALTH).isModifier()
-                && attributes.get(AttributeIdentifier.HEALTH).isValue()) {
-            return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
-        } else if (attributes.get(AttributeIdentifier.HEALTH).isValue()) {
-            return ((AdditiveAttribute) attributes.get(AttributeIdentifier.HEALTH)).value();
-        } else {
-            return ((MultiplierAttribute) attributes.get(AttributeIdentifier.HEALTH)).modifier();
-        }
+        return ((CombinedAttribute) this.attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
     }
 
     @Override
     public final double getHealthCap() {
-        if (attributes.get(AttributeIdentifier.HEALTHCAP).isModifier()
-                && attributes.get(AttributeIdentifier.HEALTHCAP).isValue()) {
-            return ((CombinedAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).getEvaluated();
-        } else if (attributes.get(AttributeIdentifier.HEALTHCAP).isValue()) {
-            return ((AdditiveAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).value();
-        } else {
-            return ((MultiplierAttribute) attributes.get(AttributeIdentifier.HEALTHCAP)).modifier();
-        }
+        return ((AdditiveAttribute) this.attributes.get(AttributeIdentifier.HEALTHCAP)).value();
     }
 
     @Override

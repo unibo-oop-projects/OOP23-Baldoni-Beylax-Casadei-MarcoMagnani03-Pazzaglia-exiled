@@ -190,6 +190,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
             if (this.moveSet.getMagicMoves().size() == this.maxMovesNumber) {
                 //TODO: Manage the MoveSet change.
                 //this.moveSet.changeMoves(null, newMove);
+                throw new UnsupportedOperationException("Unimplemented");
             } else {
                 this.moveSet.addMagicMove(newMove.get());
             }

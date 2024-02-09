@@ -12,6 +12,7 @@ import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
+import javax.annotation.concurrent.Immutable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import java.util.Set;
 /**
  * Implementation of the CharacterController interface.
  */
+@Immutable
 public final class CharacterControllerImpl implements CharacterController {
 
     private static final String EXCEPTION_POSITION_MISSING_MESSAGE = "The position doesn't contain a character.";
