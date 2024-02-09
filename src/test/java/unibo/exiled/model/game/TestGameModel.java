@@ -7,8 +7,8 @@ import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 final class TestGameModel {
 
@@ -27,7 +27,8 @@ final class TestGameModel {
         assertNotNull(gameModel);
         assertEquals(defaultMapSize, gameModel.getMapModel().getSize());
         assertNotNull(gameModel.getCharacterModel().getPlayerPosition());
-        assertNotNull(gameModel.getCharacterModel().getCharacterFromPosition(gameModel.getCharacterModel().getPlayerPosition()));
+        assertNotNull(gameModel.getCharacterModel()
+                .getCharacterFromPosition(gameModel.getCharacterModel().getPlayerPosition()));
         assertNotNull(gameModel.getMapModel().getCellType(gameModel.getCharacterModel().getPlayerPosition()));
         assertNotNull(gameModel.getItemsModel().getItems());
         assertEquals(0, gameModel.getCharacterModel().getPlayerLevel());
@@ -39,6 +40,7 @@ final class TestGameModel {
     void testMovePlayer() {
         final Position positionBeforeMoving = gameModel.getCharacterModel().getPlayerPosition();
         gameModel.getCharacterModel().movePlayer(Direction.NORTH);
-        assertEquals(Positions.sum(positionBeforeMoving, Direction.NORTH.getPosition()), gameModel.getCharacterModel().getPlayerPosition());
+        assertEquals(Positions.sum(positionBeforeMoving, Direction.NORTH.getPosition()),
+                gameModel.getCharacterModel().getPlayerPosition());
     }
 }
