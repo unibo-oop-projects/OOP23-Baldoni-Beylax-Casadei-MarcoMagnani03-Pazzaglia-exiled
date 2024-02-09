@@ -41,7 +41,13 @@ public interface MapModel {
      */
     Position getCornerOfType(CellType type);
 
-    boolean isCornerOfMap(final Position position);
+    /**
+     * Checks if the position is a corner of the map.
+     *
+     * @param position The position to check.
+     * @return True if the position is a corner of the map, false otherwise.
+     */
+    boolean isCornerOfMap(Position position);
 
     /**
      * Gets the character in the selected cell.

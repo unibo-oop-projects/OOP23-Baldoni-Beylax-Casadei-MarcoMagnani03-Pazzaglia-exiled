@@ -13,8 +13,11 @@ import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 
+/**
+ * The model representing a character in the game, the player or an enemy.
+ */
 public interface CharacterModel {
-        /**
+    /**
      * Moves the player in the selected direction.
      *
      * @param dir The direction where to move the player.
@@ -28,14 +31,14 @@ public interface CharacterModel {
 
     /**
      * Returns the player.
-     * 
+     *
      * @return the player.
      */
     Optional<Player> getPlayer();
 
     /**
      * Returns the enemies.
-     * 
+     *
      * @return the enemies.
      */
     Optional<EnemyCollection> getEnemies();
@@ -75,7 +78,7 @@ public interface CharacterModel {
      * @return The position of the player.
      */
     Position getPlayerPosition();
-    
+
     /**
      * Gets the character in the selected cell.
      *
@@ -108,14 +111,14 @@ public interface CharacterModel {
 
     /**
      * Adds experience to the player.
-     * 
+     *
      * @param amount the experience the player gained killink an enemy.
      */
     void addPlayerExperience(double amount);
 
     /**
      * Removes the enemy in the position.
-     * 
+     *
      * @param pos the position of the enemy to remove.
      */
     void removeEnemyFromPosition(Position pos);

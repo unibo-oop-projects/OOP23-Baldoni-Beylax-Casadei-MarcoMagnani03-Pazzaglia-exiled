@@ -68,7 +68,7 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public void addPlayerExperience(double amount) {
+    public void addPlayerExperience(final double amount) {
         this.model.addPlayerExperience(amount);
     }
 
@@ -162,14 +162,9 @@ public final class CharacterControllerImpl implements CharacterController {
             removeEnemyFromPosition(combatPosition);
 
             // Add the item dropped from the enemy
-            try {
-                final Optional<Item> itemDropped = ((Enemy) defender).getHeldItem();
-                if (itemDropped.isPresent()) {
-                    ((Player) attacker).addItemToInventory(itemDropped.get());
-                }
-            } catch (Exception e) {
-                throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
-            }
+            final Optional<Item> itemDropped = ((Enemy) defender).getHeldItem();
+            itemDropped.ifPresent(item -> ((Player) attacker).addItemToInventory(item));
+
         }
         return hasAttackerWon;
     }

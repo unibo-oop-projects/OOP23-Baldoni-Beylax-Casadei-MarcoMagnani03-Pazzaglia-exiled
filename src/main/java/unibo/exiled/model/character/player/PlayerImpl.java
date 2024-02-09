@@ -29,6 +29,7 @@ import unibo.exiled.model.item.UsableItem;
  */
 public final class PlayerImpl extends GameCharacterImpl implements Player {
     private static final Random RANDOM = new Random();
+    private static final float ATTRIBUTE_INCREMENT_MODULATOR = 20.0f;
     private final int attributeIncBound;
     private final Inventory inventory;
     private final MoveSet moveSet;
@@ -38,7 +39,6 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     private int expCap;
     private CharacterClass playerClass;
     private int levelToLearnAMove;
-    private static final float ATTRIBUTE_INCREMENT_MODULATOR = 20.0f;
 
     /**
      * Constructs a new player with specified attributes, experience cap, initial
@@ -52,7 +52,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      *                               magical moves.
      */
     public PlayerImpl(final int experienceCap, final int initialExperience, final int attributeIncreaseBound,
-            final int movesLearningInterval) {
+                      final int movesLearningInterval) {
         super(Constants.PLAYER_NAME, new AttributeFactoryImpl().createPlayerAttributes());
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         this.inventory = initializeInventory();
@@ -122,7 +122,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     @Override
-    public void addItemToInventory(Item item) {
+    public void addItemToInventory(final Item item) {
         this.inventory.addItem(item);
     }
 
@@ -142,7 +142,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * @return The experience points needed for the next level.
      */
     private int calculateNextLevelExperience() {
-        return (int) (this.expCap + this.expCap * Double.parseDouble(Constants.getConstantOf("EXPERIENCE_MULTIPLIER")));
+        return (int) (this.expCap + this.expCap
+                * Double.parseDouble(Constants.getConstantOf("EXPERIENCE_MULTIPLIER")));
     }
 
     /**

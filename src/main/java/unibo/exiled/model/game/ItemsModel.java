@@ -4,6 +4,9 @@ import java.util.Map;
 
 import unibo.exiled.model.item.ItemType;
 
+/**
+ * The model that manages items in the game.
+ */
 public interface ItemsModel {
     /**
      * Returns the items of the player.
@@ -29,7 +32,7 @@ public interface ItemsModel {
     double getItemValor(String itemName);
 
     /**
-     * Returns the type of a given item.
+     * Returns the type of given item.
      *
      * @param itemName The name of the item.
      * @return The type of the given item.

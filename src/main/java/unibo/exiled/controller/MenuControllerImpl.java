@@ -6,9 +6,15 @@ import unibo.exiled.model.game.MenuModel;
 import unibo.exiled.model.game.MenuModelImpl;
 import unibo.exiled.model.menu.MenuItem;
 
-public class MenuControllerImpl implements MenuController {
+/**
+ * The menu controller implementation.
+ */
+public final class MenuControllerImpl implements MenuController {
     private final MenuModel menuModel;
 
+    /**
+     * The constructor of the implementation of the menu controller.
+     */
     public MenuControllerImpl() {
         this.menuModel = new MenuModelImpl();
     }

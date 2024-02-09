@@ -166,16 +166,7 @@ public final class GameView {
      */
     public void refreshStatusPanel() {
         this.statusPanel.removeAll();
-        final double playerHealth = gameController.getCharacterController().getPlayerHealth();
-        final double playerHealthCap = gameController.getCharacterController().getPlayerHealthCap();
-        final GameLabel healthBar = new GameLabel(
-                "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
-                        + gameController.getCharacterController().getPlayerHealthCap());
-        if (playerHealth <= (playerHealthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
-            healthBar.setForeground(Color.RED);
-        } else {
-            healthBar.setForeground(Color.GREEN);
-        }
+        final GameLabel healthBar = getHealthBar();
         final GameLabel levelLabel = new GameLabel(
                 "Level: " + gameController.getCharacterController().getPlayerLevel());
         final GameLabel classLabel = new GameLabel(
@@ -191,6 +182,20 @@ public final class GameView {
 
         this.statusPanel.revalidate();
         this.statusPanel.repaint();
+    }
+
+    private GameLabel getHealthBar() {
+        final double playerHealth = gameController.getCharacterController().getPlayerHealth();
+        final double playerHealthCap = gameController.getCharacterController().getPlayerHealthCap();
+        final GameLabel healthBar = new GameLabel(
+                "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
+                        + gameController.getCharacterController().getPlayerHealthCap());
+        if (playerHealth <= (playerHealthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
+            healthBar.setForeground(Color.RED);
+        } else {
+            healthBar.setForeground(Color.GREEN);
+        }
+        return healthBar;
     }
 
     private void initializeGridComponents() {
@@ -254,7 +259,7 @@ public final class GameView {
             label = new CharacterView(characterImagePath);
             ((CharacterView) label)
                     .changeImage(gameController.getMapController()
-                            .getLastDirectionOfCharacterInPosition(position),
+                                    .getLastDirectionOfCharacterInPosition(position),
                             gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
         } else {
             label = new JLabel();
@@ -346,6 +351,9 @@ public final class GameView {
         this.inventoryPanel.setVisible(false);
     }
 
+    /**
+     * Updates the buttons of the inventory.
+     */
     public void updateInventory() {
         this.inventoryView.updateInventoryButtons();
     }

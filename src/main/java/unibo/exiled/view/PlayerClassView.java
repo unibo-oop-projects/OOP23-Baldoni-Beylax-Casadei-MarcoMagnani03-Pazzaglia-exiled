@@ -13,7 +13,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
-import java.io.Serial;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -28,18 +27,18 @@ import javax.swing.WindowConstants;
  * View where the player decides his class.
  */
 public final class PlayerClassView {
-    @Serial
-    private static final long serialVersionUID = 7L;
+    private static final int COLOR_MAX_RANGE = 256;
+    private static final Random RANDOM = new Random();
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;
-    private static final String RANDOM_IMAGE_PATH = "src" + File.separator
-            + "main" + File.separator
-            + "java" + File.separator
-            + "unibo" + File.separator
-            + "exiled" + File.separator
-            + "resources" + File.separator
-            + "class" + File.separator
-            + "random.png";
+    private static final String RANDOM_IMAGE_PATH = "src"
+            + File.separator + "main"
+            + File.separator + "java"
+            + File.separator + "unibo"
+            + File.separator + "exiled"
+            + File.separator + "resources"
+            + File.separator + "class"
+            + File.separator + "random.png";
 
     private final transient GameController controller;
     private final JFrame mainFrame;
@@ -122,14 +121,13 @@ public final class PlayerClassView {
 
     /**
      * Generates a random color in RGB.
-     * 
+     *
      * @return The color generated randomly.
      */
     private Color generateRandomColor() {
-        Random random = new Random();
-        int red = random.nextInt(256);
-        int green = random.nextInt(256);
-        int blue = random.nextInt(256);
+        final int red = RANDOM.nextInt(COLOR_MAX_RANGE);
+        final int green = RANDOM.nextInt(COLOR_MAX_RANGE);
+        final int blue = RANDOM.nextInt(COLOR_MAX_RANGE);
         return new Color(red, green, blue);
     }
 
@@ -139,11 +137,8 @@ public final class PlayerClassView {
      * @param playerType The elemental type chosen by the player.
      */
     private void classDecision(final ElementalType playerType) {
-        final int result = JOptionPane.showConfirmDialog(
-                this.mainFrame,
-                "Are you sure you want to choose " + playerType.getName() + " class?",
-                "Confirmation",
-                JOptionPane.YES_NO_OPTION);
+        final int result = JOptionPane.showConfirmDialog(this.mainFrame, "Are you sure you want to choose "
+                + playerType.getName() + " class?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
             this.controller.getCharacterController().assignPlayerClass(new CharacterClassImpl(playerType));
@@ -156,12 +151,11 @@ public final class PlayerClassView {
      * Manages the random decision when the player selects the random option class.
      */
     private void randomClassDecision() {
-        Random random = new Random();
-        ElementalType randomElementalType = ElementalType.values()[random.nextInt(ElementalType.values().length)];
-        final int result = JOptionPane.showConfirmDialog(
-                this.mainFrame,
-                "The " + randomElementalType.getName() + " class was randomly selected, do you want to continue?",
-                "Confirmation",
+        final ElementalType randomElementalType =
+                ElementalType.values()[RANDOM.nextInt(ElementalType.values().length)];
+        final int result = JOptionPane.showConfirmDialog(this.mainFrame, "The "
+                        + randomElementalType.getName()
+                        + " class was randomly selected, do you want to continue?", "Confirmation",
                 JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
