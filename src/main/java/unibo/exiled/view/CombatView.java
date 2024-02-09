@@ -164,11 +164,8 @@ public final class CombatView extends JPanel {
                 this.enemyAttackTimer.start();
 
                 if (isEnemyDead) {
-                    final double experienceDropped = this.gameController.getCharacterController()
-                            .getEnemyExperienceDropFromPosition(combatPosition);
-                    this.gameController.getCharacterController().addPlayerExperience(experienceDropped);
-                    this.gameController.getCharacterController().removeEnemyFromPosition(combatPosition);
                     this.gameView.refreshStatusPanel();
+                    this.gameView.updateInventory();
                     this.gameView.hideCombat();
                 } else {
                     // Disable buttons

@@ -41,6 +41,7 @@ public final class GameView {
     // Views
     private final CharacterView playerView;
     private final CombatView combatView;
+    private final InventoryView inventoryView;
     private final GameOverView gameOverView;
 
     // MVC Components(MC)
@@ -95,6 +96,7 @@ public final class GameView {
                 .addComponent(combatPanel));
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
 
+        this.inventoryView = new InventoryView(this.gameController, this);
         this.gameOverView = new GameOverView();
         final String playerClass = this.gameController
                 .getCharacterController().getPlayerClassName().toLowerCase(Locale.ROOT);
@@ -104,10 +106,9 @@ public final class GameView {
                         Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(new MenuControllerImpl().getInGameMenuItems(), Optional.of(this));
-        final InventoryView inventoryView = new InventoryView(this.gameController, this);
 
         this.menuPanel.add(menuView);
-        this.inventoryPanel.add(inventoryView);
+        this.inventoryPanel.add(this.inventoryView);
         this.combatPanel.add(combatView, BorderLayout.CENTER);
 
         final Container contentPanel = this.mainFrame.getContentPane();
@@ -343,6 +344,10 @@ public final class GameView {
     public void hideInventory() {
         this.gameHudPanel.setVisible(true);
         this.inventoryPanel.setVisible(false);
+    }
+
+    public void updateInventory() {
+        this.inventoryView.updateInventoryButtons();
     }
 
     /**

@@ -121,6 +121,11 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         return Inventories.copyOf(this.inventory);
     }
 
+    @Override
+    public void addItemToInventory(Item item) {
+        this.inventory.addItem(item);
+    }
+
     /**
      * Checks and triggers a level up if the player's experience points exceed the
      * experience cap.

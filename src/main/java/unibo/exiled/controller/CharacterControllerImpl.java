@@ -5,7 +5,10 @@ import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyImpl;
+import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.game.GameModel;
+import unibo.exiled.model.item.Item;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
@@ -102,7 +105,8 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getMagicMoveDescription(final String moveName) {
-        final Optional<MagicMove> move = this.model.getItemsModel().getMagicMoves().stream().filter(m -> m.name().equals(moveName))
+        final Optional<MagicMove> move = this.model.getItemsModel().getMagicMoves().stream()
+                .filter(m -> m.name().equals(moveName))
                 .findFirst();
         if (move.isPresent()) {
             return move.get().description();
@@ -113,7 +117,8 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public double getMagicMoveDamage(final String moveName) {
-        final Optional<MagicMove> move = this.model.getItemsModel().getMagicMoves().stream().filter(m -> m.name().equals(moveName))
+        final Optional<MagicMove> move = this.model.getItemsModel().getMagicMoves().stream()
+                .filter(m -> m.name().equals(moveName))
                 .findFirst();
         if (move.isPresent()) {
             return move.get().power();
@@ -146,7 +151,28 @@ public final class CharacterControllerImpl implements CharacterController {
                 .get()
                 .power();
         defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);
-        return defender.getHealth() <= 0;
+
+        final boolean hasAttackerWon = defender.getHealth() <= 0;
+
+        if (isPlayerAttacking && hasAttackerWon) {
+            // The player killed the enemy
+
+            // Add experience drop from the enemy to the player
+            final double experienceDropped = getEnemyExperienceDropFromPosition(combatPosition);
+            addPlayerExperience(experienceDropped);
+            removeEnemyFromPosition(combatPosition);
+
+            // Add the item dropped from the enemy
+            try {
+                final Optional<Item> itemDropped = ((Enemy) defender).getHeldItem();
+                if (itemDropped.isPresent()) {
+                    ((Player) attacker).addItemToInventory(itemDropped.get());
+                }
+            } catch (Exception e) {
+                throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
+            }
+        }
+        return hasAttackerWon;
     }
 
     @Override
@@ -156,7 +182,8 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public boolean getIfCharacterInPositionIsMoving(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel().getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel()
+                .getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().spriteIsMoving();
         } else {
@@ -166,7 +193,8 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public double getCharacterHealthFromPosition(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel().getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel()
+                .getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().getHealth();
         } else {
@@ -176,7 +204,8 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public double getCharacterHealthCapFromPosition(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel().getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel()
+                .getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return gottenCharacter.get().getHealthCap();
         } else {
@@ -186,7 +215,8 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getCharacterClassNameFromPosition(final Position position) {
-        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel().getCharacterFromPosition(position);
+        final Optional<GameCharacter> gottenCharacter = this.model.getCharacterModel()
+                .getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
             return ((EnemyImpl) gottenCharacter.get()).getType().getName();
         } else {
@@ -196,7 +226,8 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getCharacterRandomMoveNameFromPosition(final Position position) {
-        final Set<MagicMove> moves = this.model.getCharacterModel().getCharacterFromPosition(position).get().getMoveSet().getMagicMoves();
+        final Set<MagicMove> moves = this.model.getCharacterModel().getCharacterFromPosition(position).get()
+                .getMoveSet().getMagicMoves();
         final int randomIndex = RANDOM.nextInt(moves.size());
         int i = 0;
         for (final MagicMove magicMove : moves) {

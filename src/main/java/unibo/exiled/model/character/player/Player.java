@@ -3,6 +3,7 @@ package unibo.exiled.model.character.player;
 import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.item.Inventory;
+import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.UsableItem;
 
 /**
@@ -32,6 +33,13 @@ public interface Player extends GameCharacter {
     Inventory getInventory();
 
     /**
+     * Adds an item to the player inventory.
+     * 
+     * @param item the item to be added.
+     */
+    void addItemToInventory(Item item);
+
+    /**
      * Gets the player class.
      *
      * @return the player class.
@@ -53,7 +61,8 @@ public interface Player extends GameCharacter {
     void addExperience(double exp);
 
     /**
-     * Uses the specified UsableItem. The effect of the item is applied to the player,
+     * Uses the specified UsableItem. The effect of the item is applied to the
+     * player,
      * and the item is consumed from the player's inventory.
      *
      * @param item The UsableItem to be used.
