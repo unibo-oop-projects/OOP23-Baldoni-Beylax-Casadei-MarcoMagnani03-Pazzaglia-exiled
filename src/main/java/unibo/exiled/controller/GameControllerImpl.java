@@ -17,9 +17,9 @@ public final class GameControllerImpl implements GameController {
      * @param model The game model to manage the game.
      */
     public GameControllerImpl(final GameModel model) {
-        this.mapController = new MapControllerImpl(model);
-        this.itemsController = new ItemsControllerImpl(model);
-        this.characterController = new CharacterControllerImpl(model);
+        this.mapController = new MapControllerImpl(model.getMapModel());
+        this.itemsController = new ItemsControllerImpl(model.getItemsModel());
+        this.characterController = new CharacterControllerImpl(model.getCharacterModel());
     }
 
     @Override

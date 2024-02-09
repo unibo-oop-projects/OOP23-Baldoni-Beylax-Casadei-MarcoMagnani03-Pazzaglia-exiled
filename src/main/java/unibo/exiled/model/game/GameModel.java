@@ -11,4 +11,5 @@ public interface GameModel {
 
     ItemsModel getItemsModel();
 
+    MenuModel getMenuModel();
 }

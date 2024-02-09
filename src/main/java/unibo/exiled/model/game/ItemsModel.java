@@ -1,10 +1,8 @@
 package unibo.exiled.model.game;
 
 import java.util.Map;
-import java.util.Set;
 
 import unibo.exiled.model.item.ItemType;
-import unibo.exiled.model.move.MagicMove;
 
 public interface ItemsModel {
     /**
@@ -53,13 +51,6 @@ public interface ItemsModel {
      * @return The duration of the given item.
      */
     int getItemDuration(String itemName);
-
-    /**
-     * Gets a set of every magic move in the game.
-     *
-     * @return A set of MagicMoves.
-     */
-    Set<MagicMove> getMagicMoves();
 
     /**
      * Attempts to use the specified item from the player's inventory.
