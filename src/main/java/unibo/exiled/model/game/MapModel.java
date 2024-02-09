@@ -1,5 +1,8 @@
 package unibo.exiled.model.game;
 
+import java.util.Optional;
+
+import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Position;
 
@@ -39,4 +42,12 @@ public interface MapModel {
     Position getCornerOfType(CellType type);
 
     boolean isCornerOfMap(final Position position);
+
+    /**
+     * Gets the character in the selected cell.
+     *
+     * @param pos The cell where to search for the character.
+     * @return An optional containing the character if found, empty otherwise.
+     */
+    Optional<GameCharacter> getCharacterFromPosition(Position pos);
 }

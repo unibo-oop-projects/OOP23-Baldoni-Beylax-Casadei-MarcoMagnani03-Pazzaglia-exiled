@@ -1,7 +1,6 @@
 package unibo.exiled.model.game;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -10,8 +9,6 @@ import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.item.PowerUpItem;
 import unibo.exiled.model.item.UsableItem;
-import unibo.exiled.model.move.MagicMove;
-import unibo.exiled.model.move.Moves;
 
 public class ItemsModelImpl implements ItemsModel {
     private final GameModel model;
@@ -19,11 +16,6 @@ public class ItemsModelImpl implements ItemsModel {
 
     public ItemsModelImpl(GameModel model){
         this.model = model;
-    }
-
-    @Override
-    public Set<MagicMove> getMagicMoves() {
-        return Moves.getAllMagicMoves();
     }
 
     @Override

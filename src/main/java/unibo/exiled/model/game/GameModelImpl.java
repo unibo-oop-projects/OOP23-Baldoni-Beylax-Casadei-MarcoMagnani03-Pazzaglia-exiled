@@ -4,17 +4,19 @@ package unibo.exiled.model.game;
  * The implementation of the game core.
  */
 public final class GameModelImpl implements GameModel {
-    private final MapModelImpl mapModel;
-    private final CharacterModel characterModel;
+    private final MapModel mapModel;
+    private final MenuModel menuModel;
     private final ItemsModel itemsModel;
+    private final CharacterModel characterModel;
 
     /**
      * The constructor of the game core.
      */
     public GameModelImpl() {
-        this.mapModel = new MapModelImpl();
-        this.characterModel = new CharacterModelImpl(this);
+        this.menuModel = new MenuModelImpl();
+        this.mapModel = new MapModelImpl(this);
         this.itemsModel = new ItemsModelImpl(this);
+        this.characterModel = new CharacterModelImpl(this);
     }
 
     @Override
@@ -23,12 +25,17 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public CharacterModel getCharacterModel() {
-        return this.characterModel;
+    public MenuModel getMenuModel() {
+        return this.menuModel;
     }
 
     @Override
     public ItemsModel getItemsModel() {
         return this.itemsModel;
+    }
+
+    @Override
+    public CharacterModel getCharacterModel() {
+        return this.characterModel;
     }
 }

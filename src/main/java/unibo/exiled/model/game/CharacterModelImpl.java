@@ -2,6 +2,7 @@ package unibo.exiled.model.game;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.character.CharacterClass;
@@ -20,7 +21,9 @@ import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.map.CellType;
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
+import unibo.exiled.model.move.Moves;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
@@ -279,5 +282,10 @@ public class CharacterModelImpl implements CharacterModel {
         final int verticalDistance = Math.abs(playerPosition.y() - enemyPosition.y());
         final int horizontalDistance = Math.abs(playerPosition.x() - enemyPosition.x());
         return verticalDistance <= RANGE_PLAYER_ENEMY && horizontalDistance <= RANGE_PLAYER_ENEMY;
+    }
+
+    @Override
+    public Set<MagicMove> getMagicMoves() {
+        return Moves.getAllMagicMoves();
     }
 }

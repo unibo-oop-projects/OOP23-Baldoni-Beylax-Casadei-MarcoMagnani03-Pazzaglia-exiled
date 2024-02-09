@@ -1,12 +1,14 @@
 package unibo.exiled.model.game;
 
 import java.util.Optional;
+import java.util.Set;
 
 import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.EnemyCollection;
 import unibo.exiled.model.character.player.Player;
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
@@ -117,5 +119,12 @@ public interface CharacterModel {
      * @param pos the position of the enemy to remove.
      */
     void removeEnemyFromPosition(Position pos);
+
+    /**
+     * Gets a set of every magic move in the game.
+     *
+     * @return A set of MagicMoves.
+     */
+    Set<MagicMove> getMagicMoves();
 
 }

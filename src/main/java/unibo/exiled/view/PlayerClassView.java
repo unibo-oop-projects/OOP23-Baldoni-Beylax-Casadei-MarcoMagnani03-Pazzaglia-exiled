@@ -9,9 +9,12 @@ import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.File;
 import java.io.Serial;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,6 +32,15 @@ public final class PlayerClassView {
     private static final long serialVersionUID = 7L;
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;
+    private static final String RANDOM_IMAGE_PATH = "src" + File.separator
+            + "main" + File.separator
+            + "java" + File.separator
+            + "unibo" + File.separator
+            + "exiled" + File.separator
+            + "resources" + File.separator
+            + "class" + File.separator
+            + "random.png";
+
     private final transient GameController controller;
     private final JFrame mainFrame;
 
@@ -53,26 +65,25 @@ public final class PlayerClassView {
         final JPanel mainPanel = new JPanel(new BorderLayout());
         this.mainFrame.add(mainPanel, BorderLayout.CENTER);
 
-        final JPanel buttonNormalPanel = new JPanel(new GridLayout(1, 1, MARGIN, MARGIN));
+        final JPanel buttonClassPanel = new JPanel(new GridLayout(3, 2, MARGIN, MARGIN));
         final JButton normalButton = createButton(ElementalType.NORMAL);
-
-        final JPanel buttonClassPanel = new JPanel(new GridLayout(2, 2, MARGIN, MARGIN));
         final JButton fireButton = createButton(ElementalType.FIRE);
         final JButton waterButton = createButton(ElementalType.WATER);
         final JButton boltButton = createButton(ElementalType.BOLT);
         final JButton grassButton = createButton(ElementalType.GRASS);
+        final JButton randomButton = createRandomButton();
 
         buttonClassPanel.add(fireButton);
         buttonClassPanel.add(waterButton);
         buttonClassPanel.add(boltButton);
         buttonClassPanel.add(grassButton);
-        buttonNormalPanel.add(normalButton);
+        buttonClassPanel.add(normalButton);
+        buttonClassPanel.add(randomButton);
 
         final JLabel titleLabel = new TitleGameLabel("Choose Your Class");
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
         mainPanel.add(buttonClassPanel, BorderLayout.CENTER);
-        mainPanel.add(buttonNormalPanel, BorderLayout.SOUTH);
     }
 
     /**
@@ -95,6 +106,34 @@ public final class PlayerClassView {
     }
 
     /**
+     * Creates a button for selecting the random class.
+     *
+     * @return The created JButton.
+     */
+    private JButton createRandomButton() {
+        final JButton button = new JButton("Random");
+        button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
+        button.setBackground(generateRandomColor());
+        button.addActionListener(e -> randomClassDecision());
+        button.setIcon(new ImageIcon(new ImageIcon(RANDOM_IMAGE_PATH).getImage().getScaledInstance(BUTTON_FONT_SIZE,
+                BUTTON_FONT_SIZE, Image.SCALE_SMOOTH)));
+        return button;
+    }
+
+    /**
+     * Generates a random color in RGB.
+     * 
+     * @return The color generated randomly.
+     */
+    private Color generateRandomColor() {
+        Random random = new Random();
+        int red = random.nextInt(256);
+        int green = random.nextInt(256);
+        int blue = random.nextInt(256);
+        return new Color(red, green, blue);
+    }
+
+    /**
      * Handles the decision when the player selects a class.
      *
      * @param playerType The elemental type chosen by the player.
@@ -108,6 +147,25 @@ public final class PlayerClassView {
 
         if (result == JOptionPane.YES_OPTION) {
             this.controller.getCharacterController().assignPlayerClass(new CharacterClassImpl(playerType));
+            new GameView(this.controller).display();
+            this.hide();
+        }
+    }
+
+    /**
+     * Manages the random decision when the player selects the random option class.
+     */
+    private void randomClassDecision() {
+        Random random = new Random();
+        ElementalType randomElementalType = ElementalType.values()[random.nextInt(ElementalType.values().length)];
+        final int result = JOptionPane.showConfirmDialog(
+                this.mainFrame,
+                "The " + randomElementalType.getName() + " class was randomly selected, do you want to continue?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION);
+
+        if (result == JOptionPane.YES_OPTION) {
+            this.controller.getCharacterController().assignPlayerClass(new CharacterClassImpl(randomElementalType));
             new GameView(this.controller).display();
             this.hide();
         }
