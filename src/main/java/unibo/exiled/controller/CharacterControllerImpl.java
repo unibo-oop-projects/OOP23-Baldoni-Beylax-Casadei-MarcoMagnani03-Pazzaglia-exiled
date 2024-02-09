@@ -1,6 +1,5 @@
 package unibo.exiled.controller;
 
-import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.CharacterModel;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -10,6 +9,7 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import javax.annotation.concurrent.Immutable;
@@ -81,7 +81,7 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getPlayerClassName() {
-        return this.model.getPlayerClass().elementalType().getName();
+        return this.model.getPlayerClass().getName();
     }
 
     @Override
@@ -172,7 +172,7 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public void assignPlayerClass(final CharacterClass playerClass) {
+    public void assignPlayerClass(final ElementalType playerClass) {
         this.model.assignPlayerClass(playerClass);
     }
 

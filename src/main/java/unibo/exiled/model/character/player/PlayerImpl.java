@@ -4,8 +4,6 @@ import java.util.Optional;
 import java.util.Random;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.model.character.CharacterClass;
-import unibo.exiled.model.character.CharacterClassImpl;
 import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -38,7 +36,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     private int level;
     private int currentExp;
     private int expCap;
-    private CharacterClass playerClass;
+    private ElementalType playerClass;
 
     /**
      * Constructs a new player with specified attributes, experience cap, initial
@@ -61,7 +59,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         this.currentExp = initialExperience;
         this.attributeIncBound = attributeIncreaseBound;
         this.movesLearningInterval = movesLearningInterval;
-        this.playerClass = new CharacterClassImpl(ElementalType.NORMAL);
+        this.playerClass = ElementalType.NORMAL;
         this.maxMovesNumber = Integer.parseInt(Constants.getConstantOf("MOVES_NUMBER"));
     }
 
@@ -177,11 +175,11 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
             Optional<MagicMove> newMove;
 
             // If the player knows all moves of their type, learn a move of a different type
-            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass.elementalType()))) {
+            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass))) {
                 newMove = Optional.of(Moves.getTotallyRandomMove());
             } else {
                 do {
-                    newMove = Moves.getRandomMagicMoveByType(playerClass.elementalType());
+                    newMove = Moves.getRandomMagicMoveByType(playerClass);
                     // If there are no moves of the specified type, choose a completely random move
                     newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove()) : newMove;
                     // Continue searching until finding a move the player doesn't already know
@@ -198,12 +196,12 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     @Override
-    public CharacterClass getPlayerClass() {
+    public ElementalType getPlayerClass() {
         return this.playerClass;
     }
 
     @Override
-    public void setPlayerClass(final CharacterClass playerClassChoice) {
+    public void setPlayerClass(final ElementalType playerClassChoice) {
         this.playerClass = playerClassChoice;
     }
 

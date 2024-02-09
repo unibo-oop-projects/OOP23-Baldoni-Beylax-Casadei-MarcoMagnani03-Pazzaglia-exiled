@@ -62,14 +62,18 @@ public final class MovementKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-        if (gameView.isInGame()) {
+        if (this.gameView.isInGame()) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                gameView.showMenu();
-            } else if (isValidMovementKey(e) && !gameView.isInCombat()) {
+                this.gameView.showMenu();
+            } else if (isValidMovementKey(e) && !this.gameView.isInCombat()) {
                 final Direction directionPressed = getDirection(e);
                 movePlayerAndEnemies(directionPressed);
                 updatePlayerView(directionPressed);
-                gameView.draw();
+                this.gameView.draw();
+            }
+        } else {
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                this.gameView.hideMenu();
             }
         }
     }
@@ -92,8 +96,8 @@ public final class MovementKeyListener implements KeyListener {
      * @param direction The direction in which to move the player and enemies.
      */
     private void movePlayerAndEnemies(final Direction direction) {
-        gameController.getCharacterController().movePlayer(direction);
-        gameController.getCharacterController().moveEnemies();
+        this.gameController.getCharacterController().movePlayer(direction);
+        this.gameController.getCharacterController().moveEnemies();
     }
 
     /**
@@ -102,13 +106,13 @@ public final class MovementKeyListener implements KeyListener {
      * @param direction The direction in which the player is moving.
      */
     private void updatePlayerView(final Direction direction) {
-        if (gameController.getMapController()
-                .isEnemyInCell(gameController.getCharacterController().getPlayerPosition())) {
-            gameView.initializeCombat();
+        if (this.gameController.getMapController()
+                .isEnemyInCell(this.gameController.getCharacterController().getPlayerPosition())) {
+            this.gameView.initializeCombat();
         } else {
             playerView.changeImage(direction,
-                    gameController.getCharacterController().getIfCharacterInPositionIsMoving(
-                            gameController.getCharacterController().getPlayerPosition()));
+                    this.gameController.getCharacterController().getIfCharacterInPositionIsMoving(
+                            this.gameController.getCharacterController().getPlayerPosition()));
         }
     }
 
