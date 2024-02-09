@@ -1,5 +1,10 @@
 package unibo.exiled.model.game;
 
+import unibo.exiled.model.character.CharacterModel;
+import unibo.exiled.model.item.ItemsModel;
+import unibo.exiled.model.map.MapModel;
+import unibo.exiled.model.menu.MenuModel;
+
 /**
  * The model of the game, its core.
  */

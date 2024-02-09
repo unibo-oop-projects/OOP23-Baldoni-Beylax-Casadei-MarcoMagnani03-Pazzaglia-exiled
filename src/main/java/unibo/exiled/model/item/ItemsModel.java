@@ -1,8 +1,6 @@
-package unibo.exiled.model.game;
+package unibo.exiled.model.item;
 
 import java.util.Map;
-
-import unibo.exiled.model.item.ItemType;
 
 /**
  * The model that manages items in the game.

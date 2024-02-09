@@ -65,13 +65,13 @@ public final class GameView {
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
 
+        gameContainerPanel = new JPanel();
         this.menuPanel = new JPanel();
         this.inventoryPanel = new JPanel();
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
         final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
-        gameContainerPanel = new JPanel();
 
         final GroupLayout gamePanelLayout = new GroupLayout(gameContainerPanel);
         gameContainerPanel.setLayout(gamePanelLayout);

@@ -3,8 +3,8 @@ package unibo.exiled.controller;
 import java.util.Map;
 import java.util.Objects;
 
-import unibo.exiled.model.game.ItemsModel;
 import unibo.exiled.model.item.ItemType;
+import unibo.exiled.model.item.ItemsModel;
 
 /**
  * Implementation of the ItemsController interface.

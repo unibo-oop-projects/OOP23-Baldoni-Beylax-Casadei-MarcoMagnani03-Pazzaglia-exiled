@@ -1,9 +1,4 @@
-package unibo.exiled.model.game;
-
-import unibo.exiled.model.menu.Command;
-import unibo.exiled.model.menu.Menu;
-import unibo.exiled.model.menu.MenuImpl;
-import unibo.exiled.model.menu.MenuItem;
+package unibo.exiled.model.menu;
 
 /**
  * The implementation of the menu model.

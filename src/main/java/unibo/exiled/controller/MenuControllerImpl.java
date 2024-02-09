@@ -2,9 +2,9 @@ package unibo.exiled.controller;
 
 import java.util.List;
 
-import unibo.exiled.model.game.MenuModel;
-import unibo.exiled.model.game.MenuModelImpl;
 import unibo.exiled.model.menu.MenuItem;
+import unibo.exiled.model.menu.MenuModel;
+import unibo.exiled.model.menu.MenuModelImpl;
 
 /**
  * The menu controller implementation.
