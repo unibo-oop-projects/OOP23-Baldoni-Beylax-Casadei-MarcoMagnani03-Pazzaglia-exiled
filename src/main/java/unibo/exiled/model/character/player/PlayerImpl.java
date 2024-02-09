@@ -188,8 +188,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
                 } while (this.moveSet.getMagicMoves().contains(newMove.get()));
             }
             if (this.moveSet.getMagicMoves().size() == this.maxMovesNumber) {
-                //TODO: Da gestire
-                //this.moveSet.changeMoves(null, newMove); da gestire
+                //TODO: Manage the MoveSet change.
+                //this.moveSet.changeMoves(null, newMove);
             } else {
                 this.moveSet.addMagicMove(newMove.get());
             }
@@ -207,7 +207,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     @Override
-    public void addExperience(final double exp) {
+    public void addExperience(final int exp) {
         this.currentExp += exp;
         levelUp();
     }

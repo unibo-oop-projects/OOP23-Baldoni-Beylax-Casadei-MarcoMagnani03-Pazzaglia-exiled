@@ -58,7 +58,7 @@ public interface Player extends GameCharacter {
      *
      * @param exp experience provided to the user.
      */
-    void addExperience(double exp);
+    void addExperience(int exp);
 
     /**
      * Uses the specified UsableItem. The effect of the item is applied to the

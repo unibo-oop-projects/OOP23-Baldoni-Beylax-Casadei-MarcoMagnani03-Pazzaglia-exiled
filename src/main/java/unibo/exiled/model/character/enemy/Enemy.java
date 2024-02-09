@@ -16,7 +16,7 @@ public interface Enemy extends GameCharacter {
      *
      * @return The amount of experience points.
      */
-    double getDroppedExperience();
+    int getDroppedExperience();
 
     /**
      * Gets the Elemental Type of the enemy.

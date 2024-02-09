@@ -73,7 +73,7 @@ public interface CharacterController {
      * 
      * @param amount the experience the player gained killink an enemy.
      */
-    void addPlayerExperience(double amount);
+    void addPlayerExperience(int amount);
 
     /**
      * Gets the position of the player.
@@ -98,10 +98,10 @@ public interface CharacterController {
     String getMagicMoveDescription(String magicMoveName);
 
     /**
-     * Returns the damage of a magic move.
+     * Returns the damage to a magic move.
      * 
      * @param magicMoveName the name of the move to find.
-     * @return the damage of the move.
+     * @return the damage to the move.
      */
     double getMagicMoveDamage(String magicMoveName);
 
@@ -194,5 +194,5 @@ public interface CharacterController {
      * @param position the position of the enemy.
      * @return the experience droped from the enemy.
      */
-    double getEnemyExperienceDropFromPosition(Position position);
+    int getEnemyExperienceDropFromPosition(Position position);
 }

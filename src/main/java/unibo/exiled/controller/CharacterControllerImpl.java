@@ -68,7 +68,7 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public void addPlayerExperience(final double amount) {
+    public void addPlayerExperience(final int amount) {
         this.model.addPlayerExperience(amount);
     }
 
@@ -157,7 +157,7 @@ public final class CharacterControllerImpl implements CharacterController {
             // The player killed the enemy
 
             // Add experience drop from the enemy to the player
-            final double experienceDropped = getEnemyExperienceDropFromPosition(combatPosition);
+            final int experienceDropped = getEnemyExperienceDropFromPosition(combatPosition);
             addPlayerExperience(experienceDropped);
             removeEnemyFromPosition(combatPosition);
 
@@ -239,7 +239,7 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public double getEnemyExperienceDropFromPosition(final Position position) {
+    public int getEnemyExperienceDropFromPosition(final Position position) {
         final Optional<GameCharacter> enemy = this.model.getCharacterFromPosition(position);
 
         if (enemy.isPresent()) {

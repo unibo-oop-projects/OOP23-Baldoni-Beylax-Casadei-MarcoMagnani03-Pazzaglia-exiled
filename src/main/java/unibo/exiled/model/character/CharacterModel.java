@@ -112,7 +112,7 @@ public interface CharacterModel {
      *
      * @param amount the experience the player gained killing an enemy.
      */
-    void addPlayerExperience(double amount);
+    void addPlayerExperience(int amount);
 
     /**
      * Removes the enemy in the position.

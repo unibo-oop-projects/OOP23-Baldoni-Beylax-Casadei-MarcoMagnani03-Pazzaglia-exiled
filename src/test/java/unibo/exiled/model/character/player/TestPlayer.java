@@ -58,7 +58,7 @@ final class TestPlayer {
 
     @Test
     void testAddExperience() {
-        final double experienceToAdd = 150;
+        final int experienceToAdd = 150;
         final double expectedExperience = 50;
         final int expectedLevel = 1;
         player.addExperience(experienceToAdd);
@@ -68,7 +68,7 @@ final class TestPlayer {
 
     @Test
     void testLevelUp() {
-        final double experienceToAdd = 230;
+        final int experienceToAdd = 230;
         final double expectedExperience = 10;
         final int expectedLevel = 2;
         player.addExperience(experienceToAdd);

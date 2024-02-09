@@ -27,7 +27,7 @@ public final class BossEnemy extends EnemyImpl {
     }
 
     @Override
-    public double getDroppedExperience() {
+    public int getDroppedExperience() {
         return 100;
     }
 }

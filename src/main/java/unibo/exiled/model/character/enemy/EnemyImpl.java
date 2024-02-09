@@ -52,7 +52,7 @@ public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
     }
 
     @Override
-    public abstract double getDroppedExperience();
+    public abstract int getDroppedExperience();
 
     @Override
     public final Optional<Item> getHeldItem() {

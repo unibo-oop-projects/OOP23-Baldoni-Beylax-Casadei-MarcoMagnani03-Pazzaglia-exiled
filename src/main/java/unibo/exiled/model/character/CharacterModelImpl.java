@@ -236,7 +236,7 @@ public final class CharacterModelImpl implements CharacterModel {
     }
 
     @Override
-    public void addPlayerExperience(final double amount) {
+    public void addPlayerExperience(final int amount) {
         player.addExperience(amount);
     }
 

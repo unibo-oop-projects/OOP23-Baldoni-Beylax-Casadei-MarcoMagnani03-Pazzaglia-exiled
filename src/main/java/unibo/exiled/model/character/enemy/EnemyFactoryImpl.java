@@ -34,10 +34,10 @@ public final class EnemyFactoryImpl implements EnemyFactory {
                                    final MoveSet moveSet,
                                    final Map<AttributeIdentifier, Attribute> attributes,
                                    final ElementalType type,
-                                   final double droppedExperience) {
+                                   final int droppedExperience) {
         return new EnemyImpl(name, moveSet, attributes, type, ItemContainer.getRandomItem()) {
             @Override
-            public double getDroppedExperience() {
+            public int getDroppedExperience() {
                 return droppedExperience;
             }
         };
