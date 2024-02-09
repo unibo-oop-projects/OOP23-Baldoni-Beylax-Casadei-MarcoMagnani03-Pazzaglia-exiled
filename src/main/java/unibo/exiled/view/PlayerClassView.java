@@ -27,7 +27,7 @@ import javax.swing.WindowConstants;
  * View where the player decides his class.
  */
 public final class PlayerClassView {
-    private static final Color RANDOM_BUTTON_COLOR = new Color(255,255,255);
+    private static final Color RANDOM_BUTTON_COLOR = new Color(255, 255, 255);
     private static final Random RANDOM = new Random();
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;

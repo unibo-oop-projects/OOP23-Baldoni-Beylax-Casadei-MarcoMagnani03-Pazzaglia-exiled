@@ -39,14 +39,14 @@ public interface AttributeFactory {
      *
      * @return A map of attributes with the overly specified values.
      */
-    Map<AttributeIdentifier, Attribute> creatAquashadeAttributes();
+    Map<AttributeIdentifier, Attribute> createAquaShadeAttributes();
 
     /**
      * Creates the attributes for the Aquashade.
      *
      * @return A map of attributes with the overly specified values.
      */
-    Map<AttributeIdentifier, Attribute> creatWavebreakerAttributes();
+    Map<AttributeIdentifier, Attribute> createWaveBreakerAttributes();
 
 
     /**

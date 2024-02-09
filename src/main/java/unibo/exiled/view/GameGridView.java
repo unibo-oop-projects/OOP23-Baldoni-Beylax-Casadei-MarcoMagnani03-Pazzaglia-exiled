@@ -39,14 +39,14 @@ public class GameGridView {
         this.gameController = gameController;
         this.gamePanel = gamePanel;
         this.playerView = playerView;
+        this.gridPanel = new JPanel(new GridLayout(gameController.getMapController().getMapSize(),
+                gameController.getMapController().getMapSize()));
     }
 
     /**
      * Initializes and draws the grid on the game panel.
      */
     public void initializeGrid() {
-        gridPanel = new JPanel(new GridLayout(gameController.getMapController().getMapSize(),
-                                                     gameController.getMapController().getMapSize()));
         drawGrid();
         this.gamePanel.add(gridPanel, BorderLayout.CENTER);
     }

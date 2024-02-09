@@ -59,4 +59,11 @@ public interface EnemyFactory {
      * @return A whirler enemy.
      */
     Enemy createWhirler();
+
+    /**
+     * Creates a Wave Breaker.
+     *
+     * @return A WaveBreaker enemy.
+     */
+    Enemy createWaveBreaker();
 }

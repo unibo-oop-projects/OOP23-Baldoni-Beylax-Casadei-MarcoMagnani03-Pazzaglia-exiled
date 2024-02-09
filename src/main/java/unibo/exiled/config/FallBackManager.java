@@ -36,6 +36,7 @@ public final class FallBackManager {
         PLAYER_DEFAULT_EXPERIENCE("0.0"),
         PLAYER_DEFAULT_LEVEL("0"),
         PLAYER_LEVEL_INCREASE("1"),
+        PLAYER_ATTRIBUTE_INCREASE_BOUND("6"),
         NUM_ENEMIES("10"),
         NUM_PLAYER_MOVES("4"),
         MAP_SIZE("100"),
