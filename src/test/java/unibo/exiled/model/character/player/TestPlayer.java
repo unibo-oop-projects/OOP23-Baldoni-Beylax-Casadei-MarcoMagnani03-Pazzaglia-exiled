@@ -45,7 +45,8 @@ final class TestPlayer {
     void testGetInventory() {
         final Inventory inventory = player.getInventory();
         assertNotNull(inventory);
-        //assertEquals(4, inventory.getItems().size()); // It doesn't work correctly because of the
+        // assertEquals(4, inventory.getItems().size()); // It doesn't work correctly
+        // because of the
         // "initializeInventory()" test method in PlayerImpl.
     }
 
@@ -95,7 +96,5 @@ final class TestPlayer {
                         || newItemQuantity == initialItemQuantity - 1);
             }
         }
-
     }
-
 }

@@ -27,7 +27,7 @@ import javax.swing.WindowConstants;
  * View where the player decides his class.
  */
 public final class PlayerClassView {
-    private static final int COLOR_MAX_RANGE = 256;
+    private static final Color RANDOM_BUTTON_COLOR = new Color(255,255,255);
     private static final Random RANDOM = new Random();
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;
@@ -54,7 +54,6 @@ public final class PlayerClassView {
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled");
-        this.mainFrame.setName("Player class");
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
         this.mainFrame.setLayout(new BorderLayout());
@@ -112,23 +111,11 @@ public final class PlayerClassView {
     private JButton createRandomButton() {
         final JButton button = new JButton("Random");
         button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
-        button.setBackground(generateRandomColor());
+        button.setBackground(RANDOM_BUTTON_COLOR);
         button.addActionListener(e -> randomClassDecision());
         button.setIcon(new ImageIcon(new ImageIcon(RANDOM_IMAGE_PATH).getImage().getScaledInstance(BUTTON_FONT_SIZE,
                 BUTTON_FONT_SIZE, Image.SCALE_SMOOTH)));
         return button;
-    }
-
-    /**
-     * Generates a random color in RGB.
-     *
-     * @return The color generated randomly.
-     */
-    private Color generateRandomColor() {
-        final int red = RANDOM.nextInt(COLOR_MAX_RANGE);
-        final int green = RANDOM.nextInt(COLOR_MAX_RANGE);
-        final int blue = RANDOM.nextInt(COLOR_MAX_RANGE);
-        return new Color(red, green, blue);
     }
 
     /**
