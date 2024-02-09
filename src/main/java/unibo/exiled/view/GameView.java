@@ -33,7 +33,6 @@ import javax.swing.border.LineBorder;
 public final class GameView {
     private static final int STATUS_PANEL_H_GAP = 20;
     private static final int STATUS_PANEL_V_GAP = 5;
-    public static final int HEALTH_CRITICAL_PERCENTAGE = 20;
 
     // Views
     private final CharacterView playerView;
@@ -146,20 +145,6 @@ public final class GameView {
      */
     public void refreshStatusPanel() {
         this.hud.refreshStatusPanel();
-    }
-
-    private GameLabel getHealthBar() {
-        final double playerHealth = gameController.getCharacterController().getPlayerHealth();
-        final double playerHealthCap = gameController.getCharacterController().getPlayerHealthCap();
-        final GameLabel healthBar = new GameLabel(
-                "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
-                        + gameController.getCharacterController().getPlayerHealthCap());
-        if (playerHealth <= (playerHealthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
-            healthBar.setForeground(Color.RED);
-        } else {
-            healthBar.setForeground(Color.GREEN);
-        }
-        return healthBar;
     }
 
     private void initializeGridComponents() {
@@ -355,16 +340,16 @@ public final class GameView {
     }
 
     /**
-     * Method used to get the Hud Panel
-     * @return the Hud panel
+     * Method used to get the Hud Panel.
+     * @return the Hud panel.
      */
     public JPanel getGameHudPanel() {
         return this.gameHudPanel;
     }
 
     /**
-     * Method used to get the Status Panel
-     * @return the Status panel
+     * Method used to get the Status Panel.
+     * @return the Status panel.
      */
     public JPanel getStatusPanel() {
         return this.statusPanel;
