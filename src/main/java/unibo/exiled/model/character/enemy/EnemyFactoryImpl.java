@@ -115,6 +115,9 @@ public final class EnemyFactoryImpl implements EnemyFactory {
             case WAVE_BREAKER -> {
                 return this.createWaveBreaker();
             }
+            case AQUA_SHADE -> {
+                return this.createAquaShade();
+            }
             default -> throw new IllegalStateException("Enemy generation failed.");
         }
     }
@@ -135,10 +138,18 @@ public final class EnemyFactoryImpl implements EnemyFactory {
                 ElementalType.WATER, SelectableEnemies.WAVE_BREAKER.droppedExperience);
     }
 
+    @Override
+    public Enemy createAquaShade() {
+        return createFromValues(SelectableEnemies.AQUA_SHADE.name,
+                moveSetFactory.defaultWaterMoveSet(), attributeFactory.createAquaShadeAttributes(),
+                ElementalType.WATER, SelectableEnemies.AQUA_SHADE.droppedExperience);
+    }
+
     private enum SelectableEnemies {
         GOBLIN("Goblin", DROPPED_EXPERIENCE_BASE),
         BRUTUS("Brutus", DROPPED_EXPERIENCE_BASE * 2),
         WHIRLER("Whirler", DROPPED_EXPERIENCE_BASE * 2),
+        AQUA_SHADE("Aquashade", DROPPED_EXPERIENCE_BASE * 2),
         WAVE_BREAKER("Wavebreaker", DROPPED_EXPERIENCE_BASE);
 
         private final int droppedExperience;

@@ -66,4 +66,11 @@ public interface EnemyFactory {
      * @return A WaveBreaker enemy.
      */
     Enemy createWaveBreaker();
+
+    /**
+     * Creates an AquaShade enemy.
+     *
+     * @return An AquaShade enemy.
+     */
+    Enemy createAquaShade();
 }
