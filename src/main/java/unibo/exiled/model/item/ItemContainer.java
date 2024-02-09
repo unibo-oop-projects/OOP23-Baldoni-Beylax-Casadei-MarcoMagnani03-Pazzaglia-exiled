@@ -18,17 +18,17 @@ public final class ItemContainer {
         private static final Set<Item> ITEMS = Set.of(
                         ITEM_FACTORY.createHealingItem(ItemNames.HEALTH_POTION.getName(),
                                         "Restores health points.", 20.0),
-                        ITEM_FACTORY.createHealingItem(ItemNames.HERB.getName(),
+                        ITEM_FACTORY.createHealingItem(ItemNames.APPLE.getName(),
                                         "A natural remedy for minor injuries.", 15.0),
                         ITEM_FACTORY.createHealingItem(ItemNames.BANDAGE.getName(),
                                         "A simple bandage to stop bleeding.", 10.0),
-                        ITEM_FACTORY.createPowerUpItem(ItemNames.STRENGTH_BOOST.getName(),
+                        ITEM_FACTORY.createPowerUpItem(ItemNames.STRENGTH_POTION.getName(),
                                         "Increases strength for a short duration.",
                                         10.0, 3, AttributeIdentifier.ATTACK),
-                        ITEM_FACTORY.createPowerUpItem(ItemNames.DEFENSE_SHIELD.getName(),
+                        ITEM_FACTORY.createPowerUpItem(ItemNames.DEFENSE_POTION.getName(),
                                         "Boosts defense against attacks.",
                                         15.0, 3, AttributeIdentifier.DEFENSE),
-                        ITEM_FACTORY.createUnUsableItem(ItemNames.CRYSTAL.getName(),
+                        ITEM_FACTORY.createUnUsableItem(ItemNames.BOLT_CRYSTAL.getName(),
                                         "The redemption crystal"));
 
         private ItemContainer() {

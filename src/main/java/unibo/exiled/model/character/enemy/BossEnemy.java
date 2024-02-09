@@ -23,7 +23,7 @@ public final class BossEnemy extends EnemyImpl {
         super(name,
                 moveSet,
                 new AttributeFactoryImpl().createBossAttributes(),
-                type, ItemContainer.getItemByName(ItemNames.CRYSTAL.getName()));
+                type, ItemContainer.getItemByName(ItemNames.BOLT_CRYSTAL.getName()));
     }
 
     @Override

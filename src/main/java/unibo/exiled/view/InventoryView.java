@@ -1,12 +1,14 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
+import unibo.exiled.model.item.ItemNames;
 import unibo.exiled.model.utilities.FontManager;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
@@ -17,6 +19,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.io.Serial;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * The view panel of the player's inventory.
@@ -32,6 +35,7 @@ public final class InventoryView extends JPanel {
     private static final int TOP_BOTTOM_MARGIN = 15;
     private static final int INVENTORY_BUTTON_MARGIN_LEFT_RIGHT = 20;
     private static final int INVENTORY_BUTTON_MARGIN_UP_BOTTOM = 45;
+    private static final int ICON_SIZE = 50;
     private static final int ITEM_BUTTON_FONT_SIZE = 15;
     private final transient GameController gameController;
     private final transient GameView gameView;
@@ -137,6 +141,11 @@ public final class InventoryView extends JPanel {
                 break;
             default:
                 break;
+        }
+        final Optional<ImageIcon> itemImage =  ItemNames.getItemImage(itemName);
+        if (itemImage.isPresent()) {
+            itemButton.setIcon(new ImageIcon(itemImage.get().getImage().getScaledInstance(ICON_SIZE, ICON_SIZE,
+            java.awt.Image.SCALE_SMOOTH)));
         }
         itemButton.addActionListener(e -> handleItemButtonClick(itemName));
         return itemButton;
