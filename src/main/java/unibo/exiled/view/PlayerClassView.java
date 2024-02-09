@@ -6,6 +6,7 @@ import unibo.exiled.model.character.CharacterClassImpl;
 import unibo.exiled.model.game.GameModelImpl;
 import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.FontManager;
+import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.TitleGameLabel;
 
 import java.awt.BorderLayout;
@@ -92,15 +93,9 @@ public final class PlayerClassView {
      * @return The created JButton.
      */
     private JButton createButton(final ElementalType elementalType) {
-        final JButton button = new JButton(elementalType.getName());
-        button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
-        button.setBackground(elementalType.getElementalColor());
+        final GameButton button = configureDefaultButton(elementalType.getName(), elementalType.getElementalColor(),
+        elementalType.getElementalImage());
         button.addActionListener(e -> classDecision(elementalType));
-        final Image scaledImage = elementalType.getElementalImage().getImage().getScaledInstance(BUTTON_FONT_SIZE,
-                BUTTON_FONT_SIZE, Image.SCALE_SMOOTH);
-        final ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        button.setIcon(scaledIcon);
-
         return button;
     }
 
@@ -110,12 +105,18 @@ public final class PlayerClassView {
      * @return The created JButton.
      */
     private JButton createRandomButton() {
-        final JButton button = new JButton("Random");
-        button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
-        button.setBackground(RANDOM_BUTTON_COLOR);
+        final GameButton button = configureDefaultButton("Random", RANDOM_BUTTON_COLOR, new ImageIcon(RANDOM_IMAGE_PATH));
         button.addActionListener(e -> randomClassDecision());
-        button.setIcon(new ImageIcon(new ImageIcon(RANDOM_IMAGE_PATH).getImage().getScaledInstance(BUTTON_FONT_SIZE,
-                BUTTON_FONT_SIZE, Image.SCALE_SMOOTH)));
+        return button;
+    }
+
+    private GameButton configureDefaultButton(final String text, final Color buttonColor, final ImageIcon image) {
+        final GameButton button = new GameButton(text);
+        button.setForeground(Color.BLACK);
+        button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
+        button.setBackground(buttonColor);
+        button.setIcon(new ImageIcon(image.getImage().getScaledInstance(BUTTON_FONT_SIZE,
+        BUTTON_FONT_SIZE, Image.SCALE_SMOOTH)));
         return button;
     }
 
