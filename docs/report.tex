@@ -84,10 +84,42 @@ Qui entriamo nel dettaglio della struttura ad alto livello del gioco.
 \section{Architettura}
 \section{Design dettagliato}
 
+\subsection*{Luca Casadei}
+
+\subsection*{Francesco Pazzaglia}
+La mia parte di progetto si concentrava sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(come la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Quindi per facilitare la comunicazione tra il model del giocatore (\textit{Player}) e la view, ho introdotto un controller utilizzando il pattern \textit{MVC}.
+Mi sono occupato della gestione del movimento del giocatore e delle altre entità (i nemici) all'interno della mappa di gioco. Pertanto, anche in questo caso è stato fatto uso di controller per consentire la visualizzazione dei nemici in movimento sulla mappa.
+Infine, ho implementato la gestione delle condizioni di Game Over, che includevano la definizione delle regole e dei possibili eventi che portavano al termine del gioco, nonché la gestione delle rispettive schermate, come la chiusura del gioco o la possibilità di far ripartire una nuova partita.
+
+Nell'ambito del progetto del gioco, ho osservato una serie di caratteristiche comuni tra le diverse entità presenti nel gioco. Le caratteristiche di base del giocatore sono condivise anche dai vari nemici. 
+Pertanto, in collaborazione con \textit{Luca Casadei}, responsabile della parte relativa ai nemici, abbiamo deciso di introdurre un'interfaccia denominata \textit{GameCharacter}. Questa interfaccia contiene i metodi principali che definiscono le caratteristiche fondamentali comuni a tutte le entità nel gioco, come la vita, la posizione, il movimento e gli attributi.
+In aggiunta all'interfaccia, è stata implementata la classe \textit{GameCharacterImpl}, che concretizza l'interfaccia \textit{GameCharacter}. Questa classe è stata progettata in modo che il giocatore, e di conseguenza anche i nemici, possano estenderla e acquisire le caratteristiche comuni menzionate in precedenza. Questa architettura ci ha consentito di gestire in modo efficiente le proprietà condivise tra il giocatore e i nemici, garantendo una maggiore coerenza e facilità di estensione del codice senza ripetizioni.
+
+Nella gestione del giocatore in gioco, ho introdotto un'interfaccia denominata \textit{Player}, che estende l'interfaccia preesistente \textit{GameCharacter}. Successivamente, ho realizzato l'implementazione di questa interfaccia attraverso una classe concreta chiamata \textit{PlayerImpl}. Tale procedura mi ha consentito di definire un comportamento specifico, mantenendo al contempo la flessibilità per estendere e personalizzare le funzionalità di base fornite dall'interfaccia \textit{GameCharacter}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{PlayerUML.png}
+	\caption{Schema UML del Model del Player e del GameCharacter}
+	\label{fig:diagramma-classe-player}
+\end{figure}
+
+
+
+\subsection*{Marco Magnani}
+
+\subsection*{Manuel Baldoni}
+
+
 \chapter{Sviluppo}
 
 \section{Testing automatizzato}
 \section{Note di sviluppo}
+
+\subsection*{Luca Casadei}
+\subsection*{Francesco Pazzaglia}
+\subsection*{Marco Magnani}
+\subsection*{Manuel Baldoni}
 
 \chapter{Commenti finali}
 
