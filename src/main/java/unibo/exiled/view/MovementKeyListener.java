@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import unibo.exiled.controller.GameController;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.view.character.CharacterView;
 
 /**
  * A KeyListener implementation that handles player movement in the game.
@@ -12,18 +13,22 @@ import unibo.exiled.model.utilities.Direction;
 public final class MovementKeyListener implements KeyListener {
     private final GameController gameController;
     private final GameView gameView;
+    private final CharacterView playerView;
 
     /**
      * Constructs a MovementKeyListener with the specified game controller and game
      * view.
      *
-     * @param gameController The game controller responsible for managing game
-     *                       logic.
+     * @param gameController The game controller responsible for managing game logic.
      * @param gameView       The game view responsible for rendering the game.
+     * @param playerView     The CharacterView of the player.
      */
-    public MovementKeyListener(final GameController gameController, final GameView gameView) {
+    public MovementKeyListener(final GameController gameController,
+                               final GameView gameView,
+                               final CharacterView playerView) {
         this.gameController = gameController;
         this.gameView = gameView;
+        this.playerView = playerView;
     }
 
     /**
@@ -101,7 +106,7 @@ public final class MovementKeyListener implements KeyListener {
                 .isEnemyInCell(gameController.getCharacterController().getPlayerPosition())) {
             gameView.initializeCombat();
         } else {
-            gameView.getPlayerView().changeImage(direction,
+            playerView.changeImage(direction,
                     gameController.getCharacterController().getIfCharacterInPositionIsMoving(
                             gameController.getCharacterController().getPlayerPosition()));
         }

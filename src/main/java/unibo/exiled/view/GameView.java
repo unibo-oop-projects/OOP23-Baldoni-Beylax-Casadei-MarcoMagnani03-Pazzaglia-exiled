@@ -48,7 +48,6 @@ public final class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
-    private final JPanel statusPanel;
 
     /**
      * The game controller that manages interaction between the model and the view.
@@ -79,7 +78,7 @@ public final class GameView {
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
-        this.statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
+        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
         gameContainerPanel = new JPanel();
 
         final GroupLayout gamePanelLayout = new GroupLayout(gameContainerPanel);
@@ -103,7 +102,7 @@ public final class GameView {
                         Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(new MenuControllerImpl().getInGameMenuItems(), Optional.of(this));
-        this.hud = new Hud(this, gameController);
+        this.hud = new Hud(this, gameController, gameHudPanel, statusPanel);
 
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(this.inventoryView);
@@ -129,7 +128,7 @@ public final class GameView {
 
         this.initializeGridComponents();
         this.initializeHUD();
-        this.mainFrame.addKeyListener(new MovementKeyListener(gameController, this));
+        this.mainFrame.addKeyListener(new MovementKeyListener(gameController, this, playerView));
     }
 
     /**
@@ -268,15 +267,6 @@ public final class GameView {
     }
 
     /**
-     * Returns the player's character view.
-     *
-     * @return the player's character view.
-     */
-    public CharacterView getPlayerView() {
-        return this.playerView;
-    }
-
-    /**
      * Shows the combat view.
      */
     public void initializeCombat() {
@@ -337,22 +327,6 @@ public final class GameView {
     public void hideCombat() {
         this.gamePanel.setVisible(true);
         this.combatPanel.setVisible(false);
-    }
-
-    /**
-     * Method used to get the Hud Panel.
-     * @return the Hud panel.
-     */
-    public JPanel getGameHudPanel() {
-        return this.gameHudPanel;
-    }
-
-    /**
-     * Method used to get the Status Panel.
-     * @return the Status panel.
-     */
-    public JPanel getStatusPanel() {
-        return this.statusPanel;
     }
 
     /**

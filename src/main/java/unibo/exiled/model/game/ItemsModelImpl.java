@@ -31,7 +31,7 @@ public final class ItemsModelImpl implements ItemsModel {
         return this.model.getCharacterModel().getPlayer().get().getInventory().getItems()
                 .entrySet()
                 .stream()
-                .collect(Collectors.toMap(entry -> entry.getKey().getName(), Map.Entry::getValue));
+                .collect(Collectors.toUnmodifiableMap(entry -> entry.getKey().getName(), Map.Entry::getValue));
     }
 
     private Item getItem(final String itemName) {

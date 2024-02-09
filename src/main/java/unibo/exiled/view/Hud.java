@@ -15,19 +15,28 @@ import unibo.exiled.view.items.GameLabel;
  * The Hud class represents the Heads-up Display (HUD) for the game.
  */
 public final class Hud {
-    private final GameView gameView;
-    private final GameController gameController;
     private static final int HEALTH_CRITICAL_PERCENTAGE = 20;
+    private final GameView gameView;
+    private final JPanel gameHudPanel;
+    private final JPanel gameStatusPanel;
+    private final GameController gameController;
 
     /**
      * Constructs a new Hud instance.
      *
-     * @param gameView       The GameView associated with the HUD.
-     * @param gameController The GameController associated with the HUD.
+     * @param gameView        The GameView associated with the HUD.
+     * @param gameController  The GameController associated with the HUD.
+     * @param gameHudPanel    The panel of the game HUD.
+     * @param gameStatusPanel The panel of the status of the player.
      */
-    public Hud(final GameView gameView, final GameController gameController) {
+    public Hud(final GameView gameView,
+               final GameController gameController,
+               final JPanel gameHudPanel,
+               final JPanel gameStatusPanel) {
         this.gameView = gameView;
         this.gameController = gameController;
+        this.gameHudPanel = gameHudPanel;
+        this.gameStatusPanel = gameStatusPanel;
     }
 
     /**
@@ -36,8 +45,8 @@ public final class Hud {
     public void initialize() {
         final JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
         final JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
-        gameView.getGameHudPanel().add(flowButtonPanelNorth, BorderLayout.NORTH);
-        gameView.getGameHudPanel().add(flowButtonPanelSouth, BorderLayout.SOUTH);
+        gameHudPanel.add(flowButtonPanelNorth, BorderLayout.NORTH);
+        gameHudPanel.add(flowButtonPanelSouth, BorderLayout.SOUTH);
 
         final GameButton inventoryButton = new GameButton("Inventory");
         inventoryButton.addActionListener(e -> gameView.showInventory());
@@ -50,29 +59,29 @@ public final class Hud {
 
         refreshStatusPanel();
 
-        flowButtonPanelSouth.add(gameView.getStatusPanel());
+        flowButtonPanelSouth.add(this.gameStatusPanel);
     }
 
     /**
-    * Refreshes the status panel with updated information about the player's health,
-    * level, class, and experience.
-    */
+     * Refreshes the status panel with updated information about the player's health,
+     * level, class, and experience.
+     */
     public void refreshStatusPanel() {
-        gameView.getStatusPanel().removeAll();
+        this.gameStatusPanel.removeAll();
         final GameLabel healthBar = getHealthBar();
         final GameLabel levelLabel = new GameLabel("Level: " + gameController.getCharacterController().getPlayerLevel());
         final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getPlayerClassName());
         final int currentExperience = gameController.getCharacterController().getPlayerCurrentExperience();
         final int experienceCap = gameController.getCharacterController().getPlayerExperienceCap();
         final GameLabel experienceLabel = new GameLabel("Experience: " + currentExperience + " / " + experienceCap);
-        gameView.getStatusPanel().setBorder(BorderFactory.createEtchedBorder());
-        gameView.getStatusPanel().add(healthBar);
-        gameView.getStatusPanel().add(levelLabel);
-        gameView.getStatusPanel().add(classLabel);
-        gameView.getStatusPanel().add(experienceLabel);
+        this.gameStatusPanel.setBorder(BorderFactory.createEtchedBorder());
+        this.gameStatusPanel.add(healthBar);
+        this.gameStatusPanel.add(levelLabel);
+        this.gameStatusPanel.add(classLabel);
+        this.gameStatusPanel.add(experienceLabel);
 
-        gameView.getStatusPanel().revalidate();
-        gameView.getStatusPanel().repaint();
+        this.gameStatusPanel.revalidate();
+        this.gameStatusPanel.repaint();
     }
 
     /**
