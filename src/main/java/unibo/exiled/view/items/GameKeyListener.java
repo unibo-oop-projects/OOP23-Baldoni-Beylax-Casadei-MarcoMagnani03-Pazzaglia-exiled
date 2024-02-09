@@ -20,13 +20,14 @@ public final class GameKeyListener implements KeyListener {
      * Constructs a MovementKeyListener with the specified game controller and game
      * view.
      *
-     * @param gameController The game controller responsible for managing game logic.
+     * @param gameController The game controller responsible for managing game
+     *                       logic.
      * @param gameView       The game view responsible for rendering the game.
      * @param playerView     The CharacterView of the player.
      */
     public GameKeyListener(final GameController gameController,
-                               final GameView gameView,
-                               final CharacterView playerView) {
+            final GameView gameView,
+            final CharacterView playerView) {
         this.gameController = gameController;
         this.gameView = gameView;
         this.playerView = playerView;
@@ -74,11 +75,11 @@ public final class GameKeyListener implements KeyListener {
             } else if (e.getKeyCode() == KeyEvent.VK_E) {
                 this.gameView.showInventory();
             }
-        } else if(this.gameView.isInInventory()) {
+        } else if (this.gameView.isInInventory()) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 this.gameView.hideInventory();
             }
-        } else if(this.gameView.isInCombat()) {
+        } else if (this.gameView.isInCombat()) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 this.gameView.hideInventory();
             }
