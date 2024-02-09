@@ -54,7 +54,7 @@ public interface CharacterModel {
     /**
      * Gets the level of the player.
      *
-     * @return A integer representing the level of the player.
+     * @return An integer representing the level of the player.
      */
     int getPlayerLevel();
 
@@ -66,9 +66,9 @@ public interface CharacterModel {
     CharacterClass getPlayerClass();
 
     /**
-     * Gest the player move set.
+     * Gets the player move set.
      *
-     * @return The a move set.
+     * @return The move set.
      */
     MoveSet getPlayerMoveSet();
 
@@ -112,7 +112,7 @@ public interface CharacterModel {
     /**
      * Adds experience to the player.
      *
-     * @param amount the experience the player gained killink an enemy.
+     * @param amount the experience the player gained killing an enemy.
      */
     void addPlayerExperience(double amount);
 
