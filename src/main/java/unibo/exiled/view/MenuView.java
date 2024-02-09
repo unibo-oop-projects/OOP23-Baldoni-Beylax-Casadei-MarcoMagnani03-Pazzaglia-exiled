@@ -11,8 +11,6 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
@@ -34,7 +32,8 @@ public final class MenuView extends JPanel {
     /**
      * The constructor of the in-game view.
      *
-     * @param gameView The view of the game.
+     * @param menuItems The items of the menu.
+     * @param gameView  The view of the game.
      */
     public MenuView(final List<MenuItem> menuItems, final Optional<GameView> gameView) {
         super();
@@ -56,39 +55,8 @@ public final class MenuView extends JPanel {
         buttonListPanel.add(logoLabel);
         cnst.gridy++;
 
-        for (MenuItem menuItem : menuItems) {
-            final GameButton gameButton = new GameButton(menuItem.getItemText());
-            gameButton.setActionCommand(menuItem.getItemCommand().getCommandString());
-            gameButton.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (e.getActionCommand().equals(Command.NEW_GAME.getCommandString())) {
-                        final PlayerClassView playerClassView = new PlayerClassView();
-                        playerClassView.display();
-                        for (Frame f : Frame.getFrames()) {
-                            if(!f.getName().equals("Player class")){
-                                f.dispatchEvent(new WindowEvent(f, WindowEvent.WINDOW_CLOSING));
-                            }
-                        }
-                    } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
-                        gameView.ifPresent(GameView::hideMenu);
-                    } else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
-                        final int dialogResult = JOptionPane.showConfirmDialog(null,
-                                "Would you like to quit the game?", "Warning",
-                                JOptionPane.YES_NO_OPTION);
-
-                        if (dialogResult == JOptionPane.YES_OPTION) {
-                            for (Frame f : Frame.getFrames()) {
-                                f.dispatchEvent(new WindowEvent(f, WindowEvent.WINDOW_CLOSING));
-                            }
-                        }
-                    } else {
-                        throw new IllegalArgumentException("Command is not valid");
-                    }
-                }
-
-            });
+        for (final MenuItem menuItem : menuItems) {
+            final GameButton gameButton = getGameButton(gameView, menuItem);
 
             buttonListPanel.add(gameButton, cnst);
             cnst.gridy++;
@@ -117,6 +85,37 @@ public final class MenuView extends JPanel {
 
         this.setLayout(new BorderLayout());
         this.add(buttonListPanel, BorderLayout.CENTER);
+    }
+
+    private static GameButton getGameButton(final Optional<GameView> gameView, final MenuItem menuItem) {
+        final GameButton gameButton = new GameButton(menuItem.getItemText());
+        gameButton.setActionCommand(menuItem.getItemCommand().getCommandString());
+        gameButton.addActionListener(e -> {
+            if (e.getActionCommand().equals(Command.NEW_GAME.getCommandString())) {
+                final PlayerClassView playerClassView = new PlayerClassView();
+                playerClassView.display();
+                for (final Frame f : Frame.getFrames()) {
+                    if (!"Player class".equals(f.getName())) {
+                        f.dispatchEvent(new WindowEvent(f, WindowEvent.WINDOW_CLOSING));
+                    }
+                }
+            } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
+                gameView.ifPresent(GameView::hideMenu);
+            } else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
+                final int dialogResult = JOptionPane.showConfirmDialog(null,
+                        "Would you like to quit the game?", "Warning",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    for (final Frame f : Frame.getFrames()) {
+                        f.dispatchEvent(new WindowEvent(f, WindowEvent.WINDOW_CLOSING));
+                    }
+                }
+            } else {
+                throw new IllegalArgumentException("Command is not valid");
+            }
+        });
+        return gameButton;
     }
 
 }

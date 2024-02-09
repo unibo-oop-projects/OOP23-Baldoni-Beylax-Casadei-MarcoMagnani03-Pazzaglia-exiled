@@ -15,8 +15,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.Serial;
 import java.util.List;
@@ -48,17 +46,13 @@ public final class CombatView extends JPanel {
 
     private final transient GameController gameController;
     private final transient GameView gameView;
-    private transient Position combatPosition;
-
     private final JPanel moveSetPanel;
-    private final JPanel enemyPanel;
     private final JPanel enemyImagePanel;
     private final JLabel enemyLabel;
     private final JLabel enemyMove;
-    private final JPanel enemyStatusPanel;
     private final GameLabel enemyHealthBar;
     private final GameLabel enemyClassLabel;
-
+    private transient Position combatPosition;
     private transient Timer enemyAttackTimer;
 
     /**
@@ -97,23 +91,23 @@ public final class CombatView extends JPanel {
         this.enemyHealthBar = new GameLabel("");
         this.enemyClassLabel = new GameLabel("");
         this.enemyMove = new GameLabel("");
-        this.enemyStatusPanel = new JPanel(
+        final JPanel enemyStatusPanel = new JPanel(
                 new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
         enemyStatusPanel.setBorder(BorderFactory.createEtchedBorder());
         enemyStatusPanel.add(this.enemyHealthBar);
         enemyStatusPanel.add(this.enemyClassLabel);
 
-        this.enemyPanel = new JPanel(new GridLayout(ENEMY_PANEL_ROWS, ENEMY_PANEL_COLS));
-        this.enemyPanel
+        final JPanel enemyPanel = new JPanel(new GridLayout(ENEMY_PANEL_ROWS, ENEMY_PANEL_COLS));
+        enemyPanel
                 .setBorder(BorderFactory.createEmptyBorder(EXTERNAL_NO_PADDING, EXTERNAL_PADDING, EXTERNAL_PADDING,
                         EXTERNAL_PADDING));
 
-        this.enemyPanel.add(this.enemyLabel);
-        this.enemyPanel.add(this.enemyImagePanel);
-        this.enemyPanel.add(this.enemyStatusPanel);
-        this.enemyPanel.add(this.enemyMove);
+        enemyPanel.add(this.enemyLabel);
+        enemyPanel.add(this.enemyImagePanel);
+        enemyPanel.add(enemyStatusPanel);
+        enemyPanel.add(this.enemyMove);
 
-        battlePanel.add(this.enemyPanel);
+        battlePanel.add(enemyPanel);
     }
 
     /**
@@ -149,16 +143,14 @@ public final class CombatView extends JPanel {
             moveButton.addActionListener(e -> {
                 this.enemyMove.setText("Enemy attacking...");
 
-                final boolean isEnemyDead = this.gameController.getCharacterController().attack(true, moveName,
-                        this.combatPosition);
+                final boolean isEnemyDead = this.gameController
+                        .getCharacterController().attack(true, moveName,
+                                this.combatPosition);
                 refreshEnemy();
                 this.enemyHealthBar.setForeground(Color.ORANGE);
-                this.enemyAttackTimer = new Timer(ENEMY_LIFE_GLITCH_DELAY, new ActionListener() {
-                    @Override
-                    public void actionPerformed(final ActionEvent evt) {
-                        enemyHealthBar.setForeground(Color.BLACK);
-                        refreshEnemy();
-                    }
+                this.enemyAttackTimer = new Timer(ENEMY_LIFE_GLITCH_DELAY, evt -> {
+                    enemyHealthBar.setForeground(Color.BLACK);
+                    refreshEnemy();
                 });
                 this.enemyAttackTimer.setRepeats(false);
                 this.enemyAttackTimer.start();
@@ -173,33 +165,31 @@ public final class CombatView extends JPanel {
                         button.setEnabled(false);
                     }
 
-                    this.enemyAttackTimer = new Timer(ENEMY_ATTACK_DELAY, new ActionListener() {
-                        @Override
-                        public void actionPerformed(final ActionEvent evt) {
-                            // Enemy turn to attack
-                            final String enemyMoveName = gameController.getCharacterController()
-                                    .getCharacterRandomMoveNameFromPosition(combatPosition);
-                            final String enemyMoveDescription = gameController.getCharacterController()
-                                    .getMagicMoveDescription(enemyMoveName);
-                            final double enemyMoveDamage = gameController.getCharacterController()
-                                    .getMagicMoveDamage(enemyMoveName);
-                            final boolean isPlayerDead = gameController.getCharacterController().attack(false,
-                                    enemyMoveName,
-                                    combatPosition);
+                    this.enemyAttackTimer = new Timer(ENEMY_ATTACK_DELAY, evt -> {
+                        // Enemy turn to attack
+                        final String enemyMoveName = gameController.getCharacterController()
+                                .getCharacterRandomMoveNameFromPosition(combatPosition);
+                        final String enemyMoveDescription = gameController.getCharacterController()
+                                .getMagicMoveDescription(enemyMoveName);
+                        final double enemyMoveDamage = gameController.getCharacterController()
+                                .getMagicMoveDamage(enemyMoveName);
+                        final boolean isPlayerDead = gameController
+                                .getCharacterController().attack(false,
+                                        enemyMoveName,
+                                        combatPosition);
 
-                            enemyMove.setText(
-                                    "<html>Enemy used: " + enemyMoveName + "(" + enemyMoveDamage + ")" + "<br><br>"
-                                            + enemyMoveDescription + "</html>");
-                            gameView.refreshStatusPanel();
+                        enemyMove.setText(
+                                "<html>Enemy used: " + enemyMoveName + "(" + enemyMoveDamage + ")" + "<br><br>"
+                                        + enemyMoveDescription + "</html>");
+                        gameView.refreshStatusPanel();
 
-                            if (isPlayerDead) {
-                                gameView.hideCombat();
-                                gameView.draw();
-                            } else {
-                                // Enable buttons
-                                for (final Component button : moveSetPanel.getComponents()) {
-                                    button.setEnabled(true);
-                                }
+                        if (isPlayerDead) {
+                            gameView.hideCombat();
+                            gameView.draw();
+                        } else {
+                            // Enable buttons
+                            for (final Component button : moveSetPanel.getComponents()) {
+                                button.setEnabled(true);
                             }
                         }
                     });

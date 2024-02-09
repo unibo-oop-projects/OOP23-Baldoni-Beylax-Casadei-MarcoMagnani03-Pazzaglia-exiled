@@ -10,11 +10,19 @@ import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.item.PowerUpItem;
 import unibo.exiled.model.item.UsableItem;
 
-public class ItemsModelImpl implements ItemsModel {
+/**
+ * The implementation of the model of the items.
+ */
+public final class ItemsModelImpl implements ItemsModel {
     private final GameModel model;
 
 
-    public ItemsModelImpl(GameModel model){
+    /**
+     * The constructor of the model of the Items.
+     *
+     * @param model
+     */
+    public ItemsModelImpl(final GameModel model) {
         this.model = model;
     }
 

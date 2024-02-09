@@ -8,7 +8,6 @@ import unibo.exiled.model.map.GameMapImpl;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -21,13 +20,13 @@ public final class MapModelImpl implements MapModel {
     /**
      * The constructor of the map manager.
      *
-     * @param size The size of the map to create.
+     * @param model The game model.
      */
     public MapModelImpl(final GameModel model) {
 
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         final int size = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
-        this.map = new GameMapImpl(Objects.requireNonNull(size));
+        this.map = new GameMapImpl(size);
         this.model = model;
     }
 
@@ -67,7 +66,7 @@ public final class MapModelImpl implements MapModel {
     }
 
     @Override
-    public Optional<GameCharacter> getCharacterFromPosition(Position pos) {
+    public Optional<GameCharacter> getCharacterFromPosition(final Position pos) {
         return this.model.getCharacterModel().getCharacterFromPosition(pos);
     }
 }

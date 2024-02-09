@@ -70,7 +70,7 @@ public final class GameView {
 
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
@@ -148,6 +148,20 @@ public final class GameView {
         this.hud.refreshStatusPanel();
     }
 
+    private GameLabel getHealthBar() {
+        final double playerHealth = gameController.getCharacterController().getPlayerHealth();
+        final double playerHealthCap = gameController.getCharacterController().getPlayerHealthCap();
+        final GameLabel healthBar = new GameLabel(
+                "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
+                        + gameController.getCharacterController().getPlayerHealthCap());
+        if (playerHealth <= (playerHealthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
+            healthBar.setForeground(Color.RED);
+        } else {
+            healthBar.setForeground(Color.GREEN);
+        }
+        return healthBar;
+    }
+
     private void initializeGridComponents() {
         this.gridPanel = new JPanel(
                 new GridLayout(this.gameController.getMapController().getMapSize(),
@@ -209,7 +223,7 @@ public final class GameView {
             label = new CharacterView(characterImagePath);
             ((CharacterView) label)
                     .changeImage(gameController.getMapController()
-                            .getLastDirectionOfCharacterInPosition(position),
+                                    .getLastDirectionOfCharacterInPosition(position),
                             gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
         } else {
             label = new JLabel();
@@ -301,6 +315,9 @@ public final class GameView {
         this.inventoryPanel.setVisible(false);
     }
 
+    /**
+     * Updates the buttons of the inventory.
+     */
     public void updateInventory() {
         this.inventoryView.updateInventoryButtons();
     }

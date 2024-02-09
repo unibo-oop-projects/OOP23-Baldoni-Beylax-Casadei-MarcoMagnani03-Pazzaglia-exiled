@@ -1,5 +1,6 @@
 package unibo.exiled.controller;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import unibo.exiled.model.character.CharacterClass;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -17,7 +18,6 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
-
 /**
  * Implementation of the CharacterController interface.
  */
@@ -32,6 +32,7 @@ public final class CharacterControllerImpl implements CharacterController {
      *
      * @param model The game model to manage the game.
      */
+    @SuppressFBWarnings()
     public CharacterControllerImpl(final CharacterModel model) {
         this.model = model;
     }
@@ -68,7 +69,7 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public void addPlayerExperience(double amount) {
+    public void addPlayerExperience(final double amount) {
         this.model.addPlayerExperience(amount);
     }
 
@@ -162,14 +163,9 @@ public final class CharacterControllerImpl implements CharacterController {
             removeEnemyFromPosition(combatPosition);
 
             // Add the item dropped from the enemy
-            try {
-                final Optional<Item> itemDropped = ((Enemy) defender).getHeldItem();
-                if (itemDropped.isPresent()) {
-                    ((Player) attacker).addItemToInventory(itemDropped.get());
-                }
-            } catch (Exception e) {
-                throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
-            }
+            final Optional<Item> itemDropped = ((Enemy) defender).getHeldItem();
+            itemDropped.ifPresent(item -> ((Player) attacker).addItemToInventory(item));
+
         }
         return hasAttackerWon;
     }

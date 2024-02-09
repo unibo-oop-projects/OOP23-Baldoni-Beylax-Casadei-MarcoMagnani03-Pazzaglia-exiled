@@ -28,15 +28,23 @@ import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
 
-public class CharacterModelImpl implements CharacterModel {
+/**
+ * The character model implementation.
+ */
+public final class CharacterModelImpl implements CharacterModel {
     private static final Random RANDOM = new Random();
     private static final int RANGE_PLAYER_ENEMY = 2;
 
     private final GameModel model;
-    private Player player;
     private final EnemyCollection enemyCollection;
+    private Player player;
 
-    public CharacterModelImpl(GameModel model){
+    /**
+     * The constructor of the character model.
+     *
+     * @param model The main model of the game.
+     */
+    public CharacterModelImpl(final GameModel model) {
         this.model = model;
 
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
@@ -47,9 +55,9 @@ public class CharacterModelImpl implements CharacterModel {
         final int movesLearningInterval = Integer.parseInt(Constants.getConstantOf("MOVES_LEARNING_INTERVAL"));
 
         this.playerInitialization(playerExperienceCap,
-                                    defaultExperience,
-                                    playerLevelIncrease,
-                                    movesLearningInterval);
+                defaultExperience,
+                playerLevelIncrease,
+                movesLearningInterval);
 
         this.enemyCollection = new EnemyCollectionImpl();
         this.enemyInitialization(enemyNumber);
@@ -57,9 +65,9 @@ public class CharacterModelImpl implements CharacterModel {
     }
 
     private void playerInitialization(final int playerExperienceCap,
-            final int defaultExperience,
-            final int levelIncrease,
-            final int movesLearningInterval) {
+                                      final int defaultExperience,
+                                      final int levelIncrease,
+                                      final int movesLearningInterval) {
         this.player = new PlayerImpl(playerExperienceCap,
                 defaultExperience, levelIncrease, movesLearningInterval);
         this.player.move(new Position(model.getMapModel().getSize() / 2, model.getMapModel().getSize() / 2));
@@ -71,7 +79,8 @@ public class CharacterModelImpl implements CharacterModel {
         for (int i = 0; i < number; i++) {
             final Enemy newEnemy = factory.createRandom();
             do {
-                newEnemyPosition = new Position(RANDOM.nextInt(model.getMapModel().getSize()), RANDOM.nextInt(model.getMapModel().getSize()));
+                newEnemyPosition = new Position(RANDOM.nextInt(model.getMapModel().getSize()),
+                        RANDOM.nextInt(model.getMapModel().getSize()));
             } while (!isCellEmpty(newEnemyPosition)
                     || this.model.getMapModel().isCornerOfMap(newEnemyPosition)
                     || !(this.model.getMapModel().getCellType(newEnemyPosition).getAssociatedType().equals(newEnemy.getType())));
@@ -228,7 +237,7 @@ public class CharacterModelImpl implements CharacterModel {
     }
 
     @Override
-    public void addPlayerExperience(double amount) {
+    public void addPlayerExperience(final double amount) {
         player.addExperience(amount);
     }
 
