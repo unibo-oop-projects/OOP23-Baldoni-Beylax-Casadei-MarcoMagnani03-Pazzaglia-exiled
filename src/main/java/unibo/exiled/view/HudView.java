@@ -16,11 +16,9 @@ import unibo.exiled.view.items.GameLabel;
  */
 public final class HudView {
     private static final int HEALTH_CRITICAL_PERCENTAGE = 20;
+    private static final int STATUS_PANEL_H_GAP = 20;
+    private static final int STATUS_PANEL_V_GAP = 5;
     private final GameView gameView;
-    //TODO: Remove field.
-    private final JPanel gameHudPanel;
-    //TODO: Remove field.
-    private final JPanel gameStatusPanel;
     private final GameController gameController;
 
     /**
@@ -28,25 +26,22 @@ public final class HudView {
      *
      * @param gameView        The GameView associated with the HUD.
      * @param gameController  The GameController associated with the HUD.
-     * @param gameHudPanel    The panel of the game HUD.
-     * @param gameStatusPanel The panel of the status of the player.
      */
     public HudView(final GameView gameView,
-               final GameController gameController,
-               final JPanel gameHudPanel,
-               final JPanel gameStatusPanel) {
+               final GameController gameController) {
         this.gameView = gameView;
         this.gameController = gameController;
-        this.gameHudPanel = gameHudPanel;
-        this.gameStatusPanel = gameStatusPanel;
     }
 
     /**
      * Initializes the HUD by setting up buttons, panels, and labels.
+     * 
+     * @return The panel of the game HUD.
      */
-    public void initialize() {
+    public JPanel initialize() {
         final JPanel flowButtonPanelNorth = new JPanel(new FlowLayout());
         final JPanel flowButtonPanelSouth = new JPanel(new FlowLayout());
+        final JPanel gameHudPanel = new JPanel(new BorderLayout());
         gameHudPanel.add(flowButtonPanelNorth, BorderLayout.NORTH);
         gameHudPanel.add(flowButtonPanelSouth, BorderLayout.SOUTH);
 
@@ -59,31 +54,33 @@ public final class HudView {
         flowButtonPanelNorth.add(inventoryButton);
         flowButtonPanelNorth.add(menuButton);
 
-        refreshStatusPanel();
-
-        flowButtonPanelSouth.add(this.gameStatusPanel);
+        flowButtonPanelSouth.add(createStatusPanel());
+        return gameHudPanel;
     }
 
     /**
      * Refreshes the status panel with updated information about the player's health,
      * level, class, and experience.
+     * 
+     * @return The panel of the status of the player.
      */
-    public void refreshStatusPanel() {
-        this.gameStatusPanel.removeAll();
+    private JPanel createStatusPanel() {
+        final JPanel gameStatusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
+        gameStatusPanel.removeAll();
         final GameLabel healthBar = getHealthBar();
         final GameLabel levelLabel = new GameLabel("Level: " + gameController.getCharacterController().getPlayerLevel());
         final GameLabel classLabel = new GameLabel("Class: " + gameController.getCharacterController().getPlayerClassName());
         final int currentExperience = gameController.getCharacterController().getPlayerCurrentExperience();
         final int experienceCap = gameController.getCharacterController().getPlayerExperienceCap();
         final GameLabel experienceLabel = new GameLabel("Experience: " + currentExperience + " / " + experienceCap);
-        this.gameStatusPanel.setBorder(BorderFactory.createEtchedBorder());
-        this.gameStatusPanel.add(healthBar);
-        this.gameStatusPanel.add(levelLabel);
-        this.gameStatusPanel.add(classLabel);
-        this.gameStatusPanel.add(experienceLabel);
-
-        this.gameStatusPanel.revalidate();
-        this.gameStatusPanel.repaint();
+        gameStatusPanel.setBorder(BorderFactory.createEtchedBorder());
+        gameStatusPanel.add(healthBar);
+        gameStatusPanel.add(levelLabel);
+        gameStatusPanel.add(classLabel);
+        gameStatusPanel.add(experienceLabel);
+        gameStatusPanel.revalidate();
+        gameStatusPanel.repaint();
+        return gameStatusPanel;
     }
 
     /**

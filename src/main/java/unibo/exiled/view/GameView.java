@@ -13,7 +13,6 @@ import unibo.exiled.view.character.CharacterView;
 import javax.swing.JFrame;
 
 import javax.swing.GroupLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -24,8 +23,7 @@ import java.awt.BorderLayout;
  * The main view of the game, everything starts here.
  */
 public final class GameView {
-    private static final int STATUS_PANEL_H_GAP = 20;
-    private static final int STATUS_PANEL_V_GAP = 5;
+
 
     // Views
     private final CombatView combatView;
@@ -71,7 +69,6 @@ public final class GameView {
         this.combatPanel = new JPanel(new BorderLayout());
         this.gamePanel = new JPanel(new BorderLayout());
         this.gameHudPanel = new JPanel(new BorderLayout());
-        final JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
 
         final GroupLayout gamePanelLayout = new GroupLayout(gameContainerPanel);
         gameContainerPanel.setLayout(gamePanelLayout);
@@ -94,7 +91,7 @@ public final class GameView {
                         Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(new MenuControllerImpl().getInGameMenuItems(), Optional.of(this));
-        this.hud = new HudView(this, this.gameController, this.gameHudPanel, statusPanel);
+        this.hud = new HudView(this, this.gameController);
         this.grid = new GameGridView(this.gameController, this.gamePanel, playerView);
 
         this.menuPanel.add(menuView);
@@ -129,14 +126,15 @@ public final class GameView {
      * level, and class information.
      */
     private void initializeHUD() {
-        this.hud.initialize();
+        this.gameHudPanel.add(this.hud.initialize(), BorderLayout.NORTH); 
     }
 
     /**
      * Refreshes the player status panel.
      */
     public void refreshStatusPanel() {
-        this.hud.refreshStatusPanel();
+        this.gameHudPanel.removeAll();
+        this.gameHudPanel.add(this.hud.initialize()); 
     }
 
     /**
