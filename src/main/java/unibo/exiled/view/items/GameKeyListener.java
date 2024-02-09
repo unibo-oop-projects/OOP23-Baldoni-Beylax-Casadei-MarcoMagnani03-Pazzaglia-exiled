@@ -1,16 +1,17 @@
-package unibo.exiled.view;
+package unibo.exiled.view.items;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import unibo.exiled.controller.GameController;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.view.GameView;
 import unibo.exiled.view.character.CharacterView;
 
 /**
  * A KeyListener implementation that handles player movement in the game.
  */
-public final class MovementKeyListener implements KeyListener {
+public final class GameKeyListener implements KeyListener {
     private final GameController gameController;
     private final GameView gameView;
     private final CharacterView playerView;
@@ -23,7 +24,7 @@ public final class MovementKeyListener implements KeyListener {
      * @param gameView       The game view responsible for rendering the game.
      * @param playerView     The CharacterView of the player.
      */
-    public MovementKeyListener(final GameController gameController,
+    public GameKeyListener(final GameController gameController,
                                final GameView gameView,
                                final CharacterView playerView) {
         this.gameController = gameController;
@@ -70,6 +71,16 @@ public final class MovementKeyListener implements KeyListener {
                 movePlayerAndEnemies(directionPressed);
                 updatePlayerView(directionPressed);
                 this.gameView.draw();
+            } else if (e.getKeyCode() == KeyEvent.VK_E) {
+                this.gameView.showInventory();
+            }
+        } else if(this.gameView.isInInventory()) {
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                this.gameView.hideInventory();
+            }
+        } else if(this.gameView.isInCombat()) {
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                this.gameView.hideInventory();
             }
         } else {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {

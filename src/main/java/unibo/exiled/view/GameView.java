@@ -9,6 +9,7 @@ import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.MenuControllerImpl;
 import unibo.exiled.view.character.CharacterView;
+import unibo.exiled.view.items.GameKeyListener;
 
 import javax.swing.JFrame;
 
@@ -118,7 +119,7 @@ public final class GameView {
 
         this.grid.initializeGrid();
         this.initializeHUD();
-        this.mainFrame.addKeyListener(new MovementKeyListener(gameController, this, playerView));
+        this.mainFrame.addKeyListener(new GameKeyListener(gameController, this, playerView));
     }
 
     /**
@@ -148,6 +149,16 @@ public final class GameView {
 
         this.grid.initializeGrid();
     }
+
+    /**
+     * Returns true if the game is currently in combat mode.
+     *
+     * @return true if the game is in combat mode, otherwise false.
+     */
+    public boolean isInInventory() {
+        return this.inventoryPanel.isVisible();
+    }
+
 
     /**
      * Returns true if the game is currently in combat mode.
