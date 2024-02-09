@@ -9,6 +9,7 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 
 import javax.annotation.concurrent.Immutable;
@@ -64,7 +65,7 @@ public interface CharacterModel {
      *
      * @return The elemental class of the player.
      */
-    CharacterClass getPlayerClass();
+    ElementalType getPlayerClass();
 
     /**
      * Gets the player move set.
@@ -94,7 +95,7 @@ public interface CharacterModel {
      * @param playerClass The ElementalType representing the new elemental class of
      *                    the player.
      */
-    void assignPlayerClass(CharacterClass playerClass);
+    void assignPlayerClass(ElementalType playerClass);
 
     /**
      * Retrieves the current experience of the player.

@@ -24,6 +24,7 @@ import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.Moves;
 import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.model.utilities.ElementalType;
 import unibo.exiled.model.utilities.Position;
 import unibo.exiled.model.utilities.Positions;
 
@@ -235,7 +236,7 @@ public final class CharacterModelImpl implements CharacterModel {
     }
 
     @Override
-    public CharacterClass getPlayerClass() {
+    public ElementalType getPlayerClass() {
         return player.getPlayerClass();
     }
 
@@ -268,7 +269,7 @@ public final class CharacterModelImpl implements CharacterModel {
     }
 
     @Override
-    public void assignPlayerClass(final CharacterClass playerClass) {
+    public void assignPlayerClass(final ElementalType playerClass) {
         player.setPlayerClass(playerClass);
     }
 
