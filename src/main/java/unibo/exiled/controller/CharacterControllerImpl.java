@@ -1,12 +1,12 @@
 package unibo.exiled.controller;
 
 import unibo.exiled.model.character.CharacterClass;
+import unibo.exiled.model.character.CharacterModel;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.player.Player;
-import unibo.exiled.model.game.CharacterModel;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.utilities.Direction;

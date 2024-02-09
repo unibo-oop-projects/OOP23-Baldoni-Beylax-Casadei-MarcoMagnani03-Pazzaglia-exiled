@@ -1,9 +1,8 @@
-package unibo.exiled.model.game;
+package unibo.exiled.model.map;
 
 import java.util.Optional;
 
 import unibo.exiled.model.character.GameCharacter;
-import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.utilities.Position;
 
 /**

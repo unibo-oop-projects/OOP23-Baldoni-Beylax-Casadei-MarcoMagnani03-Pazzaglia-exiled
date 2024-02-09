@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.enemy.Enemy;
-import unibo.exiled.model.game.MapModel;
 import unibo.exiled.model.map.CellType;
+import unibo.exiled.model.map.MapModel;
 import unibo.exiled.model.utilities.Direction;
 import unibo.exiled.model.utilities.Position;
 

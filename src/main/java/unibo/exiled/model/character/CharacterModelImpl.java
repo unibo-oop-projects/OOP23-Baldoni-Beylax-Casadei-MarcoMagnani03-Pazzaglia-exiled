@@ -1,12 +1,10 @@
-package unibo.exiled.model.game;
+package unibo.exiled.model.character;
 
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
 import unibo.exiled.config.Constants;
-import unibo.exiled.model.character.CharacterClass;
-import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AdditiveAttribute;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -20,6 +18,7 @@ import unibo.exiled.model.character.enemy.EnemyFactory;
 import unibo.exiled.model.character.enemy.EnemyFactoryImpl;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
+import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;

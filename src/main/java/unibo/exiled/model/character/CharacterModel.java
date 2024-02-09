@@ -1,10 +1,8 @@
-package unibo.exiled.model.game;
+package unibo.exiled.model.character;
 
 import java.util.Optional;
 import java.util.Set;
 
-import unibo.exiled.model.character.CharacterClass;
-import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.EnemyCollection;
 import unibo.exiled.model.character.player.Player;

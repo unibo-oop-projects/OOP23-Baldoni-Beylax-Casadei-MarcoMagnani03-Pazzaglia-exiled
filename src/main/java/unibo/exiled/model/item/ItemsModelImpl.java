@@ -1,14 +1,10 @@
-package unibo.exiled.model.game;
+package unibo.exiled.model.item;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
-import unibo.exiled.model.item.HealingItem;
-import unibo.exiled.model.item.Item;
-import unibo.exiled.model.item.ItemType;
-import unibo.exiled.model.item.PowerUpItem;
-import unibo.exiled.model.item.UsableItem;
+import unibo.exiled.model.game.GameModel;
 
 /**
  * The implementation of the model of the items.

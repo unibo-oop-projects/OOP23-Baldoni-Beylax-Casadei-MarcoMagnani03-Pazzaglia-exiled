@@ -1,10 +1,8 @@
-package unibo.exiled.model.game;
+package unibo.exiled.model.map;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.model.character.GameCharacter;
-import unibo.exiled.model.map.CellType;
-import unibo.exiled.model.map.GameMap;
-import unibo.exiled.model.map.GameMapImpl;
+import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.utilities.Position;
 
 import java.util.NoSuchElementException;

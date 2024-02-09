@@ -1,6 +1,4 @@
-package unibo.exiled.model.game;
-
-import unibo.exiled.model.menu.Menu;
+package unibo.exiled.model.menu;
 
 /**
  * The model that manages the in-game menu.
