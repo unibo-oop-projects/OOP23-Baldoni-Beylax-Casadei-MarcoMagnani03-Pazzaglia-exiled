@@ -2,30 +2,23 @@ package unibo.exiled.view;
 
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
 import unibo.exiled.config.Constants;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.MenuControllerImpl;
-import unibo.exiled.model.map.CellType;
-import unibo.exiled.model.utilities.Position;
 import unibo.exiled.view.character.CharacterView;
 
-import javax.swing.JLabel;
 import javax.swing.JFrame;
-import java.awt.Color;
 
 import javax.swing.GroupLayout;
-import java.awt.GridLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.Container;
 import java.awt.BorderLayout;
-import javax.swing.border.LineBorder;
 
 /**
  * The main view of the game, everything starts here.
@@ -35,11 +28,11 @@ public final class GameView {
     private static final int STATUS_PANEL_V_GAP = 5;
 
     // Views
-    private final CharacterView playerView;
     private final CombatView combatView;
     private final InventoryView inventoryView;
     private final GameOverView gameOverView;
-    private final Hud hud;
+    private final HudView hud;
+    private final GameGridView grid;
 
     // MVC Components(MC)
     private final JFrame mainFrame;
@@ -53,7 +46,6 @@ public final class GameView {
      * The game controller that manages interaction between the model and the view.
      */
     private final GameController gameController;
-    private JPanel gridPanel;
 
     /**
      * Constructor of the main view.
@@ -96,13 +88,14 @@ public final class GameView {
         this.gameOverView = new GameOverView();
         final String playerClass = this.gameController
                 .getCharacterController().getPlayerClassName().toLowerCase(Locale.ROOT);
-        this.playerView = new CharacterView(
+        final CharacterView playerView = new CharacterView(
                 this.gameController.getCharacterController().getImagePathOfCharacter(
                         Constants.PLAYER_PATH + File.separator + playerClass,
                         Constants.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(new MenuControllerImpl().getInGameMenuItems(), Optional.of(this));
-        this.hud = new Hud(this, gameController, gameHudPanel, statusPanel);
+        this.hud = new HudView(this, this.gameController, this.gameHudPanel, statusPanel);
+        this.grid = new GameGridView(this.gameController, this.gamePanel, playerView);
 
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(this.inventoryView);
@@ -126,7 +119,7 @@ public final class GameView {
         this.hideInventory();
         this.hideCombat();
 
-        this.initializeGridComponents();
+        this.grid.initializeGrid();
         this.initializeHUD();
         this.mainFrame.addKeyListener(new MovementKeyListener(gameController, this, playerView));
     }
@@ -146,14 +139,6 @@ public final class GameView {
         this.hud.refreshStatusPanel();
     }
 
-    private void initializeGridComponents() {
-        this.gridPanel = new JPanel(
-                new GridLayout(this.gameController.getMapController().getMapSize(),
-                        this.gameController.getMapController().getMapSize()));
-        draw();
-        this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
-    }
-
     /**
      * Draws the grid game panel.
      */
@@ -163,89 +148,7 @@ public final class GameView {
             this.mainFrame.dispose();
         }
 
-        final Position playerPosition = gameController.getCharacterController().getPlayerPosition();
-        final int mapSize = this.gameController.getMapController().getMapSize();
-        final int range = 5;
-
-        final int startingY = Math.max(0, playerPosition.y() - range);
-        final int endingY = Math.min(mapSize, playerPosition.y() + range + 1);
-        final int startingX = Math.max(0, playerPosition.x() - range);
-        final int endingX = Math.min(mapSize, playerPosition.x() + range + 1);
-
-        this.gamePanel.remove(this.gridPanel);
-
-        this.gridPanel = new JPanel(new GridLayout(endingY - startingY, endingX - startingX));
-
-        this.gamePanel.add(this.gridPanel, BorderLayout.CENTER);
-
-        for (int i = startingY; i < endingY; i++) {
-            for (int j = startingX; j < endingX; j++) {
-                placeCell(new Position(j, i));
-            }
-        }
-
-        this.mainFrame.revalidate();
-        this.mainFrame.repaint();
-    }
-
-    /**
-     * Colors the map areas based on the respective type.
-     *
-     * @param position is the position of the label.
-     */
-    private void placeCell(final Position position) {
-        final JLabel label;
-
-        if (position.equals(gameController.getCharacterController().getPlayerPosition())) {
-            label = playerView;
-        } else if (gameController.getMapController().isEnemyInCell(position)) {
-            final List<String> characterImagePath = gameController.getCharacterController()
-                    .getImagePathOfCharacter(Constants.ENEMY_PATH,
-                            gameController.getMapController().getNameOfCharacterInPosition(position)
-                                    + File.separator
-                                    + gameController.getMapController().getNameOfCharacterInPosition(position));
-            label = new CharacterView(characterImagePath);
-            ((CharacterView) label)
-                    .changeImage(gameController.getMapController()
-                                    .getLastDirectionOfCharacterInPosition(position),
-                            gameController.getCharacterController().getIfCharacterInPositionIsMoving(position));
-        } else {
-            label = new JLabel();
-        }
-
-        configLabels(label, position);
-        gridPanel.add(label);
-    }
-
-    private void configLabels(final JLabel label, final Position position) {
-        label.setOpaque(true);
-        final CellType cellType = gameController.getMapController().getCellType(position);
-        final Color backgroundColor = getBackgroundColor(cellType);
-        label.setBackground(backgroundColor);
-        label.setBorder(new LineBorder(Color.BLACK));
-    }
-
-    private Color getBackgroundColor(final CellType cellType) {
-        switch (cellType) {
-            case VOLCANO -> {
-                return Color.ORANGE;
-            }
-            case PLAINS -> {
-                return Color.YELLOW;
-            }
-            case FOREST -> {
-                return Color.GREEN;
-            }
-            case STORM -> {
-                return Color.DARK_GRAY;
-            }
-            case SWAMP -> {
-                return Color.BLUE;
-            }
-            default -> {
-                return Color.WHITE;
-            }
-        }
+        this.grid.drawGrid();
     }
 
     /**

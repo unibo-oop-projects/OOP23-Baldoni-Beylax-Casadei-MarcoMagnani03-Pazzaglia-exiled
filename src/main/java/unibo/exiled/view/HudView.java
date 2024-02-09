@@ -14,7 +14,7 @@ import unibo.exiled.view.items.GameLabel;
 /**
  * The Hud class represents the Heads-up Display (HUD) for the game.
  */
-public final class Hud {
+public final class HudView {
     private static final int HEALTH_CRITICAL_PERCENTAGE = 20;
     private final GameView gameView;
     private final JPanel gameHudPanel;
@@ -29,7 +29,7 @@ public final class Hud {
      * @param gameHudPanel    The panel of the game HUD.
      * @param gameStatusPanel The panel of the status of the player.
      */
-    public Hud(final GameView gameView,
+    public HudView(final GameView gameView,
                final GameController gameController,
                final JPanel gameHudPanel,
                final JPanel gameStatusPanel) {
