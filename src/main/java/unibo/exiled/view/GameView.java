@@ -148,7 +148,7 @@ public final class GameView {
             this.mainFrame.dispose();
         }
 
-        this.grid.drawGrid();
+        this.grid.initializeGrid();
     }
 
     /**

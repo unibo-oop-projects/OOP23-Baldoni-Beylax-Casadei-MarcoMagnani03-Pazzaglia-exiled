@@ -34,11 +34,11 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     private final Inventory inventory;
     private final MoveSet moveSet;
     private final int movesLearningInterval;
+    private final int maxMovesNumber;
     private int level;
     private int currentExp;
     private int expCap;
     private CharacterClass playerClass;
-    private int levelToLearnAMove;
 
     /**
      * Constructs a new player with specified attributes, experience cap, initial
@@ -61,8 +61,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         this.currentExp = initialExperience;
         this.attributeIncBound = attributeIncreaseBound;
         this.movesLearningInterval = movesLearningInterval;
-        this.levelToLearnAMove = 0;
         this.playerClass = new CharacterClassImpl(ElementalType.NORMAL);
+        this.maxMovesNumber = Integer.parseInt(Constants.getConstantOf("MOVES_NUMBER"));
     }
 
     // This method is used for testing purposes only.
@@ -173,8 +173,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * Learns a new magical move based on the player's level and learning interval.
      */
     private void learnNewMove() {
-        if (levelToLearnAMove == movesLearningInterval) {
-            levelToLearnAMove = 0;
+        if (level % movesLearningInterval == 0) {
             Optional<MagicMove> newMove;
 
             // If the player knows all moves of their type, learn a move of a different type
@@ -188,10 +187,12 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
                     // Continue searching until finding a move the player doesn't already know
                 } while (this.moveSet.getMagicMoves().contains(newMove.get()));
             }
-
-            this.moveSet.addMagicMove(newMove.get());
-        } else {
-            levelToLearnAMove++;
+            if (this.moveSet.getMagicMoves().size() == this.maxMovesNumber) {
+                //TODO: Da gestire
+                //this.moveSet.changeMoves(null, newMove); da gestire
+            } else {
+                this.moveSet.addMagicMove(newMove.get());
+            }
         }
     }
 

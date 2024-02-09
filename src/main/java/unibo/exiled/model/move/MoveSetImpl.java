@@ -12,15 +12,12 @@ public final class MoveSetImpl implements MoveSet {
      * A set of moves that compose the move set.
      */
     private final Set<MagicMove> magicMoves;
-    private final int maxMoves;
 
     /**
      * The constructor of the move set.
-     * @param movesNumber The number of the moves composing the move set.
      */
-    public MoveSetImpl(final int movesNumber) {
-        magicMoves = new HashSet<>(movesNumber);
-        maxMoves = movesNumber;
+    public MoveSetImpl() {
+        magicMoves = new HashSet<>();
     }
 
     @Override
@@ -40,13 +37,8 @@ public final class MoveSetImpl implements MoveSet {
     }
 
     @Override
-    public boolean addMagicMove(final MagicMove newMove) {
-        if (magicMoves.size() == maxMoves) {
-            return false;
-        } else {
-            magicMoves.add(newMove);
-            return true;
-        }
+    public void addMagicMove(final MagicMove newMove) {
+        magicMoves.add(newMove);
     }
 
 }

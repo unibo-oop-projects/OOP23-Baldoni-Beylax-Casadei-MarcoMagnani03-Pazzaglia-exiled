@@ -27,7 +27,6 @@ public interface MoveSet {
      * Adds a new magical move to the set if the number of moves is below a specified limit.
      *
      * @param newMove The new magical move to be added.
-     * @return true if the move is added successfully, false otherwise.
      */
-    boolean addMagicMove(MagicMove newMove);
+    void addMagicMove(MagicMove newMove);
 }

@@ -21,7 +21,7 @@ public final class MoveSets {
      * @return A MoveSet with the same moves of the parameter one.
      */
     public static MoveSet copyOf(final MoveSet moveSet) {
-        final MoveSet newMoveSet = new MoveSetImpl(moveSet.getMagicMoves().size());
+        final MoveSet newMoveSet = new MoveSetImpl();
         for (final MagicMove move : moveSet.getMagicMoves()) {
             newMoveSet.addMagicMove(move);
         }

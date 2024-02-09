@@ -48,14 +48,17 @@ public class GameGridView {
      */
     public void initializeGrid() {
         drawGrid();
+        this.gamePanel.removeAll(); 
         this.gamePanel.add(gridPanel, BorderLayout.CENTER);
+        this.gamePanel.revalidate();
+        this.gamePanel.repaint();
     }
 
     /**
      * Draws the grid game panel.
      *
      */
-    public void drawGrid() {
+    private void drawGrid() {
         final Position playerPosition = gameController.getCharacterController().getPlayerPosition();
         final int mapSize = this.gameController.getMapController().getMapSize();
         final int range = PLAYER_GRID_VISIBILITY;
