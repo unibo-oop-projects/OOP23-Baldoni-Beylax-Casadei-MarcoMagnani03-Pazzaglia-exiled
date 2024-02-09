@@ -131,7 +131,7 @@ public final class PlayerClassView {
         if (result == JOptionPane.YES_OPTION) {
             this.controller.getCharacterController().assignPlayerClass(playerType);
             new GameView(this.controller).display();
-            this.hide();
+            this.close();
         }
     }
 

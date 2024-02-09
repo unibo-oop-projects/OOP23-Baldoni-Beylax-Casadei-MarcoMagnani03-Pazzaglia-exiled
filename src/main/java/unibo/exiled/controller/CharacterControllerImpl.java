@@ -129,6 +129,18 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
+    public ElementalType getMagicMoveElementalType(final String moveName) {
+        final Optional<MagicMove> move = this.model.getMagicMoves().stream()
+                .filter(m -> m.name().equals(moveName))
+                .findFirst();
+        if (move.isPresent()) {
+            return move.get().type();
+        } else {
+            throw new IllegalArgumentException("The move doesn't exists");
+        }
+    }
+
+    @Override
     public List<String> getPlayerMoveSet() {
         return this.model.getPlayerMoveSet().getMagicMoves().stream().map(MagicMove::name).toList();
     }

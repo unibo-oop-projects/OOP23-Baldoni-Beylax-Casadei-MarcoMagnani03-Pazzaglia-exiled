@@ -98,12 +98,19 @@ public interface CharacterController {
     String getMagicMoveDescription(String magicMoveName);
 
     /**
-     * Returns the damage to a magic move.
+     * Returns the damage of a magic move.
      * 
      * @param magicMoveName the name of the move to find.
-     * @return the damage to the move.
+     * @return the damage of the move.
      */
     double getMagicMoveDamage(String magicMoveName);
+
+    /**
+     * Returns the elemental type of a magic move.
+     * @param magicMoveName the magic move name
+     * @return the magic of the magic move
+     */
+    ElementalType getMagicMoveElementalType(String magicMoveName);
 
     /**
      * Gets the move set of the player.

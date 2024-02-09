@@ -15,7 +15,6 @@ public final class MenuModelImpl implements MenuModel {
         this.newGameMenu = new MenuImpl();
 
         this.inGameMenu.addMenuItem(new MenuItem("RESUME", Command.CLOSE_MENU));
-        this.inGameMenu.addMenuItem(new MenuItem("NEW GAME", Command.NEW_GAME));
         this.inGameMenu.addMenuItem(new MenuItem("QUIT", Command.QUIT));
 
         this.newGameMenu.addMenuItem(new MenuItem("NEW GAME", Command.NEW_GAME));
