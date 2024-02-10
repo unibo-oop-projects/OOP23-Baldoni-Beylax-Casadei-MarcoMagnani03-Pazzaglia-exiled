@@ -45,7 +45,7 @@ public final class PlayerClassView {
     public PlayerClassView() {
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setName("Player class");
         this.mainFrame.setLocationByPlatform(true);
