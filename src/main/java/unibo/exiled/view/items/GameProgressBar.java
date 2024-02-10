@@ -2,7 +2,7 @@ package unibo.exiled.view.items;
 
 import javax.swing.JProgressBar;
 
-import unibo.exiled.model.utilities.FontManager;
+import unibo.exiled.utilities.FontManager;
 
 import java.awt.Color;
 import java.util.List;

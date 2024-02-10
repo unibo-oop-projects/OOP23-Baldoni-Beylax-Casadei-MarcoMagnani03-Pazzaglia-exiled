@@ -1,6 +1,6 @@
 package unibo.exiled.model.character.enemy;
 
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.Position;
 
 import java.util.HashSet;
 import java.util.Set;

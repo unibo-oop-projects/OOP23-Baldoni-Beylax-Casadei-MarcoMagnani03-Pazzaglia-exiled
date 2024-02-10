@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import unibo.exiled.config.Constants;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
+import unibo.exiled.utilities.Position;
 
 /**
  * Implementation of the GameMap interface representing a game map with cells of
@@ -28,11 +28,10 @@ public final class GameMapImpl implements GameMap {
      */
     public GameMapImpl(final int size) {
         if (size % 2 == 0) {
-            Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
             this.size = size;
             this.cellStates = new HashMap<>();
             this.cellCorners = new HashMap<>();
-            final int startingSize = size / 2 - Integer.parseInt(Constants.getConstantOf("STARTING_SIZE"));
+            final int startingSize = size / 2 - ConstantsAndResourceLoader.STARTING_SAFEZONE_SIZE;
             this.fillCells(startingSize);
         } else {
             throw new IllegalArgumentException("The size of the map should be an even number.");

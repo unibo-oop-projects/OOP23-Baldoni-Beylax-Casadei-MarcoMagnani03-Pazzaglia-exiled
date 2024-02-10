@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import unibo.exiled.config.Constants;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.model.character.attributes.AdditiveAttribute;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -23,10 +23,10 @@ import unibo.exiled.model.map.CellType;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.Moves;
-import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.ElementalType;
-import unibo.exiled.model.utilities.Position;
-import unibo.exiled.model.utilities.Positions;
+import unibo.exiled.utilities.Direction;
+import unibo.exiled.utilities.ElementalType;
+import unibo.exiled.utilities.Position;
+import unibo.exiled.utilities.Positions;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -50,20 +50,15 @@ public final class CharacterModelImpl implements CharacterModel {
     public CharacterModelImpl(final GameModel model) {
         this.model = model;
 
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        final int playerExperienceCap = Integer.parseInt(Constants.getConstantOf("PLAYER_EXPERIENCE_CAP"));
-        final int defaultExperience = Integer.parseInt(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE"));
-        final int playerLevelIncrease = Integer.parseInt(Constants.getConstantOf("PLAYER_LEVEL_INCREASE"));
-        final int enemyNumber = Integer.parseInt(Constants.getConstantOf("NUM_ENEMIES"));
-        final int movesLearningInterval = Integer.parseInt(Constants.getConstantOf("MOVES_LEARNING_INTERVAL"));
-
         //Player initialization.
-        this.player = new PlayerImpl(playerExperienceCap,
-                defaultExperience, playerLevelIncrease, movesLearningInterval);
-        this.player.move(new Position(model.getMapModel().getSize() / 2, model.getMapModel().getSize() / 2));
+        this.player = new PlayerImpl(ConstantsAndResourceLoader.PLAYER_EXPERIENCE_CAP,
+                ConstantsAndResourceLoader.PLAYER_ATTRIBUTE_INCREASE_BOUND,
+                ConstantsAndResourceLoader.PLAYER_MOVES_LEARNING_INTERVAL);
+        this.player.move(new Position(model.getMapModel().getSize() / 2,
+                model.getMapModel().getSize() / 2));
 
         this.enemyCollection = new EnemyCollectionImpl();
-        this.enemyInitialization(enemyNumber);
+        this.enemyInitialization(ConstantsAndResourceLoader.NUM_ENEMIES);
 
     }
 
@@ -77,7 +72,8 @@ public final class CharacterModelImpl implements CharacterModel {
                         RANDOM.nextInt(model.getMapModel().getSize()));
             } while (!isCellEmpty(newEnemyPosition)
                     || this.model.getMapModel().isCornerOfMap(newEnemyPosition)
-                    || !(this.model.getMapModel().getCellType(newEnemyPosition).getAssociatedType().equals(newEnemy.getType())));
+                    || !(this.model.getMapModel().getCellType(newEnemyPosition)
+                    .getAssociatedType().equals(newEnemy.getType())));
             newEnemy.move(newEnemyPosition);
             this.enemyCollection.addEnemy(newEnemy);
         }
@@ -145,7 +141,8 @@ public final class CharacterModelImpl implements CharacterModel {
                     }
                 }
                 if (isEnemyInCell(newPosition)
-                        && this.model.getMapModel().getCellType(newPosition).getAssociatedType().equals(enemy.getType())) {
+                        && this.model.getMapModel().getCellType(newPosition)
+                        .getAssociatedType().equals(enemy.getType())) {
                     enemy.move(newPosition);
                 }
             }

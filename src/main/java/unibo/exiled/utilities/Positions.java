@@ -1,4 +1,4 @@
-package unibo.exiled.model.utilities;
+package unibo.exiled.utilities;
 
 /**
  * Utilities for the positions.

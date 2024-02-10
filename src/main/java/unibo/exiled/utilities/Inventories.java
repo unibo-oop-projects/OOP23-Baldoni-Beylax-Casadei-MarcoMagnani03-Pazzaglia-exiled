@@ -1,4 +1,4 @@
-package unibo.exiled.model.utilities;
+package unibo.exiled.utilities;
 
 import java.util.Map;
 import java.util.Map.Entry;

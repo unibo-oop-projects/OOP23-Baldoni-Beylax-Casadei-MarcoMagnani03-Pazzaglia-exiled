@@ -1,8 +1,8 @@
 package unibo.exiled.controller;
 
 import unibo.exiled.model.map.CellType;
-import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.Direction;
+import unibo.exiled.utilities.Position;
 
 /**
  * Controller for managing the game map.

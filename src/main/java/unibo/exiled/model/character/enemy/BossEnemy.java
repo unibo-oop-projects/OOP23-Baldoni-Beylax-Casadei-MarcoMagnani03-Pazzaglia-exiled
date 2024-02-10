@@ -4,7 +4,7 @@ import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.item.ItemContainer;
 import unibo.exiled.model.item.ItemNames;
 import unibo.exiled.model.move.MoveSet;
-import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.utilities.ElementalType;
 
 /**
  * Extension of the enemy representing a Boss of the game.

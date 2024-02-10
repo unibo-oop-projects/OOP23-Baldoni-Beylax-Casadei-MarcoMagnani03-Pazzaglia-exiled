@@ -2,7 +2,7 @@ package unibo.exiled.model.character.enemy;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.item.Item;
-import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.utilities.ElementalType;
 
 import java.util.Optional;
 

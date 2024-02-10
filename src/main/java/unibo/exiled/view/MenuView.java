@@ -2,6 +2,7 @@ package unibo.exiled.view;
 
 import unibo.exiled.model.menu.Command;
 import unibo.exiled.model.menu.MenuItem;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.view.items.GameButton;
 
 import javax.swing.JPanel;
@@ -16,7 +17,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.Frame;
-import java.io.File;
 import java.io.Serial;
 import java.util.List;
 import java.util.Optional;
@@ -44,14 +44,9 @@ public final class MenuView extends JPanel {
         cnst.gridy = 0;
         cnst.insets = new Insets(GRID_INSET, GRID_INSET, GRID_INSET, GRID_INSET);
         cnst.fill = GridBagConstraints.HORIZONTAL;
-        final JLabel logoLabel = new JLabel(new ImageIcon("src"
-                + File.separator
-                + "main" + File.separator
-                + "java" + File.separator
-                + "unibo" + File.separator
-                + "exiled" + File.separator
-                + "resources" + File.separator
-                + "logo.png"));
+        final JLabel logoLabel = new JLabel(new ImageIcon(ConstantsAndResourceLoader
+                .getResourceURLFromPath(ConstantsAndResourceLoader.IMAGES_PATH
+                        + "/interface/logo.png")));
         buttonListPanel.add(logoLabel);
         cnst.gridy++;
 

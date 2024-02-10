@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import unibo.exiled.controller.GameController;
-import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.utilities.Direction;
 import unibo.exiled.view.GameView;
 import unibo.exiled.view.character.CharacterView;
 

@@ -8,7 +8,7 @@ import unibo.exiled.model.item.ItemContainer;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetFactory;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
-import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.utilities.ElementalType;
 
 import java.util.Map;
 import java.util.Random;
