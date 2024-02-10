@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.resolver.buildSrcSourceRootsFilePath
+
 plugins {
     // Apply the java plugin to add support for Java
     java

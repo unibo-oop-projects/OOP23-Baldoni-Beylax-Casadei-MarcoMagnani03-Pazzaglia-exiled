@@ -13,7 +13,6 @@ import javax.swing.border.LineBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.io.File;
 import java.util.List;
 
 /**
@@ -112,7 +111,7 @@ public class GameGridView {
         final List<String> characterImagePath = gameController.getCharacterController()
                 .getImagePathOfCharacter(ConstantsAndResourceLoader.ENEMY_PATH,
                         gameController.getMapController().getNameOfCharacterInPosition(position)
-                                + File.separator
+                                + "/"
                                 + gameController.getMapController().getNameOfCharacterInPosition(position));
         final JLabel enemyLabel = new CharacterView(characterImagePath);
         ((CharacterView) enemyLabel).changeImage(gameController.getMapController()
