@@ -78,7 +78,7 @@ public final class CombatView extends JPanel {
                 .getPlayerClassName().toLowerCase(Locale.ROOT);
         final JLabel playerLabel = new CharacterView(
                 this.gameController.getCharacterController().getImagePathOfCharacter(
-                        ConstantsAndResourceLoader.PLAYER_PATH + File.separator + playerClass,
+                        ConstantsAndResourceLoader.PLAYER_PATH + "/" + playerClass,
                         ConstantsAndResourceLoader.PLAYER_NAME + "_" + playerClass));
         battlePanel.add(playerLabel);
 
