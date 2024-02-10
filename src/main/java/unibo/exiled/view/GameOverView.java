@@ -1,8 +1,8 @@
 package unibo.exiled.view;
 
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.view.items.GameButton;
 
-import java.io.File;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
+import java.net.URL;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -19,27 +20,13 @@ import javax.swing.WindowConstants;
  */
 public final class GameOverView {
 
+    // Path to the game over image file.
+    private static final String GAME_OVER_IMAGE_PATH = ConstantsAndResourceLoader.IMAGES_PATH + "/interface/gameover.png";
     // MVC Components.
     private final JFrame mainFrame;
-
     // Buttons to restart or exit the game.
     private final GameButton restartButton = new GameButton("Restart");
     private final GameButton quitButton = new GameButton("Quit");
-
-    // Path to the game over image file.
-    private static final String GAME_OVER_IMAGE_PATH = "src"
-            + File.separator
-            + "main"
-            + File.separator
-            + "java"
-            + File.separator
-            + "unibo"
-            + File.separator
-            + "exiled"
-            + File.separator
-            + "resources"
-            + File.separator
-            + "gameover.png";
 
     /**
      * Constructs a GameOver view.
@@ -47,7 +34,7 @@ public final class GameOverView {
     public GameOverView() {
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
@@ -62,7 +49,8 @@ public final class GameOverView {
      */
     private void initializeUI() {
         final JPanel gameOverPanel = new JPanel(new BorderLayout());
-        final JLabel gameOverLabel = new JLabel(new ImageIcon(GAME_OVER_IMAGE_PATH));
+        final URL imageURL = ClassLoader.getSystemResource(GAME_OVER_IMAGE_PATH);
+        final JLabel gameOverLabel = new JLabel(new ImageIcon(imageURL));
         gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
 
         final JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -91,7 +79,7 @@ public final class GameOverView {
                     "Would you like to quit the game?", "Warning", JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
                 this.mainFrame.dispatchEvent(new WindowEvent(this.mainFrame, WindowEvent.WINDOW_CLOSING)); // Close the
-                                                                                                           // game
+                // game
             }
         });
     }

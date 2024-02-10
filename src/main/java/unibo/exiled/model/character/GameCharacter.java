@@ -3,8 +3,8 @@ package unibo.exiled.model.character;
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.move.MoveSet;
-import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.Direction;
+import unibo.exiled.utilities.Position;
 
 import java.util.Map;
 

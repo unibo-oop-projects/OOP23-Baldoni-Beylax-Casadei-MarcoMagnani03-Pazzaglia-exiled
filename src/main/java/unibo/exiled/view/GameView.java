@@ -1,11 +1,10 @@
 package unibo.exiled.view;
 
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.util.Locale;
 import java.util.Optional;
 
-import unibo.exiled.config.Constants;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.MenuControllerImpl;
 import unibo.exiled.view.character.CharacterView;
@@ -54,7 +53,6 @@ public final class GameView {
      */
     public GameView(final GameController gameController) {
         final JPanel gameContainerPanel;
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         this.gameController = gameController;
 
         this.mainFrame = new JFrame();
@@ -88,8 +86,8 @@ public final class GameView {
                 .getCharacterController().getPlayerClassName().toLowerCase(Locale.ROOT);
         final CharacterView playerView = new CharacterView(
                 this.gameController.getCharacterController().getImagePathOfCharacter(
-                        Constants.PLAYER_PATH + File.separator + playerClass,
-                        Constants.PLAYER_NAME + "_" + playerClass));
+                        ConstantsAndResourceLoader.PLAYER_PATH + "/" + playerClass,
+                        ConstantsAndResourceLoader.PLAYER_NAME + "_" + playerClass));
         this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(new MenuControllerImpl().getInGameMenuItems(), Optional.of(this));
         this.hud = new HudView(this, this.gameController);
@@ -127,7 +125,7 @@ public final class GameView {
      * level, and class information.
      */
     private void initializeHUD() {
-        this.gameHudPanel.add(this.hud.initialize(), BorderLayout.NORTH); 
+        this.gameHudPanel.add(this.hud.initialize(), BorderLayout.NORTH);
     }
 
     /**

@@ -1,9 +1,9 @@
 package unibo.exiled.model.map;
 
-import unibo.exiled.config.Constants;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.game.GameModel;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.Position;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -21,10 +21,7 @@ public final class MapModelImpl implements MapModel {
      * @param model The game model.
      */
     public MapModelImpl(final GameModel model) {
-
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        final int size = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
-        this.map = new GameMapImpl(size);
+        this.map = new GameMapImpl(ConstantsAndResourceLoader.MAP_SIZE);
         this.model = model;
     }
 

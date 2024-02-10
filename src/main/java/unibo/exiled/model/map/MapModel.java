@@ -3,7 +3,7 @@ package unibo.exiled.model.map;
 import java.util.Optional;
 
 import unibo.exiled.model.character.GameCharacter;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.Position;
 
 /**
  * The model that manages the map.

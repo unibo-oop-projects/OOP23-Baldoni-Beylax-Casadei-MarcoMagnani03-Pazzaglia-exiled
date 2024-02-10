@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.utilities.ElementalType;
 
 /**
  * A container of every move usable in the game.

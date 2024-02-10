@@ -7,8 +7,8 @@ import unibo.exiled.model.character.attributes.CombinedAttributeImpl;
 import unibo.exiled.model.character.attributes.AdditiveAttribute;
 import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttribute;
-import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.Direction;
+import unibo.exiled.utilities.Position;
 
 import java.util.Collections;
 import java.util.HashMap;

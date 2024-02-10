@@ -1,7 +1,6 @@
 package unibo.exiled.view.items;
 
-import unibo.exiled.config.Constants;
-import unibo.exiled.model.utilities.FontManager;
+import unibo.exiled.utilities.FontManager;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -35,7 +34,6 @@ public final class GameButton extends JButton {
     }
 
     private void setButtonStyle() {
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
 
         setFont(FontManager.getCustomFont());
         setForeground(Color.WHITE);

@@ -8,9 +8,9 @@ import unibo.exiled.model.character.enemy.EnemyCollection;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
-import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.ElementalType;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.Direction;
+import unibo.exiled.utilities.ElementalType;
+import unibo.exiled.utilities.Position;
 
 import javax.annotation.concurrent.Immutable;
 

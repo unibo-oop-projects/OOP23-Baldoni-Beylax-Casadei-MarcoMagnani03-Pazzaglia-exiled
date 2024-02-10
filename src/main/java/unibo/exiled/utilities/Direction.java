@@ -1,4 +1,4 @@
-package unibo.exiled.model.utilities;
+package unibo.exiled.utilities;
 
 /**
  * The direction used to move to a different position.

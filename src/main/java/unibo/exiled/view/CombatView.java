@@ -1,19 +1,17 @@
 package unibo.exiled.view;
 
-import unibo.exiled.config.Constants;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.controller.GameController;
-import unibo.exiled.model.utilities.ElementalType;
-import unibo.exiled.model.utilities.FontManager;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.ElementalType;
+import unibo.exiled.utilities.FontManager;
+import unibo.exiled.utilities.Position;
 import unibo.exiled.view.character.CharacterView;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -25,7 +23,6 @@ import java.util.List;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.util.Locale;
 
@@ -37,7 +34,6 @@ public final class CombatView extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int ENEMY_ATTACK_DELAY = 2000;
     private static final int ENEMY_LIFE_GLITCH_DELAY = 150;
-    private static final int BUTTON_FONT_SIZE = 40;
     private static final int EXTERNAL_PADDING = 100;
     private static final int EXTERNAL_NO_PADDING = 0;
     private static final int ENEMY_PANEL_TEXT_PADDING = 10;
@@ -82,8 +78,8 @@ public final class CombatView extends JPanel {
                 .getPlayerClassName().toLowerCase(Locale.ROOT);
         final JLabel playerLabel = new CharacterView(
                 this.gameController.getCharacterController().getImagePathOfCharacter(
-                        Constants.PLAYER_PATH + File.separator + playerClass,
-                        Constants.PLAYER_NAME + "_" + playerClass));
+                        ConstantsAndResourceLoader.PLAYER_PATH + File.separator + playerClass,
+                        ConstantsAndResourceLoader.PLAYER_NAME + "_" + playerClass));
         battlePanel.add(playerLabel);
 
         this.enemyImagePanel = new JPanel(new BorderLayout());
@@ -128,7 +124,7 @@ public final class CombatView extends JPanel {
 
         // Remove old enemy
         final List<String> enemyImagePath = this.gameController.getCharacterController().getImagePathOfCharacter(
-                Constants.ENEMY_PATH,
+                ConstantsAndResourceLoader.ENEMY_PATH,
                 this.gameController.getMapController().getNameOfCharacterInPosition(combatPosition)
                         + File.separator
                         + this.gameController.getMapController().getNameOfCharacterInPosition(this.combatPosition));

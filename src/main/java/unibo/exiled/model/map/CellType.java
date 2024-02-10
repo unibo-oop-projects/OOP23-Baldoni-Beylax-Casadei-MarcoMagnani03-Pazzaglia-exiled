@@ -1,6 +1,6 @@
 package unibo.exiled.model.map;
 
-import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.utilities.ElementalType;
 
 /**
  * Enum representing different types of cells on the game map.

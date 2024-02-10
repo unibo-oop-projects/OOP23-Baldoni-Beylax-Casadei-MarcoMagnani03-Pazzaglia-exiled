@@ -1,7 +1,7 @@
 package unibo.exiled.model.move;
 
 import org.junit.jupiter.api.Test;
-import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.utilities.ElementalType;
 
 import java.util.Optional;
 import java.util.Set;

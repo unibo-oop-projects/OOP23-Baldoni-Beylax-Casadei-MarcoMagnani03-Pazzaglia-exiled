@@ -3,8 +3,9 @@ package unibo.exiled.view;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.GameControllerImpl;
 import unibo.exiled.model.game.GameModelImpl;
-import unibo.exiled.model.utilities.ElementalType;
-import unibo.exiled.model.utilities.FontManager;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
+import unibo.exiled.utilities.ElementalType;
+import unibo.exiled.utilities.FontManager;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.TitleGameLabel;
 
@@ -12,7 +13,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.io.File;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -31,14 +31,7 @@ public final class PlayerClassView {
     private static final Random RANDOM = new Random();
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;
-    private static final String RANDOM_IMAGE_PATH = "src"
-            + File.separator + "main"
-            + File.separator + "java"
-            + File.separator + "unibo"
-            + File.separator + "exiled"
-            + File.separator + "resources"
-            + File.separator + "class"
-            + File.separator + "random.png";
+    private static final String RANDOM_IMAGE_PATH = ConstantsAndResourceLoader.IMAGES_PATH + "/class/random.png";
 
     private final transient GameController controller;
     private final JFrame mainFrame;
@@ -93,7 +86,7 @@ public final class PlayerClassView {
      */
     private JButton createButton(final ElementalType elementalType) {
         final GameButton button = configureDefaultButton(elementalType.getName(), elementalType.getElementalColor(),
-        elementalType.getElementalImage());
+                elementalType.getElementalImage());
         button.addActionListener(e -> classDecision(elementalType));
         return button;
     }
@@ -104,7 +97,9 @@ public final class PlayerClassView {
      * @return The created JButton.
      */
     private JButton createRandomButton() {
-        final GameButton button = configureDefaultButton("Random", RANDOM_BUTTON_COLOR, new ImageIcon(RANDOM_IMAGE_PATH));
+        final GameButton button = configureDefaultButton("Random",
+                RANDOM_BUTTON_COLOR,
+                new ImageIcon(ConstantsAndResourceLoader.getResourceURLFromPath(RANDOM_IMAGE_PATH)));
         button.addActionListener(e -> randomClassDecision());
         return button;
     }
@@ -115,7 +110,7 @@ public final class PlayerClassView {
         button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
         button.setBackground(buttonColor);
         button.setIcon(new ImageIcon(image.getImage().getScaledInstance(BUTTON_FONT_SIZE,
-        BUTTON_FONT_SIZE, Image.SCALE_SMOOTH)));
+                BUTTON_FONT_SIZE, Image.SCALE_SMOOTH)));
         return button;
     }
 
@@ -126,7 +121,7 @@ public final class PlayerClassView {
      */
     private void classDecision(final ElementalType playerType) {
         final int result = JOptionPane.showConfirmDialog(this.mainFrame, "Are you sure you want to choose "
-                + playerType.getName() + " class?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                + playerType.getName() + "class?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
             this.controller.getCharacterController().assignPlayerClass(playerType);

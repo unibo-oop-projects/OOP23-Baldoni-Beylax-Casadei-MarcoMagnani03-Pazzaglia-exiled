@@ -5,8 +5,8 @@ import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.move.MoveSet;
-import unibo.exiled.model.utilities.ElementalType;
-import unibo.exiled.model.utilities.MoveSets;
+import unibo.exiled.utilities.ElementalType;
+import unibo.exiled.utilities.MoveSets;
 
 import java.util.Map;
 import java.util.Optional;
