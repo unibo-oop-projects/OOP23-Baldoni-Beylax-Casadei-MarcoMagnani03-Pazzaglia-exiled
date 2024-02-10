@@ -7,7 +7,7 @@ import java.net.URL;
  * This class provides constants and configuration loading for the game.
  */
 @Immutable
-public final class ConstantsAndResourceLoader {
+public final class ConstantsAndResourceLoader extends ClassLoader {
     /**
      * The main folder of the player.
      */
@@ -72,9 +72,9 @@ public final class ConstantsAndResourceLoader {
      * Gets a URL for multiplatform resource sharing.
      *
      * @param path The path of the resource in the file structure.
-     * @return A URL loaded by the java ClassLoader.
+     * @return A stream loaded by the java ClassLoader.
      */
     public static URL getResourceURLFromPath(final String path) {
-        return ClassLoader.getSystemResource(path);
+        return ClassLoader.getSystemClassLoader().getResource(path);
     }
 }

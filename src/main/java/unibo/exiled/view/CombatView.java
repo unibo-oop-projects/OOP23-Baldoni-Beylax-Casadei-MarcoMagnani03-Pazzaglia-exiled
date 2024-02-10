@@ -165,7 +165,7 @@ public final class CombatView extends JPanel {
                 this.enemyAttackTimer.start();
 
                 if (isEnemyDead) {
-                    this.gameView.refreshStatusPanel();
+                    this.gameView.createHUD();
                     this.gameView.updateInventory();
                     this.gameView.hideCombat();
                 } else {
@@ -190,7 +190,7 @@ public final class CombatView extends JPanel {
                         enemyMove.setText(
                                 enemyName + " used: " + enemyMoveName + "(" + enemyMoveDamage + ")" + "\n\n"
                                         + enemyMoveDescription);
-                        gameView.refreshStatusPanel();
+                        gameView.createHUD();
 
                         if (isPlayerDead) {
                             gameView.hideCombat();

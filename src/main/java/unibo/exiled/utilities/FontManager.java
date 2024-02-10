@@ -3,9 +3,7 @@ package unibo.exiled.utilities;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 /**
  * The FontManager class is responsible for loading and managing the custom font
@@ -29,15 +27,13 @@ public final class FontManager {
     public static void loadFont() {
         try {
             customFont = Font.createFont(Font.TRUETYPE_FONT,
-                            new File(ConstantsAndResourceLoader.getResourceURLFromPath("unibo/exiled/font.ttf").toURI()))
+                            ClassLoader.getSystemResourceAsStream("unibo/exiled/font.ttf"))
                     .deriveFont(DEFAULT_FONT_SIZE);
             final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
             // If the custom font loading fails, use a fallback font (Arial, bold, size 16).
             customFont = new Font("Arial", Font.BOLD, 16);
-        } catch (final URISyntaxException ignored) {
-
         }
     }
 

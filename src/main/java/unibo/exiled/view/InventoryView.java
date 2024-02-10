@@ -161,7 +161,7 @@ public final class InventoryView extends JPanel {
                 JOptionPane.showMessageDialog(null, "Used " + itemName,
                         "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
                 setFont(FontManager.getCustomFont(FONT_SIZE));
-                gameView.refreshStatusPanel();
+                gameView.createHUD();
             } else {
                 JOptionPane.showMessageDialog(null, "Error using the item " + itemName,
                         "ERROR", JOptionPane.ERROR_MESSAGE);
