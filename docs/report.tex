@@ -140,7 +140,8 @@ All'interno della \textit{GameOverView}, sono stati inclusi due \textit{JButton}
 
 La \textit{GameOverView} è stata integrata all'interno della \textit{GameView}, la schermata principale definita in precedenza. All'interno di questa \textit{GameView} è anche presente il \textit{GameController}, che facilita il collegamento tra il Model e la View stessa. Grazie a questo Controller, è possibile determinare quando la schermata principale deve essere sostituita dalla schermata di Game Over.
 
-Il pattern utilizzato per la gestione è il pattern Observer.
+Il pattern architetturale impiegato per gestire la visualizzazione della \textit{GameOverView} nel metodo \textit{draw()} della classe \textit{GameView} è il noto Facade.
+Quando il gioco giunge al termine, la \textit{GameOverView} viene mostrata in modo condizionale attraverso il metodo prima citato fornito dal \textit{GameController}. Questo approccio consente di occultare la complessità interna associata alla visualizzazione della \textit{GameOverView} e di semplificare l'interazione con essa all'interno di un unico metodo della \textit{GameView}.
 
 \subsection*{Marco Magnani}
 
