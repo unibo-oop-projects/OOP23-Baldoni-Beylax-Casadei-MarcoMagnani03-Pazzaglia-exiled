@@ -40,6 +40,7 @@ public final class GameView {
     private final JPanel menuPanel;
     private final JPanel inventoryPanel;
     private final JPanel combatPanel;
+    private final JPanel gameContainerPanel;
 
     /**
      * The game controller that manages interaction between the model and the view.
@@ -53,7 +54,6 @@ public final class GameView {
      *                       the model and the view.
      */
     public GameView(final GameController gameController) {
-        final JPanel gameContainerPanel;
         Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
         this.gameController = gameController;
 
@@ -93,7 +93,7 @@ public final class GameView {
         this.combatView = new CombatView(this.gameController, this);
         final MenuView menuView = new MenuView(new MenuControllerImpl().getInGameMenuItems(), Optional.of(this));
         this.hud = new HudView(this, this.gameController);
-        this.grid = new GameGridView(this.gameController, this.gamePanel, playerView);
+        this.grid = new GameGridView(this.gameController, playerView);
 
         this.menuPanel.add(menuView);
         this.inventoryPanel.add(this.inventoryView);
@@ -117,8 +117,8 @@ public final class GameView {
         this.hideInventory();
         this.hideCombat();
 
-        this.grid.initializeGrid();
-        this.initializeHUD();
+        this.draw();
+        this.createHUD();
         this.mainFrame.addKeyListener(new GameKeyListener(gameController, this, playerView));
     }
 
@@ -126,15 +126,10 @@ public final class GameView {
      * This method sets up buttons for inventory and menu, displays player health,
      * level, and class information.
      */
-    private void initializeHUD() {
+    public void createHUD() {
+        this.gameHudPanel.removeAll();
+        this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
         this.gameHudPanel.add(this.hud.initialize(), BorderLayout.NORTH); 
-    }
-
-    /**
-     * Refreshes the player status panel.
-     */
-    public void refreshStatusPanel() {
-        initializeHUD();
     }
 
     /**
@@ -146,7 +141,11 @@ public final class GameView {
             this.mainFrame.dispose();
         }
 
-        this.grid.initializeGrid();
+        this.gamePanel.removeAll();
+
+        this.gamePanel.add(this.grid.initializeGrid());
+        this.gamePanel.repaint();
+        this.gamePanel.revalidate();
     }
 
     /**
@@ -198,6 +197,7 @@ public final class GameView {
      */
     public void hideInventory() {
         this.gameHudPanel.setVisible(true);
+        createHUD();
         this.inventoryPanel.setVisible(false);
     }
 
@@ -221,6 +221,7 @@ public final class GameView {
      */
     public void hideMenu() {
         this.gameHudPanel.setVisible(true);
+        createHUD();
         this.menuPanel.setVisible(false);
     }
 

@@ -23,36 +23,39 @@ import java.util.List;
 public class GameGridView {
     private static final int PLAYER_GRID_VISIBILITY = 5;
     private final GameController gameController;
-    //TODO: Remove field
-    private final JPanel gamePanel;
     private final CharacterView playerView;
     private JPanel gridPanel;
+    private final JPanel gamePanel; 
 
     /**
      * Constructs a Grid instance with the specified game controller, game panel, and player view.
      *
      * @param gameController The game controller that manages interaction between the model and the view.
-     * @param gamePanel      The panel where the grid will be drawn.
      * @param playerView     The view representing the player.
      */
-    public GameGridView(final GameController gameController, final JPanel gamePanel,
+    public GameGridView(final GameController gameController,
                         final CharacterView playerView) {
         this.gameController = gameController;
-        this.gamePanel = gamePanel;
         this.playerView = playerView;
         this.gridPanel = new JPanel(new GridLayout(gameController.getMapController().getMapSize(),
                 gameController.getMapController().getMapSize()));
+        this.gamePanel = new JPanel(new BorderLayout());
     }
 
     /**
      * Initializes and draws the grid on the game panel.
+     * 
+     * @return the game panel.
      */
-    public void initializeGrid() {
+    public JPanel initializeGrid() {
         drawGrid();
         this.gamePanel.removeAll();
         this.gamePanel.add(gridPanel, BorderLayout.CENTER);
         this.gamePanel.revalidate();
         this.gamePanel.repaint();
+        final JPanel clonedGamePanel = new JPanel(new BorderLayout());
+        clonedGamePanel.add(gamePanel, BorderLayout.CENTER);
+        return clonedGamePanel;
     }
 
     /**
