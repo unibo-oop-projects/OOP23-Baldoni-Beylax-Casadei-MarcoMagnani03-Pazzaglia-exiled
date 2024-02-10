@@ -124,6 +124,8 @@ Quando l'utente preme un tasto specifico sulla tastiera tra quelli elencati prim
 
 Oltre ai KeyListener di base per il movimento del giocatore, ho integrato la funzionalità di utilizzare il tasto E per aprire l'inventario quando si è in gioco e il tasto ESC per aprire/chiudere il menu di gioco. Questa scelta è stata fatta per migliorare l'esperienza di gioco e rendere l'interfaccia più intuitiva e user-friendly, consentendo ai giocatori di navigare facilmente tra le diverse funzionalità senza interruzioni.
 
+Avendo gestito il movimento e l'ascolto dei KeyListener in una classe separata, è stato utilizzato il design pattern strutturale Adapter. Questo pattern ci ha permesso di gestire in modo personalizzato i KeyListener attraverso la classe GameKeyListener, che implementa l'interfaccia KeyListener. Grazie a questa implementazione, siamo in grado di risolvere efficacemente il problema della gestione del movimento delle diverse entità all'interno del gioco.
+
 \subsubsection{Meccanismo di Game Over}
 Ho implementato la gestione del Game Over attraverso il \textit{GameController}. Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare il Game Over, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il Game Over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. Questo approccio ha semplificato la gestione del Game Over, utilizzando una logica chiara e intuitiva nella scrittura del codice.
 
@@ -133,12 +135,12 @@ All'interno della \textit{GameOverView}, sono stati inclusi due \textit{JButton}
 	\centering
 	\includegraphics[width=\textwidth]{GameOverUML.png}
 	\caption{Schema UML del GameOver con relativa vista sulle View}
-	\label{fig:diagramma-classe-player}
+	\label{fig:diagramma-classe-GameOver}
 \end{figure}
 
 La \textit{GameOverView} è stata integrata all'interno della \textit{GameView}, la schermata principale definita in precedenza. All'interno di questa \textit{GameView} è anche presente il \textit{GameController}, che facilita il collegamento tra il Model e la View stessa. Grazie a questo Controller, è possibile determinare quando la schermata principale deve essere sostituita dalla schermata di Game Over.
 
-
+Il pattern utilizzato per la gestione è il pattern Observer.
 
 \subsection*{Marco Magnani}
 
