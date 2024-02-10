@@ -17,7 +17,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
-import java.io.File;
 import java.io.Serial;
 import java.util.List;
 import java.awt.BorderLayout;
@@ -126,7 +125,7 @@ public final class CombatView extends JPanel {
         final List<String> enemyImagePath = this.gameController.getCharacterController().getImagePathOfCharacter(
                 ConstantsAndResourceLoader.ENEMY_PATH,
                 this.gameController.getMapController().getNameOfCharacterInPosition(combatPosition)
-                        + File.separator
+                        + "/"
                         + this.gameController.getMapController().getNameOfCharacterInPosition(this.combatPosition));
         final CharacterView enemyImage = new CharacterView(enemyImagePath);
         this.enemyMove.setText("");
