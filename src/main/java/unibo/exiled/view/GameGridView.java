@@ -1,6 +1,5 @@
 package unibo.exiled.view;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.model.map.CellType;
@@ -24,8 +23,6 @@ import java.util.List;
 public class GameGridView {
     private static final int PLAYER_GRID_VISIBILITY = 5;
     private final GameController gameController;
-            justification = "The gamePanel field is a JLabel that is not marked as Immutable,"
-                    + " but its modification inside this class is needed and intended.")
     private final CharacterView playerView;
     private JPanel gridPanel;
     private final JPanel gamePanel; 
