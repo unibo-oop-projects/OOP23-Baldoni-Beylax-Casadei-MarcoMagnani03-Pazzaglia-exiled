@@ -174,18 +174,18 @@ public final class CharacterControllerImpl implements CharacterController {
         final GameCharacter defender = !isPlayerAttacking ? this.model.getPlayer().get()
                 : this.model.getCharacterFromPosition(combatPosition).get();
 
-        final double baseDamage = attacker.getMoveSet()
-                .getMagicMoves()
-                .stream()
-                .filter(m -> m.name().equals(moveName))
-                .findFirst()
-                .get()
-                .power();
-        final double attackModifier = ((MultiplierAttribute) attacker.getAttributes().get(AttributeIdentifier.ATTACK))
-                .modifier();
+        final MagicMove move = attacker.getMoveSet()
+                                        .getMagicMoves()
+                                        .stream()
+                                        .filter(m -> m.name().equals(moveName))
+                                        .findFirst()
+                                        .get();
+        final double baseDamage = move.power();
         final double defenseModifier = ((MultiplierAttribute) defender.getAttributes()
-                .get(AttributeIdentifier.DEFENSE)).modifier();
-
+        .get(AttributeIdentifier.DEFENSE)).modifier();
+        
+        final double moveTypeModifier = attacker.getType().equals(move.type()) ? 1.4 : 1;
+        final double attackModifier = ((MultiplierAttribute) attacker.getAttributes().get(AttributeIdentifier.ATTACK)).modifier() * moveTypeModifier;
         final double damage = baseDamage * attackModifier / defenseModifier * typeModifier(attacker, defender);
         defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);
 
