@@ -11,6 +11,10 @@ import unibo.exiled.utilities.ElementalType;
  */
 public interface Player extends GameCharacter {
 
+    //
+    //  GETTER
+    //
+
     /**
      * Gets the level of the player.
      *
@@ -26,26 +30,44 @@ public interface Player extends GameCharacter {
     int getExperience();
 
     /**
+     * Gets the experience cap of the player.
+     *
+     * @return the experience cap of the player.
+     */
+    int getCapExperience();
+    
+    /**
      * Gets the inventory of the player.
      *
      * @return the inventory containing the player's items.
      */
     Inventory getInventory();
 
-    /**
-     * Adds an item to the player inventory.
-     * 
-     * @param item the item to be added.
-     */
-    void addItemToInventory(Item item);
 
+    //
+    //  SETTER
+    //
+
+    
     /**
      * Sets the elemental type chosen from the player.
      *
      * @param playerClass the class choosen.
      */
     void setPlayerClass(ElementalType playerClass);
-
+    
+    
+    //
+    //  OTHERS
+    //
+    
+    /**
+     * Adds an item to the player inventory.
+     * 
+     * @param item the item to be added.
+     */
+    void addItemToInventory(Item item);
+    
     /**
      * Adds experience, if it exceeds the levelUp cap by increasing statistics.
      *
@@ -62,10 +84,4 @@ public interface Player extends GameCharacter {
      */
     void useItem(UsableItem item);
 
-    /**
-     * Gets the experience cap of the player.
-     *
-     * @return the experience cap of the player.
-     */
-    int getCapExperience();
 }

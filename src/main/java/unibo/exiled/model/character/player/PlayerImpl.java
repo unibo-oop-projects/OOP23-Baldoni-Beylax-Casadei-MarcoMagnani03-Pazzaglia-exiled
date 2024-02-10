@@ -78,49 +78,86 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         return inventory;
     }
 
-    /**
-     * Gets the MoveSet of the character to be used in a battle.
-     *
-     * @return the MoveSet of the current character.
-     */
+    //
+    //  GETTER
+    //
+
     @Override
     public MoveSet getMoveSet() {
         return MoveSets.copyOf(this.moveSet);
     }
 
-    /**
-     * Gets the level of the player.
-     *
-     * @return the level of the player.
-     */
+    @Override
+    public ElementalType getType() {
+        return this.playerClass;
+    }
+
     @Override
     public int getLevel() {
         return this.level;
     }
 
-    /**
-     * Gets the experience of the player.
-     *
-     * @return the experience points of the player.
-     */
     @Override
     public int getExperience() {
         return this.currentExp;
     }
 
-    /**
-     * Gets the inventory of the player.
-     *
-     * @return the inventory containing the player's items.
-     */
+    @Override
+    public int getCapExperience() {
+        return this.expCap;
+    }
+
     @Override
     public Inventory getInventory() {
         return Inventories.copyOf(this.inventory);
     }
 
+    //
+    //  SETTER
+    //
+
     @Override
-    public void addItemToInventory(final Item item) {
-        this.inventory.addItem(item);
+    public void setPlayerClass(final ElementalType playerClassChoice) {
+        this.playerClass = playerClassChoice;
+    }
+
+    //
+    // OTHERS
+    //
+
+    /**
+     * Learns a new magical move based on the player's level and learning interval.
+     */
+    private void learnNewMove() {
+        if (level % movesLearningInterval == 0) {
+            Optional<MagicMove> newMove;
+
+            // If the player knows all moves of their type, learn a move of a different type
+            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass))) {
+                newMove = Optional.of(Moves.getTotallyRandomMove());
+            } else {
+                do {
+                    newMove = Moves.getRandomMagicMoveByType(playerClass);
+                    // If there are no moves of the specified type, choose a completely random move
+                    newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove()) : newMove;
+                    // Continue searching until finding a move the player doesn't already know
+                } while (this.moveSet.getMagicMoves().contains(newMove.get()));
+            }
+            if (this.moveSet.getMagicMoves().size() == this.maxMovesNumber) {
+                //TODO: Manage the MoveSet change.
+                //this.moveSet.changeMoves(null, newMove);
+                throw new UnsupportedOperationException("Unimplemented");
+            } else {
+                this.moveSet.addMagicMove(newMove.get());
+            }
+        }
+    }
+
+
+    @Override
+    public void addExperience(final int exp) {
+        this.currentExp += exp;
+        levelUp();
     }
 
     /**
@@ -166,50 +203,6 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, RANDOM.nextInt(attributeIncBound));
     }
 
-    /**
-     * Learns a new magical move based on the player's level and learning interval.
-     */
-    private void learnNewMove() {
-        if (level % movesLearningInterval == 0) {
-            Optional<MagicMove> newMove;
-
-            // If the player knows all moves of their type, learn a move of a different type
-            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass))) {
-                newMove = Optional.of(Moves.getTotallyRandomMove());
-            } else {
-                do {
-                    newMove = Moves.getRandomMagicMoveByType(playerClass);
-                    // If there are no moves of the specified type, choose a completely random move
-                    newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove()) : newMove;
-                    // Continue searching until finding a move the player doesn't already know
-                } while (this.moveSet.getMagicMoves().contains(newMove.get()));
-            }
-            if (this.moveSet.getMagicMoves().size() == this.maxMovesNumber) {
-                //TODO: Manage the MoveSet change.
-                //this.moveSet.changeMoves(null, newMove);
-                throw new UnsupportedOperationException("Unimplemented");
-            } else {
-                this.moveSet.addMagicMove(newMove.get());
-            }
-        }
-    }
-
-    @Override
-    public ElementalType getType() {
-        return this.playerClass;
-    }
-
-    @Override
-    public void setPlayerClass(final ElementalType playerClassChoice) {
-        this.playerClass = playerClassChoice;
-    }
-
-    @Override
-    public void addExperience(final int exp) {
-        this.currentExp += exp;
-        levelUp();
-    }
-
     @Override
     public void useItem(final UsableItem item) {
         item.use(this);
@@ -217,7 +210,9 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     @Override
-    public int getCapExperience() {
-        return this.expCap;
+    public void addItemToInventory(final Item item) {
+        this.inventory.addItem(item);
     }
+
+
 }

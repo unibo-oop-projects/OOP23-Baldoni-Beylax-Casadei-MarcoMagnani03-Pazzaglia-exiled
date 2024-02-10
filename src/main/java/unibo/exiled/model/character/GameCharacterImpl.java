@@ -38,10 +38,43 @@ public abstract class GameCharacterImpl implements GameCharacter {
         this.name = name;
     }
 
+    //
+    //  GETTER
+    //
+
+    @Override
+    public final Position getPosition() {
+        return this.position;
+    }
+    
+    @Override
+    public final Map<AttributeIdentifier, Attribute> getAttributes() {
+        return Collections.unmodifiableMap(this.attributes);
+    }
+    
+    @Override
+    public final double getHealth() {
+        return ((CombinedAttribute) this.attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
+    }
+
+    @Override
+    public final double getHealthCap() {
+        return ((AdditiveAttribute) this.attributes.get(AttributeIdentifier.HEALTHCAP)).value();
+    }
+    
+    @Override
+    public final String getName() {
+        return this.name;
+    }
+
     @Override
     public final Direction getLastDirection() {
         return this.lastDirection;
     }
+
+    //
+    //  SETTER
+    //
 
     @Override
     public final void setLastDirection(final Direction direction) {
@@ -49,23 +82,23 @@ public abstract class GameCharacterImpl implements GameCharacter {
     }
 
     @Override
-    public final void move(final Position position) {
-        this.position = position;
+    public final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
+        this.modifyAttribute(id, modifier, 0);
     }
 
     @Override
-    public final Position getPosition() {
-        return this.position;
+    public final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
+        this.modifyAttribute(id, 0, value);
     }
 
     @Override
-    public final Map<AttributeIdentifier, Attribute> getAttributes() {
-        return Collections.unmodifiableMap(this.attributes);
+    public final void decreaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
+        this.increaseAttributeModifier(id, -modifier);
     }
 
     @Override
-    public final String getName() {
-        return this.name;
+    public final void decreaseAttributeValue(final AttributeIdentifier id, final double value) {
+        this.increaseAttributeValue(id, -value);
     }
 
     /**
@@ -92,36 +125,15 @@ public abstract class GameCharacterImpl implements GameCharacter {
         this.attributes = attributesCopy;
     }
 
-    @Override
-    public final void increaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
-        this.modifyAttribute(id, modifier, 0);
-    }
+    //
+    //  OTHERS
+    //
 
     @Override
-    public final void increaseAttributeValue(final AttributeIdentifier id, final double value) {
-        this.modifyAttribute(id, 0, value);
+    public final void move(final Position position) {
+        this.position = position;
     }
-
-    @Override
-    public final void decreaseAttributeModifier(final AttributeIdentifier id, final double modifier) {
-        this.increaseAttributeModifier(id, -modifier);
-    }
-
-    @Override
-    public final void decreaseAttributeValue(final AttributeIdentifier id, final double value) {
-        this.increaseAttributeValue(id, -value);
-    }
-
-    @Override
-    public final double getHealth() {
-        return ((CombinedAttribute) this.attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
-    }
-
-    @Override
-    public final double getHealthCap() {
-        return ((AdditiveAttribute) this.attributes.get(AttributeIdentifier.HEALTHCAP)).value();
-    }
-
+    
     @Override
     public final boolean spriteIsMoving() {
         this.isMoving = !isMoving;

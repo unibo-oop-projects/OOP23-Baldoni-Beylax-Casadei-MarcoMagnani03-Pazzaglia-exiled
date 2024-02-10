@@ -13,19 +13,17 @@ import java.util.Map;
  * A character that can move.
  */
 public interface GameCharacter {
+
+    //
+    //  GETTER
+    //
+
     /**
      * Gets the MoveSet of the character to be used in a battle.
      *
      * @return the MoveSet of the current character.
      */
     MoveSet getMoveSet();
-
-    /**
-     * Moves the character to the specified position.
-     *
-     * @param newPosition The new position to which the character is moved.
-     */
-    void move(Position newPosition);
 
     /**
      * Returns the position of the current character.
@@ -40,6 +38,52 @@ public interface GameCharacter {
      * @return the attributes of the current character.
      */
     Map<AttributeIdentifier, Attribute> getAttributes();
+
+    /**
+     * Gets the standard health attribute value.
+     *
+     * @return The evaluated amount of health of the character.
+     */
+    double getHealth();
+
+    /**
+     * Gets the health cap attribute value.
+     *
+     * @return The evaluated amount of health cap of the character.
+     */
+    double getHealthCap();
+
+    /**
+     * Gets the name of the character.
+     *
+     * @return A string representing the name of the character.
+     */
+    String getName();
+
+    /**
+     * Gets the last direction of a character.
+     *
+     * @return A direction, the last one the character followed.
+     */
+    Direction getLastDirection();
+
+    /**
+     * Gets the Elemental Type of the enemy.
+     *
+     * @return The Elemental Type of the enemy.
+     */
+    ElementalType getType();
+
+    //
+    //  SETTER
+    //
+
+    /**
+     * Sets the last direction of the character.
+     *
+     * @param direction The direction to set.
+     */
+    void setLastDirection(Direction direction);
 
     /**
      * Increases the modifier of the specified attribute for the character.
@@ -73,40 +117,16 @@ public interface GameCharacter {
      */
     void decreaseAttributeValue(AttributeIdentifier id, double value);
 
-    /**
-     * Gets the standard health attribute value.
-     *
-     * @return The evaluated amount of health of the character.
-     */
-    double getHealth();
+    //
+    //  OTHERS
+    //
 
     /**
-     * Gets the health cap attribute value.
+     * Moves the character to the specified position.
      *
-     * @return The evaluated amount of health cap of the character.
+     * @param newPosition The new position to which the character is moved.
      */
-    double getHealthCap();
-
-    /**
-     * Gets the name of the character.
-     *
-     * @return A string representing the name of the character.
-     */
-    String getName();
-
-    /**
-     * Gets the last direction of a character.
-     *
-     * @return A direction, the last one the character followed.
-     */
-    Direction getLastDirection();
-
-    /**
-     * Sets the last direction of the character.
-     *
-     * @param direction The direction to set.
-     */
-    void setLastDirection(Direction direction);
+    void move(Position newPosition);
 
     /**
      * States which kind of sprite is to be used.
@@ -115,10 +135,4 @@ public interface GameCharacter {
      */
     boolean spriteIsMoving();
 
-    /**
-     * Gets the Elemental Type of the enemy.
-     *
-     * @return The Elemental Type of the enemy.
-     */
-    ElementalType getType();
 }

@@ -116,16 +116,25 @@ La \textit{CharacterView} è una estensione di \textit{JLabel} che gestisce l'as
 Per garantire la comunicazione tra il Model e la View del \textit{Player} è stato introdotto un Controller, sotto forma di interfaccia, denominato \textit{CharacterController}. La relativa classe di implementazione invece è stata chiamata \textit{CharacterControllerImpl} dove, al suo interno sono stati definiti i metodi per il controllo del \textit{Player}, tra cui \textit{movePlayer(Direction)}, \textit{assignPlayerClass(ElementalType)}, \textit{addPlayerExperience(int)}, nonché i relativi metodi Getter necessari per l'interfaccia grafica.
 
 \subsubsection{Gestione del movimento}
-Nell'ambito dell'implementazione del movimento delle entità all'interno della mappa di gioco, ho adottato due distinzioni principali. Per il movimento del giocatore ho progettato un sistema basato sull'input dell'utente tramite tastiera. D'altra parte, per i nemici, ho sviluppato un meccanismo autonomo di movimento. In pratica, i nemici si spostano in maniera pseudo-casuale all'interno di un'area definita dal loro tipo(Fire, Bolt, Water e Grass) e qualora il giocatore si dovesse avvicinare entro un certo raggio da un nemico, quest'ultimo inizierà a inseguirlo per combattere. Questo comportamento è stato realizzato attraverso due metodi: uno per calcolare la distanza tra il giocatore e un nemico (il metodo \textit{calculateDistance}), e un altro per determinare la direzione in cui il nemico deve muoversi per inseguire il giocatore (il metodo \textit{calculateChaseDirection}). Questo approccio consente un comportamento dinamico e coinvolgente per i nemici, rendendo il gioco più interessante e stimolante per il giocatore, dato che per poter completare il gioco bisogna sconfiggere i 4 Boss che sono situati agli estremi della mappa di gioco.
+Nell'ambito dell'implementazione del movimento delle entità all'interno della mappa di gioco, ho adottato due distinzioni principali. Per il movimento del giocatore ho progettato un sistema basato sull'input dell'utente tramite tastiera. D'altra parte, per i nemici, ho sviluppato un meccanismo autonomo di movimento. In pratica, i nemici si spostano in maniera pseudo-casuale all'interno di un'area definita dal loro tipo(Fire, Bolt, Water e Grass) e qualora il giocatore si dovesse avvicinare entro un certo raggio da un nemico, quest'ultimo inizierà a inseguirlo per combattere. Questo comportamento è stato realizzato attraverso due metodi: uno per calcolare la distanza tra il giocatore e un nemico (il metodo privato \textit{calculateDistance}), e un altro per determinare la direzione in cui il nemico deve muoversi per inseguire il giocatore (il metodo privato \textit{calculateChaseDirection}). Questo approccio consente un comportamento dinamico e coinvolgente per i nemici, rendendo il gioco più interessante e stimolante per il giocatore, dato che per poter completare il gioco bisogna sconfiggere i 4 Boss che sono situati agli estremi della mappa di gioco.
 Considerando la decisione di non impiegare i thread nel nostro progetto, i nemici si sposteranno esclusivamente in risposta all'input dell'utente. Di conseguenza, i nemici si muoveranno solamente quando l'utente eseguirà uno spostamento nella mappa.
 
 In particolare, ho utilizzato il \textit{CharacterModel} per definire il comportamento del movimento sia per il personaggio che per i nemici. Successivamente, all'interno del \textit{CharacterController}, ho implementato un metodo di movimento che ha richiamato le funzioni precedentemente definite nel Model. Questa scelta è stata fatta per mantenere la separazione delle responsabilità e per organizzare il movimento applicando il pattern \textit{MVC}. Inoltre, nella classe \textit{GameKeyListener} della View, ho gestito l'input dell'utente associando i movimenti alle direzioni corrispondenti ai tasti premuti (ad esempio, W per su, S per giù, A per sinistra e D per 	destra). La \textit{GameView} rappresenta la schermata principale con la mappa e l'HUD relativa agli attributi del personaggio.
 Quando l'utente preme un tasto specifico sulla tastiera tra quelli elencati prima, all'interno della \textit{GameView}, il \textit{CharacterView} associato al giocatore si sposterà in una cella corrispondente. Di conseguenza, come precedentemente descritto, tutti i nemici, a meno che non siano vicini al giocatore, si sposteranno anch'essi, in una direzione scelta in modo pseudo-casuale.
 
-\subsubsection{Meccanismo di Game Over}
-Ho implementato la gestione del Game Over attraverso il \textit{GameController}. Utilizzando il metodo \textit{isOver()}, decido quando il gioco è terminato e quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare il Game Over, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il Game Over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. Questo approccio ha semplificato la gestione del Game Over, utilizzando una logica chiara e intuitiva nella scrittura del codice.
+Oltre ai KeyListener di base per il movimento del giocatore, ho integrato la funzionalità di utilizzare il tasto E per aprire l'inventario quando si è in gioco e il tasto ESC per aprire/chiudere il menu di gioco. Questa scelta è stata fatta per migliorare l'esperienza di gioco e rendere l'interfaccia più intuitiva e user-friendly, consentendo ai giocatori di navigare facilmente tra le diverse funzionalità senza interruzioni.
 
-All'interno della \textit{GameOverView}, sono stati inclusi due \textit{JButton} con relativi \textit{ActionListener}: uno permette di iniziare una nuova partita e l'altro serve per chiudere definitivamente il gioco. 
+\subsubsection{Meccanismo di Game Over}
+Ho implementato la gestione del Game Over attraverso il \textit{GameController}. Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare il Game Over, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il Game Over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. Questo approccio ha semplificato la gestione del Game Over, utilizzando una logica chiara e intuitiva nella scrittura del codice.
+
+All'interno della \textit{GameOverView}, sono stati inclusi due \textit{JButton} con relativi \textit{ActionListener}: uno permette di iniziare una nuova partita e l'altro serve per chiudere definitivamente il gioco.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{GameOverUML.png}
+	\caption{Schema UML del GameOver con relativa vista sulle View}
+	\label{fig:diagramma-classe-player}
+\end{figure}
 
 La \textit{GameOverView} è stata integrata all'interno della \textit{GameView}, la schermata principale definita in precedenza. All'interno di questa \textit{GameView} è anche presente il \textit{GameController}, che facilita il collegamento tra il Model e la View stessa. Grazie a questo Controller, è possibile determinare quando la schermata principale deve essere sostituita dalla schermata di Game Over.
 
@@ -143,6 +152,12 @@ La \textit{GameOverView} è stata integrata all'interno della \textit{GameView},
 
 \subsection*{Luca Casadei}
 \subsection*{Francesco Pazzaglia}
+
+\begin{itemize}
+	\item \textbf{Espressioni Lambda}: Utilizzate nei bottoni che hanno ActionListener nella GameOverView.
+	\item \textbf{Optional}: Utilizzati per sostituire i \textit{null value}, usati nel CharacterModel(metodo \textit{getPlayer()}) e anche per il passaggio della GameView tra la differenti viste.  
+\end{itemize}
+
 \subsection*{Marco Magnani}
 \subsection*{Manuel Baldoni}
 
