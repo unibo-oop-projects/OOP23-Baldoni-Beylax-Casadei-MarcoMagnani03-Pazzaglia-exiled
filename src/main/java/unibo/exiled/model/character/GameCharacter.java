@@ -4,6 +4,7 @@ import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.utilities.Direction;
+import unibo.exiled.utilities.ElementalType;
 import unibo.exiled.utilities.Position;
 
 import java.util.Map;
@@ -113,4 +114,11 @@ public interface GameCharacter {
      * @return True if the moving sprite is the right one, false otherwise.
      */
     boolean spriteIsMoving();
+
+    /**
+     * Gets the Elemental Type of the enemy.
+     *
+     * @return The Elemental Type of the enemy.
+     */
+    ElementalType getType();
 }

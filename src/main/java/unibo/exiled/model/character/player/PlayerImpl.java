@@ -195,7 +195,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     @Override
-    public ElementalType getPlayerClass() {
+    public ElementalType getType() {
         return this.playerClass;
     }
 

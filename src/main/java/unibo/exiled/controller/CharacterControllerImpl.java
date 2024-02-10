@@ -3,6 +3,7 @@ package unibo.exiled.controller;
 import unibo.exiled.model.character.CharacterModel;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.character.attributes.MultiplierAttribute;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.player.Player;
@@ -145,6 +146,23 @@ public final class CharacterControllerImpl implements CharacterController {
         return this.model.getPlayerMoveSet().getMagicMoves().stream().map(MagicMove::name).toList();
     }
 
+    private double typeModifier(GameCharacter attacker, GameCharacter defender) {
+        final double ATTACKER_EFFECTIVE = 2;
+        final double DEFENDER_EFFECTIVE = 0.5;
+        final double NONE_EFFECTIVE = 1;
+        final ElementalType attackerType = attacker.getType();
+        final ElementalType defenderType = defender.getType();
+        if (attackerType.isStrongAgainst(defenderType)) {
+            return ATTACKER_EFFECTIVE;
+        }
+
+        if (defenderType.isStrongAgainst(attackerType)) {
+            return DEFENDER_EFFECTIVE;
+        }
+
+        return NONE_EFFECTIVE;
+    }
+
     @Override
     public boolean attack(final boolean isPlayerAttacking, final String moveName, final Position combatPosition) {
         if (this.model.getCharacterFromPosition(combatPosition).isEmpty()) {
@@ -156,13 +174,19 @@ public final class CharacterControllerImpl implements CharacterController {
         final GameCharacter defender = !isPlayerAttacking ? this.model.getPlayer().get()
                 : this.model.getCharacterFromPosition(combatPosition).get();
 
-        final double damage = attacker.getMoveSet()
+        final double baseDamage = attacker.getMoveSet()
                 .getMagicMoves()
                 .stream()
                 .filter(m -> m.name().equals(moveName))
                 .findFirst()
                 .get()
                 .power();
+        final double attackModifier = ((MultiplierAttribute) attacker.getAttributes().get(AttributeIdentifier.ATTACK))
+                .modifier();
+        final double defenseModifier = ((MultiplierAttribute) defender.getAttributes()
+                .get(AttributeIdentifier.DEFENSE)).modifier();
+
+        final double damage = baseDamage * attackModifier / defenseModifier * typeModifier(attacker, defender);
         defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);
 
         final boolean hasAttackerWon = defender.getHealth() <= 0;

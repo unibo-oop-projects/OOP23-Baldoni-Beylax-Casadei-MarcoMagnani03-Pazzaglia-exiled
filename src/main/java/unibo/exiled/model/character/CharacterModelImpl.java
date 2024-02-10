@@ -234,7 +234,7 @@ public final class CharacterModelImpl implements CharacterModel {
 
     @Override
     public ElementalType getPlayerClass() {
-        return player.getPlayerClass();
+        return player.getType();
     }
 
     @Override

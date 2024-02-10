@@ -93,8 +93,8 @@ public final class HudView {
         final double playerHealth = gameController.getCharacterController().getPlayerHealth();
         final double playerHealthCap = gameController.getCharacterController().getPlayerHealthCap();
         final GameLabel healthBar = new GameLabel(
-                "Health: " + gameController.getCharacterController().getPlayerHealth() + " / "
-                        + gameController.getCharacterController().getPlayerHealthCap());
+                "Health: " + String.format("%.2f", playerHealth) + " / "
+                        + playerHealthCap);
         if (playerHealth <= (playerHealthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
             healthBar.setForeground(Color.RED);
         } else {
