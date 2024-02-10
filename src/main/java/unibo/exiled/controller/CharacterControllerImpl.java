@@ -152,13 +152,11 @@ public final class CharacterControllerImpl implements CharacterController {
         final double NONE_EFFECTIVE = 1;
         final ElementalType attackerType = attacker.getType();
         final ElementalType defenderType = defender.getType();
-        if ((attackerType.equals(ElementalType.FIRE) && defenderType.equals(ElementalType.GRASS)) || (attackerType.equals(ElementalType.WATER) && defenderType.equals(ElementalType.FIRE)) || 
-        (attackerType.equals(ElementalType.BOLT) && defenderType.equals(ElementalType.WATER))) {
+        if (attackerType.isStrongAgainst(defenderType)) {
             return ATTACKER_EFFECTIVE;
         }
 
-        if ((attackerType.equals(ElementalType.FIRE) && defenderType.equals(ElementalType.WATER)) || (attackerType.equals(ElementalType.WATER) && defenderType.equals(ElementalType.GRASS)) || 
-        (attackerType.equals(ElementalType.GRASS) && defenderType.equals(ElementalType.FIRE))) {
+        if (defenderType.isStrongAgainst(attackerType)) {
             return DEFENDER_EFFECTIVE;
         }
 
