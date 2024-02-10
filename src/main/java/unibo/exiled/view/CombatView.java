@@ -187,7 +187,7 @@ public final class CombatView extends JPanel {
                                         combatPosition);
 
                         enemyMove.setText(
-                                enemyName + " used: " + enemyMoveName + "(" + enemyMoveDamage + ")" + "\n\n"
+                                enemyName + " used:\n" + enemyMoveName + "(" + enemyMoveDamage + ")" + "\n\n"
                                         + enemyMoveDescription);
                         gameView.createHUD();
 
@@ -216,7 +216,7 @@ public final class CombatView extends JPanel {
                 .getCharacterHealthFromPosition(this.combatPosition);
         final double healthCap = gameController.getCharacterController()
                 .getCharacterHealthCapFromPosition(this.combatPosition);
-        this.enemyHealthBar.setText("Health: " + health + " / " + healthCap);
+        this.enemyHealthBar.setText("Health: " + String.format("%.2f", health) + " / " + healthCap);
         if (health <= (healthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
             this.enemyHealthBar.setForeground(Color.RED);
         } else {

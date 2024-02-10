@@ -40,13 +40,6 @@ public interface Player extends GameCharacter {
     void addItemToInventory(Item item);
 
     /**
-     * Gets the player class.
-     *
-     * @return the player class.
-     */
-    ElementalType getPlayerClass();
-
-    /**
      * Sets the elemental type chosen from the player.
      *
      * @param playerClass the class choosen.
@@ -75,5 +68,4 @@ public interface Player extends GameCharacter {
      * @return the experience cap of the player.
      */
     int getCapExperience();
-
 }
