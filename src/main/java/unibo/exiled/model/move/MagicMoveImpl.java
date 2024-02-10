@@ -1,6 +1,6 @@
 package unibo.exiled.model.move;
 
-import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.utilities.ElementalType;
 
 /**
  * Implementation of the MagicMove interface representing a magical move in the game.

@@ -1,11 +1,10 @@
 package unibo.exiled.view.character;
 
-import unibo.exiled.config.Constants;
-import unibo.exiled.model.utilities.Direction;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
+import unibo.exiled.utilities.Direction;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
 import java.io.Serial;
 import java.util.List;
 import javax.annotation.concurrent.Immutable;
@@ -43,11 +42,9 @@ public final class CharacterView extends JLabel {
      *                is the right sprite.
      */
     public CharacterView(final List<String> sprites) {
-
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        this.path = Constants.DEF_RESOURCE_PATH + sprites.get(0) + File.separator;
-
-        this.image = new ImageIcon(path + sprites.get(2) + FIRST_IMAGE).getImage();
+        this.path = ConstantsAndResourceLoader.IMAGES_PATH + sprites.get(0);
+        this.image = new ImageIcon(ConstantsAndResourceLoader.getResourceURLFromPath(this.path
+                + sprites.get(2) + FIRST_IMAGE)).getImage();
 
         this.upSprite = sprites.get(1);
         this.downSprite = sprites.get(2);
@@ -84,7 +81,8 @@ public final class CharacterView extends JLabel {
                 throw new IllegalArgumentException("Unknown direction");
             }
         }
-        this.image = new ImageIcon(path + imgAnimationName).getImage();
+        this.image = new ImageIcon(ConstantsAndResourceLoader.getResourceURLFromPath(this.path + imgAnimationName))
+                .getImage();
     }
 
     /**

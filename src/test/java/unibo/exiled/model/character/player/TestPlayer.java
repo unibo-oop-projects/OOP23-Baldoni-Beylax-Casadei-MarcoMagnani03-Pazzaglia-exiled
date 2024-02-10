@@ -3,11 +3,11 @@ package unibo.exiled.model.character.player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import unibo.exiled.config.Constants;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.model.item.HealingItem;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.Item;
-import unibo.exiled.model.utilities.ElementalType;
+import unibo.exiled.utilities.ElementalType;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final class TestPlayer {
     private static final int EXPERIENCE_CAP = 100;
-    private static final int INITIAL_EXPERIENCE = 0;
     private static final int LEVEL_INCREASE = 10;
     private static final int MOVES_LEARNING_INTERVAL = 5;
 
@@ -26,18 +25,17 @@ final class TestPlayer {
 
     @BeforeEach
     void setUp() {
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        player = new PlayerImpl(EXPERIENCE_CAP, INITIAL_EXPERIENCE, LEVEL_INCREASE, MOVES_LEARNING_INTERVAL);
+        player = new PlayerImpl(EXPERIENCE_CAP, LEVEL_INCREASE, MOVES_LEARNING_INTERVAL);
     }
 
     @Test
     void testGetLevel() {
-        assertEquals(Integer.parseInt(Constants.getConstantOf("PLAYER_DEFAULT_LEVEL")), player.getLevel());
+        assertEquals(ConstantsAndResourceLoader.PLAYER_STARTING_LEVEL, player.getLevel());
     }
 
     @Test
     void testGetExperience() {
-        assertEquals(Double.parseDouble(Constants.getConstantOf("PLAYER_DEFAULT_EXPERIENCE")), player.getExperience());
+        assertEquals(0, player.getExperience());
     }
 
     @Test
@@ -59,7 +57,7 @@ final class TestPlayer {
     void testAddExperience() {
         final int experienceToAdd = 150;
         final double expectedExperience = 50;
-        final int expectedLevel = 1;
+        final int expectedLevel = 2;
         player.addExperience(experienceToAdd);
         assertEquals(expectedExperience, player.getExperience());
         assertEquals(expectedLevel, player.getLevel());
@@ -69,7 +67,7 @@ final class TestPlayer {
     void testLevelUp() {
         final int experienceToAdd = 230;
         final double expectedExperience = 10;
-        final int expectedLevel = 2;
+        final int expectedLevel = 3;
         player.addExperience(experienceToAdd);
         assertEquals(expectedExperience, player.getExperience());
         assertEquals(expectedLevel, player.getLevel());

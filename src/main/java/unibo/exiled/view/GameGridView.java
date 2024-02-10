@@ -1,9 +1,10 @@
 package unibo.exiled.view;
 
-import unibo.exiled.config.Constants;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.model.map.CellType;
-import unibo.exiled.model.utilities.Position;
+import unibo.exiled.utilities.Position;
 import unibo.exiled.view.character.CharacterView;
 
 import javax.swing.JLabel;
@@ -23,6 +24,8 @@ import java.util.List;
 public class GameGridView {
     private static final int PLAYER_GRID_VISIBILITY = 5;
     private final GameController gameController;
+            justification = "The gamePanel field is a JLabel that is not marked as Immutable,"
+                    + " but its modification inside this class is needed and intended.")
     private final CharacterView playerView;
     private JPanel gridPanel;
     private final JPanel gamePanel; 
@@ -110,7 +113,7 @@ public class GameGridView {
 
     private JLabel createEnemyLabel(final Position position) {
         final List<String> characterImagePath = gameController.getCharacterController()
-                .getImagePathOfCharacter(Constants.ENEMY_PATH,
+                .getImagePathOfCharacter(ConstantsAndResourceLoader.ENEMY_PATH,
                         gameController.getMapController().getNameOfCharacterInPosition(position)
                                 + File.separator
                                 + gameController.getMapController().getNameOfCharacterInPosition(position));

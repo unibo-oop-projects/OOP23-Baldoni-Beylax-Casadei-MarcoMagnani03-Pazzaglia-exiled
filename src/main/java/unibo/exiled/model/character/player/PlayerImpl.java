@@ -3,7 +3,7 @@ package unibo.exiled.model.character.player;
 import java.util.Optional;
 import java.util.Random;
 
-import unibo.exiled.config.Constants;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
@@ -16,9 +16,9 @@ import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
 import unibo.exiled.model.move.Moves;
-import unibo.exiled.model.utilities.ElementalType;
-import unibo.exiled.model.utilities.Inventories;
-import unibo.exiled.model.utilities.MoveSets;
+import unibo.exiled.utilities.ElementalType;
+import unibo.exiled.utilities.Inventories;
+import unibo.exiled.utilities.MoveSets;
 import unibo.exiled.model.item.ItemType;
 import unibo.exiled.model.item.UsableItem;
 
@@ -44,23 +44,22 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      *
      * @param experienceCap          The maximum experience points required for a
      *                               level up.
-     * @param initialExperience      The starting experience points of the player.
      * @param attributeIncreaseBound The max increment value for each level up.
      * @param movesLearningInterval  The interval at which the player learns new
      *                               magical moves.
      */
-    public PlayerImpl(final int experienceCap, final int initialExperience, final int attributeIncreaseBound,
+    public PlayerImpl(final int experienceCap, final int attributeIncreaseBound,
                       final int movesLearningInterval) {
-        super(Constants.PLAYER_NAME, new AttributeFactoryImpl().createPlayerAttributes());
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
+        super(ConstantsAndResourceLoader.PLAYER_NAME, new AttributeFactoryImpl().createPlayerAttributes());
         this.inventory = initializeInventory();
         this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet();
         this.expCap = experienceCap;
-        this.currentExp = initialExperience;
+        this.currentExp = 0;
+        this.level = ConstantsAndResourceLoader.PLAYER_STARTING_LEVEL;
         this.attributeIncBound = attributeIncreaseBound;
         this.movesLearningInterval = movesLearningInterval;
         this.playerClass = ElementalType.NORMAL;
-        this.maxMovesNumber = Integer.parseInt(Constants.getConstantOf("MOVES_NUMBER"));
+        this.maxMovesNumber = ConstantsAndResourceLoader.PLAYER_MOVES_NUMBER;
     }
 
     // This method is used for testing purposes only.
@@ -141,7 +140,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      */
     private int calculateNextLevelExperience() {
         return (int) (this.expCap + this.expCap
-                * Double.parseDouble(Constants.getConstantOf("EXPERIENCE_MULTIPLIER")));
+                * ConstantsAndResourceLoader.LEVEL_MODIFIER);
     }
 
     /**

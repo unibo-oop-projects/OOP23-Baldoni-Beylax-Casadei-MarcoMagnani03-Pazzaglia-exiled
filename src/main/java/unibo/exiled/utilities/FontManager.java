@@ -1,9 +1,8 @@
-package unibo.exiled.model.utilities;
+package unibo.exiled.utilities;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -27,15 +26,9 @@ public final class FontManager {
      */
     public static void loadFont() {
         try {
-            final String fontPath = "src"
-                    + File.separator
-                    + "main" + File.separator
-                    + "java" + File.separator
-                    + "unibo" + File.separator
-                    + "exiled" + File.separator
-                    + "resources" + File.separator
-                    + "font.ttf";
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(DEFAULT_FONT_SIZE);
+            customFont = Font.createFont(Font.TRUETYPE_FONT,
+                            ClassLoader.getSystemResourceAsStream("unibo/exiled/font.ttf"))
+                    .deriveFont(DEFAULT_FONT_SIZE);
             final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {

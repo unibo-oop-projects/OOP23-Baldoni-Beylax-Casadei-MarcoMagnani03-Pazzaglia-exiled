@@ -2,10 +2,10 @@ package unibo.exiled.model.game;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import unibo.exiled.config.Constants;
-import unibo.exiled.model.utilities.Direction;
-import unibo.exiled.model.utilities.Position;
-import unibo.exiled.model.utilities.Positions;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
+import unibo.exiled.utilities.Direction;
+import unibo.exiled.utilities.Position;
+import unibo.exiled.utilities.Positions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,8 +17,7 @@ final class TestGameModel {
 
     @BeforeAll
     static void initializeConstants() {
-        Constants.loadConfiguration(Constants.DEF_CONFIG_PATH);
-        defaultMapSize = Integer.parseInt(Constants.getConstantOf("MAP_SIZE"));
+        defaultMapSize = ConstantsAndResourceLoader.MAP_SIZE;
         gameModel = new GameModelImpl();
     }
 
@@ -31,7 +30,7 @@ final class TestGameModel {
                 .getCharacterFromPosition(gameModel.getCharacterModel().getPlayerPosition()));
         assertNotNull(gameModel.getMapModel().getCellType(gameModel.getCharacterModel().getPlayerPosition()));
         assertNotNull(gameModel.getItemsModel().getItems());
-        assertEquals(0, gameModel.getCharacterModel().getPlayerLevel());
+        assertEquals(1, gameModel.getCharacterModel().getPlayerLevel());
         assertNotNull(gameModel.getCharacterModel().getPlayerClass());
         assertNotNull(gameModel.getCharacterModel().getPlayerMoveSet());
     }

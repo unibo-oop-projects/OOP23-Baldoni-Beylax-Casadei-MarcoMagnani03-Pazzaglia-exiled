@@ -1,4 +1,4 @@
-package unibo.exiled.model.utilities;
+package unibo.exiled.utilities;
 
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;

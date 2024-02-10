@@ -2,7 +2,7 @@ package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
 import unibo.exiled.model.item.ItemNames;
-import unibo.exiled.model.utilities.FontManager;
+import unibo.exiled.utilities.FontManager;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.TitleGameLabel;

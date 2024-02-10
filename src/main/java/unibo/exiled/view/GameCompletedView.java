@@ -1,5 +1,6 @@
 package unibo.exiled.view;
 
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 
@@ -14,8 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
-import java.io.File;
-
 
 /**
  * This class represent the GameCompleted view.
@@ -49,13 +48,8 @@ public final class GameCompletedView {
 
     private void initializeHud() {
         final JPanel gameCompletedPanel = new JPanel(new BorderLayout());
-        final JLabel gameCompletedLabel = new JLabel(new ImageIcon("src"
-                + File.separator
-                + "main"
-                + File.separator
-                + "java"
-                + File.separator + "unibo" + File.separator + "exiled" + File.separator
-                + "resources" + File.separator + "gamecompleted.png"));
+        final JLabel gameCompletedLabel = new JLabel(new ImageIcon(ConstantsAndResourceLoader
+                .getResourceURLFromPath(ConstantsAndResourceLoader.IMAGES_PATH + "/interface/gamecompleted.png")));
         gameCompletedPanel.add(gameCompletedLabel, BorderLayout.CENTER);
 
         final JPanel flowPanel = new JPanel(new FlowLayout());

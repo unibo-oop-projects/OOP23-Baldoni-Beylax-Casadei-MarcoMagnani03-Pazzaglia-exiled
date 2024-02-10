@@ -1,7 +1,7 @@
-package unibo.exiled.model.utilities;
+package unibo.exiled.utilities;
 
 import java.awt.Color;
-import java.io.File;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 
@@ -66,16 +66,9 @@ public enum ElementalType {
      * @return The ImageIcon representing the image of the elemental type.
      */
     public ImageIcon getElementalImage() {
-        final String imagePath = "src"
-                + File.separator
-                + "main" + File.separator
-                + "java" + File.separator
-                + "unibo" + File.separator
-                + "exiled" + File.separator
-                + "resources" + File.separator
-                + "class" + File.separator
-                + this.fileImageName;
-        return new ImageIcon(imagePath);
+        final String imagePath = ConstantsAndResourceLoader.IMAGES_PATH + "/class/" + this.fileImageName;
+        final URL imageURL = ClassLoader.getSystemResource(imagePath);
+        return new ImageIcon(imageURL);
     }
 
     /**

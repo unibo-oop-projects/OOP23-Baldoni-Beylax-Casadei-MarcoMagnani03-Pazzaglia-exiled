@@ -1,6 +1,7 @@
 package unibo.exiled.model.item;
 
-import java.io.File;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
+
 import java.util.Optional;
 
 import javax.swing.ImageIcon;
@@ -58,18 +59,9 @@ public enum ItemNames {
     private final String fileName;
 
     /**
-     * Returns the name of the item.
-     *
-     * @return The name of the item.
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
      * Constructor for ItemNames enum.
      *
-     * @param name The name of the item.
+     * @param name     The name of the item.
      * @param fileName The file name associated with the item.
      */
     ItemNames(final String name, final String fileName) {
@@ -79,7 +71,7 @@ public enum ItemNames {
 
     /**
      * Gets the image associated with the item name.
-     * 
+     *
      * @param itemName The name of the item.
      * @return The ImageIcon representing the image of the item name.
      */
@@ -87,17 +79,10 @@ public enum ItemNames {
         final Optional<ItemNames> item = getItemByName(itemName);
         if (item.isEmpty()) {
             return Optional.empty();
-        } 
-        final String imagePath = "src"
-            + File.separator
-            + "main" + File.separator
-            + "java" + File.separator
-            + "unibo" + File.separator
-            + "exiled" + File.separator
-            + "resources" + File.separator
-            + "items" + File.separator
-            + item.get().fileName;
-        return Optional.of(new ImageIcon(imagePath));
+        }
+        return Optional.of(new ImageIcon(ConstantsAndResourceLoader.getResourceURLFromPath(
+                ConstantsAndResourceLoader.IMAGES_PATH
+                        + "/items/" + item.get().fileName)));
     }
 
     private static Optional<ItemNames> getItemByName(final String itemName) {
@@ -107,5 +92,14 @@ public enum ItemNames {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Returns the name of the item.
+     *
+     * @return The name of the item.
+     */
+    public String getName() {
+        return this.name;
     }
 }
