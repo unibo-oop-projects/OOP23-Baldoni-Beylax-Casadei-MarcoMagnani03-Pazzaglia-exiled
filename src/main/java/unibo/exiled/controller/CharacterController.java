@@ -209,4 +209,8 @@ public interface CharacterController {
      * @return True if the game is win, false otherwise.
      */
     boolean checkWin();
+
+    String getNewMove();
+
+    void changeMove(String oldMove, String newMove);
 }

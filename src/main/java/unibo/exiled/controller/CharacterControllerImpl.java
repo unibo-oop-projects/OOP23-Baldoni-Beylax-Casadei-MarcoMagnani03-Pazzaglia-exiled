@@ -10,6 +10,7 @@ import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.model.move.Moves;
 import unibo.exiled.utilities.Direction;
 import unibo.exiled.utilities.ElementalType;
 import unibo.exiled.utilities.Position;
@@ -297,5 +298,15 @@ public final class CharacterControllerImpl implements CharacterController {
                         .count() == 0;
         }
         return true;
+    }
+
+    @Override
+    public String getNewMove() {
+        return this.model.getPlayer().get().getNewMove().get().name();
+    }
+
+    @Override
+    public void changeMove(String oldMove, String newMove) {
+        this.model.getPlayer().get().changeMove(Moves.getMoveByName(oldMove).get(), Moves.getMoveByName(newMove).get());
     }
 }

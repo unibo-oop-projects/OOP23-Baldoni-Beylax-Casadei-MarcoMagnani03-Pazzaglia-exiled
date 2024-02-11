@@ -146,8 +146,8 @@ Questo approccio ha semplificato la gestione delle schermate di fine gioco, util
 	\label{fig:the-exiled-victory_gameover-uml}
 \end{figure}
 
-Il pattern architetturale impiegato per gestire la visualizzazione della \textit{GameOverView} e della \textit{GameVictoryView} nel metodo \textit{draw()} della classe \textit{GameView} è chiamato Facade Pattern.
-Quando il gioco giunge al termine, la schermata di fine gioco(quindi la View di vincita o di perdita) viene mostrata in modo condizionale attraverso il metodo prima citato fornito dal \textit{GameController}. Questo approccio consente di occultare la complessità interna associata alla visualizzazione della View chiamata e di semplificare l'interazione con essa all'interno di un unico metodo della \textit{GameView}.
+Il pattern architetturale impiegato per gestire la visualizzazione della \textit{GameOverView} e della \textit{GameVictoryView} nel metodo \textit{draw()} della classe \textit{GameView} è Facade Pattern.
+Quando il gioco giunge al termine, la schermata di fine gioco(quindi la View di vincita o di perdita) viene mostrata in modo condizionale attraverso i metodi forniti dal \textit{GameController}. Questo approccio consente di implicitare la complessità interna associata alla visualizzazione della View chiamata e di semplificare l'interazione con essa all'interno di un unico metodo della \textit{GameView}.
 
 \subsection*{Marco Magnani}
 
