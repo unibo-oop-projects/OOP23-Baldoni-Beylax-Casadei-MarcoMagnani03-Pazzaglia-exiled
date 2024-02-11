@@ -1,26 +1,31 @@
 @startuml
 scale 0.7
-class GameView {
-  + draw(): void
-}
+set separator none
+package unibo.exiled.view
+{
+  class GameView {
+    + etc...()
+  }
+  
+  class GameOverView {
+    + display(): void
+  }
+  
+  class GameVictoryView {
+    + display(): void
+  }
+  
+  
+  class GameController {
+    + isOver(): boolean
+    + isWon(): boolean
+    + etc...()
+  }
 
-class GameOverView {
-  + display(): void
-}
-
-class GameVictoryView {
-  + display(): void
-}
-
-
-class GameController {
-  + isOver(): boolean
-  + isWon(): boolean
 }
 
 GameView *-- "1" GameOverView : contiene
 GameView *-- "1" GameVictoryView : contiene
 GameView *-- "1" GameController : contiene
-
 @enduml
 
