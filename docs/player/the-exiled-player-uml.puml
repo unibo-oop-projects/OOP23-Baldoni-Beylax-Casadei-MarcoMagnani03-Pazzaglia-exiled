@@ -4,7 +4,8 @@ interface GameCharacter {
     + move(Position): void
     + getHealth(): double
     + getPosition(): Position
-
+    + getMoveSet(): MoveSet
+    + etc...()
 }
 
 interface Player extends GameCharacter {
@@ -16,6 +17,7 @@ interface Player extends GameCharacter {
     + setPlayerClass(playerClass: ElementalType): void
     + addExperience(exp: double): void
     + useItem(item: UsableItem): void
+    + etc...()
 }
 
 class PlayerImpl extends GameCharacterImpl implements Player {
@@ -25,6 +27,7 @@ class PlayerImpl extends GameCharacterImpl implements Player {
     + setPlayerClass(playerClassChoice: ElementalType): void
     + addExperience(exp: double): void
     + useItem(item: UsableItem): void
+    + etc...()
 }
 
 abstract class GameCharacterImpl implements GameCharacter {
@@ -33,22 +36,21 @@ abstract class GameCharacterImpl implements GameCharacter {
     + getAttributes(): Map<AttributeIdentifier, Attribute>
     + getName(): String
     + getHealth(): double
+    + etc...()
 }
 
 interface CharacterModel {
-    + void movePlayer(dir: Direction)
-    + Optional<Player> getPlayer()
-    + Position getPlayerPosition()
-    + double getPlayerAttributeOf(id: AttributeIdentifier)
-    + int getPlayerLevel()
-    + int getPlayerCurrentExperience()
-    + ElementalType getPlayerClass()
-    + void addPlayerExperience(amount: int)
-    + void assignPlayerClass(playerClass: ElementalType)
+    + movePlayer(dir: Direction): void
+    + getPlayerPosition(): Position
+    + getPlayerAttributeOf(id: AttributeIdentifier): double
+    + getPlayerLevel(): int
+    + getPlayerCurrentExperience(): int
+    + getPlayerClass(): ElementalType
+    + etc...()
 }
 
 class CharacterModelImpl implements CharacterModel {
-  
+     + etc...()
 }
 
 CharacterModelImpl *-- "1" Player : contiene
