@@ -36,7 +36,7 @@ public final class InventoryView extends JPanel {
     private static final int TOP_BOTTOM_MARGIN = 15;
     private static final int INVENTORY_BUTTON_MARGIN_LEFT_RIGHT = 20;
     private static final int INVENTORY_BUTTON_MARGIN_UP_BOTTOM = 45;
-    private static final double ICON_SIZE_PERCENTAGE = 0.05;
+    private static final double ICON_SIZE_PERCENTAGE = 0.04;
     private static final int ITEM_BUTTON_FONT_SIZE = 15;
     private final transient GameController gameController;
     private final transient GameView gameView;

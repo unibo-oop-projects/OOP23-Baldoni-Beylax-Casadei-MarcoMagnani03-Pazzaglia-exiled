@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -32,6 +33,7 @@ public final class PlayerClassView {
     private static final int MARGIN = 20;
     private static final int BUTTON_FONT_SIZE = 40;
     private static final String RANDOM_IMAGE_PATH = ConstantsAndResourceLoader.IMAGES_PATH + "/class/random.png";
+    private static final double ICON_SIZE_PERCENTAGE = 0.05;
 
     private final transient GameController controller;
     private final JFrame mainFrame;
@@ -105,12 +107,14 @@ public final class PlayerClassView {
     }
 
     private GameButton configureDefaultButton(final String text, final Color buttonColor, final ImageIcon image) {
+        final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        final int calculatedIconSize = (int) (screenWidth * ICON_SIZE_PERCENTAGE);
         final GameButton button = new GameButton(text);
         button.setForeground(Color.BLACK);
         button.setFont(FontManager.getCustomFont(BUTTON_FONT_SIZE));
         button.setBackground(buttonColor);
-        button.setIcon(new ImageIcon(image.getImage().getScaledInstance(BUTTON_FONT_SIZE,
-                BUTTON_FONT_SIZE, Image.SCALE_SMOOTH)));
+        button.setIcon(new ImageIcon(image.getImage().getScaledInstance(calculatedIconSize,
+        calculatedIconSize, Image.SCALE_SMOOTH)));
         return button;
     }
 
