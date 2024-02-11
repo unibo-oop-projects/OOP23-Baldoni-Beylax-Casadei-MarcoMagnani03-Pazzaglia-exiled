@@ -1,13 +1,18 @@
-package unibo.exiled.model.character.enemy;
+package unibo.exiled.model.character.enemy.factory;
 
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
-import unibo.exiled.model.item.ItemContainer;
+import unibo.exiled.model.character.enemy.Enemy;
+import unibo.exiled.model.character.enemy.GenericEnemyImpl;
+import unibo.exiled.model.character.enemy.boss.GrassBossEnemy;
+import unibo.exiled.model.character.enemy.boss.BoltBossEnemy;
+import unibo.exiled.model.character.enemy.boss.FireBossEnemy;
+import unibo.exiled.model.character.enemy.boss.WaterBossEnemy;
 import unibo.exiled.model.move.MoveSet;
-import unibo.exiled.model.move.MoveSetFactory;
-import unibo.exiled.model.move.MoveSetFactoryImpl;
+import unibo.exiled.model.move.factory.MoveSetFactory;
+import unibo.exiled.model.move.factory.MoveSetFactoryImpl;
 import unibo.exiled.utilities.ElementalType;
 
 import java.util.Map;
@@ -35,12 +40,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
                                    final Map<AttributeIdentifier, Attribute> attributes,
                                    final ElementalType type,
                                    final int droppedExperience) {
-        return new EnemyImpl(name, moveSet, attributes, type, ItemContainer.getRandomItem()) {
-            @Override
-            public int getDroppedExperience() {
-                return droppedExperience;
-            }
-        };
+        return new GenericEnemyImpl(name, moveSet, attributes, type, droppedExperience);
     }
 
     @Override
@@ -65,37 +65,22 @@ public final class EnemyFactoryImpl implements EnemyFactory {
 
     @Override
     public Enemy createWaterBoss() {
-        return new BossEnemy(
-                "Umidamiano",
-                moveSetFactory.defaultWaterMoveSet(),
-                ElementalType.WATER);
+        return new WaterBossEnemy("Umidamiano");
     }
 
     @Override
     public Enemy createFireBoss() {
-        return new BossEnemy(
-                "Piercalore",
-                moveSetFactory.defaultFireMoveSet(),
-                ElementalType.FIRE
-        );
+        return new FireBossEnemy("Piercalore");
     }
 
     @Override
     public Enemy createBoltBoss() {
-        return new BossEnemy(
-                "Carlaccesa",
-                moveSetFactory.defaultBoltMoveSet(),
-                ElementalType.BOLT
-        );
+        return new BoltBossEnemy("Carlaccesa");
     }
 
     @Override
     public Enemy createGrassBoss() {
-        return new BossEnemy(
-                "Lucionerba",
-                moveSetFactory.defaultGrassMoveSet(),
-                ElementalType.GRASS
-        );
+        return new GrassBossEnemy("Lucionerba");
     }
 
     @Override

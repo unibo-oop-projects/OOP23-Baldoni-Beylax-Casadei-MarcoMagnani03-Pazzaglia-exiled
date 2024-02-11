@@ -1,4 +1,4 @@
-package unibo.exiled.model.item;
+package unibo.exiled.model.item.utilities;
 
 /**
  * Enumeration representing the types of items available in the game.

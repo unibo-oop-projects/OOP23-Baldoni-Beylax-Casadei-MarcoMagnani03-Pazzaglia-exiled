@@ -1,5 +1,7 @@
 package unibo.exiled.model.item;
 
+import unibo.exiled.model.item.utilities.ItemType;
+
 import java.util.Objects;
 
 /**

@@ -1,5 +1,7 @@
 package unibo.exiled.model.item;
 
+import unibo.exiled.model.item.utilities.ItemType;
+
 import java.util.Map;
 
 /**
@@ -11,7 +13,7 @@ public interface ItemsModel {
      *
      * @return The items of the player.
      */
-    Map<String, Integer> getItems();
+    Map<String, Integer> getPlayerItems();
 
     /**
      * Returns the description of a given item.
@@ -49,7 +51,6 @@ public interface ItemsModel {
      * Attempts to use the specified item from the player's inventory.
      *
      * @param item The item to use.
-     * @return true if the item was successfully used, false otherwise.
      */
-    boolean useItem(String item);
+    void useItem(String item);
 }

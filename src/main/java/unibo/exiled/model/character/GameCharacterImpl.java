@@ -46,12 +46,12 @@ public abstract class GameCharacterImpl implements GameCharacter {
     public final Position getPosition() {
         return this.position;
     }
-    
+
     @Override
     public final Map<AttributeIdentifier, Attribute> getAttributes() {
         return Collections.unmodifiableMap(this.attributes);
     }
-    
+
     @Override
     public final double getHealth() {
         return ((CombinedAttribute) this.attributes.get(AttributeIdentifier.HEALTH)).getEvaluated();
@@ -61,7 +61,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
     public final double getHealthCap() {
         return ((AdditiveAttribute) this.attributes.get(AttributeIdentifier.HEALTHCAP)).value();
     }
-    
+
     @Override
     public final String getName() {
         return this.name;
@@ -133,7 +133,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
     public final void move(final Position position) {
         this.position = position;
     }
-    
+
     @Override
     public final boolean spriteIsMoving() {
         this.isMoving = !isMoving;

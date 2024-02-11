@@ -38,7 +38,7 @@ public interface Player extends GameCharacter {
      * @return the experience cap of the player.
      */
     int getCapExperience();
-    
+
     /**
      * Gets the inventory of the player.
      *
@@ -51,26 +51,26 @@ public interface Player extends GameCharacter {
     //  SETTER
     //
 
-    
+
     /**
      * Sets the elemental type chosen from the player.
      *
      * @param playerClass the class choosen.
      */
     void setPlayerClass(ElementalType playerClass);
-    
-    
+
+
     //
     //  OTHERS
     //
-    
+
     /**
      * Adds an item to the player inventory.
-     * 
+     *
      * @param item the item to be added.
      */
     void addItemToInventory(Item item);
-    
+
     /**
      * Adds experience, if it exceeds the levelUp cap by increasing statistics.
      *

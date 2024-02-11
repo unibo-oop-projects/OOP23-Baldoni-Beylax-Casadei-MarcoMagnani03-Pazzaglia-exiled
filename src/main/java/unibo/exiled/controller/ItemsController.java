@@ -2,7 +2,7 @@ package unibo.exiled.controller;
 
 import java.util.Map;
 
-import unibo.exiled.model.item.ItemType;
+import unibo.exiled.model.item.utilities.ItemType;
 
 /**
  * Controller for managing the items.
@@ -12,9 +12,16 @@ public interface ItemsController {
      * Attempts to use the specified item from the player's inventory.
      *
      * @param item The item name to use.
-     * @return true if the item was successfully used, false otherwise.
      */
-    boolean useItem(String item);
+    void useItem(String item);
+
+    /**
+     * Checks if the item is usable.
+     *
+     * @param item The name of the item to check.
+     * @return True if the item is usable, false otherwise.
+     */
+    boolean isItemUsable(String item);
 
     /**
      * Gets an association of items and their quantity.
