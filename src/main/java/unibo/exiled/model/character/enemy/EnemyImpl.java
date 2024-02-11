@@ -17,7 +17,6 @@ import java.util.Optional;
 public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
     private final MoveSet moveSet;
     private final ElementalType type;
-    private final Optional<Item> heldItem;
 
     /**
      * Constructs an enemy with a name, move set, and attributes.
@@ -26,19 +25,16 @@ public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
      * @param moveSet    The move set of the enemy.
      * @param attributes The attributes of the enemy.
      * @param type       The Elemental Type of the enemy.
-     * @param heldItem   The held item.
      */
     public EnemyImpl(
             final String name,
             final MoveSet moveSet,
             final Map<AttributeIdentifier, Attribute> attributes,
-            final ElementalType type,
-            final Optional<Item> heldItem
+            final ElementalType type
     ) {
         super(name, attributes);
         this.moveSet = MoveSets.copyOf(moveSet);
         this.type = type;
-        this.heldItem = heldItem;
     }
 
     @Override
@@ -55,7 +51,5 @@ public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
     public abstract int getDroppedExperience();
 
     @Override
-    public final Optional<Item> getHeldItem() {
-        return this.heldItem;
-    }
+    public abstract Optional<Item> getHeldItem();
 }

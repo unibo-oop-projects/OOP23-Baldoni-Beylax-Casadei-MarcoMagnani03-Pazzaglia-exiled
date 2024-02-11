@@ -17,7 +17,7 @@ import javax.swing.WindowConstants;
 /**
  * This class represent the GameCompleted view.
  */
-public final class GameCompletedView {
+public final class GameVictoryView {
 
     //MVC Components (MC)
     private final JFrame mainFrame;
@@ -29,7 +29,7 @@ public final class GameCompletedView {
     /**
      * The constructor of the GameCompleted view.
      */
-    public GameCompletedView() {
+    public GameVictoryView() {
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

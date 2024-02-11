@@ -4,12 +4,12 @@ import unibo.exiled.model.character.CharacterModel;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.attributes.MultiplierAttribute;
-import unibo.exiled.model.character.enemy.BossEnemy;
+import unibo.exiled.model.character.enemy.boss.BossEnemy;
 import unibo.exiled.model.character.enemy.Enemy;
-import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.utilities.Direction;
 import unibo.exiled.utilities.ElementalType;
 import unibo.exiled.utilities.Position;
@@ -147,23 +147,20 @@ public final class CharacterControllerImpl implements CharacterController {
         return this.model.getPlayerMoveSet().getMagicMoves().stream().map(MagicMove::name).toList();
     }
 
-    private double typeModifier(GameCharacter attacker, GameCharacter defender) {
-        final double ATTACKER_EFFECTIVE = 2;
-        final double DEFENDER_EFFECTIVE = 0.5;
-        final double NONE_EFFECTIVE = 1;
+    //TODO: Non deve controllare le classi, ma le mosse.
+    private double getAttackModifierBasedOnType(final GameCharacter attacker, final GameCharacter defender) {
         final ElementalType attackerType = attacker.getType();
         final ElementalType defenderType = defender.getType();
         if (attackerType.isStrongAgainst(defenderType)) {
-            return ATTACKER_EFFECTIVE;
+            return ConstantsAndResourceLoader.ATTACK_MODIFIER_EFFECTIVE;
+        } else if (defenderType.isStrongAgainst(attackerType)) {
+            return ConstantsAndResourceLoader.ATTACK_MODIFIER_INEFFECTIVE;
+        } else {
+            return ConstantsAndResourceLoader.NEUTRAL_MODIFIER;
         }
-
-        if (defenderType.isStrongAgainst(attackerType)) {
-            return DEFENDER_EFFECTIVE;
-        }
-
-        return NONE_EFFECTIVE;
     }
 
+    //TODO: Metodo da rivedere e semplificare.
     @Override
     public boolean attack(final boolean isPlayerAttacking, final String moveName, final Position combatPosition) {
         if (this.model.getCharacterFromPosition(combatPosition).isEmpty()) {
@@ -185,10 +182,11 @@ public final class CharacterControllerImpl implements CharacterController {
         final double defenseModifier = ((MultiplierAttribute) defender.getAttributes()
                 .get(AttributeIdentifier.DEFENSE)).modifier();
 
-        final double moveTypeModifier = attacker.getType().equals(move.type()) ? 1.4 : 1;
+        final double moveTypeModifier = attacker.getType().equals(move.type())
+                ? ConstantsAndResourceLoader.ATTACK_SAME_TYPE_OF_CLASS_MODIFIER : 1;
         final double attackModifier = ((MultiplierAttribute) attacker.getAttributes().get(AttributeIdentifier.ATTACK))
                 .modifier() * moveTypeModifier;
-        final double damage = baseDamage * attackModifier / defenseModifier * typeModifier(attacker, defender);
+        final double damage = baseDamage * attackModifier / defenseModifier * getAttackModifierBasedOnType(attacker, defender);
         defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);
 
         final boolean hasAttackerWon = defender.getHealth() <= 0;
@@ -252,7 +250,7 @@ public final class CharacterControllerImpl implements CharacterController {
         final Optional<GameCharacter> gottenCharacter = this.model
                 .getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
-            return ((EnemyImpl) gottenCharacter.get()).getType().getName();
+            return gottenCharacter.get().getType().getName();
         } else {
             throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
         }
@@ -292,9 +290,7 @@ public final class CharacterControllerImpl implements CharacterController {
     @Override
     public boolean checkWin() {
         if (model.getEnemies().isPresent()) {
-            return model.getEnemies().get().getEnemies().stream()
-                        .filter(e -> e instanceof BossEnemy)
-                        .count() == 0;
+            return model.getEnemies().get().getEnemies().stream().noneMatch(e -> e instanceof BossEnemy);
         }
         return true;
     }

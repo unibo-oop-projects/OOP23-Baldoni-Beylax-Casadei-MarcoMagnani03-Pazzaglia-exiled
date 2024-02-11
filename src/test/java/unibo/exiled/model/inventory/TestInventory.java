@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.Item;
-import unibo.exiled.model.item.ItemFactory;
-import unibo.exiled.model.item.ItemFactoryImpl;
+import unibo.exiled.model.item.factory.ItemFactory;
+import unibo.exiled.model.item.factory.ItemFactoryImpl;
 
 /**
  * Tests the inventory items.

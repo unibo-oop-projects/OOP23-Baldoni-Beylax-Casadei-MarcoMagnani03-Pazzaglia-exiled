@@ -28,7 +28,7 @@ public final class GameView {
     private final CombatView combatView;
     private final InventoryView inventoryView;
     private final GameOverView gameOverView;
-    private final GameCompletedView gameCompletedView;
+    private final GameVictoryView gameVictoryView;
     private final HudView hud;
     private final GameGridView grid;
 
@@ -82,7 +82,7 @@ public final class GameView {
 
         this.inventoryView = new InventoryView(this.gameController, this);
         this.gameOverView = new GameOverView();
-        this.gameCompletedView = new GameCompletedView();
+        this.gameVictoryView = new GameVictoryView();
 
         final String playerClass = this.gameController
                 .getCharacterController().getPlayerClassName().toLowerCase(Locale.ROOT);
@@ -140,7 +140,7 @@ public final class GameView {
             this.gameOverView.display();
             this.mainFrame.dispose();
         } else if (this.gameController.isWin()) {
-            this.gameCompletedView.display();
+            this.gameVictoryView.display();
             this.mainFrame.dispose();
         }
 

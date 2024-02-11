@@ -64,6 +64,22 @@ public final class ConstantsAndResourceLoader extends ClassLoader {
      * The number of enemies to be scattered on the map.
      */
     public static final int NUM_ENEMIES = 100;
+    /**
+     * The dropped experience of a Boss in the game.
+     */
+    public static final int BOSS_DROPPED_EXPERIENCE = 200;
+    /**
+     * The attack modifier to be applied if an attack is effective by type.
+     */
+    public static final double ATTACK_MODIFIER_EFFECTIVE = 1.5d;
+    /**
+     * The attack modifier to be applied if an attack is ineffective by type.
+     */
+    public static final double ATTACK_MODIFIER_INEFFECTIVE = 0.5d;
+    /**
+     * The attack modifier to be applied if the move is of the same type of the class of the player.
+     */
+    public static final double ATTACK_SAME_TYPE_OF_CLASS_MODIFIER = 1.2;
 
     private ConstantsAndResourceLoader() {
     }

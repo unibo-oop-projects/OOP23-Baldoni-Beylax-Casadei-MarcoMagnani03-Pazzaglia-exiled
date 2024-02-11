@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import unibo.exiled.model.move.factory.MagicMoveFactory;
+import unibo.exiled.model.move.factory.MagicMoveFactoryImpl;
 
 /**
  * Tests the MoveSet creation and modification.

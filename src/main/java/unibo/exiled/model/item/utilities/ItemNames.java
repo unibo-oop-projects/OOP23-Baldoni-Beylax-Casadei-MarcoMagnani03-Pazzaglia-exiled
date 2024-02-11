@@ -1,4 +1,4 @@
-package unibo.exiled.model.item;
+package unibo.exiled.model.item.utilities;
 
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
 

@@ -1,4 +1,6 @@
-package unibo.exiled.model.move;
+package unibo.exiled.model.move.factory;
+
+import unibo.exiled.model.move.MoveSet;
 
 /**
  * The MoveSetFactory interface defines methods to create default MoveSets
@@ -47,4 +49,11 @@ public interface MoveSetFactory {
      * @return A MoveSet for the Whirler.
      */
     MoveSet whirlerMoveset();
+
+    /**
+     * Creates the moveSet of the Bolt Boss.
+     *
+     * @return A MoveSet for the Bolt Boss.
+     */
+    MoveSet boltBossMoves();
 }
