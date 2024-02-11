@@ -10,12 +10,10 @@ import unibo.exiled.model.character.player.Player;
  * The amount of power-up is determined by the powerUpValue.
  * Power-ups are not permanent, so they have a duration.
  */
-public final class PowerUpItem extends ItemBase implements ItemWithDuration {
+public final class PowerUpItem extends ItemBase implements UsableItem {
 
     private final AttributeIdentifier boostedAttribute;
-    private final int duration;
     private final double powerUpValue;
-    private int currentDuration;
 
     /**
      * Constructs a PowerUpItem with the specified attributes.
@@ -23,14 +21,11 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
      * @param name             The name of the power-up item.
      * @param description      The description of the power-up item.
      * @param powerUpValue     The value by which the attribute is powered up.
-     * @param duration         The duration of the power-up effect.
      * @param boostedAttribute The attribute that is boosted by the power-up.
      */
-    public PowerUpItem(final String name, final String description, final double powerUpValue, final int duration,
+    public PowerUpItem(final String name, final String description, final double powerUpValue,
                        final AttributeIdentifier boostedAttribute) {
         super(name, description, ItemType.POWERUP);
-        this.duration = duration;
-        this.currentDuration = duration;
         this.boostedAttribute = boostedAttribute;
         this.powerUpValue = powerUpValue;
     }
@@ -38,23 +33,6 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
     @Override
     public void use(final Player player) {
         player.increaseAttributeModifier(boostedAttribute, powerUpValue);
-    }
-
-    @Override
-    public void disable(final Player player) {
-        if (this.currentDuration == 0) {
-            player.decreaseAttributeModifier(boostedAttribute, powerUpValue);
-        }
-    }
-
-    /**
-     * Gets the duration for which the item's effect lasts.
-     *
-     * @return The duration of the item's effect.
-     */
-    @Override
-    public int getDuration() {
-        return this.duration;
     }
 
     /**
@@ -75,10 +53,5 @@ public final class PowerUpItem extends ItemBase implements ItemWithDuration {
      */
     public AttributeIdentifier getBoostedAttribute() {
         return this.boostedAttribute;
-    }
-
-    @Override
-    public void decreaseDuration() {
-        this.currentDuration--;
     }
 }

@@ -70,15 +70,6 @@ public final class ItemsModelImpl implements ItemsModel {
     }
 
     @Override
-    public int getItemDuration(final String itemName) {
-        final Item selectedItem = getItem(itemName);
-        if (selectedItem instanceof PowerUpItem) {
-            return ((PowerUpItem) selectedItem).getDuration();
-        }
-        return 0;
-    }
-
-    @Override
     public boolean useItem(final String item) {
         final Item selectedItem = getItem(item);
         if (selectedItem instanceof UsableItem convertedItem) {
