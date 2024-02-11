@@ -32,7 +32,6 @@ public final class ItemsModelImpl implements ItemsModel {
     }
 
     private Item getItem(final String itemName) {
-        // TODO: Lacks isPresent control.
         return this.model.getCharacterModel().getPlayer().get().getInventory().getItems()
                 .entrySet()
                 .stream()
