@@ -3,6 +3,7 @@ package unibo.exiled.model.character.player;
 import java.util.Optional;
 import java.util.Random;
 
+import unibo.exiled.model.move.MoveNames;
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
@@ -28,13 +29,11 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     private static final Random RANDOM = new Random();
     private final int attributeIncBound;
     private final Inventory inventory;
-    private final MoveSet moveSet;
     private final int movesLearningInterval;
     private final int maxMovesNumber;
     private int level;
     private int currentExp;
     private int expCap;
-    private ElementalType playerClass;
 
     /**
      * Constructs a new player with specified attributes, experience cap, initial
@@ -49,14 +48,13 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     public PlayerImpl(final int experienceCap, final int attributeIncreaseBound,
                       final int movesLearningInterval) {
         super(ConstantsAndResourceLoader.PLAYER_NAME, new AttributeFactoryImpl().createPlayerAttributes());
+        super.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet();
         this.inventory = initializeInventory();
-        this.moveSet = new MoveSetFactoryImpl().defaultNormalMoveSet();
         this.expCap = experienceCap;
         this.currentExp = 0;
         this.level = ConstantsAndResourceLoader.PLAYER_STARTING_LEVEL;
         this.attributeIncBound = attributeIncreaseBound;
         this.movesLearningInterval = movesLearningInterval;
-        this.playerClass = ElementalType.NORMAL;
         this.maxMovesNumber = ConstantsAndResourceLoader.PLAYER_MOVES_NUMBER;
     }
 
@@ -73,16 +71,6 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     //
     //  GETTER
     //
-
-    @Override
-    public MoveSet getMoveSet() {
-        return MoveSets.copyOf(this.moveSet);
-    }
-
-    @Override
-    public ElementalType getType() {
-        return this.playerClass;
-    }
 
     @Override
     public int getLevel() {
@@ -110,7 +98,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
 
     @Override
     public void setPlayerClass(final ElementalType playerClassChoice) {
-        this.playerClass = playerClassChoice;
+        this.type = playerClassChoice;
     }
 
     //
@@ -125,7 +113,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
             Optional<MagicMove> newMove;
 
             // If the player knows all moves of their type, learn a move of a different type
-            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(playerClass))) {
+            if (this.moveSet.getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(type))) {
                 newMove = Optional.of(Moves.getTotallyRandomMove());
             } else {
                 newMove = getNewMove();
@@ -134,13 +122,13 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
             this.moveSet.addMagicMove(newMove.get());
         }
     }
-    
+
 
     @Override
     public Optional<MagicMove> getNewMove() {
         Optional<MagicMove> newMove;
         do {
-            newMove = Moves.getRandomMagicMoveByType(playerClass);
+            newMove = Moves.getRandomMagicMoveByType(type);
             // If there are no moves of the specified type, choose a completely random move
             newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove()) : newMove;
             // Continue searching until finding a move the player doesn't already know
