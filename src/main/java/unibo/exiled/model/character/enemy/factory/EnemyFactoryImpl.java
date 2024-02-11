@@ -5,17 +5,20 @@ import unibo.exiled.model.character.attributes.AttributeFactory;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.Enemy;
-import unibo.exiled.model.character.enemy.GenericEnemyImpl;
+import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.enemy.boss.GrassBossEnemy;
 import unibo.exiled.model.character.enemy.boss.BoltBossEnemy;
 import unibo.exiled.model.character.enemy.boss.FireBossEnemy;
 import unibo.exiled.model.character.enemy.boss.WaterBossEnemy;
+import unibo.exiled.model.item.Item;
+import unibo.exiled.model.item.utilities.ItemsContainer;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.factory.MoveSetFactory;
 import unibo.exiled.model.move.factory.MoveSetFactoryImpl;
 import unibo.exiled.utilities.ElementalType;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -40,7 +43,17 @@ public final class EnemyFactoryImpl implements EnemyFactory {
                                    final Map<AttributeIdentifier, Attribute> attributes,
                                    final ElementalType type,
                                    final int droppedExperience) {
-        return new GenericEnemyImpl(name, moveSet, attributes, type, droppedExperience);
+        return new EnemyImpl(name, moveSet, attributes, type) {
+            @Override
+            public int getDroppedExperience() {
+                return droppedExperience;
+            }
+
+            @Override
+            public Optional<Item> getHeldItem() {
+                return ItemsContainer.getRandomItem();
+            }
+        };
     }
 
     @Override
