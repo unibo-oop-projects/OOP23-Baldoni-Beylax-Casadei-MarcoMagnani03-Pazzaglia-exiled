@@ -46,14 +46,6 @@ public interface ItemsModel {
     String getItemBoostedAttributeName(String itemName);
 
     /**
-     * Returns the duration of a given item.
-     *
-     * @param itemName The name of the item.
-     * @return The duration of the given item.
-     */
-    int getItemDuration(String itemName);
-
-    /**
      * Attempts to use the specified item from the player's inventory.
      *
      * @param item The item to use.

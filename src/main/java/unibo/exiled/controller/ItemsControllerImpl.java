@@ -48,11 +48,6 @@ public final class ItemsControllerImpl implements ItemsController {
     }
 
     @Override
-    public int getItemDuration(final String itemName) {
-        return model.getItemDuration(itemName);
-    }
-
-    @Override
     public boolean useItem(final String itemName) {
         return model.useItem(itemName);
     }

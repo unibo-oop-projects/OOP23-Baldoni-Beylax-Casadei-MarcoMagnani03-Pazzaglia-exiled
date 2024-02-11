@@ -18,15 +18,14 @@ final class TestItem {
     @Test
     void testPowerUpItemUsage() {
         final Player player = new PlayerImpl(0, 0, 0);
-        final PowerUpItem powerUpItem = new PowerUpItem("Strength Boost", "Increases attack strength", 10.0, 3,
+        final PowerUpItem powerUpItem = new PowerUpItem("Strength Boost", "Increases attack strength", 10.0,
                 AttributeIdentifier.ATTACK);
         final double initialAttributeValue =
                 ((MultiplierAttribute) player.getAttributes().get(AttributeIdentifier.ATTACK)).modifier();
         powerUpItem.use(player);
         final double newAttributeValue =
                 ((MultiplierAttribute) player.getAttributes().get(AttributeIdentifier.ATTACK)).modifier();
-        assertEquals(initialAttributeValue + 10.0, newAttributeValue, 0);
-        assertEquals(3, powerUpItem.getDuration());
+        assertEquals(initialAttributeValue + 10.0, newAttributeValue);
         assertEquals(AttributeIdentifier.ATTACK, powerUpItem.getBoostedAttribute());
     }
 

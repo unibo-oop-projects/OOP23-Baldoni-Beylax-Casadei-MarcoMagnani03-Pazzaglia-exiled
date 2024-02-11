@@ -28,11 +28,10 @@ public interface ItemFactory {
      * @param description      The description of the power-up item.
      * @param powerUpValue     The value representing the power-up effect of the
      *                         item.
-     * @param duration         The duration for which the power-up effect lasts.
      * @param boostedAttribute The attribute that the power up infect.
      * @return A new Item representing a power-up item.
      */
-    Item createPowerUpItem(String name, String description, double powerUpValue, int duration,
+    Item createPowerUpItem(String name, String description, double powerUpValue,
                            AttributeIdentifier boostedAttribute);
 
     /**

@@ -54,12 +54,4 @@ public interface ItemsController {
      * @return A String representing the name of the boosted attribute.
      */
     String getItemBoostedAttributeName(String itemName);
-
-    /**
-     * Gets the duration of an item based of its name.
-     *
-     * @param itemName The name of the item.
-     * @return An integer representing the duration of the item (in turns)
-     */
-    int getItemDuration(String itemName);
 }

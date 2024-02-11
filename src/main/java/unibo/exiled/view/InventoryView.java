@@ -63,7 +63,6 @@ public final class InventoryView extends JPanel {
         final JScrollPane scrollPane = new JScrollPane(inventoryButtonsPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
         final JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.add(scrollPane, BorderLayout.CENTER);
         centralPanel.add(emptyInventoryLabel, BorderLayout.SOUTH);
@@ -131,7 +130,7 @@ public final class InventoryView extends JPanel {
                         + "<br>Description: " + gameController.getItemsController().getItemDescription(itemName)
                         + "<br>PowerUp: " + gameController.getItemsController().getItemValor(itemName)
                         + "<br>Attribute: " + gameController.getItemsController().getItemBoostedAttributeName(itemName)
-                        + "<br>Duration: " + gameController.getItemsController().getItemDuration(itemName) + "</html>");
+                        + "</html>");
                 break;
             case RESOURCE:
                 itemButton.setBackground(RESOURSE_ITEM_COLOR);

@@ -12,6 +12,8 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
  * A container of every existent item in the game.
  */
 public final class ItemContainer {
+        private static final double RANDOM_PROBABILITY_HEALING = 0.6;
+        private static final double RANDOM_PROBABILITY_EMPTY = 0.6;
 
         private static final ItemFactory ITEM_FACTORY = new ItemFactoryImpl();
         private static final Random RANDOM = new Random();
@@ -23,11 +25,11 @@ public final class ItemContainer {
                         ITEM_FACTORY.createHealingItem(ItemNames.BANDAGE.getName(),
                                         "A simple bandage to stop bleeding.", 10.0),
                         ITEM_FACTORY.createPowerUpItem(ItemNames.STRENGTH_POTION.getName(),
-                                        "Increases strength for a short duration.",
-                                        10.0, 3, AttributeIdentifier.ATTACK),
+                                        "Increases strength permanently.",
+                                        1.0, AttributeIdentifier.ATTACK),
                         ITEM_FACTORY.createPowerUpItem(ItemNames.DEFENSE_POTION.getName(),
-                                        "Boosts defense against attacks.",
-                                        15.0, 3, AttributeIdentifier.DEFENSE),
+                                        "Boosts defense against attacks permanently.",
+                                        1.0, AttributeIdentifier.DEFENSE),
                         ITEM_FACTORY.createUnUsableItem(ItemNames.BOLT_CRYSTAL.getName(),
                                         "The redemption crystal"));
 
@@ -78,19 +80,37 @@ public final class ItemContainer {
         /**
          * Retrieves a random item from the container.
          *
-         * @return An Optional containing a random item of the specified type if found,
-         *         or randomly also an empty Optional.
+         * @return An Optional containing a random item of a random type if found,
+         *         or randomly also an empty Optional. 
          */
         public static Optional<Item> getRandomItem() {
-                final List<Item> itemByType = ITEMS.stream()
-                                .filter(items -> items.getType().equals(ItemType.HEALTH)
-                                                || items.getType().equals(ItemType.POWERUP))
+                final List<Item> healthItems = ITEMS.stream()
+                                .filter(item -> item.getType().equals(ItemType.HEALTH))
                                 .toList();
 
-                if (RANDOM.nextBoolean()) {
-                        return Optional.of(itemByType.get(RANDOM.nextInt(ITEMS.size() - 1)));
-                } else {
+                final List<Item> powerupItems = ITEMS.stream()
+                                .filter(item -> item.getType().equals(ItemType.POWERUP))
+                                .toList();
+
+                final double healthProbability = RANDOM_PROBABILITY_HEALING; 
+                final double emptyProbability = RANDOM_PROBABILITY_EMPTY; 
+
+                final double randomValue = RANDOM.nextDouble();
+
+                if (randomValue < healthProbability) {
+                        return getRandomItemFromList(healthItems);
+                } else if (randomValue < healthProbability + emptyProbability) {
                         return Optional.empty();
+                } else {
+                        return getRandomItemFromList(powerupItems);
+                }
+        }
+
+        private static Optional<Item> getRandomItemFromList(final List<Item> itemList) {
+                if (itemList.isEmpty()) {
+                        return Optional.empty();
+                } else {
+                        return Optional.of(itemList.get(RANDOM.nextInt(itemList.size())));
                 }
         }
 

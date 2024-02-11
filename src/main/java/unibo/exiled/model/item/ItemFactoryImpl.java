@@ -30,14 +30,13 @@ public class ItemFactoryImpl implements ItemFactory {
      * @param description      The description of the power-up item.
      * @param powerUpValue     The value representing the power-up effect of the
      *                         item.
-     * @param duration         The duration for which the power-up effect lasts.
      * @param boostedAttribute The attribute that the power up infect.
      * @return A new Item representing a power-up item.
      */
     @Override
     public Item createPowerUpItem(final String name, final String description, final double powerUpValue,
-            final int duration, final AttributeIdentifier boostedAttribute) {
-        return new PowerUpItem(name, description, powerUpValue, duration, boostedAttribute);
+            final AttributeIdentifier boostedAttribute) {
+        return new PowerUpItem(name, description, powerUpValue, boostedAttribute);
     }
 
     /**

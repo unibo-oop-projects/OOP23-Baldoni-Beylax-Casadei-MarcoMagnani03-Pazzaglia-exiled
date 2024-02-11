@@ -11,7 +11,6 @@ import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.ItemContainer;
-import unibo.exiled.model.item.ItemNames;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetFactoryImpl;
@@ -65,16 +64,10 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     // This method is used for testing purposes only.
     private Inventory initializeInventory() {
         final Inventory inventory = new InventoryImpl();
-        final Item healingItem = ItemContainer.getItemByName(ItemNames.HEALTH_POTION.getName()).get();
+        final Item healingItem = ItemContainer.getRandomItemByType(ItemType.HEALTH).get();
         inventory.addItem(healingItem);
-        final Item healingItem1 = ItemContainer.getItemByName(ItemNames.HEALTH_POTION.getName()).get();
-        inventory.addItem(healingItem1);
-        final Item powerUpItem = ItemContainer.getRandomItemByType(ItemType.HEALTH).get();
+        final Item powerUpItem = ItemContainer.getRandomItemByType(ItemType.POWERUP).get();
         inventory.addItem(powerUpItem);
-        final Item powerUpItem1 = ItemContainer.getRandomItemByType(ItemType.POWERUP).get();
-        inventory.addItem(powerUpItem1);
-        final Item powerUpItemDefence = ItemContainer.getRandomItemByType(ItemType.RESOURCE).get();
-        inventory.addItem(powerUpItemDefence);
         return inventory;
     }
 
