@@ -82,10 +82,21 @@ Ad esempio, nel seguente schema si vede che Fulmine è efficace contro Acqua.
 Qui entriamo nel dettaglio della struttura ad alto livello del gioco.
 
 \section{Architettura}
-\section{Design dettagliato}
 
+\section{Design dettagliato}
 \subsection*{Luca Casadei}
-La parte di creazione dei nemici è stata realizzata utilizzando il pattern creazionale "Abstract Factory"
+Personalmente mi sono occupato di parte della realizzazione delle mosse, della realizzazione di parte dell'entità \textit{GameCharacter}, della realizzazione dei nemici e della loro distribuzione sulla mappa in base al tipo, della creazione della mappa e relativa suddivisione in aree, della creazione ed assegnazione degli attributi dei \textit{GameCharacter}. Per ciascuno di questi elementi del model è stato realizzato un controller apposito per poter utilizzare il pattern MVC.
+\subsubsection{Entità "Nemico"}
+La difficoltà nella realizzazione del concetto di nemico consiste nella suddivisione dei nemici in comuni e boss finali, divisi ciascuno in base al proprio tipo elementale e con la propria quantità di esperienza rilasciata alla sconfitta.\\
+La soluzione adottata è stata quella di estendere un concetto di \textit{GameCharacter}, che contenesse tutte le informazioni e le azioni condivise tra giocatore e nemici, e successivamente effettuare la relativa divisione costruendo due interfacce diverse, una per il giocatore e una per il nemico. Per quest'ultimo è stata realizzata un'apposita interfaccia implementata da una classe astratta, che poi verrà utilizzata nell'istanziamento e la distribuzione dei nemici su mappa. Quest'ultima però viene spiegata nella sottosezione successiva.\\
+\subsubsection{UML dell'entità "Nemico"}
+\begin{figure}[H]
+	\centering
+	\input{enemy/enemy-uml.tex}
+	\caption{Schema UML che rappresenta la gestione dell'entità "Nemico"} 
+	\label{fig:Schema UML dell'entità nemico}
+\end{figure}
+La classe \textit{EnemyImpl} contiene metodi astratti in modo tale da poter gestire la singola implementazione a seconda del diverso nemico del gioco, come spiegato successivamente.
 
 \subsection*{Francesco Pazzaglia}
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Per facilitare la comunicazione tra il Model del giocatore (\textit{Player}) e la View ho introdotto un controller garantendo l'utilizzo del pattern \textit{MVC}.

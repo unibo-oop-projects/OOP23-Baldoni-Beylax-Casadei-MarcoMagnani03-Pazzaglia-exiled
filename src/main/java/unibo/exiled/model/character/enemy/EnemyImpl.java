@@ -15,9 +15,6 @@ import java.util.Optional;
  * Abstract implementation of the Enemy interface.
  */
 public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
-    private final MoveSet moveSet;
-    private final ElementalType type;
-
     /**
      * Constructs an enemy with a name, move set, and attributes.
      *
@@ -35,16 +32,6 @@ public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
         super(name, attributes);
         this.moveSet = MoveSets.copyOf(moveSet);
         this.type = type;
-    }
-
-    @Override
-    public final ElementalType getType() {
-        return this.type;
-    }
-
-    @Override
-    public final MoveSet getMoveSet() {
-        return MoveSets.copyOf(this.moveSet);
     }
 
     @Override

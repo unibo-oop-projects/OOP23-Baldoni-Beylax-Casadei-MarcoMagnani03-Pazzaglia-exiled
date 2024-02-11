@@ -7,7 +7,10 @@ import unibo.exiled.model.character.attributes.CombinedAttributeImpl;
 import unibo.exiled.model.character.attributes.AdditiveAttribute;
 import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttribute;
+import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.utilities.Direction;
+import unibo.exiled.utilities.ElementalType;
+import unibo.exiled.utilities.MoveSets;
 import unibo.exiled.utilities.Position;
 
 import java.util.Collections;
@@ -19,6 +22,8 @@ import java.util.Map;
  */
 public abstract class GameCharacterImpl implements GameCharacter {
     private final String name;
+    protected MoveSet moveSet;
+    protected ElementalType type;
     /**
      * An association between the identifier of the attribute and its values.
      */
@@ -138,5 +143,15 @@ public abstract class GameCharacterImpl implements GameCharacter {
     public final boolean spriteIsMoving() {
         this.isMoving = !isMoving;
         return !this.isMoving;
+    }
+
+    @Override
+    public final ElementalType getType() {
+        return this.type;
+    }
+
+    @Override
+    public final MoveSet getMoveSet() {
+        return MoveSets.copyOf(this.moveSet);
     }
 }
