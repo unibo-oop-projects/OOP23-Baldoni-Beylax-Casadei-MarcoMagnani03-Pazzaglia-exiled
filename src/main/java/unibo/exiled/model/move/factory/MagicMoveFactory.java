@@ -1,16 +1,12 @@
-package unibo.exiled.model.move;
+package unibo.exiled.model.move.factory;
 
-import unibo.exiled.utilities.ElementalType;
+import unibo.exiled.model.move.MagicMove;
 
 /**
- * The MagicMoveFactoryImpl class implements the MagicMoveFactory interface
- * to provide methods for creating different types of magical moves. Each method
- * returns an
- * instance of MagicMoveImpl with specified attributes such as name,
- * description, power,
- * and elemental type.
+ * The MagicMoveFactory interface defines methods to create different types
+ * of MagicMoves, such as Normal, Fire, Water, Bolt, and Grass.
  */
-public class MagicMoveFactoryImpl implements MagicMoveFactory {
+public interface MagicMoveFactory {
 
     /**
      * Creates a Normal type MagicMove with the specified attributes.
@@ -20,10 +16,7 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param power       The power of the Normal MagicMove.
      * @return A Normal type MagicMove.
      */
-    @Override
-    public MagicMove createNormalMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.NORMAL);
-    }
+    MagicMove createNormalMagicMove(String name, String description, double power);
 
     /**
      * Creates a Fire type MagicMove with the specified attributes.
@@ -33,10 +26,7 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param power       The power of the Fire MagicMove.
      * @return A Fire type MagicMove.
      */
-    @Override
-    public MagicMove createFireMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.FIRE);
-    }
+    MagicMove createFireMagicMove(String name, String description, double power);
 
     /**
      * Creates a Water type MagicMove with the specified attributes.
@@ -46,10 +36,7 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param power       The power of the Water MagicMove.
      * @return A Water type MagicMove.
      */
-    @Override
-    public MagicMove createWaterMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.WATER);
-    }
+    MagicMove createWaterMagicMove(String name, String description, double power);
 
     /**
      * Creates a Bolt type MagicMove with the specified attributes.
@@ -59,10 +46,7 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param power       The power of the Bolt MagicMove.
      * @return A Bolt type MagicMove.
      */
-    @Override
-    public MagicMove createBoltMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.BOLT);
-    }
+    MagicMove createBoltMagicMove(String name, String description, double power);
 
     /**
      * Creates a Grass type MagicMove with the specified attributes.
@@ -72,9 +56,5 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param power       The power of the Grass MagicMove.
      * @return A Grass type MagicMove.
      */
-    @Override
-    public MagicMove createGrassMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.GRASS);
-    }
-
+    MagicMove createGrassMagicMove(String name, String description, double power);
 }

@@ -1,9 +1,11 @@
 package unibo.exiled.model.item;
 
+import unibo.exiled.model.item.utilities.ItemType;
+
 /**
  * Represents an item that can't be used by the player, such as crystals.
  */
-public class UnUsableItem extends ItemBase {
+public final class UnUsableItem extends ItemBase {
 
     /**
      * Constructs an UnUsableItem with the specified name and description.

@@ -4,12 +4,12 @@ import unibo.exiled.model.character.CharacterModel;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.attributes.MultiplierAttribute;
-import unibo.exiled.model.character.enemy.BossEnemy;
+import unibo.exiled.model.character.enemy.boss.BossEnemy;
 import unibo.exiled.model.character.enemy.Enemy;
-import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.move.MagicMove;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.utilities.Direction;
 import unibo.exiled.utilities.ElementalType;
 import unibo.exiled.utilities.Position;
@@ -147,23 +147,35 @@ public final class CharacterControllerImpl implements CharacterController {
         return this.model.getPlayerMoveSet().getMagicMoves().stream().map(MagicMove::name).toList();
     }
 
-    private double typeModifier(GameCharacter attacker, GameCharacter defender) {
-        final double ATTACKER_EFFECTIVE = 2;
-        final double DEFENDER_EFFECTIVE = 0.5;
-        final double NONE_EFFECTIVE = 1;
-        final ElementalType attackerType = attacker.getType();
+    /**
+     * Returns the multiplier for the attack based on the move type and the defender
+     * type.
+     * 
+     * @param move     the move performed by the attacker.
+     * @param defender the defender.
+     * @return the multiplier for the attack based on the move type and the defender
+     *         type.
+     */
+    private double getAttackModifierBasedOnType(final MagicMove move, final GameCharacter defender) {
+        final ElementalType moveType = move.type();
         final ElementalType defenderType = defender.getType();
-        if (attackerType.isStrongAgainst(defenderType)) {
-            return ATTACKER_EFFECTIVE;
+        if (moveType.isStrongAgainst(defenderType)) {
+            return ConstantsAndResourceLoader.ATTACK_MODIFIER_EFFECTIVE;
+        } else if (defenderType.isStrongAgainst(moveType)) {
+            return ConstantsAndResourceLoader.ATTACK_MODIFIER_INEFFECTIVE;
+        } else {
+            return ConstantsAndResourceLoader.NEUTRAL_MODIFIER;
         }
-
-        if (defenderType.isStrongAgainst(attackerType)) {
-            return DEFENDER_EFFECTIVE;
-        }
-
-        return NONE_EFFECTIVE;
     }
 
+    /**
+     * Performes the attack routine.
+     * 
+     * @param isPlayerAttacking if the player is attacking.
+     * @param moveName the name of the move performed.
+     * @param combatPosition the combat position.
+     * @return if the defender is dead.
+     */
     @Override
     public boolean attack(final boolean isPlayerAttacking, final String moveName, final Position combatPosition) {
         if (this.model.getCharacterFromPosition(combatPosition).isEmpty()) {
@@ -185,10 +197,13 @@ public final class CharacterControllerImpl implements CharacterController {
         final double defenseModifier = ((MultiplierAttribute) defender.getAttributes()
                 .get(AttributeIdentifier.DEFENSE)).modifier();
 
-        final double moveTypeModifier = attacker.getType().equals(move.type()) ? 1.4 : 1;
+        final double moveTypeModifier = attacker.getType().equals(move.type())
+                ? ConstantsAndResourceLoader.ATTACK_SAME_TYPE_OF_CLASS_MODIFIER
+                : 1;
         final double attackModifier = ((MultiplierAttribute) attacker.getAttributes().get(AttributeIdentifier.ATTACK))
-                .modifier() * moveTypeModifier;
-        final double damage = baseDamage * attackModifier / defenseModifier * typeModifier(attacker, defender);
+                .modifier();
+        final double damage = baseDamage * attackModifier * moveTypeModifier
+                * getAttackModifierBasedOnType(move, defender) / defenseModifier;
         defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);
 
         final boolean hasAttackerWon = defender.getHealth() <= 0;
@@ -252,7 +267,7 @@ public final class CharacterControllerImpl implements CharacterController {
         final Optional<GameCharacter> gottenCharacter = this.model
                 .getCharacterFromPosition(position);
         if (gottenCharacter.isPresent()) {
-            return ((EnemyImpl) gottenCharacter.get()).getType().getName();
+            return gottenCharacter.get().getType().getName();
         } else {
             throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
         }
@@ -292,9 +307,7 @@ public final class CharacterControllerImpl implements CharacterController {
     @Override
     public boolean checkWin() {
         if (model.getEnemies().isPresent()) {
-            return model.getEnemies().get().getEnemies().stream()
-                        .filter(e -> e instanceof BossEnemy)
-                        .count() == 0;
+            return model.getEnemies().get().getEnemies().stream().noneMatch(e -> e instanceof BossEnemy);
         }
         return true;
     }

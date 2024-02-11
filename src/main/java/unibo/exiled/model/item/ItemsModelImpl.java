@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.game.GameModel;
+import unibo.exiled.model.item.utilities.ItemType;
 
 /**
  * The implementation of the model of the items.
@@ -23,7 +24,7 @@ public final class ItemsModelImpl implements ItemsModel {
     }
 
     @Override
-    public Map<String, Integer> getItems() {
+    public Map<String, Integer> getPlayerItems() {
         return this.model.getCharacterModel().getPlayer().get().getInventory().getItems()
                 .entrySet()
                 .stream()
@@ -47,8 +48,8 @@ public final class ItemsModelImpl implements ItemsModel {
     @Override
     public double getItemValor(final String itemName) {
         final Item selectedItem = getItem(itemName);
-        if (selectedItem instanceof UsableItem) {
-            return ((UsableItem) selectedItem).getAmount();
+        if (selectedItem instanceof UsableItem usableItem) {
+            return usableItem.getAmount();
         }
         return 0;
     }
@@ -61,8 +62,8 @@ public final class ItemsModelImpl implements ItemsModel {
     @Override
     public String getItemBoostedAttributeName(final String itemName) {
         final Item selectedItem = getItem(itemName);
-        if (selectedItem instanceof PowerUpItem) {
-            return ((PowerUpItem) selectedItem).getBoostedAttribute().getName();
+        if (selectedItem instanceof PowerUpItem powerUpItem) {
+            return powerUpItem.getBoostedAttribute().getName();
         } else if (selectedItem instanceof HealingItem) {
             return AttributeIdentifier.HEALTH.getName();
         }
@@ -70,13 +71,13 @@ public final class ItemsModelImpl implements ItemsModel {
     }
 
     @Override
-    public boolean useItem(final String item) {
+    public void useItem(final String item) {
         final Item selectedItem = getItem(item);
-        if (selectedItem instanceof UsableItem convertedItem) {
-            this.model.getCharacterModel().getPlayer().get().useItem(convertedItem);
-            return true;
+        if (selectedItem instanceof UsableItem usableItem) {
+            this.model.getCharacterModel().getPlayer().get().useItem(usableItem);
+        } else {
+            throw new IllegalArgumentException("Trying to use an unusable item.");
         }
-        return false;
     }
 
 }

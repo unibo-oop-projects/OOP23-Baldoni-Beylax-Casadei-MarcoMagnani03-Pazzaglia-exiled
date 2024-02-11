@@ -1,6 +1,7 @@
 package unibo.exiled.model.move;
 
 import org.junit.jupiter.api.Test;
+import unibo.exiled.model.move.factory.MoveSetFactoryImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

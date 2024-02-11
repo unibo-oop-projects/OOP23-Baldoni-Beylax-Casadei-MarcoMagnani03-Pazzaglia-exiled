@@ -1,4 +1,6 @@
-package unibo.exiled.model.character.enemy;
+package unibo.exiled.model.character.enemy.factory;
+
+import unibo.exiled.model.character.enemy.Enemy;
 
 /**
  * The EnemyFactory interface provides methods for creating different types of enemies.

@@ -29,7 +29,7 @@ final class TestGameModel {
         assertNotNull(gameModel.getCharacterModel()
                 .getCharacterFromPosition(gameModel.getCharacterModel().getPlayerPosition()));
         assertNotNull(gameModel.getMapModel().getCellType(gameModel.getCharacterModel().getPlayerPosition()));
-        assertNotNull(gameModel.getItemsModel().getItems());
+        assertNotNull(gameModel.getItemsModel().getPlayerItems());
         assertEquals(1, gameModel.getCharacterModel().getPlayerLevel());
         assertNotNull(gameModel.getCharacterModel().getPlayerClass());
         assertNotNull(gameModel.getCharacterModel().getPlayerMoveSet());

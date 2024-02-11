@@ -1,6 +1,10 @@
-package unibo.exiled.model.item;
+package unibo.exiled.model.item.factory;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.item.HealingItem;
+import unibo.exiled.model.item.Item;
+import unibo.exiled.model.item.PowerUpItem;
+import unibo.exiled.model.item.UnUsableItem;
 
 /**
  * Implementation of the ItemFactory interface.

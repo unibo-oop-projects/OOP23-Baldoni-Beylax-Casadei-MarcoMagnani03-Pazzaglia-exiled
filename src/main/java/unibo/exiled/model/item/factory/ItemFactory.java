@@ -1,6 +1,7 @@
-package unibo.exiled.model.item;
+package unibo.exiled.model.item.factory;
 
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.item.Item;
 
 /**
  * The ItemFactory interface provides a set of methods for creating different

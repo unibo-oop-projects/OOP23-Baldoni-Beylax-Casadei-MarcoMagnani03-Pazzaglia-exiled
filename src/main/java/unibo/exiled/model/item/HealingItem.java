@@ -4,6 +4,7 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.attributes.CombinedAttribute;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
+import unibo.exiled.model.item.utilities.ItemType;
 
 /**
  * This class represents a usable healing item,
