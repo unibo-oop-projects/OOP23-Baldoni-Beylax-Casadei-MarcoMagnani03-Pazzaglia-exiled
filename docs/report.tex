@@ -150,6 +150,53 @@ Il pattern architetturale impiegato per gestire la visualizzazione della \textit
 Quando il gioco giunge al termine, la schermata di fine gioco(quindi la View di vincita o di perdita) viene mostrata in modo condizionale attraverso i metodi forniti dal \textit{GameController}. Questo approccio consente di implicitare la complessità interna associata alla visualizzazione della View chiamata e di semplificare l'interazione con essa all'interno di un unico metodo della \textit{GameView}.
 
 \subsection*{Marco Magnani}
+\subsubsection{Item e Inventory}
+Per la realizzazione dell'entità degli oggetti ho attuato un'astrazione che fosse più riutilizzabile possibile e che evitasse ripetizioni di codice non necessarie.
+In particolare gli oggetti del gioco si dividevano in tre tipi diversi: gli oggetti curativi, di power up e risorse(come per esempio i cristalli). 
+Inoltre l'inventario doveva contenere tutti gli item di tipi diversi.
+
+\begin{figure}[H]
+	\centering
+	\input{item-uml/the-exiled-item-uml.tex}
+	\caption{Schema UML del Model degli Item e dell'Inventory}
+	\label{fig:the-exiled-item-uml}
+\end{figure}
+
+Questa è la struttura che ho pensato, quindi tutti gli item estendono una interfaccia astratta avendo tutti gli stessi campi, gli healing item e power up item inoltre implementano l'interfaccia UsableItem seguendo il \textit{Template Method} pattern, permettendo quindi ad entrambi di implementare la propria logica di utilizzo, il metodo che cambia tra le due implementazioni è la use.
+
+\begin{figure}[H]
+	\centering
+	\input{item-uml/the-exiled-itemFactory_itemContainer-uml.tex}
+	\caption{Schema UML della ItemFactory e dell'ItemContainer}
+	\label{fig:the-exiled-itemFactory_itemContainer-uml}
+\end{figure}
+
+Qui invece si vede come ho utilizzato il \textit{Factory} pattern per la creazione degli item, in modo tale che chi crea item anche diversi tra loro non debba sapere l'implementazione che ci sta sotto, la factory viene utilizzata dall'item container per la creazione di tutti gli item di gioco. L'Enum ItemNames contiene i nomi di tutti gli oggetti del gioco, i nomi vengono usati come "chiavi" degli item.
+
+\begin{figure}[H]
+	\centering
+	\input{item-uml/the-exiled-inventory-uml.tex}
+	\caption{Schema UML dell'inventario}
+	\label{fig:the-exiled-inventory-uml}
+\end{figure}
+Tutti gli oggetti sono generalizzati grazie l'interfaccia item e ciò ne semplifica la gestione anche all'interno dell'inventory.
+La View dell'inventario segue il pattern \textit{Strategy} in particolare l'interfaccia è la ItemController e la sua implementazione è la ItemControllerImpl.
+La classe ItemControllerImpl è responsabile dell'effettiva logica di gestione degli oggetti nel gioco e si interfaccia con il relativo model per gestire l'inventario.
+\subsubsection{Hud}
+\begin{figure}[H]
+	\centering
+	\input{hud/the-exiled-hud-uml.tex}
+	\caption{Schema UML della HUD}
+	\label{fig:the-exiled-hud-uml}
+\end{figure}
+Un'altra parte del progetto di cui mi sono occupato è la HUD(head-up display) che mostra sia quando ci si trova sulla pagina principale che durante uno scontro con un nemico le informazioni di base del player, come la sua vita, il livello, la classe e la esperienza.
+Questa parte segue il pattern \textit{Observer} ogni volta che il model del player viene modificata, per esempio la vita diminuisce, la HudView viene notificata del cambiamento e può quindi aggiornare la visualizzazione della HUD di conseguenza.
+\subsubsection{Levelling}
+Infine ho gestito il levelling del giocatore, quindi la logica dell'incremento di livello tramite il raggiungimento di una determinata esperienza, il calcolo della successiva esperienza necessaria, l'incremento delle statistiche ogni incremento di livello, e la logica con cui il player ogni tot livelli impara una mossa nuova.
+
+
+
+
 
 \subsection*{Manuel Baldoni}
 
@@ -169,6 +216,8 @@ Quando il gioco giunge al termine, la schermata di fine gioco(quindi la View di 
 \end{itemize}
 
 \subsection*{Marco Magnani}
+
+
 \subsection*{Manuel Baldoni}
 
 \chapter{Commenti finali}
