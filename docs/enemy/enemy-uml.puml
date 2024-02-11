@@ -1,0 +1,42 @@
+@startuml
+scale 1
+set separator none
+package unibo.exiled.model.character {
+    interface GameCharacter{
+        .. Basic getters ..
+        +getPosition()
+        +getType()
+        +getHealth()
+        +getName()
+        + ...()
+        -- Actions --
+        +move(Position)
+        +...()
+    }
+    abstract class GameCharacterImpl{
+        - attributes
+        - position
+        - name
+        - moveSet
+        -- Shared methods impl.--
+        +...()
+    }
+    package enemy{
+        interface Enemy{
+            + getDroppedExperience() : int
+            + getHeldItem() : Item
+        }
+        abstract class EnemyImpl{
+            + {abstract} getDroppedExperience() : int
+            + {abstract} getHeldItem() : Optional<Item>
+        }
+    }
+}
+
+
+GameCharacter <|-- GameCharacterImpl
+GameCharacter <|-- Enemy
+GameCharacterImpl <|-- EnemyImpl
+Enemy <|-- EnemyImpl
+
+@enduml
