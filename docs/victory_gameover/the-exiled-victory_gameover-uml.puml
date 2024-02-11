@@ -4,7 +4,7 @@ set separator none
 package unibo.exiled.view
 {
   class GameView {
-    
+    + etc...()
   }
   
   class GameOverView {
@@ -19,6 +19,7 @@ package unibo.exiled.view
   class GameController {
     + isOver(): boolean
     + isWon(): boolean
+    + etc...()
   }
 
 }
