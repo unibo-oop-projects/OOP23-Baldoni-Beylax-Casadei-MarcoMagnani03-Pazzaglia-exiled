@@ -147,20 +147,35 @@ public final class CharacterControllerImpl implements CharacterController {
         return this.model.getPlayerMoveSet().getMagicMoves().stream().map(MagicMove::name).toList();
     }
 
-    //TODO: Non deve controllare le classi, ma le mosse.
-    private double getAttackModifierBasedOnType(final GameCharacter attacker, final GameCharacter defender) {
-        final ElementalType attackerType = attacker.getType();
+    /**
+     * Returns the multiplier for the attack based on the move type and the defender
+     * type.
+     * 
+     * @param move     the move performed by the attacker.
+     * @param defender the defender.
+     * @return the multiplier for the attack based on the move type and the defender
+     *         type.
+     */
+    private double getAttackModifierBasedOnType(final MagicMove move, final GameCharacter defender) {
+        final ElementalType moveType = move.type();
         final ElementalType defenderType = defender.getType();
-        if (attackerType.isStrongAgainst(defenderType)) {
+        if (moveType.isStrongAgainst(defenderType)) {
             return ConstantsAndResourceLoader.ATTACK_MODIFIER_EFFECTIVE;
-        } else if (defenderType.isStrongAgainst(attackerType)) {
+        } else if (defenderType.isStrongAgainst(moveType)) {
             return ConstantsAndResourceLoader.ATTACK_MODIFIER_INEFFECTIVE;
         } else {
             return ConstantsAndResourceLoader.NEUTRAL_MODIFIER;
         }
     }
 
-    //TODO: Metodo da rivedere e semplificare.
+    /**
+     * Performes the attack routine.
+     * 
+     * @param isPlayerAttacking if the player is attacking.
+     * @param moveName the name of the move performed.
+     * @param combatPosition the combat position.
+     * @return if the defender is dead.
+     */
     @Override
     public boolean attack(final boolean isPlayerAttacking, final String moveName, final Position combatPosition) {
         if (this.model.getCharacterFromPosition(combatPosition).isEmpty()) {
@@ -183,10 +198,12 @@ public final class CharacterControllerImpl implements CharacterController {
                 .get(AttributeIdentifier.DEFENSE)).modifier();
 
         final double moveTypeModifier = attacker.getType().equals(move.type())
-                ? ConstantsAndResourceLoader.ATTACK_SAME_TYPE_OF_CLASS_MODIFIER : 1;
+                ? ConstantsAndResourceLoader.ATTACK_SAME_TYPE_OF_CLASS_MODIFIER
+                : 1;
         final double attackModifier = ((MultiplierAttribute) attacker.getAttributes().get(AttributeIdentifier.ATTACK))
-                .modifier() * moveTypeModifier;
-        final double damage = baseDamage * attackModifier / defenseModifier * getAttackModifierBasedOnType(attacker, defender);
+                .modifier();
+        final double damage = baseDamage * attackModifier * moveTypeModifier
+                * getAttackModifierBasedOnType(move, defender) / defenseModifier;
         defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);
 
         final boolean hasAttackerWon = defender.getHealth() <= 0;
