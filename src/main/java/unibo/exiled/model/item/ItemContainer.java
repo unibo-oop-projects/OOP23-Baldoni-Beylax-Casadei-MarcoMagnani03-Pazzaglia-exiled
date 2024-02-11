@@ -12,7 +12,7 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
  * A container of every existent item in the game.
  */
 public final class ItemContainer {
-        private static final double RANDOM_PROBABILITY_HEALING = 0.6;
+        private static final double RANDOM_PROBABILITY_HEALING = 0.3;
         private static final double RANDOM_PROBABILITY_EMPTY = 0.6;
 
         private static final ItemFactory ITEM_FACTORY = new ItemFactoryImpl();
@@ -97,10 +97,10 @@ public final class ItemContainer {
 
                 final double randomValue = RANDOM.nextDouble();
 
-                if (randomValue < healthProbability) {
-                        return getRandomItemFromList(healthItems);
-                } else if (randomValue < healthProbability + emptyProbability) {
+                if (randomValue < RANDOM_PROBABILITY_EMPTY) {
                         return Optional.empty();
+                } else if (randomValue < healthProbability + emptyProbability) {
+                        return getRandomItemFromList(healthItems);
                 } else {
                         return getRandomItemFromList(powerupItems);
                 }
