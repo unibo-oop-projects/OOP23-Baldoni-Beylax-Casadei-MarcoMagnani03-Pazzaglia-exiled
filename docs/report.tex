@@ -232,10 +232,13 @@ Infine ho gestito il levelling del giocatore, quindi la logica dell'incremento d
 
 \subsection*{Marco Magnani}
 \begin{itemize}
-	\item \textbf{Stream e Optional}: Utilizzati sia nell' \textit{ItemContainer} che nelle \textit{Moves}.
-	\item \textbf{Stream}: In \textit{CharacterModelImpl} utilizzato per evitare la compenetrazione di eemy all'interno della mappa
-	\item \textbf{Optional}: In \textit{ElementalType} e \textit{ItemNames} il metodo per prendere le relative immagini ritorna un Optional per gestire il caso in cui la mossa non sia presente nel progetto
-	\item \textbf{Stream}: Nella \textit{ItemsModel} utilizzata per la conversione da Map<Item,Integer> a Map<String,Integer> ed anche per filtrare gli oggetti in base al nome
+	\item \textbf{Stream e Optional}: Utilizzati sia nell' \textit{ItemContainer} che nelle \textit{Moves} per ricavare esempio un item in base al tipo.\\ \url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/item/utilities/ItemsContainer.java#L76C7-L76C8}
+	\item \textbf{Stream}: In \textit{CharacterModelImpl} utilizzato per evitare la compenetrazione di enemy all'interno della mappa\\
+	\url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/character/CharacterModelImpl.java#L159C1-L160C1} 
+	\item \textbf{Optional}: In \textit{ElementalType} e \textit{ItemNames} il metodo per prendere le relative immagini ritorna un Optional per gestire il caso in cui la mossa non sia presente nel progetto\\
+	\url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/item/utilities/ItemNames.java#L83C1-L84C55}
+	\item \textbf{Stream}: Nella \textit{ItemsModel} utilizzata per la conversione da \textit{Map\textless Item,Integer\textgreater} a \textit{Map\textless String,Integer\textgreater} ed anche per filtrare gli oggetti in base al nome\\
+	\url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/item/ItemsModelImpl.java#L28C1-L28C90}
 \end{itemize}
 
 
