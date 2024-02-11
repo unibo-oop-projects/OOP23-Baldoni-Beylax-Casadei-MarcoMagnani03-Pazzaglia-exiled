@@ -1,6 +1,5 @@
 package unibo.exiled.model.item.utilities;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -10,14 +9,12 @@ import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.factory.ItemFactory;
 import unibo.exiled.model.item.factory.ItemFactoryImpl;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 
 /**
  * A container of every existent item in the game.
  */
 public final class ItemsContainer {
-    private static final double RANDOM_PROBABILITY_HEALING = 0.6;
-    private static final double RANDOM_PROBABILITY_EMPTY = 0.6;
-
     private static final ItemFactory ITEM_FACTORY = new ItemFactoryImpl();
     private static final Random RANDOM = new Random();
     private static final Set<Item> ITEMS = Set.of(
@@ -65,7 +62,7 @@ public final class ItemsContainer {
      * @return A set containing all items in the container.
      */
     public static Set<Item> getAllItems() {
-        return Collections.unmodifiableSet(ITEMS);
+        return ITEMS;
     }
 
     /**
@@ -102,8 +99,8 @@ public final class ItemsContainer {
                 .filter(item -> item.getType().equals(ItemType.POWERUP))
                 .toList();
 
-        final double healthProbability = RANDOM_PROBABILITY_HEALING;
-        final double emptyProbability = RANDOM_PROBABILITY_EMPTY;
+        final double healthProbability = ConstantsAndResourceLoader.RANDOM_PROBABILITY_HEALING;
+        final double emptyProbability = ConstantsAndResourceLoader.RANDOM_PROBABILITY_EMPTY;
 
         final double randomValue = RANDOM.nextDouble();
 

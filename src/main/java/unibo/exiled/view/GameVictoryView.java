@@ -2,7 +2,6 @@ package unibo.exiled.view;
 
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.view.items.GameButton;
-import unibo.exiled.view.items.GameLabel;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
@@ -48,8 +47,6 @@ public final class GameVictoryView {
                 .getResourceURLFromPath(ConstantsAndResourceLoader.IMAGES_PATH + "/interface/gamecompleted.png")));
         gameCompletedPanel.add(gameCompletedLabel, BorderLayout.NORTH);
 
-        final JLabel completedLabel = new GameLabel("Congratulations, you have achieved redemption!");
-        gameCompletedPanel.add(completedLabel);
         final JPanel buttonsPanel = new JPanel(new FlowLayout());
         buttonsPanel.add(restartButton);
         buttonsPanel.add(quitButton);

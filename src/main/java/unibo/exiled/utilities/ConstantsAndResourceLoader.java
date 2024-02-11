@@ -80,6 +80,14 @@ public final class ConstantsAndResourceLoader extends ClassLoader {
      * The attack modifier to be applied if the move is of the same type of the class of the player.
      */
     public static final double ATTACK_SAME_TYPE_OF_CLASS_MODIFIER = 1.2;
+    /**
+     * The probability of an enemy dropping a healing item.
+     */
+    public static final double RANDOM_PROBABILITY_HEALING = 0.2;
+    /**
+     * The probability of an enemy not dropping anything.
+     */
+    public static final double RANDOM_PROBABILITY_EMPTY = 0.7;
 
     private ConstantsAndResourceLoader() {
     }

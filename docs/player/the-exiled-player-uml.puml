@@ -1,0 +1,57 @@
+@startuml
+scale 0.5
+interface GameCharacter {
+    + move(Position): void
+    + getHealth(): double
+    + getPosition(): Position
+
+}
+
+interface Player extends GameCharacter {
+    + getLevel(): int
+    + getExperience(): int
+    + getInventory(): Inventory
+    + addItemToInventory(Item): void
+    + getPlayerClass(): ElementalType
+    + setPlayerClass(playerClass: ElementalType): void
+    + addExperience(exp: double): void
+    + useItem(item: UsableItem): void
+}
+
+class PlayerImpl extends GameCharacterImpl implements Player {
+    + getInventory(): Inventory
+    + addItemToInventory(item: Item): void
+    + getPlayerClass(): ElementalType
+    + setPlayerClass(playerClassChoice: ElementalType): void
+    + addExperience(exp: double): void
+    + useItem(item: UsableItem): void
+}
+
+abstract class GameCharacterImpl implements GameCharacter {
+    + move(position: Position): void
+    + getPosition(): Position
+    + getAttributes(): Map<AttributeIdentifier, Attribute>
+    + getName(): String
+    + getHealth(): double
+}
+
+interface CharacterModel {
+    + void movePlayer(dir: Direction)
+    + Optional<Player> getPlayer()
+    + Position getPlayerPosition()
+    + double getPlayerAttributeOf(id: AttributeIdentifier)
+    + int getPlayerLevel()
+    + int getPlayerCurrentExperience()
+    + ElementalType getPlayerClass()
+    + void addPlayerExperience(amount: int)
+    + void assignPlayerClass(playerClass: ElementalType)
+}
+
+class CharacterModelImpl implements CharacterModel {
+  
+}
+
+CharacterModelImpl *-- "1" Player : contiene
+
+@enduml
+

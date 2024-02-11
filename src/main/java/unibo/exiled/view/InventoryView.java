@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.io.Serial;
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public final class InventoryView extends JPanel {
     private static final int TOP_BOTTOM_MARGIN = 15;
     private static final int INVENTORY_BUTTON_MARGIN_LEFT_RIGHT = 20;
     private static final int INVENTORY_BUTTON_MARGIN_UP_BOTTOM = 45;
-    private static final int ICON_SIZE = 50;
+    private static final double ICON_SIZE_PERCENTAGE = 0.04;
     private static final int ITEM_BUTTON_FONT_SIZE = 15;
     private final transient GameController gameController;
     private final JLabel emptyInventoryLabel;
@@ -114,6 +115,8 @@ public final class InventoryView extends JPanel {
     private GameButton createItemButton(final String itemName, final int quantity) {
         final GameButton itemButton = new GameButton("");
         itemButton.setFontSize(ITEM_BUTTON_FONT_SIZE);
+        final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        final int calculatedIconSize = (int) (screenWidth * ICON_SIZE_PERCENTAGE);
         switch (gameController.getItemsController().getItemType(itemName)) {
             case HEALTH:
                 itemButton.setBackground(HEALING_ITEM_COLOR);
@@ -139,9 +142,8 @@ public final class InventoryView extends JPanel {
                 break;
         }
         final Optional<ImageIcon> itemImage = ItemNames.getItemImage(itemName);
-        itemImage.ifPresent(imageIcon -> itemButton.setIcon(new ImageIcon(imageIcon.getImage()
-                .getScaledInstance(ICON_SIZE, ICON_SIZE,
-                        java.awt.Image.SCALE_SMOOTH))));
+        itemImage.ifPresent(imageIcon -> itemButton.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(
+                calculatedIconSize, calculatedIconSize, java.awt.Image.SCALE_SMOOTH))));
         itemButton.addActionListener(e -> handleItemButtonClick(itemName));
         return itemButton;
     }
