@@ -139,7 +139,7 @@ public final class GameView {
         if (this.gameController.isOver()) {
             this.gameOverView.display();
             this.mainFrame.dispose();
-        } else if (this.gameController.isWin()) {
+        } else if (this.gameController.isWon()) {
             this.gameCompletedView.display();
             this.mainFrame.dispose();
         }

@@ -38,5 +38,5 @@ public interface GameController {
      *
      * @return True if the game is win, false otherwise.
      */
-    boolean isWin();
+    boolean isWon();
 }
