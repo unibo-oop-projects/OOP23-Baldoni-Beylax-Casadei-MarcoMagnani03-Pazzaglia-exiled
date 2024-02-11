@@ -64,6 +64,10 @@ public final class ConstantsAndResourceLoader extends ClassLoader {
      * The number of enemies to be scattered on the map.
      */
     public static final int NUM_ENEMIES = 100;
+    /**
+     * Modulate how much attack and defense attributes increments for each level up
+     */
+    public static final float ATTRIBUTE_INCREMENT_MODULATOR = 50.0f;
 
     private ConstantsAndResourceLoader() {
     }

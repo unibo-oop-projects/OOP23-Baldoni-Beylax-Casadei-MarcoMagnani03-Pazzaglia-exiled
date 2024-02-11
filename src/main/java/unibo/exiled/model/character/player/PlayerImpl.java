@@ -26,7 +26,6 @@ import unibo.exiled.model.item.UsableItem;
  */
 public final class PlayerImpl extends GameCharacterImpl implements Player {
     private static final Random RANDOM = new Random();
-    private static final float ATTRIBUTE_INCREMENT_MODULATOR = 20.0f;
     private final int attributeIncBound;
     private final Inventory inventory;
     private final MoveSet moveSet;
@@ -190,9 +189,9 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      */
     private void boostAttributes() {
         this.increaseAttributeModifier(AttributeIdentifier.ATTACK,
-                RANDOM.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
+                RANDOM.nextInt(attributeIncBound) / ConstantsAndResourceLoader.ATTRIBUTE_INCREMENT_MODULATOR);
         this.increaseAttributeModifier(AttributeIdentifier.DEFENSE,
-                RANDOM.nextInt(attributeIncBound) / ATTRIBUTE_INCREMENT_MODULATOR);
+                RANDOM.nextInt(attributeIncBound) / ConstantsAndResourceLoader.ATTRIBUTE_INCREMENT_MODULATOR);
         this.increaseAttributeValue(AttributeIdentifier.HEALTHCAP, RANDOM.nextInt(attributeIncBound));
     }
 
