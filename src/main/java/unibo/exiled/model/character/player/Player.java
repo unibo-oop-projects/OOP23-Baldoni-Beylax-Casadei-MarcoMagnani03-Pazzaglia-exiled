@@ -1,9 +1,12 @@
 package unibo.exiled.model.character.player;
 
+import java.util.Optional;
+
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.item.Inventory;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.UsableItem;
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.utilities.ElementalType;
 
 /**
@@ -83,5 +86,9 @@ public interface Player extends GameCharacter {
      * @param item The UsableItem to be used.
      */
     void useItem(UsableItem item);
+
+    Optional<MagicMove> getNewMove();
+
+    void changeMove(MagicMove oldMove, MagicMove newMove);
 
 }
