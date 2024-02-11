@@ -1,56 +1,64 @@
 @startuml
 scale 0.5
-interface GameCharacter {
-    + move(Position): void
-    + getHealth(): double
-    + getPosition(): Position
-    + getMoveSet(): MoveSet
-    + etc...()
-}
+set separator none
+package unibo.exiled.model.character
+{
+  interface GameCharacter {
+      + move(Position): void
+      + getHealth(): double
+      + getPosition(): Position
+      + getMoveSet(): MoveSet
+      + etc...()
+  }
+  
+  abstract class GameCharacterImpl implements GameCharacter {
+      + move(position: Position): void
+      + getPosition(): Position
+      + getAttributes(): Map<AttributeIdentifier, Attribute>
+      + getName(): String
+      + getHealth(): double
+      + etc...()
+  }
+  
+  package player{
+    interface Player extends GameCharacter {
+        + getLevel(): int
+        + getExperience(): int
+        + getInventory(): Inventory
+        + addItemToInventory(Item): void
+        + getPlayerClass(): ElementalType
+        + setPlayerClass(playerClass: ElementalType): void
+        + addExperience(exp: double): void
+        + useItem(item: UsableItem): void
+        + etc...()
+    }
+    
+    class PlayerImpl extends GameCharacterImpl implements Player {
+        + getInventory(): Inventory
+        + addItemToInventory(item: Item): void
+        + getPlayerClass(): ElementalType
+        + setPlayerClass(playerClassChoice: ElementalType): void
+        + addExperience(exp: double): void
+        + useItem(item: UsableItem): void
+        + etc...()
+    }
+  }
+  
 
-interface Player extends GameCharacter {
-    + getLevel(): int
-    + getExperience(): int
-    + getInventory(): Inventory
-    + addItemToInventory(Item): void
-    + getPlayerClass(): ElementalType
-    + setPlayerClass(playerClass: ElementalType): void
-    + addExperience(exp: double): void
-    + useItem(item: UsableItem): void
-    + etc...()
-}
-
-class PlayerImpl extends GameCharacterImpl implements Player {
-    + getInventory(): Inventory
-    + addItemToInventory(item: Item): void
-    + getPlayerClass(): ElementalType
-    + setPlayerClass(playerClassChoice: ElementalType): void
-    + addExperience(exp: double): void
-    + useItem(item: UsableItem): void
-    + etc...()
-}
-
-abstract class GameCharacterImpl implements GameCharacter {
-    + move(position: Position): void
-    + getPosition(): Position
-    + getAttributes(): Map<AttributeIdentifier, Attribute>
-    + getName(): String
-    + getHealth(): double
-    + etc...()
-}
-
-interface CharacterModel {
-    + movePlayer(dir: Direction): void
-    + getPlayerPosition(): Position
-    + getPlayerAttributeOf(id: AttributeIdentifier): double
-    + getPlayerLevel(): int
-    + getPlayerCurrentExperience(): int
-    + getPlayerClass(): ElementalType
-    + etc...()
-}
-
-class CharacterModelImpl implements CharacterModel {
-     + etc...()
+  
+  interface CharacterModel {
+      + movePlayer(dir: Direction): void
+      + getPlayerPosition(): Position
+      + getPlayerAttributeOf(id: AttributeIdentifier): double
+      + getPlayerLevel(): int
+      + getPlayerCurrentExperience(): int
+      + getPlayerClass(): ElementalType
+      + etc...()
+  }
+  
+  class CharacterModelImpl implements CharacterModel {
+       + etc...()
+  }
 }
 
 CharacterModelImpl *-- "1" Player : contiene
