@@ -47,7 +47,7 @@ public final class MenuView extends JPanel {
         final JLabel logoLabel = new JLabel(new ImageIcon(ConstantsAndResourceLoader
                 .getResourceURLFromPath(ConstantsAndResourceLoader.IMAGES_PATH
                         + "/interface/logo.png")));
-        buttonListPanel.add(logoLabel);
+        buttonListPanel.add(logoLabel, cnst);
         cnst.gridy++;
 
         for (final MenuItem menuItem : menuItems) {

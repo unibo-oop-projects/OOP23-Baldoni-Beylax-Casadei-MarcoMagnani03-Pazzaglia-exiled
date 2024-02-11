@@ -126,10 +126,16 @@ Oltre ai KeyListener di base per il movimento del giocatore, ho integrato la fun
 
 Avendo gestito il movimento e l'ascolto dei KeyListener in una classe separata, è stato utilizzato il design pattern strutturale Adapter. Questo pattern ci ha permesso di gestire in modo personalizzato i KeyListener attraverso la classe GameKeyListener, che implementa l'interfaccia KeyListener. Grazie a questa implementazione, siamo in grado di risolvere efficacemente il problema della gestione del movimento delle diverse entità all'interno del gioco.
 
-\subsubsection{Meccanismo di Game Over}
-Ho implementato la gestione del Game Over attraverso il \textit{GameController}. Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare il Game Over, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il Game Over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. Questo approccio ha semplificato la gestione del Game Over, utilizzando una logica chiara e intuitiva nella scrittura del codice.
+\subsubsection{Meccanismo di fine gioco}
+Mi sono occupato di gestire la conclusione del gioco attraverso due scenari distinti: la vittoria(tramite la \textit{GameCompletedView}) e la sconfitta(tramite \textit{GameOverView}).
+
+Nella parte della sconfitta ho implementato la gestione del Game Over attraverso il \textit{GameController}. Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare il Game Over, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il Game Over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. Questo approccio ha semplificato la gestione del Game Over, utilizzando una logica chiara e intuitiva nella scrittura del codice.
 
 All'interno della \textit{GameOverView}, sono stati inclusi due \textit{JButton} con relativi \textit{ActionListener}: uno permette di iniziare una nuova partita e l'altro serve per chiudere definitivamente il gioco.
+
+La \textit{GameOverView} è stata integrata all'interno della \textit{GameView}, la schermata principale definita in precedenza. All'interno di questa \textit{GameView} è anche presente il \textit{GameController}, che facilita il collegamento tra il Model e la View stessa. Grazie a questo Controller, è possibile determinare quando la schermata principale deve essere sostituita dalla schermata di Game Over.
+
+Lo stesso discorso viene applicato per quanto riguarda la \textit{GameCompletedView} che rappresenta la View inerente al completamento del gioco. Questa View viene visualizzata qualora il \textit{Player} avesse nel suo inventario i 4 cristalli della redenzione ottenuti uccidendo i 4 Boss finali.
 
 \begin{figure}[H]
 	\centering
@@ -138,10 +144,8 @@ All'interno della \textit{GameOverView}, sono stati inclusi due \textit{JButton}
 	\label{fig:diagramma-classe-GameOver}
 \end{figure}
 
-La \textit{GameOverView} è stata integrata all'interno della \textit{GameView}, la schermata principale definita in precedenza. All'interno di questa \textit{GameView} è anche presente il \textit{GameController}, che facilita il collegamento tra il Model e la View stessa. Grazie a questo Controller, è possibile determinare quando la schermata principale deve essere sostituita dalla schermata di Game Over.
-
-Il pattern architetturale impiegato per gestire la visualizzazione della \textit{GameOverView} nel metodo \textit{draw()} della classe \textit{GameView} è il noto Facade.
-Quando il gioco giunge al termine, la \textit{GameOverView} viene mostrata in modo condizionale attraverso il metodo prima citato fornito dal \textit{GameController}. Questo approccio consente di occultare la complessità interna associata alla visualizzazione della \textit{GameOverView} e di semplificare l'interazione con essa all'interno di un unico metodo della \textit{GameView}.
+Il pattern architetturale impiegato per gestire la visualizzazione della \textit{GameOverView} e della \textit{GameCompletedView} nel metodo \textit{draw()} della classe \textit{GameView} è chiamato Facade Pattern.
+Quando il gioco giunge al termine, la schermata di fine gioco(quindi la View di vincita o di perdita) viene mostrata in modo condizionale attraverso il metodo prima citato fornito dal \textit{GameController}. Questo approccio consente di occultare la complessità interna associata alla visualizzazione della View chiamata e di semplificare l'interazione con essa all'interno di un unico metodo della \textit{GameView}.
 
 \subsection*{Marco Magnani}
 

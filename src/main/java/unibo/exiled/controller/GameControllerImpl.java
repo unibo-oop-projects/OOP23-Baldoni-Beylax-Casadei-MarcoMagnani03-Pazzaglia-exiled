@@ -43,7 +43,7 @@ public final class GameControllerImpl implements GameController {
     }
 
     @Override
-    public boolean isWin() {
+    public boolean isWon() {
         return getCharacterController().checkWin();
     }
 }
