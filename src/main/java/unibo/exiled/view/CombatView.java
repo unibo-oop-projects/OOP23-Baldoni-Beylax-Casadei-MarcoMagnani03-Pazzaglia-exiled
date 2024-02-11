@@ -146,7 +146,7 @@ public final class CombatView extends JPanel {
             final ElementalType moveType = this.gameController.getCharacterController()
                     .getMagicMoveElementalType(moveName);
             final JButton moveButton = new GameButton(moveName + " (" + moveDamage + ")");
-            moveButton.setBorder(BorderFactory.createLineBorder(moveType.getElementalColor(), 3));
+            moveButton.setBackground(moveType.getElementalColor());
             this.moveSetPanel.add(moveButton);
             moveButton.addActionListener(e -> {
                 this.enemyMove.setText(enemyName + " attacking...");
