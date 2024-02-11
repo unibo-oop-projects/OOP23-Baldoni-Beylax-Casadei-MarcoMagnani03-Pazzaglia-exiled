@@ -88,6 +88,10 @@ public final class ConstantsAndResourceLoader extends ClassLoader {
      * The probability of an enemy not dropping anything.
      */
     public static final double RANDOM_PROBABILITY_EMPTY = 0.7;
+    /**
+     * Modulate how much attack and defense attributes increments for each level up
+     */
+    public static final float ATTRIBUTE_INCREMENT_MODULATOR = 50.0f;
 
     private ConstantsAndResourceLoader() {
     }
