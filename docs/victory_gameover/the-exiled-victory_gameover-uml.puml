@@ -1,7 +1,7 @@
 @startuml
 scale 0.7
 class GameView {
-  
+  + draw(): void
 }
 
 class GameOverView {
