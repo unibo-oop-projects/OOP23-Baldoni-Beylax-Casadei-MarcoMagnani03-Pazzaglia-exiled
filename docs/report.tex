@@ -126,7 +126,7 @@ Oltre ai KeyListener di base per il movimento del giocatore, ho integrato la fun
 
 Avendo gestito il movimento e l'ascolto dei KeyListener in una classe separata, è stato utilizzato il design pattern strutturale Adapter. Questo pattern ci ha permesso di gestire in modo personalizzato i KeyListener attraverso la classe GameKeyListener, che implementa l'interfaccia KeyListener. Grazie a questa implementazione, siamo in grado di risolvere efficacemente il problema della gestione del movimento delle diverse entità all'interno del gioco.
 
-\subsubsection{Meccanismo di Game Over}
+\subsubsection{Meccanismo di fine gioco}
 Ho implementato la gestione del Game Over attraverso il \textit{GameController}. Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare il Game Over, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il Game Over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. Questo approccio ha semplificato la gestione del Game Over, utilizzando una logica chiara e intuitiva nella scrittura del codice.
 
 All'interno della \textit{GameOverView}, sono stati inclusi due \textit{JButton} con relativi \textit{ActionListener}: uno permette di iniziare una nuova partita e l'altro serve per chiudere definitivamente il gioco.
