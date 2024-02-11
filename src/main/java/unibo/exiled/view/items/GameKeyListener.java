@@ -82,10 +82,13 @@ public final class GameKeyListener implements KeyListener {
         } else if (this.gameView.isInCombat()) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 this.gameView.hideInventory();
+                this.gameView.hideMenu();
             }
         } else {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 this.gameView.hideMenu();
+                this.gameView.hideInventory();
+                this.gameView.hideCombat();
             }
         }
     }

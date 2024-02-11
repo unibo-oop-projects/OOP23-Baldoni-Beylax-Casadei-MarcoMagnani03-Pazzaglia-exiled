@@ -4,6 +4,7 @@ import unibo.exiled.model.character.CharacterModel;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.attributes.MultiplierAttribute;
+import unibo.exiled.model.character.enemy.BossEnemy;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.enemy.EnemyImpl;
 import unibo.exiled.model.character.player.Player;
@@ -175,17 +176,18 @@ public final class CharacterControllerImpl implements CharacterController {
                 : this.model.getCharacterFromPosition(combatPosition).get();
 
         final MagicMove move = attacker.getMoveSet()
-                                        .getMagicMoves()
-                                        .stream()
-                                        .filter(m -> m.name().equals(moveName))
-                                        .findFirst()
-                                        .get();
+                .getMagicMoves()
+                .stream()
+                .filter(m -> m.name().equals(moveName))
+                .findFirst()
+                .get();
         final double baseDamage = move.power();
         final double defenseModifier = ((MultiplierAttribute) defender.getAttributes()
-        .get(AttributeIdentifier.DEFENSE)).modifier();
-        
+                .get(AttributeIdentifier.DEFENSE)).modifier();
+
         final double moveTypeModifier = attacker.getType().equals(move.type()) ? 1.4 : 1;
-        final double attackModifier = ((MultiplierAttribute) attacker.getAttributes().get(AttributeIdentifier.ATTACK)).modifier() * moveTypeModifier;
+        final double attackModifier = ((MultiplierAttribute) attacker.getAttributes().get(AttributeIdentifier.ATTACK))
+                .modifier() * moveTypeModifier;
         final double damage = baseDamage * attackModifier / defenseModifier * typeModifier(attacker, defender);
         defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);
 
@@ -285,5 +287,15 @@ public final class CharacterControllerImpl implements CharacterController {
         } else {
             throw new IllegalArgumentException(EXCEPTION_POSITION_MISSING_MESSAGE);
         }
+    }
+
+    @Override
+    public boolean checkWin() {
+        if (model.getEnemies().isPresent()) {
+            return model.getEnemies().get().getEnemies().stream()
+                        .filter(e -> e instanceof BossEnemy)
+                        .count() == 0;
+        }
+        return true;
     }
 }

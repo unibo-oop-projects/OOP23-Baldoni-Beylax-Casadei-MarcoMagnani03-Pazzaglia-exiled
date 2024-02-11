@@ -202,4 +202,11 @@ public interface CharacterController {
      * @return the experience droped from the enemy.
      */
     int getEnemyExperienceDropFromPosition(Position position);
+
+    /**
+     * Checks if the game is win the game.
+     *
+     * @return True if the game is win, false otherwise.
+     */
+    boolean checkWin();
 }

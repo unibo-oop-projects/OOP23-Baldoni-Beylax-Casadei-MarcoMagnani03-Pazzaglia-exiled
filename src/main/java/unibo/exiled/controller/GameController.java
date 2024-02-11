@@ -32,4 +32,11 @@ public interface GameController {
      * @return True if the game is over, false otherwise.
      */
     boolean isOver();
+
+    /**
+     * Checks if the game is win the game.
+     *
+     * @return True if the game is win, false otherwise.
+     */
+    boolean isWin();
 }

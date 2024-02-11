@@ -24,11 +24,11 @@ import java.awt.BorderLayout;
  */
 public final class GameView {
 
-
     // Views
     private final CombatView combatView;
     private final InventoryView inventoryView;
     private final GameOverView gameOverView;
+    private final GameCompletedView gameCompletedView;
     private final HudView hud;
     private final GameGridView grid;
 
@@ -82,6 +82,8 @@ public final class GameView {
 
         this.inventoryView = new InventoryView(this.gameController, this);
         this.gameOverView = new GameOverView();
+        this.gameCompletedView = new GameCompletedView();
+
         final String playerClass = this.gameController
                 .getCharacterController().getPlayerClassName().toLowerCase(Locale.ROOT);
         final CharacterView playerView = new CharacterView(
@@ -137,6 +139,9 @@ public final class GameView {
         if (this.gameController.isOver()) {
             this.gameOverView.display();
             this.mainFrame.dispose();
+        } else if (this.gameController.isWin()) {
+            this.gameCompletedView.display();
+            this.mainFrame.dispose();
         }
 
         this.gamePanel.removeAll();
@@ -154,7 +159,6 @@ public final class GameView {
     public boolean isInInventory() {
         return this.inventoryPanel.isVisible();
     }
-
 
     /**
      * Returns true if the game is currently in combat mode.

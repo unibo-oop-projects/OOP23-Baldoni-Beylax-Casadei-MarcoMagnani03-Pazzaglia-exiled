@@ -41,4 +41,9 @@ public final class GameControllerImpl implements GameController {
     public boolean isOver() {
         return getCharacterController().getPlayerHealth() <= 0;
     }
+
+    @Override
+    public boolean isWin() {
+        return getCharacterController().checkWin();
+    }
 }

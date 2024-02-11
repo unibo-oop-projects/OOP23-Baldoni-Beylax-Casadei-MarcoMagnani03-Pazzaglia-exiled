@@ -5,8 +5,6 @@ import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 
 import java.awt.BorderLayout;
-import java.awt.Toolkit;
-import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,14 +31,12 @@ public final class GameCompletedView {
      */
     public GameCompletedView() {
         this.mainFrame = new JFrame();
-        //Screen constants
-        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final double screenHeight = screenSize.getHeight();
-        final double screenWidth = screenSize.getWidth();
-        this.mainFrame.setSize((int) screenWidth / 3, (int) screenHeight / 2);
-        this.mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setTitle("The Exiled");
         this.mainFrame.setLocationByPlatform(true);
+        this.mainFrame.setFocusable(true);
+        this.mainFrame.setLayout(new BorderLayout());
 
         this.initializeHud();
         this.initializeListeners();
@@ -50,14 +46,14 @@ public final class GameCompletedView {
         final JPanel gameCompletedPanel = new JPanel(new BorderLayout());
         final JLabel gameCompletedLabel = new JLabel(new ImageIcon(ConstantsAndResourceLoader
                 .getResourceURLFromPath(ConstantsAndResourceLoader.IMAGES_PATH + "/interface/gamecompleted.png")));
-        gameCompletedPanel.add(gameCompletedLabel, BorderLayout.CENTER);
+        gameCompletedPanel.add(gameCompletedLabel, BorderLayout.NORTH);
 
-        final JPanel flowPanel = new JPanel(new FlowLayout());
-        gameCompletedPanel.add(flowPanel, BorderLayout.SOUTH);
         final JLabel completedLabel = new GameLabel("Congratulations, you have achieved redemption!");
-        flowPanel.add(completedLabel);
-        flowPanel.add(restartButton);
-        flowPanel.add(quitButton);
+        gameCompletedPanel.add(completedLabel);
+        final JPanel buttonsPanel = new JPanel(new FlowLayout());
+        buttonsPanel.add(restartButton);
+        buttonsPanel.add(quitButton);
+        gameCompletedPanel.add(buttonsPanel, BorderLayout.CENTER);
 
         this.mainFrame.getContentPane().add(gameCompletedPanel);
     }
@@ -68,8 +64,8 @@ public final class GameCompletedView {
                     "Would you like to start a new game?", "Warning",
                     JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                mainFrame.dispose();
                 new NewGameView(); // Starting new game
+                mainFrame.dispose();
             }
         });
 
