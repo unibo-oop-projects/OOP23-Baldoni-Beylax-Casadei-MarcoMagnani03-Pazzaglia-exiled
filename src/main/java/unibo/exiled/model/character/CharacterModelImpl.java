@@ -58,14 +58,14 @@ public final class CharacterModelImpl implements CharacterModel {
                 model.getMapModel().getSize() / 2));
 
         this.enemyCollection = new EnemyCollectionImpl();
-        this.enemyInitialization(ConstantsAndResourceLoader.NUM_ENEMIES);
+        this.enemyInitialization();
 
     }
 
-    private void enemyInitialization(final int number) {
+    private void enemyInitialization() {
         Position newEnemyPosition;
         final EnemyFactory factory = new EnemyFactoryImpl();
-        for (int i = 0; i < number; i++) {
+        for (int i = 0; i < ConstantsAndResourceLoader.NUM_ENEMIES; i++) {
             final Enemy newEnemy = factory.createRandom();
             do {
                 newEnemyPosition = new Position(RANDOM.nextInt(model.getMapModel().getSize()),
@@ -96,7 +96,8 @@ public final class CharacterModelImpl implements CharacterModel {
         if (!this.model.getMapModel().isInBoundaries(position)) {
             return false;
         }
-        return !getPlayerPosition().equals(position) && getEnemies().get().getEnemyFromPosition(position).isEmpty();
+        return !getPlayerPosition().equals(position) && getEnemies()
+                .flatMap(enemies -> enemies.getEnemyFromPosition(position)).isEmpty();
     }
 
     @Override

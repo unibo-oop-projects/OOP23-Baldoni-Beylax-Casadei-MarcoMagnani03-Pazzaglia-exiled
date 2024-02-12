@@ -135,6 +135,21 @@ In maniera analoga nella "Factory" di nemici descritta precedentemente vengono u
 	\label{fig:Schema UML della collezione di nemici per gestire la mappa.}
 \end{figure}
 
+\subsubsection{Piazzamento dei nemici sulla mappa : \textit{CharacterModel}}
+\textbf{Problema:} Mettere in relazione la mappa e i nemici attraverso un'unico concetto nel model.\\
+\textbf{Soluzione:} Effettuare lo scattering dei nemici durante la loro inizializzazione, al momento della creazione del model.
+Una delle parti da me gestite è stata quella dell'inizializzazione dei nemici utilizzando le classi sopradescritte, e il loro posizionamento sulla mappa attraverso alcuni metodi all'interno dell'implementazione dell'interfaccia \textit{CharacterModel}.\\
+In particolare, nella classe \textit{CharacterModelImpl} è contenuta la \textit{EnemyCollection} che servirà al controller per scorrere su ogni nemico presente, vi è anche un metodo di inizializzazione in cui si prende il numero di nemici da configurazione, e si generano tutti attraverso la \textit{EnemyFactory} e vengono man mano posizionati in celle (e aggiunti alla collezione) a patto che:
+\begin{itemize}
+	\item Non vengano posizionati in uno dei 4 vertici della mappa. (Lì ci sono i boss)
+	\item Non vengano posizionati in una cella il cui tipo non corrisponde a quello del nemico.
+	\item Non vengano posizionati in una cella in cui sia già presente un nemico o il giocatore (cella piena)
+\end{itemize}
+Una volta generati tutti i nemici generici, vengono creati i 4 boss sempre attraverso la factory e vengono aggiunti anch'essi alla \textit{EnemyCollection} perché si tratta sempre di nemici e vengono spostati manualmente ai quattro vertici della mappa, attraverso un apposito metodo che dato il tipo di cella ne ricava l'angolo della mappa (Spiegato nella prossima sezione relativa alla mappa).
+
+\subsubsection{Mappa di gioco nel \textit{Model}}
+\textbf{Problema:} Come gestire la mappa di gioco a livello di divisione delle celle? Come dare un certo tipo ad ogni cella?
+
 \subsection*{Francesco Pazzaglia}
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Per facilitare la comunicazione tra il Model del giocatore (\textit{Player}) e la View è stato introdotto un Controller garantendo l'utilizzo del pattern \textit{MVC}.
 
