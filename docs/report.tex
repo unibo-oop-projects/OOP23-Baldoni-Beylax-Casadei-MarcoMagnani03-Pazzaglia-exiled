@@ -98,6 +98,17 @@ La soluzione adottata è stata quella di estendere un concetto di \textit{GameCh
 \end{figure}
 La classe \textit{EnemyImpl} contiene metodi astratti in modo tale da poter gestire la singola implementazione a seconda del diverso nemico del gioco, come spiegato successivamente.
 
+\subsubsection{Creazione dei nemici}
+Come introdotto precedentemente, il nemico è rappresentato da una classe astratta \textit{EnemyImpl} che viene sfruttata attraverso l'uso del pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}}.
+Ci sono diversi tipi di nemico nel gioco, quelli generici e i Boss. La classe che fa uso di questo pattern è \textit{EnemyFactory} e la relativa implementazione \textit{EnemyFactoryImpl}
+
+\begin{figure}[H]
+	\centering
+	\input{enemy/enemyfactory-uml.tex}
+	\caption{Schema UML della factory di nemici (Boss esclusi)}
+	\label{fig:Schema UML della factory di nemici}
+\end{figure}
+
 \subsection*{Francesco Pazzaglia}
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Per facilitare la comunicazione tra il Model del giocatore (\textit{Player}) e la View è stato introdotto un Controller garantendo l'utilizzo del pattern \textit{MVC}.
 

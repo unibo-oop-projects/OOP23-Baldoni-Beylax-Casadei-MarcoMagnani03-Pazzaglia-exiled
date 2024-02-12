@@ -1,0 +1,44 @@
+@startuml
+scale 0.6
+set separator none
+package unibo.exiled.model.character.enemy{
+    abstract class EnemyImpl{
+        .. Generic character constructor ..
+        + EnemyImpl(...)
+        .. Abstract methods for the factory..
+        + {abstract} getHeldItem() : Optional<Item>
+        + {abstract} getDroppedExperience() : int
+    }
+    interface Enemy{
+        getHeldItem() : Optional<Item>
+        getDroppedExperience() : int
+    }
+    package factory{
+        interface EnemyFactory{
+            createGoblin() : Enemy
+            createBrutus() : Enemy
+            createWaveBreaker() : Enemy
+            {method} ...
+            createWaterBoss() : Enemy
+            {method} ...
+        }
+        class EnemyFactoryImpl {
+            .. Private method to prevent code repetition ..
+            - createFromValues( \n name : String \n moveSet : MoveSet \n attributes : Map<AttributeItentifier, Attribute> \n type : ElementalType \n droppedExperience : int)
+            .. Implementation of the creation of the enemeis ..
+            + createBrutus() : Enemy
+            + createGoblin() : Enemy
+            +...()
+            + createWaterBoss() : Enemy
+            +...()
+        }
+        note bottom : La classe al suo interno genera i nemici \n con i relativi metodi usando "createFromValues" \n per evitare ripetizioni di codice.
+    }
+}
+
+Enemy <|-- EnemyImpl
+Enemy <.. EnemyFactory
+EnemyFactory <|-- EnemyFactoryImpl
+EnemyImpl <.. EnemyFactoryImpl
+
+@enduml
