@@ -82,6 +82,36 @@ Ad esempio, nel seguente schema si vede che Fulmine è efficace contro Acqua.
 Qui entriamo nel dettaglio della struttura ad alto livello del gioco.
 
 \section{Architettura}
+\subsection{Model entry point}
+La struttura del progetto segue il modello MVC, questa divisione ha come entry point del model la classe \textit{GameModelImpl} che implementa \textit{GameModel}, essa ha il ruolo di dare accesso agli altri componenti del model, tra cui:
+\begin{itemize}
+	\item \textit{CharacterModel}: Model che gestisce il player, nemici e relativi attributi.
+	\item \textit{CombatModel}: Fornisce la gestione del combattimento tra player e nemico.
+	\item \textit{ItemsModel}: Fornisce la gestione degli item del gioco.
+	\item \textit{MapModel}: Fornisce la gestione della mappa e le relative celle.
+	\item \textit{MenuModel}: Fornisce la gestione interna del menu di gioco.
+\end{itemize}
+\subsection{Controller entry point}
+A questo punto di accesso si collega il controller, che è composto anch'esso da un punto di accesso principale che è \textit{GameController}, questo fornisce accesso alle seguenti sottoparti del controller:
+\begin{itemize}
+	\item \textit{CharacterController}: Gestisce il collegamento tra view e model per movimento azioni compibili dalle entità del gioco (nemici e giocatore).
+	\item \textit{CombatController}: Collega la view con il model per il combattimento.
+	\item \textit{ItemsController}: Collega la view con il model per la gestione degli oggetti dell'inventario.
+	\item \textit{MapController}: Collega la view con il model gestendo la mappa e le celle.
+	\item \textit{MenuController}: Collega view e model per la gestione del menu di gioco.
+\end{itemize}
+\subsection{Relazione tra View e Controller}
+La view viene suddivisa in diverse sottoparti come le precedenti componenti architetturali, l'entry point è la classe \textit{GameView} che è quella che fa partire il motore grafico del gioco. Le sottoparti sono:
+\begin{itemize}
+	\item \textit{CharacterView}: Visualizzazione dei nemici e del giocatore.
+	\item \textit{CombatView}: Visualizzazione del combattimento tra un giocatore e un nemico.
+	\item \textit{InventoryView}: Visualizzazione dell'inventario e uso degli item.
+	\item \textit{PlayerClassView}: Visualizzazione iniziale per la scelta della classe del giocatore tra gli elementi disponibili.
+	\item \textit{GameOverView}: Schermata di Game Over.
+	\item \textit{GameVictoryView}: Schermata di vittoria del gioco.
+	\item \textit{NewGameView}: Schermata di avvio.
+\end{itemize}
+Alcuni elementi grafici sono stati realizzati con apposite classi di view che hanno quindi un comportamento molto specifico e non comportano necessariamente un collegamento con il controller, ad esempio: \textit{HUDView}, \textit{GameGridView}, \textit{GameMoveChangeView}.
 
 \section{Design dettagliato}
 \subsection*{Luca Casadei}
