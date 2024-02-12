@@ -49,6 +49,19 @@ public final class ConstantsAndResourceLoader extends ClassLoader {
      */
     public static final int PLAYER_MOVES_NUMBER = 4;
     /**
+     * The percentage of the health of the character from where it's considered
+     * critical.
+     */
+    public static final int HEALTH_CRITICAL_PERCENTAGE = 25;
+    /**
+     * The status panel height gap.
+     */
+    public static final int STATUS_PANEL_H_GAP = 20;
+    /**
+     * The status panel width gap.
+     */
+    public static final int STATUS_PANEL_V_GAP = 5;
+    /**
      * The size of the central PLAINS area.
      */
     public static final int STARTING_SAFEZONE_SIZE = 4;
@@ -77,7 +90,8 @@ public final class ConstantsAndResourceLoader extends ClassLoader {
      */
     public static final double ATTACK_MODIFIER_INEFFECTIVE = 0.5d;
     /**
-     * The attack modifier to be applied if the move is of the same type of the class of the player.
+     * The attack modifier to be applied if the move is of the same type of the
+     * class of the player.
      */
     public static final double ATTACK_SAME_TYPE_OF_CLASS_MODIFIER = 1.2;
     /**

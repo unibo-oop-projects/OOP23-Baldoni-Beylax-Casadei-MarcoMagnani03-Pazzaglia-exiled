@@ -10,6 +10,7 @@ public final class GameControllerImpl implements GameController {
     private final MapController mapController;
     private final ItemsController itemsController;
     private final CharacterController characterController;
+    private final CombatController combatController;
 
     /**
      * The constructor of the game main controller.
@@ -20,6 +21,7 @@ public final class GameControllerImpl implements GameController {
         this.mapController = new MapControllerImpl(model.getMapModel());
         this.itemsController = new ItemsControllerImpl(model.getItemsModel());
         this.characterController = new CharacterControllerImpl(model.getCharacterModel());
+        this.combatController = new CombatControllerImpl(model.getCombatModel());
     }
 
     @Override
@@ -35,6 +37,11 @@ public final class GameControllerImpl implements GameController {
     @Override
     public CharacterController getCharacterController() {
         return this.characterController;
+    }
+
+    @Override
+    public CombatController getCombatController() {
+        return this.combatController;
     }
 
     @Override

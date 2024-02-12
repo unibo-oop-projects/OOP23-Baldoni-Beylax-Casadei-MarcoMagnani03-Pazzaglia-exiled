@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
+import unibo.exiled.utilities.Position;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.MenuControllerImpl;
 import unibo.exiled.view.character.CharacterView;
@@ -182,7 +183,9 @@ public final class GameView {
      * Shows the combat view.
      */
     public void initializeCombat() {
-        this.combatView.setEnemy();
+        final Position combatPosition = this.gameController.getCharacterController().getPlayerPosition();
+        this.gameController.getCombatController().initializeCombat(combatPosition);
+        this.combatView.draw();
         this.showCombat();
     }
 
