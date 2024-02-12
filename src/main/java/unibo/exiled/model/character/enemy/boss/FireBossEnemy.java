@@ -15,10 +15,10 @@ public final class FireBossEnemy extends BossEnemy {
     /**
      * Constructs the boss.
      *
-     * @param name    The name of the boss.
+     * @param name The name of the boss.
      */
     public FireBossEnemy(final String name) {
-        //TODO: Change movement to a dedicated one.
+        //TODO: Change MoveSet to a dedicated one.
         super(name, new MoveSetFactoryImpl().defaultFireMoveSet(), ElementalType.FIRE);
     }
 

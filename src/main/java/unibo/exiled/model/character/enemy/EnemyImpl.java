@@ -29,9 +29,8 @@ public abstract class EnemyImpl extends GameCharacterImpl implements Enemy {
             final Map<AttributeIdentifier, Attribute> attributes,
             final ElementalType type
     ) {
-        super(name, attributes);
-        this.moveSet = MoveSets.copyOf(moveSet);
-        this.type = type;
+        super(name, MoveSets.copyOf(moveSet), type, attributes);
+        this.setType(type);
     }
 
     @Override

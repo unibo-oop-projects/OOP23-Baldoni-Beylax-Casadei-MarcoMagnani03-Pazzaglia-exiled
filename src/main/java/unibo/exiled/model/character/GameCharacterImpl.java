@@ -22,8 +22,10 @@ import java.util.Map;
  */
 public abstract class GameCharacterImpl implements GameCharacter {
     private final String name;
-    protected MoveSet moveSet;
-    protected ElementalType type;
+
+    private final MoveSet moveSet;
+    private ElementalType type;
+
     /**
      * An association between the identifier of the attribute and its values.
      */
@@ -37,8 +39,15 @@ public abstract class GameCharacterImpl implements GameCharacter {
      *
      * @param attributes The attributes of the character to build.
      * @param name       The name of the character.
+     * @param type       The elemental type of the character.
+     * @param moveSet    The MoveSet of the character, its moves.
      */
-    protected GameCharacterImpl(final String name, final Map<AttributeIdentifier, Attribute> attributes) {
+    protected GameCharacterImpl(final String name,
+                                final MoveSet moveSet,
+                                final ElementalType type,
+                                final Map<AttributeIdentifier, Attribute> attributes) {
+        this.moveSet = moveSet;
+        this.type = type;
         this.attributes = attributes;
         this.name = name;
     }
@@ -148,6 +157,15 @@ public abstract class GameCharacterImpl implements GameCharacter {
     @Override
     public final ElementalType getType() {
         return this.type;
+    }
+
+    /**
+     * Sets the type of the character. Accessible only by subclasses.
+     *
+     * @param type The new type of the character.
+     */
+    protected final void setType(final ElementalType type) {
+        this.type = type;
     }
 
     @Override
