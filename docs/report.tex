@@ -112,7 +112,7 @@ Segue uno schema UML che rappresenta il metodo generazionale dei nemici (Esclusa
 	\label{fig:Schema UML della factory di nemici}
 \end{figure}
 
-\textbf{Problema:} Divisione dei boss dai nemici generici, per evitare che l'oggetto rilasciato al giocatore venga scelto casualmente. 
+\textbf{Problema:} Divisione dei boss dai nemici generici, per evitare che l'oggetto rilasciato al giocatore venga scelto casualmente.\\
 \textbf{Soluzione:} In questo caso è stato necessario considerare i boss come una specializzazione di nemici generici, quindi come sottoclassi di \textit{EnemyImpl} ma con una loro classe specifica dedicata che consenta di scegliere manualmente il tipo di oggetto rilasciato alla sconfitta. Segue uno schema UML che aggiunge il concetto di nemico.
 
 \begin{figure}[H]
@@ -122,6 +122,18 @@ Segue uno schema UML che rappresenta il metodo generazionale dei nemici (Esclusa
 	\label{fig:Schema UML della gestione dei boss.}
 \end{figure}
 
+In maniera analoga nella "Factory" di nemici descritta precedentemente vengono utilizzate le classi dei boss per la loro generazione.
+
+\subsubsection{Raggruppare i nemici in collezione}
+\textbf{Problema:} Come raggruppare assieme tutti i nemici generati per poterli disporre sulla mappa?\\
+\textbf{Soluzione:} In questo caso ho creato un'interfaccia apposita \textit{EnemyCollection} che segue il pattern \href{https://refactoring.guru/design-patterns/iterator}{Iterator} per poter scorrere tutti i nemici indipendentemente da come venga implementata la collezione. Segue uno schema UML della struttura.
+
+\begin{figure}[H]
+	\centering
+	\input{enemy/enemycollection-uml.tex}
+	\caption{Schema UML della collezione di nemici per gestire la mappa.}
+	\label{fig:Schema UML della collezione di nemici per gestire la mappa.}
+\end{figure}
 
 \subsection*{Francesco Pazzaglia}
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Per facilitare la comunicazione tra il Model del giocatore (\textit{Player}) e la View è stato introdotto un Controller garantendo l'utilizzo del pattern \textit{MVC}.
@@ -287,7 +299,7 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 \section{Autovalutazione e lavori futuri}
 
 \subsection*{Luca Casadei}
-Personalmente ritengo che il mio contributo all'interno del team di sviluppo sia stato importante, sia per la parte realizzativa che per quella decisionale, ma non più importante di quella degli altri componenti del gruppo, con il quale è stato possibile lo confrontare le proprie idee di realizzazione, la corretta suddivisione dei compiti e uno sviluppo continuativo dell'applicazione anche se non necessariamente tutti presenti allo stesso momento o nello stesso luogo. Anche il caricamento del codice in parallelo con sistemi di controllo della versione è avvenuto in maniera secondo me pulita, perché tutti sono stati in grado di adottare questi strumenti in modo efficace senza creare troppi intoppi. Siccome la progettazione finale del progetto secondo me risulta abbastanza scalabile, non è esclusa l'ipotesi di arricchire ulteriormente il contenuto del gioco e le sue componenti, anche prendendo in forte considerazione la valutazione dei docenti.
+Personalmente ritengo che il mio contributo all'interno del team di sviluppo sia stato importante, sia per la parte realizzativa che per quella decisionale, ma non più importante di quella degli altri componenti del gruppo, con i quali è stato possibile lo confrontare le proprie idee di realizzazione, la corretta suddivisione dei compiti e uno sviluppo continuativo dell'applicazione anche se non necessariamente tutti presenti allo stesso momento o nello stesso luogo. Anche il caricamento del codice in parallelo con sistemi di controllo della versione è avvenuto in maniera secondo me pulita, perché tutti sono stati in grado di adottare questi strumenti in modo efficace senza creare troppi intoppi. Siccome la progettazione finale del progetto secondo me risulta abbastanza scalabile, non è esclusa l'ipotesi di arricchire ulteriormente il contenuto del gioco e le sue componenti, anche prendendo in forte considerazione la valutazione dei docenti.
 
 \subsection*{Francesco Pazzaglia}
 

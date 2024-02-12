@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/class-diagram'
+set separator none
+scale 0.65
+package unibo.exiled.model.enemy{
+    interface Enemy{
+        {method} ...
+    }
+    interface Iterable<Enemy>{
+        {method} ...
+    }
+    interface EnemyCollection<<Iterable>> {
+        addEnemy() : void
+        removeEnemy() : void
+        getEnemies() : Collection<Enemy>
+        getEnemyFromPosition(Position) : Enemy
+    }
+    note top : Questa interfacca e iterabile, \n quindi si possono scorrere i \n nemici in un foreach.
+    class EnemyCollectionImpl {
+        - enemies : Collection<Enemy>
+        + addEnemy() : void
+        + removeEnemy() : void
+        + getEnemyFromPosition(Position) : Enemy
+    }
+}
+Iterable <|-- EnemyCollection
+EnemyCollection <|.. EnemyCollectionImpl
+Enemy <.. EnemyCollection
+@enduml
