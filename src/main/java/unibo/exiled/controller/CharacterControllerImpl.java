@@ -88,13 +88,10 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public void movePlayer(final Direction direction) {
+    public void move(final Direction direction) {
         this.model.movePlayer(direction);
-    }
-
-    @Override
-    public void moveEnemies() {
         this.model.moveEnemies();
+
     }
 
     @Override

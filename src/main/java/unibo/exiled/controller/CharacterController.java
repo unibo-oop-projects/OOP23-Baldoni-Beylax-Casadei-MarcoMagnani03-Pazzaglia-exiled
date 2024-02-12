@@ -20,11 +20,11 @@ public interface CharacterController {
     List<String> getImagePathOfCharacter(String folderPath, String name);
 
     /**
-     * Moves the player in the specified direction.
+     * Moves the player in the specified direction and move all the enemies in the game.
      *
      * @param direction The direction in which the player should move.
      */
-    void movePlayer(Direction direction);
+    void move(Direction direction);
 
     /**
      * Gets the health of the player.
@@ -118,11 +118,6 @@ public interface CharacterController {
      * @return A list of the player moves.
      */
     List<String> getPlayerMoveSet();
-
-    /**
-     * Moves the enemies in the game.
-     */
-    void moveEnemies();
 
     /**
      * Performs an attack routine.

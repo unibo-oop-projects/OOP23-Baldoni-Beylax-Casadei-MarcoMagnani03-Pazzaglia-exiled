@@ -69,7 +69,7 @@ public final class GameKeyListener implements KeyListener {
                 this.gameView.showMenu();
             } else if (isValidMovementKey(e) && !this.gameView.isInCombat()) {
                 final Direction directionPressed = getDirection(e);
-                movePlayerAndEnemies(directionPressed);
+                this.gameController.getCharacterController().move(directionPressed);
                 updatePlayerView(directionPressed);
                 this.gameView.draw();
             } else if (e.getKeyCode() == KeyEvent.VK_E) {
@@ -103,16 +103,6 @@ public final class GameKeyListener implements KeyListener {
         final int keyCode = e.getKeyCode();
         return keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_S
                 || keyCode == KeyEvent.VK_D;
-    }
-
-    /**
-     * Moves the player and enemies in the specified direction.
-     *
-     * @param direction The direction in which to move the player and enemies.
-     */
-    private void movePlayerAndEnemies(final Direction direction) {
-        this.gameController.getCharacterController().movePlayer(direction);
-        this.gameController.getCharacterController().moveEnemies();
     }
 
     /**

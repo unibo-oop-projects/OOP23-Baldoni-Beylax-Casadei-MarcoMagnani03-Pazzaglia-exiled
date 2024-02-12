@@ -140,7 +140,12 @@ Oltre ai KeyListener di base per il movimento del giocatore, ho integrato la fun
 
 Avendo separato la gestione del movimento e dell'ascolto dei \textit{KeyListener} in una classe dedicata, è stato adottato il design pattern Observer. Questo pattern ha consentito di definire un meccanismo di notifica personalizzato attraverso la classe \textit{GameKeyListener}, che funge da Observer. \textit{GameKeyListener} implementa l'interfaccia \textit{KeyListener} e si occupa di ricevere notifiche sugli eventi di pressione dei tasti. In questo modo, sono stato in grado di gestire dinamicamente il movimento delle entità di gioco in risposta all'input dell'utente.
 
-% TODO: mettere la figura UML.
+\begin{figure}[H]
+	\centering
+	\include{movement/the-exiled-movement-uml.tex}
+	\caption{Schema UML inerente al meccanismo di movimento}
+	\label{fig:the-exiled-movement-uml}
+\end{figure}
 
 \subsubsection{Meccanismo di fine gioco}
 Mi sono occupato di gestire la conclusione del gioco attraverso due scenari distinti: la vittoria(tramite la \textit{GameVictoryView}) e la sconfitta(tramite \textit{GameOverView}).
@@ -188,22 +193,28 @@ Questa è la struttura che ho pensato, quindi tutti gli item estendono una inter
 
 Qui invece si vede come ho utilizzato il \textit{Factory} pattern per la creazione degli item, in modo tale che chi crea item anche diversi tra loro non debba sapere l'implementazione che ci sta sotto, la factory viene utilizzata dall'item container per la creazione di tutti gli item di gioco. L'Enum ItemNames contiene i nomi di tutti gli oggetti del gioco, i nomi vengono usati come "chiavi" degli item.
 
-\begin{figure}[H]
-	\centering
-	\input{item-uml/the-exiled-inventory-uml.tex}
-	\caption{Schema UML dell'inventario}
-	\label{fig:the-exiled-inventory-uml}
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\input{item-uml/the-exiled-inventory-uml.tex}
+%	\caption{Schema UML dell'inventario}
+%	\label{fig:the-exiled-inventory-uml}
+%\end{figure}
+
+% Commentato perché non faceva compilare dato che non è stato tracciato il file da git e che quindi quando veniva fatto un git pull non si prendeva il file .tex
+
 Tutti gli oggetti sono generalizzati grazie l'interfaccia item e ciò ne semplifica la gestione anche all'interno dell'inventory.
 La View dell'inventario segue il pattern \textit{Strategy} in particolare l'interfaccia è la ItemController e la sua implementazione è la ItemControllerImpl.
 La classe ItemControllerImpl è responsabile dell'effettiva logica di gestione degli oggetti nel gioco e si interfaccia con il relativo model per gestire l'inventario.
 \subsubsection{Hud}
-\begin{figure}[H]
-	\centering
-	\input{hud/the-exiled-hud-uml.tex}
-	\caption{Schema UML della HUD}
-	\label{fig:the-exiled-hud-uml}
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\input{hud/the-exiled-hud-uml.tex}
+%	\caption{Schema UML della HUD}
+%	\label{fig:the-exiled-hud-uml}
+%\end{figure}
+
+% Commentato perché non faceva compilare dato che non è stato tracciato il file da git e che quindi quando veniva fatto un git pull non si prendeva il file .tex
+
 Un'altra parte del progetto di cui mi sono occupato è la HUD(head-up display) che mostra sia quando ci si trova sulla pagina principale che durante uno scontro con un nemico le informazioni di base del player, come la sua vita, il livello, la classe e la esperienza.
 Questa parte segue il pattern \textit{Observer} ogni volta che il model del player viene modificata, per esempio la vita diminuisce, la HudView viene notificata del cambiamento e può quindi aggiornare la visualizzazione della HUD di conseguenza.
 \subsubsection{Levelling}

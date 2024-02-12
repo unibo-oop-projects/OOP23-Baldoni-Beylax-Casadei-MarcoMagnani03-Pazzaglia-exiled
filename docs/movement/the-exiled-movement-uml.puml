@@ -1,0 +1,40 @@
+@startuml
+scale 0.5
+set separator none
+
+interface KeyListener {
+      + keyTyped(KeyEvent): void
+      + keyPressed(KeyEvent): void
+      + keyReleased(KeyEvent): void
+}
+package unibo.exiled
+{
+  package view {
+    class GameView {
+      
+    }
+  }
+  
+  package items{
+    
+    class GameKeyListener implements KeyListener{}
+  }
+  
+  package model.character {
+    class CharacterModel {
+      + movePlayer(Direction): void
+      + moveEnemies(): void
+    }
+  }
+
+  package model.controller {
+    class CharacterController {
+      + move(Direction): void
+    }
+  }
+}
+
+GameView *-- "1" GameKeyListener : utilizza
+
+@enduml
+
