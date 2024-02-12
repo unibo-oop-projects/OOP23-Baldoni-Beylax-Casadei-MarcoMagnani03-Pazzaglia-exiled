@@ -271,11 +271,11 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 \subsection*{Marco Magnani}
 \begin{itemize}
 	\item \textbf{Stream e Optional}: Utilizzati sia nell' \textit{ItemContainer} che nelle \textit{Moves} per ricavare esempio un item in base al tipo.\\ \url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/item/utilities/ItemsContainer.java#L76C7-L76C8}
-	\item \textbf{Stream}: In \textit{CharacterModelImpl} utilizzato per evitare la compenetrazione di enemy all'interno della mappa\\
+	\item \textbf{Stream}: In \textit{CharacterModelImpl} utilizzato per evitare la compenetrazione di enemy all'interno della mappa, aggiunto nel commit con hash: f25b577fb319fbbcb38154b3f2b8a3233d5c561b\\
 	\url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/character/CharacterModelImpl.java#L159C1-L160C1} 
 	\item \textbf{Optional}: In \textit{ElementalType} e \textit{ItemNames} il metodo per prendere le relative immagini ritorna un Optional per gestire il caso in cui la mossa non sia presente nel progetto\\
 	\url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/item/utilities/ItemNames.java#L83C1-L84C55}
-	\item \textbf{Stream}: Nella \textit{ItemsModel} utilizzata per la conversione da \textit{Map\textless Item,Integer\textgreater} a \textit{Map\textless String,Integer\textgreater} ed anche per filtrare gli oggetti in base al nome\\
+	\item \textbf{Stream}: Nella \textit{ItemsModel} utilizzata per la conversione da \textit{Map\textless Item,Integer\textgreater} a \textit{Map\textless String,Integer\textgreater} ed anche per filtrare gli oggetti in base al nome, aggiunto nel GameModel commit con hash: 2e72b6911f473bfa3ee8685cd61f14ae8922f936\\
 	\url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/item/ItemsModelImpl.java#L28C1-L28C90}
 \end{itemize}
 
