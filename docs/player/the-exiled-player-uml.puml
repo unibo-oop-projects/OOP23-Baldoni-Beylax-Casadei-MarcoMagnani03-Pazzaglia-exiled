@@ -50,7 +50,7 @@ package unibo.exiled.model.character
   }
 }
 
-CharacterModelImpl *-- "1" Player : contiene
+CharacterModelImpl *-- "1" Player 
 
 @enduml
 
