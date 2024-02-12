@@ -1,0 +1,54 @@
+@startuml
+scale 0.5
+set separator none
+package unibo.exiled{
+    note "Questo UML mostra come viene tradotto \n un metodo dal model alla view, senza \n creare dipendenze che impediscano \n di cambiare la view se necessario." as N1
+    package view {
+        class GameView {
+            +draw()
+        }
+    }
+    package controller {
+        interface GameController{
+            getCharacterController()
+        }
+        class GameControllerImpl implements GameController{
+            +getCharacterController()
+        }
+        interface CharacterController{
+            getPlayerHealth() : double
+        }
+        class CharacterControllerImpl implements CharacterController{
+            +getPlayerHealth() : double
+        }
+    }
+    package model{
+        interface GameModel{
+            getCharacterModel()
+        }
+        class GameModelImpl implements GameModel{
+            +getCharacterModel()
+        }
+        package character {
+        package attributes {
+            enum AttributeIdentifier{}
+        }
+        interface CharacterModel{
+              getPlayerAttributeOf(AttributeIdentifier) : double
+            }
+            note top: Analogo per \n le altre \n interfacce \n del model.
+            class CharacterModelImpl implements CharacterModel{
+                +getPlayerAttributeOf(AttributeIdentifier) : double
+            }
+        }
+
+    }
+}
+GameView *-- GameController
+GameControllerImpl *- CharacterController
+CharacterControllerImpl *--- CharacterModel
+GameModelImpl *- CharacterModel
+AttributeIdentifier <.. CharacterModel
+AttributeIdentifier <.. CharacterModelImpl
+
+@enduml

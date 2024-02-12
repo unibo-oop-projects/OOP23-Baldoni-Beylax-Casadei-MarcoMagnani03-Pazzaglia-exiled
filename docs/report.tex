@@ -113,6 +113,14 @@ La view viene suddivisa in diverse sottoparti come le precedenti componenti arch
 \end{itemize}
 Alcuni elementi grafici sono stati realizzati con apposite classi di view che hanno quindi un comportamento molto specifico e non comportano necessariamente un collegamento con il controller, ad esempio: \textit{HUDView}, \textit{GameGridView}, \textit{GameMoveChangeView}.
 
+\subsection{Schema MVC}
+\begin{figure}[H]
+	\centering
+	\input{exiled-architecture-uml.tex}
+	\caption{Schema UML che rappresenta l'architettura MVC} 
+	\label{fig:Schema UML che rappresenta l'architettura MVC}
+\end{figure}
+
 \section{Design dettagliato}
 \subsection*{Luca Casadei}
 Personalmente mi sono occupato di parte della realizzazione delle mosse, della realizzazione di parte dell'entità \textit{GameCharacter}, della realizzazione dei nemici e della loro distribuzione sulla mappa in base al tipo, della creazione della mappa e relativa suddivisione in aree, della creazione ed assegnazione degli attributi dei \textit{GameCharacter}. Per ciascuno di questi elementi del model è stato realizzato un controller apposito per poter utilizzare il pattern MVC.
