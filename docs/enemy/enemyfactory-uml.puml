@@ -1,5 +1,5 @@
 @startuml
-scale 0.6
+scale 0.65
 set separator none
 package unibo.exiled.model.character.enemy{
     abstract class EnemyImpl{
@@ -36,9 +36,9 @@ package unibo.exiled.model.character.enemy{
     }
 }
 
-Enemy <|-- EnemyImpl
+Enemy <|.. EnemyImpl
 Enemy <.. EnemyFactory
-EnemyFactory <|-- EnemyFactoryImpl
+EnemyFactory <|.. EnemyFactoryImpl
 EnemyImpl <.. EnemyFactoryImpl
 
 @enduml

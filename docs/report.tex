@@ -34,7 +34,7 @@ L'applicazione è un gioco che presenta un personaggio controllato dal giocatore
     \item Movimento dei nemici.
     \item Presenza di oggetti ottenibili dal giocatore (Cure, potenziamenti e cristalli).
     \item Terminazione del gioco una volta raccolti 4 cristalli o se il giocatore viene sconfitto.
-    \item Posizionamento e distribuzione degli oggetti.
+    \item Rilascio degli oggetti da parte dei nemici.
     \item Possibilità di fare battaglie tra giocatore e nemici.
     \item Nemici più forti (boss) che se sconfitti rilasciano i cristalli per terminare il gioco.
     \item Possibilità di utilizzo di magie in battaglia di diverso tipo (Fuoco, Acqua, Fulmine, Erba).
@@ -44,7 +44,7 @@ L'applicazione è un gioco che presenta un personaggio controllato dal giocatore
 \subsection*{Requisiti non funzionali}
 \begin{itemize}
     \item Il gioco deve essere multipiattaforma.
-    \item \textit{TODO}
+    \item L'interfaccia deve essere ridimensionabile.
 \end{itemize}
 
 \section{Analisi e modello del dominio}
@@ -111,6 +111,17 @@ Segue uno schema UML che rappresenta il metodo generazionale dei nemici (Esclusa
 	\caption{Schema UML della factory di nemici (Boss esclusi)}
 	\label{fig:Schema UML della factory di nemici}
 \end{figure}
+
+\textbf{Problema:} Divisione dei boss dai nemici generici, per evitare che l'oggetto rilasciato al giocatore venga scelto casualmente. 
+\textbf{Soluzione:} In questo caso è stato necessario considerare i boss come una specializzazione di nemici generici, quindi come sottoclassi di \textit{EnemyImpl} ma con una loro classe specifica dedicata che consenta di scegliere manualmente il tipo di oggetto rilasciato alla sconfitta. Segue uno schema UML che aggiunge il concetto di nemico.
+
+\begin{figure}[H]
+	\centering
+	\input{enemy/boss-enemy-uml.tex}
+	\caption{Schema UML della gestione dei Boss.}
+	\label{fig:Schema UML della gestione dei boss.}
+\end{figure}
+
 
 \subsection*{Francesco Pazzaglia}
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Per facilitare la comunicazione tra il Model del giocatore (\textit{Player}) e la View è stato introdotto un Controller garantendo l'utilizzo del pattern \textit{MVC}.
@@ -235,7 +246,6 @@ Passando all'HUD (head-up display), quest'ultimo mostra le informazioni di base 
 Dal momento che l'HUD è sempre visibile, anche durante i combattimenti, una problematica è stata quella di mantenere costantemente aggiornate le statistiche del giocatore in base ai suoi cambiamenti di stato, come la diminuzione della vita o l'aumento di livello. Per risolvere questo problema, ho optato per l'utilizzo del pattern \textit{Observer}. Ogni volta che il modello del giocatore subisce una modifica, ad esempio quando la vita diminuisce, l'HUD viene notificato attraverso il metodo initialize dei cambiamenti, consentendogli di aggiornare la visualizzazione dell'HUD di conseguenza.
 \subsubsection{Levelling}
 Infine, ho gestito il processo di aumento di livello del giocatore, che coinvolge la logica di incremento del livello raggiungendo una certa quantità di esperienza. Ho implementato anche il calcolo dell'esperienza necessaria per il prossimo livello, l'aumento delle statistiche ad ogni livello e la logica secondo cui il giocatore apprende nuove mosse ad intervalli specifici.
-
 Per quanto riguarda l'aumento delle statistiche ad ogni incremento di livello, ho scelto di utilizzare un approccio randomizzato al fine di rendere il gioco meno monotono.
 
 Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il giocatore di base apprende mosse della sua classe (ad esempio, mosse di tipo acqua se la classe è acqua). Se il giocatore conosce già tutte le mosse di quel tipo, imparerà casualmente una mossa di qualsiasi tipo. Questa scelta è stata fatta per rendere la gestione delle mosse più scalabile, in considerazione della possibilità di creare nuovi tipi elementali. Ad esempio, se venisse introdotto un tipo con una singola mossa, il giocatore comunque apprenderebbe nuove mosse.
@@ -249,6 +259,7 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 \section{Note di sviluppo}
 
 \subsection*{Luca Casadei}
+
 \subsection*{Francesco Pazzaglia}
 
 \begin{itemize}
@@ -276,6 +287,8 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 \section{Autovalutazione e lavori futuri}
 
 \subsection*{Luca Casadei}
+Personalmente ritengo che il mio contributo all'interno del team di sviluppo sia stato importante, sia per la parte realizzativa che per quella decisionale, ma non più importante di quella degli altri componenti del gruppo, con il quale è stato possibile lo confrontare le proprie idee di realizzazione, la corretta suddivisione dei compiti e uno sviluppo continuativo dell'applicazione anche se non necessariamente tutti presenti allo stesso momento o nello stesso luogo. Anche il caricamento del codice in parallelo con sistemi di controllo della versione è avvenuto in maniera secondo me pulita, perché tutti sono stati in grado di adottare questi strumenti in modo efficace senza creare troppi intoppi. Siccome la progettazione finale del progetto secondo me risulta abbastanza scalabile, non è esclusa l'ipotesi di arricchire ulteriormente il contenuto del gioco e le sue componenti, anche prendendo in forte considerazione la valutazione dei docenti.
+
 \subsection*{Francesco Pazzaglia}
 
 Nonostante le parti complesse del progetto e il fatto di sviluppare un progetto in team mi avesse inizialmente intimorito, sono soddisfatto di come siamo riusciti a completare e consegnare il gioco. Di solito sono abituato a lavorare da solo, ma ho trovato la collaborazione in team piuttosto soddisfacente. Lo scambio di idee e il confronto ci hanno aiutato a coordinarci efficacemente, individuando i metodi e le classi necessarie per varie parti del progetto. Lavorare in team è stato molto formativo e mi ha permesso di apprezzare come si possa realizzare un progetto insieme, nonostante stili di programmazione talvolta diversi.
@@ -287,6 +300,17 @@ Nonostante le parti complesse del progetto e il fatto di sviluppare un progetto 
 
 \appendix
 \chapter{Guida utente}
+Per la maggior parte delle azioni compibili nel gioco sono presenti bottoni sull'interfaccia, non è quindi necessario conoscere nessun particolare comando. Ne sono stati aggiunti alcuni aggiuntivi nell'inventario per l'apertura e la chiusura, come sottodescritto.
+\section{Movimento}
+Per muoversi sulla mappa a celle si usano i comandi:
+\begin{itemize}
+	\item \textit{W} per andare su.
+	\item \textit{S} per andare giù.
+	\item \textit{A} per andare a sinistra.
+	\item \textit{D} per andare a destra.
+\end{itemize}
+\section{Inventario}
+Si può aprire l'inventario con \textit{E} e richiuderlo con \textit{ESC}
 
 \chapter{Esercitazioni di laboratorio}
 Elenco dei Permalink delle consegne nel forum studenti del modulo di laboratorio.

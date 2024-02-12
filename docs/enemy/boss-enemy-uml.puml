@@ -1,0 +1,38 @@
+@startuml
+scale 0.55
+set separator none
+package unibo.exiled.model.character.enemy{
+    interface Enemy{
+        getHeldItem() : Optional<Item>
+        getDroppedExperience : int
+    }
+    abstract class EnemyImpl{
+        + {abstract} getHeldItem() : Optional<Item>
+        + {abstract} getDroppedExperience() : int
+    }
+    package boss{
+        abstract BossEnemy{
+            + getDroppedExperience()
+        }
+        note left: La classe astratta del boss ritorna gia' \n l'esperienza da dare al giocatore in caso di \n vittoria, l'oggetto viene invece dato dalle \n sottoclassi.
+        class BoltBossEnemy{
+            + getHeldItem() : Optional<Item>
+        }
+        class FireBossEnemy{
+            + getHeldItem() : Optional<Item>
+        }
+        class WaterBossEnemy{
+            + getHeldItem() : Optional<Item>
+        }
+        class GrassBossEnemy{
+            + getHeldItem() : Optional<Item>
+        }
+    }
+}
+Enemy <|.. EnemyImpl
+BossEnemy <|- GrassBossEnemy
+BossEnemy <|-- WaterBossEnemy
+BossEnemy <|-- FireBossEnemy
+BossEnemy <|-- BoltBossEnemy
+EnemyImpl <|-- BossEnemy
+@enduml

@@ -1,5 +1,5 @@
 @startuml
-scale 1
+scale 0.65
 set separator none
 package unibo.exiled.model.character {
     interface GameCharacter{
@@ -34,9 +34,9 @@ package unibo.exiled.model.character {
 }
 
 
-GameCharacter <|-- GameCharacterImpl
+GameCharacter <|.. GameCharacterImpl
 GameCharacter <|-- Enemy
 GameCharacterImpl <|-- EnemyImpl
-Enemy <|-- EnemyImpl
+Enemy <|.. EnemyImpl
 
 @enduml

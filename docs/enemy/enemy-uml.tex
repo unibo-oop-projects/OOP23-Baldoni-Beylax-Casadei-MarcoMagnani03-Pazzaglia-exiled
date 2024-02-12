@@ -7,7 +7,7 @@
 \definecolor{plantucolor0005}{RGB}{3,128,72}
 \definecolor{plantucolor0006}{RGB}{169,220,223}
 \definecolor{plantucolor0007}{RGB}{200,41,48}
-\scalebox{0.8}{
+\scalebox{0.65}{
 \begin{tikzpicture}[yscale=-1
 ,pstyle0/.style={color=black,line width=1.5pt}
 ,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=0.5pt}
@@ -18,6 +18,7 @@
 ,pstyle6/.style={color=plantucolor0002,line width=1.0pt}
 ,pstyle7/.style={color=plantucolor0002,fill=plantucolor0006,line width=1.0pt}
 ,pstyle8/.style={color=plantucolor0007,line width=1.0pt}
+,pstyle9/.style={color=plantucolor0002,line width=1.0pt,dash pattern=on 7.0pt off 7.0pt}
 ]
 \draw[pstyle0] (8.5pt,6pt) -- (206.239pt,6pt) arc(270:360:3.75pt)  -- (215.739pt,29.7461pt) -- (505.5pt,29.7461pt) arc(270:360:2.5pt)  -- (508pt,640.5pt) arc(0:90:2.5pt)  -- (8.5pt,643pt) arc(90:180:2.5pt)  -- (6pt,8.5pt) arc(180:270:2.5pt) ;
 \draw[pstyle0] (6pt,29.7461pt) -- (215.739pt,29.7461pt);
@@ -88,13 +89,13 @@
 \node at (242.5pt,564pt)[below right,color=black]{\textit{getDroppedExperience() : int}};
 \draw[pstyle4] (233.5pt,592.1191pt) ellipse (3pt and 3pt);
 \node at (242.5pt,581.7461pt)[below right,color=black]{\textit{getHeldItem() : Optional\textless Item\textgreater }};
-\draw[pstyle6] (163.5489pt,266.4283pt) ..controls (153.7189pt,286.5183pt) and (151.51pt,291.02pt) .. (142.25pt,309.93pt);
+\draw[pstyle9] (163.5489pt,266.4283pt) ..controls (153.7189pt,286.5183pt) and (151.51pt,291.02pt) .. (142.25pt,309.93pt);
 \draw[pstyle6] (171.46pt,250.26pt) -- (158.1594pt,263.7913pt) -- (168.9383pt,269.0653pt) -- (171.46pt,250.26pt) -- cycle;
 \draw[pstyle6] (280.9454pt,266.4016pt) ..controls (297.1954pt,299.3316pt) and (306.28pt,317.72pt) .. (318.98pt,343.44pt);
 \draw[pstyle6] (272.98pt,250.26pt) -- (275.5649pt,269.0568pt) -- (286.326pt,263.7465pt) -- (272.98pt,250.26pt) -- cycle;
 \draw[pstyle6] (204.741pt,459.1176pt) ..controls (210.061pt,463.0376pt) and (200.86pt,456.24pt) .. (206pt,460pt) ..controls (233.04pt,479.78pt) and (263.16pt,501.58pt) .. (288.43pt,519.81pt);
 \draw[pstyle6] (190.25pt,448.44pt) -- (201.1818pt,463.9479pt) -- (208.3002pt,454.2872pt) -- (190.25pt,448.44pt) -- cycle;
-\draw[pstyle6] (341.0266pt,444.8994pt) ..controls (341.9866pt,472.9094pt) and (342.64pt,491.89pt) .. (343.6pt,519.84pt);
+\draw[pstyle9] (341.0266pt,444.8994pt) ..controls (341.9866pt,472.9094pt) and (342.64pt,491.89pt) .. (343.6pt,519.84pt);
 \draw[pstyle6] (340.41pt,426.91pt) -- (335.0301pt,445.105pt) -- (347.023pt,444.6939pt) -- (340.41pt,426.91pt) -- cycle;
 \end{tikzpicture}
 }
