@@ -12,6 +12,7 @@ enum ItemType {
     RESOURCE
 }
 
+
 class ItemBase {
 }
 
@@ -27,11 +28,11 @@ class PowerUpItem {
     +getBoostedAttribute()
 }
 
-interface Player {
-    +useItem(item: UsableItem)
+class UnUsableItem {
 }
 
-class UnUsableItem {
+interface Player {
+    +useItem(item: UsableItem)
 }
 
 enum AttributeIdentifier{
