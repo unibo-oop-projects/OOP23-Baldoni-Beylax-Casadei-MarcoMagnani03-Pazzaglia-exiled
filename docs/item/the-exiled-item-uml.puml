@@ -1,9 +1,9 @@
 @startuml
-scale 0.5
+scale 0.4
 interface Item {
-    +getName(): String
-    +getDescription(): String
-    +getType(): ItemType
+    +getName()
+    +getDescription()
+    +getType()
 }
 
 enum ItemType {
@@ -13,58 +13,37 @@ enum ItemType {
 }
 
 class ItemBase {
-    -name: String
-    -description: String
-    -itemType: ItemType
-    +ItemBase(name: String, description: String, itemType: ItemType)
 }
 
 class HealingItem {
-    -healingAmount: double
-    +HealingItem(name: String, description: String, healingAmount: double)
 }
 
 interface UsableItem {
-    +use(player: Player): void
-    +getAmount(): double
+    +use(player: Player)
+    +getAmount()
 }
 
 class PowerUpItem {
-    -boostedAttribute: AttributeIdentifier
-    -powerUpValue: double
-    +PowerUpItem(name: String, description: String, powerUpValue: double, boostedAttribute: AttributeIdentifier)
-    +getBoostedAttribute(): AttributeIdentifier
+    +getBoostedAttribute()
 }
 
 interface Player {
-    +useItem(item: UsableItem): void
+    +useItem(item: UsableItem)
 }
 
 class UnUsableItem {
-    +UnUsableItem(name: String, description: String)
 }
 
-interface Inventory {
-    +addItem(item: Item): void
-    +removeItem(item: Item): void
-    +getItemQuantity(item: Item): Integer
-    +containsItem(item: Item): boolean
-    +getItems(): Map<Item, Integer>
-}
-
-class InventoryImpl {
-    -itemsList: Map<Item, Integer>
+enum AttributeIdentifier{
 }
 
 Item <|-- ItemBase
-ItemBase --|> ItemType
+Item--|> ItemType
 
 HealingItem --|> ItemBase
 PowerUpItem --|> ItemBase
+PowerUpItem --|> AttributeIdentifier
 UnUsableItem --|> ItemBase
-
-Inventory --> Item
-InventoryImpl --|> Inventory
 
 UsableItem <|.. HealingItem
 UsableItem <|.. PowerUpItem

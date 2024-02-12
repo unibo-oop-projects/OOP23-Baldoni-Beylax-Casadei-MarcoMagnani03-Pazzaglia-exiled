@@ -1,0 +1,48 @@
+@startuml
+scale 0.4
+
+interface Item {
+}
+
+interface Inventory {
+    +addItem(item: Item)
+    +addItem(item: Item, quantity: int)
+    +removeItem(item: Item)
+    +getItemQuantity(item: Item)
+    +containsItem(item: Item)
+    +getItems()
+}
+
+class InventoryImpl {
+}
+
+class GameController {
+    +getItemsController(): ItemsController
+}
+
+class ItemsController {
+    +getItems(): Map<String, Integer>
+    +getItemDescription(itemName: String)
+    +getItemValor(itemName: String)
+    +getItemType(itemName: String)
+    +getItemBoostedAttributeName(itemName: String)
+    +useItem(itemName: String)
+}
+
+class ItemsModel {
+    
+}
+
+class GameView {
+    +hideInventory(): void
+    +showInventory(): void
+}
+
+ItemsModel --> Inventory
+GameController --> ItemsController
+ItemsController --> ItemsModel
+Inventory <-- InventoryImpl
+Inventory --> Item : contiene
+GameView --> InventoryView
+InventoryView --> GameController
+@enduml
