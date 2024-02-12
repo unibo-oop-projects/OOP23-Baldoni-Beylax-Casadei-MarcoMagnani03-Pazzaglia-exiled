@@ -14,16 +14,16 @@ import unibo.exiled.utilities.Position;
  * The implementation of the combat model.
  */
 public final class CombatModelImpl implements CombatModel {
-    private final GameModel gameModel;
+    private final GameModel model;
     private transient Combat combat;
 
     /**
      * The constructor of CombatModelImpl.
      * 
-     * @param gameModel the game model.
+     * @param model the game model.
      */
-    public CombatModelImpl(final GameModel gameModel) {
-        this.gameModel = gameModel;
+    public CombatModelImpl(final GameModel model) {
+        this.model = model;
     }
 
     @Override
@@ -34,7 +34,7 @@ public final class CombatModelImpl implements CombatModel {
 
     @Override
     public Optional<Player> getPlayer() {
-        final Optional<Player> player = this.gameModel.getCharacterModel().getPlayer();
+        final Optional<Player> player = this.model.getCharacterModel().getPlayer();
         if (player.isPresent()) {
             return player;
         } else {
@@ -44,7 +44,7 @@ public final class CombatModelImpl implements CombatModel {
 
     @Override
     public Optional<Enemy> getEnemy() {
-        final Optional<GameCharacter> enemy = this.gameModel.getCharacterModel()
+        final Optional<GameCharacter> enemy = this.model.getCharacterModel()
                 .getCharacterFromPosition(this.combat.getCombatPosition());
         if (enemy.isPresent()) {
             return Optional.of((Enemy) enemy.get());
