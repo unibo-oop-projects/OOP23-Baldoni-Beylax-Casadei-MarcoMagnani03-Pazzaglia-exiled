@@ -184,59 +184,61 @@ Questo approccio ha semplificato la gestione delle schermate di fine gioco, util
 Il design pattern applicato alla parte di \textit{GameOverView} e \textit{GameVictoryView}, è il pattern comportamentale Strategy. Le due View rappresentano due strategie diverse per gestire la visualizzazione dell'esito del gioco (game over o vittoria). La classe \textit{GameView} utilizza queste strategie decidendo quale delle due visualizzare in base alle condizioni definite nei metodi \textit{isOver()} e \textit{isWon()} del \textit{GameController}. Utilizzando lo Strategy Pattern, è possibile cambiare dinamicamente il comportamento di \textit{GameView} sostituendo una strategia con un'altra senza modificare il suo codice.
 
 \subsection*{Marco Magnani}
-\subsubsection{Item e Inventory}
-Per la realizzazione dell'entità degli oggetti ho attuato un'astrazione che fosse più riutilizzabile possibile e che evitasse ripetizioni di codice non necessarie.
-In particolare gli oggetti del gioco si dividevano in tre tipi diversi: gli oggetti curativi, di power up e risorse(come per esempio i cristalli). 
-Inoltre l'inventario doveva contenere tutti gli item di tipi diversi.
+La parti del progetto in cui ho impiegato la maggior parte del tempo sono l'inventario del player, gli oggetti da cui esso è composto, la hud e la logica per l'aumento di livello del player.
 
+\subsubsection{Item e Inventory}
+
+Per implementare la gestione delle entità degli oggetti, ho adottato un approccio di astrazione mirato a massimizzare la riutilizzabilità del codice e a eliminare duplicazioni non necessarie. Nel contesto del gioco, gli oggetti possono essere categorizzati in tre tipologie distinte: curativi, di potenziamento e risorse (ad esempio, cristalli).
+L'obiettivo era creare un sistema in cui l'inventario potesse accogliere tutti questi tipi di oggetti diversi, trattandoli però uniformemente come se appartenessero tutti alla stessa categoria.
 \begin{figure}[H]
 	\centering
-	\input{item-uml/the-exiled-item-uml.tex}
+	\input{item/the-exiled-item-uml.tex}
 	\caption{Schema UML del Model degli Item e dell'Inventory}
 	\label{fig:the-exiled-item-uml}
 \end{figure}
 
-Questa è la struttura che ho pensato, quindi tutti gli item estendono una interfaccia astratta avendo tutti gli stessi campi, gli healing item e power up item inoltre implementano l'interfaccia UsableItem seguendo il \textit{Template Method} pattern, permettendo quindi ad entrambi di implementare la propria logica di utilizzo, il metodo che cambia tra le due implementazioni è la use.
+La struttura che ho concepito prevede che tutti gli oggetti estendano un'interfaccia astratta, garantendo uniformità nei campi essenziali. Un ostacolo che ho affrontato riguardava la suddivisione tra oggetti curativi e di potenziamento, poiché entrambi possono essere utilizzati nel gioco, ma la logica di implementazione per i due utilizzi è differente.
+
+Per superare questa sfida, ho introdotto l'interfaccia \textit{UsableItem}, seguendo il design pattern \textit{Template Method}. Questa interfaccia consente ad entrambe le categorie di implementare la propria logica di utilizzo, differenziandosi attraverso il metodo \textit{"use()"}.
+
+L'astrazione fornita da UsableItem aiuta anche per la visualizzazione dell'inventario, in quanto consente di rendere cliccabili solo gli oggetti effettivamente utilizzabili.
 
 \begin{figure}[H]
 	\centering
-	\input{item-uml/the-exiled-itemFactory_itemContainer-uml.tex}
+	\input{item/the-exiled-itemFactory_itemContainer-uml.tex}
 	\caption{Schema UML della ItemFactory e dell'ItemContainer}
 	\label{fig:the-exiled-itemFactory_itemContainer-uml}
 \end{figure}
 
-Qui invece si vede come ho utilizzato il \textit{Factory} pattern per la creazione degli item, in modo tale che chi crea item anche diversi tra loro non debba sapere l'implementazione che ci sta sotto, la factory viene utilizzata dall'item container per la creazione di tutti gli item di gioco. L'Enum ItemNames contiene i nomi di tutti gli oggetti del gioco, i nomi vengono usati come "chiavi" degli item.
+Per risolvere un altro problema legato alla creazione degli oggetti, ho voluto garantire che qualsiasi classe che necessiti di creare un oggetto non dovesse conoscere la logica specifica di creazione. A questo scopo, ho implementato una Factory utilizzando il design pattern \textit{Factory} per la creazione degli item. Questa Factory viene utilizzata dall'Item Container per gestire la creazione di tutti gli oggetti di gioco. L'enum \textit{ItemNames} è stato introdotto per contenere i nomi di tutti gli oggetti del gioco, svolgendo il ruolo di "chiavi" per identificare gli item.
 
-%\begin{figure}[H]
-%	\centering
-%	\input{item-uml/the-exiled-inventory-uml.tex}
-%	\caption{Schema UML dell'inventario}
-%	\label{fig:the-exiled-inventory-uml}
-%\end{figure}
+\begin{figure}[H]
+	\centering
+	\input{item/the-exiled-inventory-uml.tex}
+	\caption{Schema UML dell'inventario}
+	\label{fig:the-exiled-inventory-uml}
+\end{figure}
 
-% Commentato perché non faceva compilare dato che non è stato tracciato il file da git e che quindi quando veniva fatto un git pull non si prendeva il file .tex
+Gli oggetti sono tutti generalizzati attraverso l'interfaccia Item, semplificando notevolmente la gestione, specialmente all'interno dell'inventario. Per la View dell'inventario, ho adottato il pattern \textit{Strategy}, in particolare mediante l'interfaccia \textit{ItemController} e la sua implementazione, \textit{ItemControllerImpl}. Quest'ultima è responsabile dell'effettiva logica di gestione degli oggetti nel gioco e interagisce con il modello degli item per gestire l'inventario.
 
-Tutti gli oggetti sono generalizzati grazie l'interfaccia item e ciò ne semplifica la gestione anche all'interno dell'inventory.
-La View dell'inventario segue il pattern \textit{Strategy} in particolare l'interfaccia è la ItemController e la sua implementazione è la ItemControllerImpl.
-La classe ItemControllerImpl è responsabile dell'effettiva logica di gestione degli oggetti nel gioco e si interfaccia con il relativo model per gestire l'inventario.
+L'utilizzo di questo pattern è stato pensato per rendere il progetto aperto a future estensioni. Se si dovesse aggiungere un'altra visualizzazione degli oggetti, sarebbe possibile creare un'altra implementazione dell'interfaccia ItemController, utilizzando una logica specifica per la gestione degli oggetti in quella particolare vista.
 \subsubsection{Hud}
-%\begin{figure}[H]
-%	\centering
-%	\input{hud/the-exiled-hud-uml.tex}
-%	\caption{Schema UML della HUD}
-%	\label{fig:the-exiled-hud-uml}
-%\end{figure}
+\begin{figure}[H]
+	\centering
+	\input{hud/the-exiled-hud-uml.tex}
+	\caption{Schema UML della HUD}
+	\label{fig:the-exiled-hud-uml}
+\end{figure}
 
-% Commentato perché non faceva compilare dato che non è stato tracciato il file da git e che quindi quando veniva fatto un git pull non si prendeva il file .tex
+Passando all'HUD (head-up display), quest'ultimo mostra le informazioni di base del giocatore sia sulla pagina principale che durante gli scontri con i nemici. Queste informazioni includono la vita, il livello, la classe e l'esperienza del giocatore. Ho gestito l'HUD come una classe di visualizzazione separata e indipendente, la quale può essere resa visibile e aggiornata quando necessario.
 
-Un'altra parte del progetto di cui mi sono occupato è la HUD(head-up display) che mostra sia quando ci si trova sulla pagina principale che durante uno scontro con un nemico le informazioni di base del player, come la sua vita, il livello, la classe e la esperienza.
-Questa parte segue il pattern \textit{Observer} ogni volta che il model del player viene modificata, per esempio la vita diminuisce, la HudView viene notificata del cambiamento e può quindi aggiornare la visualizzazione della HUD di conseguenza.
+Dal momento che l'HUD è sempre visibile, anche durante i combattimenti, una problematica è stata quella di mantenere costantemente aggiornate le statistiche del giocatore in base ai suoi cambiamenti di stato, come la diminuzione della vita o l'aumento di livello. Per risolvere questo problema, ho optato per l'utilizzo del pattern \textit{Observer}. Ogni volta che il modello del giocatore subisce una modifica, ad esempio quando la vita diminuisce, l'HUD viene notificato attraverso il metodo initialize dei cambiamenti, consentendogli di aggiornare la visualizzazione dell'HUD di conseguenza.
 \subsubsection{Levelling}
-Infine ho gestito il levelling del giocatore, quindi la logica dell'incremento di livello tramite il raggiungimento di una determinata esperienza, il calcolo della successiva esperienza necessaria, l'incremento delle statistiche ogni incremento di livello, e la logica con cui il player ogni tot livelli impara una mossa nuova.
+Infine, ho gestito il processo di aumento di livello del giocatore, che coinvolge la logica di incremento del livello raggiungendo una certa quantità di esperienza. Ho implementato anche il calcolo dell'esperienza necessaria per il prossimo livello, l'aumento delle statistiche ad ogni livello e la logica secondo cui il giocatore apprende nuove mosse ad intervalli specifici.
 
+Per quanto riguarda l'aumento delle statistiche ad ogni incremento di livello, ho scelto di utilizzare un approccio randomizzato al fine di rendere il gioco meno monotono.
 
-
-
+Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il giocatore di base apprende mosse della sua classe (ad esempio, mosse di tipo acqua se la classe è acqua). Se il giocatore conosce già tutte le mosse di quel tipo, imparerà casualmente una mossa di qualsiasi tipo. Questa scelta è stata fatta per rendere la gestione delle mosse più scalabile, in considerazione della possibilità di creare nuovi tipi elementali. Ad esempio, se venisse introdotto un tipo con una singola mossa, il giocatore comunque apprenderebbe nuove mosse.
 
 \subsection*{Manuel Baldoni}
 

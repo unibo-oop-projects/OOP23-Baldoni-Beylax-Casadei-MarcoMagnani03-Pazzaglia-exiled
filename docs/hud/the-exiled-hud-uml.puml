@@ -1,0 +1,33 @@
+@startuml
+scale 0.4
+
+interface GameView {
+    +createHUD
+}
+
+interface GameController {
+    +getCharacterController()
+}
+
+interface CharacterController {
+    +getPlayerLevel()
+    +getPlayerClassName()
+    +getPlayerCurrentExperience()
+    +getPlayerExperienceCap()
+    +getPlayerHealth()
+    +getPlayerHealthCap()
+}
+
+interface CharacterModel {
+}
+
+class HudView {
+    +initialize()
+}
+
+GameView --> GameController
+GameController --> CharacterController
+CharacterController --> CharacterModel
+GameView --> HudView
+HudView --> CharacterController
+@enduml
