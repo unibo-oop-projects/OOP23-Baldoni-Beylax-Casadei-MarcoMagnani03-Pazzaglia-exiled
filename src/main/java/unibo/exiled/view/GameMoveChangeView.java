@@ -9,8 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.BorderLayout;
 import javax.swing.WindowConstants;
 
@@ -24,6 +22,8 @@ public final class GameMoveChangeView {
 
     /**
      * Constructs a GameMoveChangeView view.
+     * 
+     * @param gameController the game controller associated with this view.
      */
     public GameMoveChangeView(final GameController gameController) {
         this.mainFrame = new JFrame();
@@ -43,29 +43,28 @@ public final class GameMoveChangeView {
      * Initializes the user interface of the GameMoveChangeView view.
      */
     private void initializeUI() {
-        String moveToLearn = gameController.getCharacterController().getNewMove();
+        final String moveToLearn = gameController.getCharacterController().getNewMove();
 
         final JPanel gameOverPanel = new JPanel(new BorderLayout());
-        final JLabel gameOverLabel = new GameLabel("Change a move from your MoveSet or refuse to learn the" + moveToLearn + "move.");
+        final JLabel gameOverLabel = new GameLabel(
+                "Change a move from your MoveSet or refuse to learn the" + moveToLearn + "move.");
         gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
 
         final JPanel buttonPanel = new JPanel(new FlowLayout());
-        final List<GameButton> movesButtonList = new ArrayList<>();
 
-        for (String move : gameController.getCharacterController().getPlayerMoveSet()) {
+        for (final String move : gameController.getCharacterController().getPlayerMoveSet()) {
             final GameButton moveButton = new GameButton(move);
 
             moveButton.addActionListener(e -> {
                 final String moveSelected = moveButton.getText();
                 final int dialogResult = JOptionPane.showConfirmDialog(null,
-                        "Would you like to change \'"+ moveSelected +"\' into " + moveToLearn + "?", "Warning",
+                        "Would you like to change \'" + moveSelected + "\' into " + moveToLearn + "?", "Warning",
                         JOptionPane.YES_NO_OPTION);
                 if (dialogResult == JOptionPane.YES_OPTION) {
                     this.gameController.getCharacterController().changeMove(moveSelected, moveToLearn);
                 }
             });
 
-            movesButtonList.add(moveButton);
             buttonPanel.add(moveButton);
         }
 
@@ -73,8 +72,8 @@ public final class GameMoveChangeView {
         buttonPanel.add(refuseButton);
         refuseButton.addActionListener(e -> {
             final int dialogResult = JOptionPane.showConfirmDialog(null,
-                "Are you sure that you don't want to learn: " + moveToLearn, "Warning",
-                JOptionPane.YES_NO_OPTION);
+                    "Are you sure that you don't want to learn: " + moveToLearn, "Warning",
+                    JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
                 this.mainFrame.dispose();
             }

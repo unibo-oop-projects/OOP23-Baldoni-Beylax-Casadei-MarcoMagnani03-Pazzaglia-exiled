@@ -210,7 +210,19 @@ public interface CharacterController {
      */
     boolean checkWin();
 
+    /**
+     * Retrieves a new move.
+     *
+     * @return a string representing the new move.
+     */
     String getNewMove();
 
+    /**
+     * Changes a move from old to new.
+     *
+     * @param oldMove the old move to be replaced.
+     * @param newMove the new move to be inserted in place of the old one.
+     */
     void changeMove(String oldMove, String newMove);
+
 }

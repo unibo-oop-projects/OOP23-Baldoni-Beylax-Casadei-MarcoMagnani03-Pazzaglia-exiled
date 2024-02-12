@@ -319,7 +319,7 @@ public final class CharacterControllerImpl implements CharacterController {
     }
 
     @Override
-    public void changeMove(String oldMove, String newMove) {
+    public void changeMove(final String oldMove, final String newMove) {
         this.model.getPlayer().get().changeMove(Moves.getMoveByName(oldMove).get(), Moves.getMoveByName(newMove).get());
     }
 }

@@ -3,7 +3,6 @@ package unibo.exiled.model.character.player;
 import java.util.Optional;
 import java.util.Random;
 
-import unibo.exiled.model.move.MoveNames;
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.model.character.GameCharacterImpl;
 import unibo.exiled.model.character.attributes.AttributeFactoryImpl;
@@ -13,12 +12,10 @@ import unibo.exiled.model.item.InventoryImpl;
 import unibo.exiled.model.item.Item;
 import unibo.exiled.model.item.utilities.ItemsContainer;
 import unibo.exiled.model.move.MagicMove;
-import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.factory.MoveSetFactoryImpl;
 import unibo.exiled.model.move.Moves;
 import unibo.exiled.utilities.ElementalType;
 import unibo.exiled.utilities.Inventories;
-import unibo.exiled.utilities.MoveSets;
 import unibo.exiled.model.item.utilities.ItemType;
 import unibo.exiled.model.item.UsableItem;
 
@@ -137,7 +134,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     @Override
-    public void changeMove(MagicMove oldMove, MagicMove newMove) {
+    public void changeMove(final MagicMove oldMove, final MagicMove newMove) {
         this.moveSet.changeMoves(oldMove, newMove);
     }
 
