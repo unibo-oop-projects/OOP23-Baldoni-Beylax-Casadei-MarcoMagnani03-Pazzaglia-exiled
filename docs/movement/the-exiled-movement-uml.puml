@@ -9,6 +9,21 @@ interface KeyListener {
 }
 package unibo.exiled
 {
+  package model.controller {
+    interface GameController {
+      + getCharacterController(): CharacterController
+    }
+    
+    class GameControllerImpl implements GameController {}
+  
+    interface CharacterController {
+      + move(Direction): void
+    }
+    
+    class CharacterControllerImpl implements CharacterController {}
+
+  }
+  
   package view {
     class GameView {
       
@@ -27,14 +42,14 @@ package unibo.exiled
     }
   }
 
-  package model.controller {
-    class CharacterController {
-      + move(Direction): void
-    }
-  }
+
 }
 
-GameView *-- "1" GameKeyListener : utilizza
+GameView *-- "1" GameKeyListener
+GameView *-- "1" GameController
+GameControllerImpl *-- "1" CharacterController
+CharacterControllerImpl  *-- "1" CharacterModel
+
 
 @enduml
 
