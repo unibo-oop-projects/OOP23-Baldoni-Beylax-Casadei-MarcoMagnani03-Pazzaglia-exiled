@@ -12,11 +12,6 @@ package unibo.exiled.model.character
   }
   
   abstract class GameCharacterImpl implements GameCharacter {
-      + move(position: Position): void
-      + getPosition(): Position
-      + getAttributes(): Map<AttributeIdentifier, Attribute>
-      + getName(): String
-      + getHealth(): double
       + etc...()
   }
   
@@ -34,12 +29,6 @@ package unibo.exiled.model.character
     }
     
     class PlayerImpl extends GameCharacterImpl implements Player {
-        + getInventory(): Inventory
-        + addItemToInventory(item: Item): void
-        + getPlayerClass(): ElementalType
-        + setPlayerClass(playerClassChoice: ElementalType): void
-        + addExperience(exp: double): void
-        + useItem(item: UsableItem): void
         + etc...()
     }
   }
