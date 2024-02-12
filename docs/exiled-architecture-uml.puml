@@ -1,5 +1,5 @@
 @startuml
-scale 0.5
+scale 0.45
 set separator none
 package unibo.exiled{
     note "Questo UML mostra come viene tradotto \n un metodo dal model alla view, senza \n creare dipendenze che impediscano \n di cambiare la view se necessario." as N1
