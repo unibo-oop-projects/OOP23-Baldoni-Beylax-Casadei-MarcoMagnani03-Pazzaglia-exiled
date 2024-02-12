@@ -19,7 +19,7 @@ public final class CombatImpl implements Combat {
      * The constructor of CombatImpl.
      * 
      * @param player the player.
-     * @param enemy the enemy.
+     * @param enemy  the enemy.
      */
     public CombatImpl(final Optional<Player> player, final Optional<Enemy> enemy) {
         this.player = player.get();
@@ -52,7 +52,7 @@ public final class CombatImpl implements Combat {
     }
 
     @Override
-    public Enemy getEnemy() {
-        return this.enemy;
+    public Optional<Enemy> getEnemy() {
+        return Optional.of(this.enemy);
     }
 }

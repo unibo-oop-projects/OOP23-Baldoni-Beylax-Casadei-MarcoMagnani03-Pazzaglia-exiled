@@ -1,11 +1,13 @@
 package unibo.exiled.model.combat;
 
 import java.util.Optional;
+import java.util.Set;
 
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.game.GameModel;
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.utilities.Position;
 
 /**
@@ -26,13 +28,8 @@ public final class CombatModelImpl implements CombatModel {
 
     @Override
     public void createCombat(final Position combatPosition) {
-        this.combat = new CombatImpl(this.getPlayer(), this.getEnemy(combatPosition));
         this.combat.setCombatPosition(combatPosition);
-    }
-
-    @Override
-    public Optional<Combat> getCurrentCombat() {
-        return Optional.of(this.combat);
+        this.combat = new CombatImpl(this.getPlayer(), this.getEnemy());
     }
 
     @Override
@@ -46,13 +43,48 @@ public final class CombatModelImpl implements CombatModel {
     }
 
     @Override
-    public Optional<Enemy> getEnemy(final Position combatPosition) {
+    public Optional<Enemy> getEnemy() {
         final Optional<GameCharacter> enemy = this.gameModel.getCharacterModel()
-                .getCharacterFromPosition(combatPosition);
+                .getCharacterFromPosition(this.combat.getCombatPosition());
         if (enemy.isPresent()) {
             return Optional.of((Enemy) enemy.get());
         } else {
             throw new IllegalAccessError("Couldn't access the enemy in this position");
         }
+    }
+
+    @Override
+    public CombatStatus getCombatStatus() {
+        return this.combat.getCombatStatus();
+    }
+
+    @Override
+    public void setCombatStatus(final CombatStatus status) {
+        this.combat.setCombatStatus(status);
+    }
+
+    @Override
+    public String getEnemyName() {
+        return this.combat.getEnemy().get().getName();
+    }
+
+    @Override
+    public double getEnemyHealth() {
+        return this.combat.getEnemy().get().getHealth();
+    }
+
+    @Override
+    public double getEnemyHealthCap() {
+        return this.combat.getEnemy().get().getHealthCap();
+    }
+
+    @Override
+    public Set<MagicMove> getEnemyMoves() {
+        return this.combat.getEnemy().get().getMoveSet().getMagicMoves();
+    }
+
+    @Override
+    public Position getCombatPosition() {
+        return this.combat.getCombatPosition();
     }
 }

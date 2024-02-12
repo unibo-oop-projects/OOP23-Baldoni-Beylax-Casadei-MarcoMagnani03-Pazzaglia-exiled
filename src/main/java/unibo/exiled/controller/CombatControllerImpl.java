@@ -47,7 +47,7 @@ public final class CombatControllerImpl implements CombatController {
     @Override
     public void initializeCombat(final Position combatPosition) {
         this.model.createCombat(combatPosition);
-        this.model.getCurrentCombat().get().setCombatStatus(CombatStatus.IDLE);
+        this.model.setCombatStatus(CombatStatus.IDLE);
         this.setLastMoveLabel("");
         this.setAttackerModifierLabel("");
         this.setDefenderModifierLabel("");
@@ -56,17 +56,17 @@ public final class CombatControllerImpl implements CombatController {
 
     @Override
     public String getEnemyName() {
-        return this.model.getCurrentCombat().get().getEnemy().getName();
+        return this.model.getEnemyName();
     }
 
     @Override
     public double getEnemyHealth() {
-        return this.model.getCurrentCombat().get().getEnemy().getHealth();
+        return this.model.getEnemyHealth();
     }
 
     @Override
     public double getEnemyHealthCap() {
-        return this.model.getCurrentCombat().get().getEnemy().getHealthCap();
+        return this.model.getEnemyHealthCap();
     }
 
     @Override
@@ -107,7 +107,7 @@ public final class CombatControllerImpl implements CombatController {
 
     @Override
     public CombatStatus getCombatStatus() {
-        return this.model.getCurrentCombat().get().getCombatStatus();
+        return this.model.getCombatStatus();
     }
 
     /**
@@ -132,7 +132,7 @@ public final class CombatControllerImpl implements CombatController {
     }
 
     private String getEnemyRandomMoveName() {
-        final Set<MagicMove> moves = this.model.getCurrentCombat().get().getEnemy().getMoveSet().getMagicMoves();
+        final Set<MagicMove> moves = this.model.getEnemyMoves();
         final int randomIndex = RANDOM.nextInt(moves.size());
         int i = 0;
         for (final MagicMove magicMove : moves) {
@@ -147,12 +147,12 @@ public final class CombatControllerImpl implements CombatController {
     @Override
     public void attack(final boolean isPlayerAttacking, final Optional<String> playerMoveName,
             final GameController gameController, final CombatView combatView) {
-        this.model.getCurrentCombat().get().setCombatStatus(CombatStatus.ATTACKING);
+        this.model.setCombatStatus(CombatStatus.ATTACKING);
 
         final GameCharacter attacker = isPlayerAttacking ? this.model.getPlayer().get()
-                : this.model.getCurrentCombat().get().getEnemy();
+                : this.model.getEnemy().get();
         final GameCharacter defender = !isPlayerAttacking ? this.model.getPlayer().get()
-                : this.model.getCurrentCombat().get().getEnemy();
+                : this.model.getEnemy().get();
 
         this.setLastMoveLabel(attacker.getName() + " attacking...");
         this.setAttackerModifierLabel("");
@@ -195,7 +195,7 @@ public final class CombatControllerImpl implements CombatController {
         final boolean hasAttackerWon = defender.getHealth() <= 0;
 
         if (hasAttackerWon) {
-            this.model.getCurrentCombat().get().setCombatStatus(CombatStatus.DEFEATED);
+            this.model.setCombatStatus(CombatStatus.DEFEATED);
         }
 
         if (isPlayerAttacking && hasAttackerWon) {
@@ -204,7 +204,7 @@ public final class CombatControllerImpl implements CombatController {
             final int experienceDropped = ((Enemy) defender).getDroppedExperience();
             ((Player) attacker).addExperience(experienceDropped);
             gameController.getCharacterController()
-                    .removeEnemyFromPosition(this.model.getCurrentCombat().get().getCombatPosition());
+                    .removeEnemyFromPosition(this.model.getCombatPosition());
 
             // Add the item dropped from the enemy
             final Optional<Item> itemDropped = ((Enemy) defender).getHeldItem();
@@ -222,14 +222,14 @@ public final class CombatControllerImpl implements CombatController {
         if (hasAttackerWon) {
             combatView.draw();
         } else {
-            final Timer attackTimer = new Timer(this.CONSOLE_DISPLAY_TIME, evt -> {
+            final Timer attackTimer = new Timer(CONSOLE_DISPLAY_TIME, evt -> {
                 combatView.draw();
 
                 if (isPlayerAttacking) {
-                    final Timer delayTimer = new Timer(this.IN_BETWEEN_ATTACKS_DELAY, e -> {
+                    final Timer delayTimer = new Timer(IN_BETWEEN_ATTACKS_DELAY, e -> {
                         // Enemy turn to attack
                         this.attack(false, null, gameController, combatView);
-                        this.model.getCurrentCombat().get().setCombatStatus(CombatStatus.IDLE);
+                        this.model.setCombatStatus(CombatStatus.IDLE);
                     });
                     delayTimer.setRepeats(false);
                     delayTimer.start();

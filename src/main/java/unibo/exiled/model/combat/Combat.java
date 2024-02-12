@@ -51,5 +51,5 @@ public interface Combat {
      * 
      * @return the enemy that is fighiting.
      */
-    Enemy getEnemy();
+    Optional<Enemy> getEnemy();
 }
