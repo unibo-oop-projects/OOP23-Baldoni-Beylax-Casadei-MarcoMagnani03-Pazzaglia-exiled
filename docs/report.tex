@@ -87,8 +87,9 @@ Qui entriamo nel dettaglio della struttura ad alto livello del gioco.
 \subsection*{Luca Casadei}
 Personalmente mi sono occupato di parte della realizzazione delle mosse, della realizzazione di parte dell'entità \textit{GameCharacter}, della realizzazione dei nemici e della loro distribuzione sulla mappa in base al tipo, della creazione della mappa e relativa suddivisione in aree, della creazione ed assegnazione degli attributi dei \textit{GameCharacter}. Per ciascuno di questi elementi del model è stato realizzato un controller apposito per poter utilizzare il pattern MVC.
 \subsubsection{Entità "Nemico"}
-La difficoltà nella realizzazione del concetto di nemico consiste nella suddivisione dei nemici in comuni e boss finali, divisi ciascuno in base al proprio tipo elementale e con la propria quantità di esperienza rilasciata alla sconfitta.\\
-La soluzione adottata è stata quella di estendere un concetto di \textit{GameCharacter}, che contenesse tutte le informazioni e le azioni condivise tra giocatore e nemici, e successivamente effettuare la relativa divisione costruendo due interfacce diverse, una per il giocatore e una per il nemico. Per quest'ultimo è stata realizzata un'apposita interfaccia implementata da una classe astratta, che poi verrà utilizzata nell'istanziamento e la distribuzione dei nemici su mappa. Quest'ultima però viene spiegata nella sottosezione successiva.\\
+\textbf{Problema:} Definire il concetto di nemico e come omologarlo al giocatore per evitare ripetizioni di codice (DRY).
+Questa difficoltà è riassumibile nel dover suddividere i nemici in comuni e boss finali, divisi ciascuno in base al proprio "tipo elementale" e con la propria quantità di esperienza rilasciata alla sconfitta. Ogni nemico deve inoltre avere un set di mosse personalizzato che varia anch'esso in base al tipo.\\
+\textbf{Soluzione:} La soluzione adottata è stata quella di estendere un concetto di \textit{GameCharacter}, che contenesse tutte le informazioni e le azioni condivise tra giocatore e nemici, e successivamente effettuare la relativa divisione costruendo due interfacce diverse, una per il giocatore e una per il nemico. Per quest'ultimo è stata realizzata un'apposita interfaccia implementata da una classe astratta, che poi verrà utilizzata attraverso un pattern creazionale descritto successivamente per generare e distribuire i nemici sulla mappa. I nemici vengono infine divisi ulteriormente in generici e boss.
 \subsubsection{UML dell'entità "Nemico"}
 \begin{figure}[H]
 	\centering
@@ -99,8 +100,10 @@ La soluzione adottata è stata quella di estendere un concetto di \textit{GameCh
 La classe \textit{EnemyImpl} contiene metodi astratti in modo tale da poter gestire la singola implementazione a seconda del diverso nemico del gioco, come spiegato successivamente.
 
 \subsubsection{Creazione dei nemici}
-Come introdotto precedentemente, il nemico è rappresentato da una classe astratta \textit{EnemyImpl} che viene sfruttata attraverso l'uso del pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}}.
-Ci sono diversi tipi di nemico nel gioco, quelli generici e i Boss. La classe che fa uso di questo pattern è \textit{EnemyFactory} e la relativa implementazione \textit{EnemyFactoryImpl}
+\textbf{Problema}: Generare i nemici in modo scalabile (l'aggiunta di un nuovo nemico al gioco deve essere meno complesso e tedioso possibile).\\
+\textbf{Soluzione:} Come introdotto precedentemente, il nemico è rappresentato da una classe astratta \textit{EnemyImpl} che viene sfruttata attraverso l'uso del pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}}.
+Ci sono diversi tipi di nemico nel gioco, quelli generici e i Boss. La classe che fa uso di questo pattern è \textit{EnemyFactory} e la relativa implementazione \textit{EnemyFactoryImpl}.\\ \textbf{Alternative:} Un'alternativa possibile era quella di creare una classe che ereditasse da \textit{EnemyImpl} per ogni nemico presente nel gioco ed assegnarli manualmente le mosse, l'esperienza rilasciata ecc..., in questo caso il codice sarebbe risultato meno scalabile e avrebbe reso l'aggiunta di nemici tediosa.\\
+Segue uno schema UML che rappresenta il metodo generazionale dei nemici (Esclusa la divisione tra nemici generici e Boss che viene trattata separatamente in una sottosezione successiva).
 
 \begin{figure}[H]
 	\centering
