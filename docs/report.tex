@@ -188,11 +188,11 @@ Mi sono anche occupato della gestione del movimento del giocatore e delle altre 
 Infine, ho implementato la gestione delle condizioni di chiusura del gioco(vittoria e game over), che includevano la definizione delle regole e dei possibili eventi che portavano al termine del gioco, nonché la gestione delle rispettive schermate, come la chiusura del gioco o la possibilità di riavviare una nuova partita.
 
 \subsubsection{Player}
-Nell'ambito del progetto del gioco, ho osservato la presenza di caratteristiche comuni tra le diverse entità presenti. Le caratteristiche di base del giocatore sono condivise anche dai vari nemici. 
+Nella parte del giocatore, il problema principale consisteva nell'identificare e gestire in modo efficiente le caratteristiche comuni con i nemici, al fine di evitare ripetizioni e mantenere il codice conciso. 
 Pertanto, in collaborazione con \textit{Luca Casadei}, responsabile della parte relativa ai nemici, abbiamo deciso di introdurre nel Model un'interfaccia denominata \textit{GameCharacter}. Questa interfaccia contiene i metodi principali che definiscono le caratteristiche fondamentali comuni a tutte le entità nel gioco, come la vita, la posizione, il movimento e gli attributi.
 In aggiunta all'interfaccia, è stata implementata la classe astratta \textit{GameCharacterImpl}, che concretizza l'interfaccia \textit{GameCharacter}. Questa classe è stata progettata in modo che il giocatore, possa estenderla e acquisire le caratteristiche comuni menzionate in precedenza. Questa architettura ci ha consentito di gestire in modo efficiente le proprietà condivise tra il giocatore e i nemici, garantendo una maggiore coerenza e facilità di estensione del codice senza ripetizioni.
 
-Nella gestione del giocatore, ho introdotto un'interfaccia denominata \textit{Player}, che estende l'interfaccia preesistente \textit{GameCharacter}. Successivamente, ho realizzato l'implementazione di questa interfaccia attraverso una classe concreta chiamata \textit{PlayerImpl}. Tale procedura mi ha consentito di definire un comportamento specifico, mantenendo al contempo la flessibilità per estendere e personalizzare le funzionalità di base fornite dall'interfaccia \textit{GameCharacter}.
+Per la gestione del giocatore, ho introdotto un'interfaccia denominata \textit{Player}, che estende l'interfaccia preesistente \textit{GameCharacter}. Successivamente, ho realizzato l'implementazione di questa interfaccia attraverso una classe concreta chiamata \textit{PlayerImpl}. Tale procedura mi ha consentito di definire un comportamento specifico, mantenendo al contempo la flessibilità per estendere e personalizzare le funzionalità di base fornite dall'interfaccia \textit{GameCharacter}.
 
 \begin{figure}[H]
 	\centering
