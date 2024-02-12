@@ -34,4 +34,11 @@ replay_pid*
 .gradle
 
 # Documentation #
-docs
+.pdf
+.aux
+.bbl
+.blg
+.log
+.out
+.gz
+.toc
