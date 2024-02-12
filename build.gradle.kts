@@ -40,6 +40,8 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic:1.4.14")
 
     // JUnit API and testing engine
+    //Mockito for mocking class implementations.
+    testImplementation("org.mockito:mockito-core:5.10.0")
     val jUnitVersion = "5.10.1"
     // when dependencies share the same version, grouping in a val helps to keep them in sync
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
