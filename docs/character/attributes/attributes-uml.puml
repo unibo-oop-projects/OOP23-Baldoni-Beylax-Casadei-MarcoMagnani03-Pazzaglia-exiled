@@ -1,0 +1,36 @@
+@startuml
+scale 0.7
+set separator none
+package unibo.exiled.model.character.attributes{
+    interface Attribute{
+        isAdditive() : boolean
+        isModifier() : boolean
+    }
+    interface AdditiveAttribute extends Attribute{
+        value() : double
+    }
+    interface MultiplierAttribute extends Attribute{
+        modifier() : double
+    }
+    class AdditiveAttributeImpl<<Record>> implements AdditiveAttribute{
+        + isAdditive() : true
+        + isModifier() : false
+        + value() : double
+    }
+    class MultiplierAttributeImpl<<Record>> implements MultiplierAttribute{
+        + isAdditive() : false
+        + isModifier() : true
+        + modifier() : double
+    }
+    interface CombinedAttribute extends AdditiveAttribute, MultiplierAttribute {
+        getEvaluated() : double
+    }
+    class CombinedAttributeImpl implements CombinedAttribute{
+        +getEvaluated() : double
+        +isAdditive() : true
+        +isModifier() : true
+        + modifier() : double
+        + value() : double
+    }
+}
+@enduml

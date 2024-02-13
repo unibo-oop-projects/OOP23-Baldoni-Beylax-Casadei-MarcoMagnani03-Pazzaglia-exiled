@@ -46,7 +46,7 @@ public final class CombinedAttributeImpl implements CombinedAttribute {
     }
 
     @Override
-    public boolean isValue() {
+    public boolean isAdditive() {
         return true;
     }
 }

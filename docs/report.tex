@@ -133,7 +133,7 @@ Questa difficoltà è riassumibile nel dover suddividere i nemici in comuni e bo
 \subsubsection{UML dell'entità "Nemico"}
 \begin{figure}[H]
 	\centering
-	\input{enemy/enemy-uml.tex}
+	\input{character/enemy/enemy-uml.tex}
 	\caption{Schema UML che rappresenta la gestione dell'entità "Nemico"} 
 	\label{fig:Schema UML dell'entità nemico}
 \end{figure}
@@ -143,21 +143,21 @@ La classe \textit{EnemyImpl} contiene metodi astratti in modo tale da poter gest
 \textbf{Problema}: Generare i nemici in modo scalabile (l'aggiunta di un nuovo nemico al gioco deve essere meno complesso e tedioso possibile).\\
 \textbf{Soluzione:} Come introdotto precedentemente, il nemico è rappresentato da una classe astratta \textit{EnemyImpl} che viene sfruttata attraverso l'uso del pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}}.
 Ci sono diversi tipi di nemico nel gioco, quelli generici e i Boss. La classe che fa uso di questo pattern è \textit{EnemyFactory} e la relativa implementazione \textit{EnemyFactoryImpl}.\\ \textbf{Alternative:} Un'alternativa possibile era quella di creare una classe che ereditasse da \textit{EnemyImpl} per ogni nemico presente nel gioco ed assegnarli manualmente le mosse, l'esperienza rilasciata ecc..., in questo caso il codice sarebbe risultato meno scalabile e avrebbe reso l'aggiunta di nemici tediosa.\\
-Segue uno schema UML che rappresenta il metodo generazionale dei nemici (Esclusa la divisione tra nemici generici e Boss che viene trattata separatamente in una sottosezione successiva).
+Segue uno schema UML che rappresenta il metodo generazionale dei nemici (Esclusa la divisione tra nemici generici e Boss che viene trattata separatamente in una sottosezione successiva).\\
 
 \begin{figure}[H]
 	\centering
-	\input{enemy/enemyfactory-uml.tex}
+	\input{character/enemy/enemyfactory-uml.tex}
 	\caption{Schema UML della factory di nemici (Boss esclusi)}
 	\label{fig:Schema UML della factory di nemici}
 \end{figure}
 
 \textbf{Problema:} Divisione dei boss dai nemici generici, per evitare che l'oggetto rilasciato al giocatore venga scelto casualmente.\\
-\textbf{Soluzione:} In questo caso è stato necessario considerare i boss come una specializzazione di nemici generici, quindi come sottoclassi di \textit{EnemyImpl} ma con una loro classe specifica dedicata che consenta di scegliere manualmente il tipo di oggetto rilasciato alla sconfitta. Segue uno schema UML che aggiunge il concetto di nemico.
+\textbf{Soluzione:} In questo caso è stato necessario considerare i boss come una specializzazione di nemici generici, quindi come sottoclassi di \textit{EnemyImpl} ma con una loro classe specifica dedicata che consenta di scegliere manualmente il tipo di oggetto rilasciato alla sconfitta. Segue uno schema UML che aggiunge il concetto di nemico.\\
 
 \begin{figure}[H]
 	\centering
-	\input{enemy/boss-enemy-uml.tex}
+	\input{character/enemy/boss-enemy-uml.tex}
 	\caption{Schema UML della gestione dei Boss.}
 	\label{fig:Schema UML della gestione dei boss.}
 \end{figure}
@@ -166,14 +166,30 @@ In maniera analoga nella "Factory" di nemici descritta precedentemente vengono u
 
 \subsubsection{Raggruppare i nemici in collezione}
 \textbf{Problema:} Come raggruppare assieme tutti i nemici generati per poterli disporre sulla mappa?\\
-\textbf{Soluzione:} In questo caso ho creato un'interfaccia apposita \textit{EnemyCollection} che segue il pattern \href{https://refactoring.guru/design-patterns/iterator}{Iterator} per poter scorrere tutti i nemici indipendentemente da come venga implementata la collezione. Segue uno schema UML della struttura.
+\textbf{Soluzione:} In questo caso ho creato un'interfaccia apposita \textit{EnemyCollection} che segue il pattern \href{https://refactoring.guru/design-patterns/iterator}{Iterator} per poter scorrere tutti i nemici indipendentemente da come venga implementata la collezione. Segue uno schema UML della struttura.\\
 
 \begin{figure}[H]
 	\centering
-	\input{enemy/enemycollection-uml.tex}
+	\input{character/enemy/enemycollection-uml.tex}
 	\caption{Schema UML della collezione di nemici per gestire la mappa.}
 	\label{fig:Schema UML della collezione di nemici per gestire la mappa.}
 \end{figure}
+
+\subsubsection{Attributi di un Character (Nemico o player)}
+\textbf{Problema:} Bisogna fare una distinzione tra attributi che aggiungono una quantità ad una caratteristica del \textit{GameCharacter}, quelli che invece contengono una costante moltiplicativa per ridurre od aumentare una caratteristica che non riguarda una quantità specifica, ma va applicata al momento della battaglia, e di quelli invece che fanno entrambe queste due cose.\\
+\textbf{Soluzione:} Gli attributi vengono gestiti mediante un'interfaccia Attribute che contiene due metodi che consentono di stabilire di che tipo di attributo si tratti. Questi due metodi vengono implementati nelle classi che implementano le sotto interfacce \textit{AdditiveAttribute}, \textit{MultiplierAttribute} e \textit{CombinedAttribute}.\\
+Qui presento uno schema UML che rappresenta come sono gestite le distinzioni tra attributi moltiplicativi e additivi o combinati.\\
+
+\begin{figure}[H]
+	\centering
+	\input{character/attributes/attributes-uml.tex}
+	\caption{Schema UML della divisione degli attributi}
+	\label{fig:Schema UML della divisione degli attributi}
+\end{figure}
+
+\textbf{Problema:} Come gestire tutte le caratteristiche di gioco del giocatore o di un nemico in modo tale da non avere una quantità eccessiva di campi all'interno di una classe e in modo tale da gestire la scalabilità? E come identificare ciascun attributo esistente?\\
+\textbf{Soluzione:} È stato introdotto un enumeratore con tutti gli identificatori di attributi necessari al gioco, questo si chiama \textit{AttributeIdentifier} e contiene l'associazione di ciascun elemento dell'enumeratore al corrispettivo nome in stringa così da poter facilmente essere interpretato dal controller e successivamente la view.
+Per la generazione degli attributi di un \textit{GameCharacter} invece è stato utilizzato il pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}} attraverso l'interfaccia denominata \textit{AttributeFactory} e la sua implementazioe \textit{AttributeFactoryImpl} che creano una mappatura di tutti gli attributi necessari per ciascun \textit{GameCharacter}, così da poter diversificare gli attributi di ognuno senza aggiungere campi eccessivi alle classi.
 
 \subsubsection{Piazzamento dei nemici sulla mappa : \textit{CharacterModel}}
 \textbf{Problema:} Mettere in relazione la mappa e i nemici attraverso un'unico concetto nel model.\\
@@ -218,7 +234,7 @@ In maniera più approfondita, per la gestione del giocatore, ho introdotto un'in
 
 \begin{figure}[H]
 	\centering
-	\input{player/the-exiled-player-uml.tex}
+	\input{character/player/the-exiled-player-uml.tex}
 	\caption{Schema UML del Model del Player e del GameCharacter}
 	\label{fig:the-exiled-player-uml}
 \end{figure}
@@ -271,7 +287,7 @@ Questo approccio ha semplificato la gestione delle schermate di fine gioco, util
 	\label{fig:the-exiled-victory_gameover-uml}
 \end{figure}
 
-Il design pattern applicato alla parte di \textit{GameOverView} e \textit{GameVictoryView}, è il pattern comportamentale Strategy. Le due View rappresentano due strategie diverse per gestire la visualizzazione dell'esito del gioco (game over o vittoria). La classe \textit{GameView} utilizza queste strategie decidendo quale delle due visualizzare in base alle condizioni definite nei metodi \textit{isOver()} e \textit{isWon()} del \textit{GameController}. Utilizzando lo Strategy Pattern, è possibile cambiare dinamicamente il comportamento di \textit{GameView} sostituendo una strategia con un'altra senza modificare il suo codice.
+La classe \textit{GameView}, in conclusione, decide quale delle due View visualizzare in base alle condizioni definite nei metodi \textit{isOver()} e \textit{isWon()} del \textit{GameController}. 
 
 \subsection*{Marco Magnani}
 La parti del progetto in cui ho impiegato la maggior parte del tempo sono l'inventario del player, gli oggetti da cui esso è composto, la hud e la logica per l'aumento di livello del player.
@@ -351,8 +367,16 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 
 \begin{itemize}
 	\item \textbf{Espressioni Lambda}: Utilizzate nei bottoni che hanno \textit{ActionListener} nella \textit{GameOverView}.
-	\item \textbf{Optional}: Utilizzati per sostituire i \textit{null value}, usati nel \textit{CharacterModel}(metodo \textit{getPlayer()}) e anche per il passaggio della \textit{GameView} tra la differenti viste.
+	
+	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/view/GameOverView.java#L68}
+	
+	\item \textbf{Optional}: Utilizzati per sostituire i \textit{null value}, usati nel \textit{Player}(metodo \textit{getNewMove()}) utilizzato per la generazione di una mossa da assegnare.
+	
+	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/model/character/player/PlayerImpl.java#L127}
+	
 	\item \textbf{Stream}: Utilizzati nei Controller per controllare che il \textit{Player} abbia vinto il gioco.
+	
+	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/controller/CharacterControllerImpl.java#L197}
 \end{itemize}
 
 \subsection*{Marco Magnani}

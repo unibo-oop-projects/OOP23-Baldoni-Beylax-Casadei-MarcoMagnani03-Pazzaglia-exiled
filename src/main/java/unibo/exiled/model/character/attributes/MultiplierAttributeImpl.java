@@ -12,7 +12,7 @@ public record MultiplierAttributeImpl(double modifier) implements MultiplierAttr
     }
 
     @Override
-    public boolean isValue() {
+    public boolean isAdditive() {
         return false;
     }
 }

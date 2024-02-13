@@ -1,5 +1,5 @@
 @startuml
-scale 0.65
+scale 0.7
 set separator none
 package unibo.exiled.model.character {
     interface GameCharacter{
