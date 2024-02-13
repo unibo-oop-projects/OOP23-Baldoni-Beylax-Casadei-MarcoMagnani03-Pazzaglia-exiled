@@ -74,12 +74,18 @@ public final class HudView {
                 "Class: " + gameController.getCharacterController().getPlayerClassName());
         final int currentExperience = gameController.getCharacterController().getPlayerCurrentExperience();
         final int experienceCap = gameController.getCharacterController().getPlayerExperienceCap();
+        final double attack = gameController.getCharacterController().getPlayerAttack();
+        final double defense = gameController.getCharacterController().getPlayerDefense();
         final GameLabel experienceLabel = new GameLabel("Experience: " + currentExperience + " / " + experienceCap);
+        final GameLabel attackLabel = new GameLabel("Attack: " + attack);
+        final GameLabel defenseLabel = new GameLabel("Defense: " + defense);
         gameStatusPanel.setBorder(BorderFactory.createEtchedBorder());
         gameStatusPanel.add(healthBar);
         gameStatusPanel.add(levelLabel);
         gameStatusPanel.add(classLabel);
         gameStatusPanel.add(experienceLabel);
+        gameStatusPanel.add(attackLabel);
+        gameStatusPanel.add(defenseLabel);
         gameStatusPanel.revalidate();
         gameStatusPanel.repaint();
         return gameStatusPanel;

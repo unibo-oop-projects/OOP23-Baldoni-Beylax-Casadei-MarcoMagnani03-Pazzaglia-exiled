@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram'
 set separator none
-scale 0.65
+scale 0.7
 package unibo.exiled.model.enemy{
     interface Enemy{
         {method} ...
@@ -26,4 +26,5 @@ package unibo.exiled.model.enemy{
 Iterable <|-- EnemyCollection
 EnemyCollection <|.. EnemyCollectionImpl
 Enemy <.. EnemyCollection
+Enemy o-- EnemyCollectionImpl
 @enduml

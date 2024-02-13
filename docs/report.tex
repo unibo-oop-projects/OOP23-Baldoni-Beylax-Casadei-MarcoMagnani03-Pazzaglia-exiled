@@ -188,7 +188,19 @@ In particolare, nella classe \textit{CharacterModelImpl} è contenuta la \textit
 Una volta generati tutti i nemici generici, vengono creati i 4 boss sempre attraverso la factory e vengono aggiunti anch'essi alla \textit{EnemyCollection} perché si tratta sempre di nemici e vengono spostati manualmente ai quattro vertici della mappa, attraverso un apposito metodo che dato il tipo di cella ne ricava l'angolo della mappa (Spiegato nella prossima sezione relativa alla mappa).
 
 \subsubsection{Mappa di gioco nel \textit{Model}}
-\textbf{Problema:} Come gestire la mappa di gioco a livello di divisione delle celle? Come dare un certo tipo ad ogni cella?
+\textbf{Problema:} Come gestire la mappa di gioco a livello di divisione delle celle? Come dare un certo tipo ad ogni cella?\\
+\textbf{Soluzione:} Ho utilizzato un enumeratore per elencare tutti i possibili tipi di cella, e a seconda della loro quantità questi vengono distribuiti in maniera omogenea sulla mappa attraverso i metodi di inizializzazione all'interno di \textit{GameMap} e la sua implementazione \textit{GameMapImpl}.\\ Quest'ultima inoltre si occupa di definire quali sono i 4 angoli della mappa dove posizionare i boss in base al loro relativo tipo. La mappa ha ovviamente una dimensione stabilita dalla classe di configurazione dove sono presenti tutte le costanti.
+Le macroaree della mappa vengono posizionate in maniera casuale, questo significa che se la parte con tipo elementale "Acqua" si trovava in alto a destra in una partita, nella successiva la stessa potrebbe trovarsi in quella in alto a sinistra o in qualsiasi altra partizione della mappa a griglia.\\
+Segue uno schema UML che descrive il modello della mappa.
+
+\begin{figure}[H]
+	\centering
+	\input{map/exiled-map-uml.tex}
+	\caption{Schema UML della mappa e parte di model.}
+	\label{fig:Schema UML della mappa e parte di model.}
+\end{figure}
+
+La parte che mette in interazione sia i nemici che il player e il controller è parte condivisa ed è gestita all'interno della classe \textit{CharacterModelImpl}, mentre la sopradescritta \textit{MapModelImpl} è una parte di model specificatamente pensata per la mappa.
 
 \subsection*{Francesco Pazzaglia}
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Per facilitare la comunicazione tra il Model del giocatore (\textit{Player}) e la View è stato introdotto un Controller garantendo l'utilizzo del pattern \textit{MVC}.
