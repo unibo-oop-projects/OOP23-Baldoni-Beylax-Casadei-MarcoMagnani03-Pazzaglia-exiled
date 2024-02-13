@@ -21,9 +21,9 @@ public final class CombatImpl implements Combat {
      * @param player the player.
      * @param enemy  the enemy.
      */
-    public CombatImpl(final Optional<Player> player, final Optional<Enemy> enemy) {
-        this.player = player.get();
-        this.enemy = enemy.get();
+    public CombatImpl(final Player player, final Enemy enemy) {
+        this.player = player;
+        this.enemy = enemy;
     }
 
     @Override

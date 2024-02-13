@@ -31,29 +31,20 @@ public final class CombatModelImpl implements CombatModel {
 
     @Override
     public void createCombat(final Position combatPosition) {
+        final Player player = this.model.getCharacterModel().getPlayer().get();
+        final Enemy enemy = (Enemy) this.model.getCharacterModel().getCharacterFromPosition(combatPosition).get();
+        this.combat = new CombatImpl(player, enemy);
         this.combat.setCombatPosition(combatPosition);
-        this.combat = new CombatImpl(this.getPlayer(), this.getEnemy());
     }
 
     @Override
     public Optional<Player> getPlayer() {
-        final Optional<Player> player = this.model.getCharacterModel().getPlayer();
-        if (player.isPresent()) {
-            return player;
-        } else {
-            throw new IllegalAccessError("Couldn't access the player");
-        }
+        return this.combat.getPlayer();
     }
 
     @Override
     public Optional<Enemy> getEnemy() {
-        final Optional<GameCharacter> enemy = this.model.getCharacterModel()
-                .getCharacterFromPosition(this.combat.getCombatPosition());
-        if (enemy.isPresent()) {
-            return Optional.of((Enemy) enemy.get());
-        } else {
-            throw new IllegalAccessError("Couldn't access the enemy in this position");
-        }
+        return this.combat.getEnemy();
     }
 
     @Override
