@@ -19,7 +19,7 @@ public final class Moves {
 
     private static final Set<MagicMove> MAGIC_MOVES = Set.of(
             MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPACCIO.getName(),
-                    MoveNames.COLPACCIO.getDescription(), 500, MoveNames.COLPACCIO.getMinimumLevelToLearnTheMove()),
+                    MoveNames.COLPACCIO.getDescription(), 5, MoveNames.COLPACCIO.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPONE.getName(),
                     MoveNames.COLPONE.getDescription(), 8, MoveNames.COLPONE.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createFireMagicMove(MoveNames.FIREBALL.getName(),
