@@ -227,7 +227,7 @@ Segue uno schema UML che descrive il modello della mappa.
 La parte che mette in interazione sia i nemici che il player e il controller è parte condivisa ed è gestita all'interno della classe \textit{CharacterModelImpl}, mentre la sopradescritta \textit{MapModelImpl} è una parte di model specificatamente pensata per la mappa.
 
 \subsection{Francesco Pazzaglia}
-La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Mi sono anche occupato della gestione del movimento del giocatore e delle altre entità (i nemici) all'interno della mappa di gioco. Infine, ho implementato la gestione delle condizioni di chiusura del gioco(vittoria e game over), che includevano la definizione delle regole e dei possibili eventi che portavano al termine del gioco, nonché la gestione delle rispettive schermate, come la chiusura del gioco o la possibilità di riavviare una nuova partita.
+La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Mi sono anche occupato della gestione del movimento del giocatore e delle altre entità (i nemici) all'interno della mappa di gioco. Infine, ho implementato la gestione delle condizioni di chiusura del gioco(vittoria e game over), che includevano la definizione delle regole e dei possibili eventi che portavano al termine del gioco, nonché la gestione delle rispettive schermate.
 
 \subsubsection{Player}
 Nella parte inerente al giocatore, il problema principale consisteva nell'identificare e gestire in modo efficiente le caratteristiche comuni con i nemici, al fine di evitare ripetizioni e mantenere il codice conciso. 
@@ -263,6 +263,8 @@ In particolare, ho utilizzato il \textit{CharacterModel} per definire il meccani
 
 E' stata realizzata una classe \textit{GameKeyListener} della View, dove ho gestito l'input dell'utente associando i movimenti alle direzioni corrispondenti ai tasti premuti (ad esempio, W per su, S per giù, A per sinistra e D per	destra). La \textit{GameView} rappresenta la schermata principale dov'è inserita la mappa e l'HUD che visualizza gli attributi principali del personaggio.
 Quando l'utente preme un tasto specifico sulla tastiera tra quelli elencati prima, all'interno della \textit{GameView}, il \textit{CharacterView} associato al giocatore si sposterà in una cella corrispondente. Di conseguenza, come precedentemente descritto, tutti i nemici, a meno che non siano vicini al giocatore, si sposteranno anch'essi, in una direzione scelta in modo pseudo-casuale.
+
+Inoltre, ho implementato la gestione della visibilità della mappa in base allo spostamento del giocatore. È stato definito un range di visibilità, in modo che l'utente possa vedere solo le celle all'interno di tale intervallo.
 
 \begin{figure}[H]
 	\centering
