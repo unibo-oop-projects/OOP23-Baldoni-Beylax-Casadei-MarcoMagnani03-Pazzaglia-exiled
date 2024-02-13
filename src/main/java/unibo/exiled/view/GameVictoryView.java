@@ -45,12 +45,12 @@ public final class GameVictoryView {
         final JPanel gameCompletedPanel = new JPanel(new BorderLayout());
         final JLabel gameCompletedLabel = new JLabel(new ImageIcon(ConstantsAndResourceLoader
                 .getResourceURLFromPath(ConstantsAndResourceLoader.IMAGES_PATH + "/interface/gamecompleted.png")));
-        gameCompletedPanel.add(gameCompletedLabel, BorderLayout.NORTH);
+        gameCompletedPanel.add(gameCompletedLabel, BorderLayout.CENTER);
 
         final JPanel buttonsPanel = new JPanel(new FlowLayout());
         buttonsPanel.add(restartButton);
         buttonsPanel.add(quitButton);
-        gameCompletedPanel.add(buttonsPanel, BorderLayout.CENTER);
+        gameCompletedPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
         this.mainFrame.getContentPane().add(gameCompletedPanel);
     }

@@ -21,7 +21,8 @@ import javax.swing.WindowConstants;
 public final class GameOverView {
 
     // Path to the game over image file.
-    private static final String GAME_OVER_IMAGE_PATH = ConstantsAndResourceLoader.IMAGES_PATH + "/interface/gameover.png";
+    private static final String GAME_OVER_IMAGE_PATH = ConstantsAndResourceLoader.IMAGES_PATH
+            + "/interface/gameover.png";
     // MVC Components.
     private final JFrame mainFrame;
     // Buttons to restart or exit the game.
@@ -67,7 +68,8 @@ public final class GameOverView {
     private void initializeListeners() {
         this.restartButton.addActionListener(e -> {
             final int dialogResult = JOptionPane.showConfirmDialog(null,
-                    "Would you like to restart the game?", "Warning", JOptionPane.YES_NO_OPTION);
+                    "Would you like to start a new game?", "Warning", 
+                    JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
                 this.mainFrame.dispose();
                 new NewGameView(); // Restart the game
@@ -76,7 +78,8 @@ public final class GameOverView {
 
         this.quitButton.addActionListener(e -> {
             final int dialogResult = JOptionPane.showConfirmDialog(null,
-                    "Would you like to quit the game?", "Warning", JOptionPane.YES_NO_OPTION);
+                    "Would you like to quit the game?", "Warning",
+                    JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
                 this.mainFrame.dispatchEvent(new WindowEvent(this.mainFrame, WindowEvent.WINDOW_CLOSING)); // Close the
                 // game
