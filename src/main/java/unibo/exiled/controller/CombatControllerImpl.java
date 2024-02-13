@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+import javax.annotation.concurrent.Immutable;
 import javax.swing.Timer;
 
 import unibo.exiled.model.character.GameCharacter;
@@ -23,6 +24,7 @@ import unibo.exiled.view.CombatView;
 /**
  * Implementation of CombatController interface.
  */
+@Immutable
 public final class CombatControllerImpl implements CombatController {
 
     private static final Random RANDOM = new Random();
@@ -30,14 +32,14 @@ public final class CombatControllerImpl implements CombatController {
     private static final Integer IN_BETWEEN_ATTACKS_DELAY = 3000;
 
     private final CombatModel model;
-    private transient String lastMoveLabel;
-    private transient String attackerModifierLabel;
-    private transient String defenderModifierLabel;
-    private transient String moveDescription;
+    private String lastMoveLabel;
+    private String attackerModifierLabel;
+    private String defenderModifierLabel;
+    private String moveDescription;
 
     /**
      * Constructor of CombatControllerImpl.
-     * 
+     *
      * @param model the combat model.
      */
     public CombatControllerImpl(final CombatModel model) {
@@ -113,11 +115,11 @@ public final class CombatControllerImpl implements CombatController {
     /**
      * Returns the multiplier for the attack based on the move type and the defender
      * type.
-     * 
+     *
      * @param move     the move performed by the attacker.
      * @param defender the defender.
      * @return the multiplier for the attack based on the move type and the defender
-     *         type.
+     * type.
      */
     private double getAttackModifierBasedOnType(final MagicMove move, final GameCharacter defender) {
         final ElementalType moveType = move.type();
@@ -146,7 +148,7 @@ public final class CombatControllerImpl implements CombatController {
 
     @Override
     public void attack(final boolean isPlayerAttacking, final Optional<String> playerMoveName,
-            final GameController gameController, final CombatView combatView) {
+                       final GameController gameController, final CombatView combatView) {
         this.model.setCombatStatus(CombatStatus.ATTACKING);
 
         final GameCharacter attacker = isPlayerAttacking ? this.model.getPlayer().get()
@@ -160,9 +162,7 @@ public final class CombatControllerImpl implements CombatController {
         this.setMoveDescription("");
         combatView.draw();
 
-        final String moveName = isPlayerAttacking ? playerMoveName.isPresent()
-                ? playerMoveName.get()
-                : ""
+        final String moveName = isPlayerAttacking ? playerMoveName.orElse("")
                 : getEnemyRandomMoveName();
 
         final MagicMove move = attacker.getMoveSet()
@@ -222,21 +222,26 @@ public final class CombatControllerImpl implements CombatController {
         if (hasAttackerWon) {
             combatView.draw();
         } else {
-            final Timer attackTimer = new Timer(CONSOLE_DISPLAY_TIME, evt -> {
-                combatView.draw();
-
-                if (isPlayerAttacking) {
-                    final Timer delayTimer = new Timer(IN_BETWEEN_ATTACKS_DELAY, e -> {
-                        // Enemy turn to attack
-                        this.attack(false, null, gameController, combatView);
-                        this.model.setCombatStatus(CombatStatus.IDLE);
-                    });
-                    delayTimer.setRepeats(false);
-                    delayTimer.start();
-                }
-            });
-            attackTimer.setRepeats(false);
+            final Timer attackTimer = getTimer(isPlayerAttacking, gameController, combatView);
             attackTimer.start();
         }
+    }
+
+    private Timer getTimer(final boolean isPlayerAttacking, final GameController gameController, final CombatView combatView) {
+        final Timer attackTimer = new Timer(CONSOLE_DISPLAY_TIME, evt -> {
+            combatView.draw();
+
+            if (isPlayerAttacking) {
+                final Timer delayTimer = new Timer(IN_BETWEEN_ATTACKS_DELAY, e -> {
+                    // Enemy turn to attack
+                    this.attack(false, Optional.empty(), gameController, combatView);
+                    this.model.setCombatStatus(CombatStatus.IDLE);
+                });
+                delayTimer.setRepeats(false);
+                delayTimer.start();
+            }
+        });
+        attackTimer.setRepeats(false);
+        return attackTimer;
     }
 }

@@ -10,12 +10,15 @@ import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.utilities.Position;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * The implementation of the combat model.
  */
+@Immutable
 public final class CombatModelImpl implements CombatModel {
     private final GameModel model;
-    private transient Combat combat;
+    private Combat combat;
 
     /**
      * The constructor of CombatModelImpl.
