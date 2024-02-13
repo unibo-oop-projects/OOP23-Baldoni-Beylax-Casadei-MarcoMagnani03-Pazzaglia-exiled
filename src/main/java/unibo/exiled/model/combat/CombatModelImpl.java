@@ -82,6 +82,11 @@ public final class CombatModelImpl implements CombatModel {
     }
 
     @Override
+    public String getEnemyClassName() {
+        return this.combat.getEnemy().get().getType().getName();
+    }
+
+    @Override
     public Position getCombatPosition() {
         return this.combat.getCombatPosition();
     }

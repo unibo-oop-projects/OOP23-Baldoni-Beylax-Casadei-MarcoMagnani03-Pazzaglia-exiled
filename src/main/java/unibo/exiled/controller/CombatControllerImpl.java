@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+import javax.annotation.concurrent.Immutable;
 import javax.swing.Timer;
 
 import unibo.exiled.model.character.GameCharacter;
@@ -23,16 +24,14 @@ import unibo.exiled.view.CombatView;
 /**
  * Implementation of CombatController interface.
  */
+@Immutable
 public final class CombatControllerImpl implements CombatController {
     private static final Random RANDOM = new Random();
     private static final Integer CONSOLE_DISPLAY_TIME = 2000;
     private static final Integer IN_BETWEEN_ATTACKS_DELAY = 3000;
 
     private final CombatModel model;
-    private transient String lastMoveLabel;
-    private transient String attackerModifierLabel;
-    private transient String defenderModifierLabel;
-    private transient String moveDescription;
+    private final ConsoleArea consoleArea;
 
     /**
      * Constructor of CombatControllerImpl.
@@ -41,6 +40,7 @@ public final class CombatControllerImpl implements CombatController {
      */
     public CombatControllerImpl(final CombatModel model) {
         this.model = model;
+        this.consoleArea = new ConsoleArea();
     }
 
     @Override
@@ -68,39 +68,44 @@ public final class CombatControllerImpl implements CombatController {
     }
 
     @Override
+    public String getEnemyClassName() {
+        return this.model.getEnemyClassName();
+    }
+
+    @Override
     public String getLastMoveLabel() {
-        return this.lastMoveLabel;
+        return this.consoleArea.getLastMoveLabel();
     }
 
     private void setLastMoveLabel(final String label) {
-        this.lastMoveLabel = label;
+        this.consoleArea.setLastMoveLabel(label);
     }
 
     @Override
     public String getAttackerModifierLabel() {
-        return this.attackerModifierLabel;
+        return this.consoleArea.getAttackerModifierLabel();
     }
 
     private void setAttackerModifierLabel(final String label) {
-        this.attackerModifierLabel = label;
+        this.consoleArea.setAttackerModifierLabel(label);
     }
 
     @Override
     public String getDefenderModifierLabel() {
-        return this.defenderModifierLabel;
+        return this.consoleArea.getDefenderModifierLabel();
     }
 
     private void setDefenderModifierLabel(final String label) {
-        this.defenderModifierLabel = label;
+        this.consoleArea.setDefenderModifierLabel(label);
     }
 
     @Override
     public String getMoveDescription() {
-        return this.moveDescription;
+        return this.consoleArea.getMoveDescription();
     }
 
     private void setMoveDescription(final String description) {
-        this.moveDescription = description;
+        this.consoleArea.setMoveDescription(description);
     }
 
     @Override
@@ -115,7 +120,7 @@ public final class CombatControllerImpl implements CombatController {
      * @param move     the move performed by the attacker.
      * @param defender the defender.
      * @return the multiplier for the attack based on the move type and the defender
-     * type.
+     *         type.
      */
     private double getAttackModifierBasedOnType(final MagicMove move, final GameCharacter defender) {
         final ElementalType moveType = move.type();
@@ -144,7 +149,7 @@ public final class CombatControllerImpl implements CombatController {
 
     @Override
     public void attack(final boolean isPlayerAttacking, final Optional<String> playerMoveName,
-                       final GameController gameController, final CombatView combatView) {
+            final GameController gameController, final CombatView combatView) {
         this.model.setCombatStatus(CombatStatus.ATTACKING);
 
         final GameCharacter attacker = isPlayerAttacking ? this.model.getPlayer().get()
@@ -223,7 +228,8 @@ public final class CombatControllerImpl implements CombatController {
         }
     }
 
-    private Timer getTimer(final boolean isPlayerAttacking, final GameController gameController, final CombatView combatView) {
+    private Timer getTimer(final boolean isPlayerAttacking, final GameController gameController,
+            final CombatView combatView) {
         final Timer attackTimer = new Timer(CONSOLE_DISPLAY_TIME, evt -> {
             combatView.draw();
 
@@ -239,5 +245,51 @@ public final class CombatControllerImpl implements CombatController {
         });
         attackTimer.setRepeats(false);
         return attackTimer;
+    }
+
+    private static class ConsoleArea {
+        private String lastMoveLabel;
+        private String attackerModifierLabel;
+        private String defenderModifierLabel;
+        private String moveDescription;
+
+        ConsoleArea() {
+            this.lastMoveLabel = "";
+            this.attackerModifierLabel = "";
+            this.defenderModifierLabel = "";
+            this.moveDescription = "";
+        }
+
+        public String getLastMoveLabel() {
+            return this.lastMoveLabel;
+        }
+
+        public void setLastMoveLabel(final String label) {
+            this.lastMoveLabel = label;
+        }
+
+        public String getAttackerModifierLabel() {
+            return this.attackerModifierLabel;
+        }
+
+        public void setAttackerModifierLabel(final String label) {
+            this.attackerModifierLabel = label;
+        }
+
+        public String getDefenderModifierLabel() {
+            return this.defenderModifierLabel;
+        }
+
+        public void setDefenderModifierLabel(final String label) {
+            this.defenderModifierLabel = label;
+        }
+
+        public String getMoveDescription() {
+            return this.moveDescription;
+        }
+
+        public void setMoveDescription(final String description) {
+            this.moveDescription = description;
+        }
     }
 }
