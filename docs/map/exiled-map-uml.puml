@@ -9,7 +9,7 @@ package unibo.exiled.model.map{
     }
     class GameMapImpl implements GameMap{
         - size : int
-        - cellCorners : Map<CellType, Position>(4)
+        - {field} cellCorners : Map<CellType, Position>(4)
         -...
         + getSize() : int
         + getCellStates() : Map<Position,CellType>

@@ -200,6 +200,8 @@ Segue uno schema UML che descrive il modello della mappa.
 	\label{fig:Schema UML della mappa e parte di model.}
 \end{figure}
 
+La parte che mette in interazione sia i nemici che il player e il controller è parte condivisa ed è gestita all'interno della classe \textit{CharacterModelImpl}, mentre la sopradescritta \textit{MapModelImpl} è una parte di model specificatamente pensata per la mappa.
+
 \subsection*{Francesco Pazzaglia}
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Per facilitare la comunicazione tra il Model del giocatore (\textit{Player}) e la View è stato introdotto un Controller garantendo l'utilizzo del pattern \textit{MVC}.
 
