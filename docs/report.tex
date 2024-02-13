@@ -230,9 +230,9 @@ La parte che mette in interazione sia i nemici che il player e il controller è 
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Mi sono anche occupato della gestione del movimento del giocatore e delle altre entità (i nemici) all'interno della mappa di gioco. Infine, ho implementato la gestione delle condizioni di chiusura del gioco(vittoria e game over), che includevano la definizione delle regole e dei possibili eventi che portavano al termine del gioco, nonché la gestione delle rispettive schermate, come la chiusura del gioco o la possibilità di riavviare una nuova partita.
 
 \subsubsection{Player}
-Nella parte del giocatore, il problema principale consisteva nell'identificare e gestire in modo efficiente le caratteristiche comuni con i nemici, al fine di evitare ripetizioni e mantenere il codice conciso. 
+Nella parte inerente al giocatore, il problema principale consisteva nell'identificare e gestire in modo efficiente le caratteristiche comuni con i nemici, al fine di evitare ripetizioni e mantenere il codice conciso. 
 Pertanto, in collaborazione con \textit{Luca Casadei}, responsabile della parte relativa ai nemici, abbiamo deciso di introdurre nel Model un'interfaccia denominata \textit{GameCharacter}. Questa interfaccia contiene i metodi principali che definiscono le caratteristiche fondamentali comuni a tutte le entità nel gioco, come la vita, la posizione, il movimento e gli attributi.
-In aggiunta all'interfaccia, è stata implementata la classe astratta \textit{GameCharacterImpl}, che concretizza l'interfaccia \textit{GameCharacter}. Questa classe è stata progettata in modo che il giocatore, possa estenderla e acquisire le caratteristiche comuni menzionate in precedenza. Questa architettura ci ha consentito di gestire in modo efficiente le proprietà condivise tra il giocatore e i nemici, garantendo una maggiore coerenza e facilità di estensione del codice senza ripetizioni.
+In aggiunta all'interfaccia, è stata implementata la classe astratta \textit{GameCharacterImpl}, che concretizza l'interfaccia \textit{GameCharacter}. Questa classe è stata progettata in modo che il giocatore possa estenderla e acquisire le caratteristiche comuni menzionate in precedenza. Questa architettura ci ha consentito di gestire in modo efficiente le proprietà condivise tra il giocatore e i nemici, garantendo una maggiore coerenza e facilità di estensione del codice senza ripetizioni.
 
 \begin{figure}[H]
 	\centering
@@ -246,16 +246,17 @@ L'interfaccia \textit{Player} viene implementata da una classe chiamata \textit{
 
 Per quanto riguarda la parte inerente alla View sia il giocatore che i nemici sono stati gestiti attraverso una classe chiamata \textit{CharacterView}. Questa classe è stata progettata per utilizzare immagini al fine di rappresentare graficamente le entità del gioco. In particolare, sono state gestite delle animazioni mediante l'utilizzo di due immagini per ciascuna direzione (NORD, SUD, EST e OVEST). Oltretutto sia per il \textit{Player} che per i nemici, viene scelta un'immagine colorata in base alla tipologia di appartenenza. La \textit{CharacterView} ha permesso una gestione separata della scalabilità delle entità all'interno della griglia di gioco in caso di ridimensionamento della finestra e ci ha permesso inoltre di effettuare il cambio di immagine per le animazioni.
 
-Per garantire la comunicazione tra il Model e la View del \textit{Player} è stato introdotto un Controller, denominato \textit{CharacterController} dove, al suo interno sono stati definiti i metodi per il controllo del \textit{Player}, tra cui quelli relativi al movimento, all'assegnamento della classe(del tipo), all'uso di modificatori di esperienza e di livello, nonché i relativi metodi Getter necessari per l'interfaccia grafica.
+Per garantire la comunicazione tra il Model e la View del \textit{Player} è stato introdotto un Controller, denominato \textit{CharacterController} dove, al suo interno sono stati definiti i metodi per il controllo del \textit{Player}, tra cui quelli relativi al movimento, all'assegnazione della classe(del tipo), all'uso di modificatori di esperienza e di livello, nonché i relativi metodi getter necessari per l'interfaccia grafica.
 Oltre a questi, sono stati definiti metodi generali applicabili a qualsiasi entità presente nel gioco. 
-Per tale motivo, è stata introdotta un'ulteriore interfaccia denominata \textit{CharacterModel} e la relativa classe \textit{CharacterModelImpl} dove sono stati inseriti i metodi della parte di Model per la gestione di una qualsiasi entità consentendo al Controller di gestire entrambe le tipologie di entità in modo uniforme e coerente.
+Per tale motivo, è stata introdotta un'ulteriore interfaccia denominata \textit{CharacterModel} e la relativa classe \textit{CharacterModelImpl} che contiene le entità del gioco, ovvero il Player e una collezione di nemici. Oltre a ciò sono stati inseriti i metodi della parte di Model per la gestione di entrambe le entità consentendo al Controller di avere una organizzazione uniforme e coerente.
 
-Il design pattern che viene utilizzato per gestire la parte del \textit{Player} è Template Method. Questo pattern consente di definire uno scheletro di comportamento comune per il \textit{Player}. La classe astratta \textit{GameCharacterImpl} costituisce la base per tutte le entità di gioco, ad esempio definisce il metodo \textit{move(Position)}, ossia la struttura generica per il movimento di un'entità.
+Il design pattern utilizzato per gestire la parte del \textit{Player} è Template Method. Questo pattern consente di definire uno scheletro di comportamento comune per il \textit{Player}, infatti la classe astratta \textit{GameCharacterImpl} costituisce la base per tutte le entità di gioco, ad esempio definisce il metodo \textit{move(Position)}, ossia la struttura generica per il movimento di un'entità.
 
 \subsubsection{Gestione del movimento}
-Nella gestione del movimento, il problema principale è stato comprendere come distinguere il movimento del giocatore da quello dei nemici sulla mappa di gioco. Inoltre, anche la scelta di utilizzare l'input da tastiera o tramite mouse ha generato incertezze riguardo a come realizzare la griglia relativa alla mappa.
+Nella gestione del movimento, il problema principale è stato comprendere come distinguere e concretizzare il movimento del giocatore da quello dei nemici sulla mappa di gioco. Inoltre, anche la scelta di utilizzare l'input da tastiera o tramite mouse ha generato incertezze riguardo a come realizzare la griglia relativa alla mappa.
 
 In merito a quanto detto, per l'implementazione del movimento delle entità all'interno della mappa di gioco, ho adottato due distinzioni principali. Per il movimento del giocatore ho progettato un sistema basato sull'input dell'utente tramite tastiera. D'altra parte, per i nemici, ho sviluppato un meccanismo autonomo di movimento. In pratica, i nemici si spostano in maniera pseudo-casuale all'interno di un'area definita dalla loro tipologia(Fire, Bolt, Water e Grass) e qualora il giocatore si dovesse avvicinare, entro un certo raggio, ad un nemico, quest'ultimo inizierà a inseguirlo per combattere. Ho scelto questo approccio perché rende sicuramente il gioco più interessante e stimolante per il giocatore, dato che per poterlo completare bisogna sconfiggere i quattro Boss che sono situati agli estremi della mappa di gioco.
+
 Considerando la decisione di non utilizzare i Thread nel nostro progetto, i nemici si sposteranno esclusivamente in risposta all'input dell'utente. Di conseguenza, i nemici si muoveranno solamente quando l'utente eseguirà uno spostamento nella mappa.
 
 In particolare, ho utilizzato il \textit{CharacterModel} per definire il meccanismo di movimento sia per il personaggio che per i nemici. Successivamente, all'interno del \textit{CharacterController}, ho implementato un metodo di movimento che ha richiamato le funzioni precedentemente definite nel Model. 
@@ -275,9 +276,11 @@ Oltre ai \textit{KeyListener} di base per il movimento del giocatore, ho integra
 Avendo separato la gestione del movimento e dell'ascolto dei \textit{KeyListener} in una classe dedicata, è stato adottato il design pattern Observer. Questo pattern ha consentito di definire un meccanismo di notifica personalizzato attraverso la classe \textit{GameKeyListener}, che funge da Observer. \textit{GameKeyListener} implementa l'interfaccia \textit{KeyListener} e si occupa di ricevere notifiche sugli eventi di pressione dei tasti. In questo modo, sono stato in grado di gestire dinamicamente il movimento delle entità di gioco in risposta all'input dell'utente.
 
 \subsubsection{Meccanismo di fine gioco}
-Il problema relativo al meccanismo di fine gioco riguardava l'interfacciamento e la relativa visualizzazione delle schermate con l'utente, a tal proposito mi sono occupato di gestire la conclusione del gioco attraverso due scenari distinti: la vittoria(tramite la \textit{GameVictoryView}) e la sconfitta(tramite \textit{GameOverView}).
+Il problema relativo al meccanismo di fine gioco riguardava l'interfacciamento e la  visualizzazione delle relativa schermate, a tal proposito mi sono occupato di gestire la conclusione del gioco attraverso due scenari distinti: la vittoria(tramite la \textit{GameVictoryView}) e la sconfitta(tramite \textit{GameOverView}).
 
-Nella parte della sconfitta ho realizzato la gestione del game over attraverso il \textit{GameController}. Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare la sconfitta del giocatore, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il game over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. 
+In entrambi gli esiti, ho realizzato la gestione di fine gioco attraverso il \textit{GameController}. 
+
+Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare la sconfitta del giocatore, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il game over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. 
 
 Lo stesso principio si applica alla GameVictoryView, la quale rappresenta la schermata che compare quando il gioco è completato con successo. Questa View viene visualizzata quando il metodo \textit{isWon()} restituisce un valore che indica se il giocatore ha vinto il gioco. Per poter vincere il gioco, il personaggio deve riuscire a sconfiggere i Boss finali e quindi ad ottenere i quattro cristalli della redenzione.\\
 
@@ -368,15 +371,10 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 
 \begin{itemize}
 	\item \textbf{Espressioni Lambda}: Utilizzate nei bottoni che hanno \textit{ActionListener} nella \textit{GameOverView}.
-	
 	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/view/GameOverView.java#L68}
-	
 	\item \textbf{Optional}: Utilizzati per sostituire i \textit{null value}, usati nel \textit{Player}(metodo \textit{getNewMove()}) utilizzato per la generazione di una mossa da assegnare.
-	
 	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/model/character/player/PlayerImpl.java#L127}
-	
 	\item \textbf{Stream}: Utilizzati nei Controller per controllare che il \textit{Player} abbia vinto il gioco.
-	
 	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/controller/CharacterControllerImpl.java#L197}
 \end{itemize}
 
@@ -403,7 +401,7 @@ Personalmente ritengo che il mio contributo all'interno del team di sviluppo sia
 
 \subsection*{Francesco Pazzaglia}
 
-Nonostante le parti complesse del progetto e il fatto di sviluppare un progetto in team mi avesse inizialmente intimorito, sono soddisfatto di come siamo riusciti a completare e consegnare il gioco. Di solito sono abituato a lavorare da solo, ma ho trovato la collaborazione in team piuttosto soddisfacente. Lo scambio di idee e il confronto ci hanno aiutato a coordinarci efficacemente, individuando i metodi e le classi necessarie per varie parti del progetto. Lavorare in team è stato molto formativo e mi ha permesso di apprezzare come si possa realizzare un progetto insieme, nonostante stili di programmazione talvolta diversi.
+Nonostante le parti complesse del progetto e il fatto di sviluppare un progetto in team mi avesse inizialmente intimorito, sono soddisfatto di come siamo riusciti a completare e consegnare il gioco. Di solito sono abituato a lavorare da solo, ma ho trovato la collaborazione del team piuttosto soddisfacente. Lo scambio di idee e il confronto ci hanno aiutato a coordinarci efficacemente, individuando i metodi e le classi necessarie per varie parti del progetto. Lavorare in team è stato molto formativo e mi ha permesso di apprezzare come si possa realizzare un progetto insieme, nonostante stili di programmazione talvolta diversi.
 
 \subsection*{Marco Magnani}
 Il progetto è stato svolto con colleghi con cui ho avuto modo di collaborare già in precedenza alle superiori, quindi sapevo già prima cosa aspettarmi. La centralità della collaborazione e della discussione di idee è stata una costante durante lo sviluppo di questo progetto. Nel complesso, ritengo che il nostro lavoro sia stato soddisfacente, e in particolare, credo di aver gestito una buona parte del progetto sfruttando le competenze acquisite durante le lezioni.
