@@ -2,6 +2,8 @@ package unibo.exiled.model.game;
 
 import unibo.exiled.model.character.CharacterModel;
 import unibo.exiled.model.character.CharacterModelImpl;
+import unibo.exiled.model.combat.CombatModel;
+import unibo.exiled.model.combat.CombatModelImpl;
 import unibo.exiled.model.item.ItemsModel;
 import unibo.exiled.model.item.ItemsModelImpl;
 import unibo.exiled.model.map.MapModel;
@@ -17,6 +19,7 @@ public final class GameModelImpl implements GameModel {
     private final MenuModel menuModel;
     private final ItemsModel itemsModel;
     private final CharacterModel characterModel;
+    private final CombatModel combatModel;
 
     /**
      * The constructor of the game core.
@@ -26,6 +29,7 @@ public final class GameModelImpl implements GameModel {
         this.mapModel = new MapModelImpl(this);
         this.itemsModel = new ItemsModelImpl(this);
         this.characterModel = new CharacterModelImpl(this);
+        this.combatModel = new CombatModelImpl(this);
     }
 
     @Override
@@ -46,5 +50,10 @@ public final class GameModelImpl implements GameModel {
     @Override
     public CharacterModel getCharacterModel() {
         return this.characterModel;
+    }
+
+    @Override
+    public CombatModel getCombatModel() {
+        return this.combatModel;
     }
 }

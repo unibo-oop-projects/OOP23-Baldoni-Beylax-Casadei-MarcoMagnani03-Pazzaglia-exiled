@@ -120,16 +120,6 @@ public interface CharacterController {
     List<String> getPlayerMoveSet();
 
     /**
-     * Performs an attack routine.
-     * 
-     * @param isPlayerAttacking if is the player or the enemy attacking.
-     * @param moveName          the name of the move performed.
-     * @param combatPosition    the position of the combat.
-     * @return if the character that took damage is dead or not.
-     */
-    boolean attack(boolean isPlayerAttacking, String moveName, Position combatPosition);
-
-    /**
      * Sets the elemental class of the player.
      *
      * @param playerClass The ElementalType representing the new elemental class of
@@ -176,27 +166,11 @@ public interface CharacterController {
     String getCharacterClassNameFromPosition(Position position);
 
     /**
-     * Returns a random move name.
-     * 
-     * @param position the position of the character from which get the move name.
-     * @return a move name.
-     */
-    String getCharacterRandomMoveNameFromPosition(Position position);
-
-    /**
      * Removes the enemy from a position.
      * 
      * @param position the enemy position.
      */
     void removeEnemyFromPosition(Position position);
-
-    /**
-     * Gets the enemy dropped experience.
-     * 
-     * @param position the position of the enemy.
-     * @return the experience droped from the enemy.
-     */
-    int getEnemyExperienceDropFromPosition(Position position);
 
     /**
      * Checks if the game is win the game.

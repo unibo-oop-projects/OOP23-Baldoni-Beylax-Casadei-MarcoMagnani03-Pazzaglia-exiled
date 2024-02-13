@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import unibo.exiled.controller.GameController;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 import unibo.exiled.view.items.WrapLayout;
@@ -16,9 +17,6 @@ import unibo.exiled.view.items.WrapLayout;
  * The Hud class represents the Heads-up Display (HUD) for the game.
  */
 public final class HudView {
-    private static final int HEALTH_CRITICAL_PERCENTAGE = 20;
-    private static final int STATUS_PANEL_H_GAP = 20;
-    private static final int STATUS_PANEL_V_GAP = 5;
     private final GameView gameView;
     private final GameController gameController;
 
@@ -66,7 +64,8 @@ public final class HudView {
      */
     private JPanel createStatusPanel() {
         final JPanel gameStatusPanel = new JPanel(
-                new WrapLayout(FlowLayout.CENTER, STATUS_PANEL_H_GAP, STATUS_PANEL_V_GAP));
+                new WrapLayout(FlowLayout.CENTER, ConstantsAndResourceLoader.STATUS_PANEL_H_GAP,
+                        ConstantsAndResourceLoader.STATUS_PANEL_V_GAP));
         gameStatusPanel.removeAll();
         final GameLabel healthBar = getHealthBar();
         final GameLabel levelLabel = new GameLabel(
@@ -98,7 +97,7 @@ public final class HudView {
         final GameLabel healthBar = new GameLabel(
                 "Health: " + String.format("%.2f", playerHealth) + " / "
                         + playerHealthCap);
-        if (playerHealth <= (playerHealthCap / 100) * HEALTH_CRITICAL_PERCENTAGE) {
+        if (playerHealth <= (playerHealthCap / 100) * ConstantsAndResourceLoader.HEALTH_CRITICAL_PERCENTAGE) {
             healthBar.setForeground(Color.RED);
         } else {
             healthBar.setForeground(Color.GREEN);

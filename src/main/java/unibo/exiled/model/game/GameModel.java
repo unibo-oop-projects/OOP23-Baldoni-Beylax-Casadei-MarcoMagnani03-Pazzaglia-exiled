@@ -1,6 +1,7 @@
 package unibo.exiled.model.game;
 
 import unibo.exiled.model.character.CharacterModel;
+import unibo.exiled.model.combat.CombatModel;
 import unibo.exiled.model.item.ItemsModel;
 import unibo.exiled.model.map.MapModel;
 import unibo.exiled.model.menu.MenuModel;
@@ -36,4 +37,11 @@ public interface GameModel {
      * @return A MenuModel.
      */
     MenuModel getMenuModel();
+
+    /**
+     * Gets the Combat Model.
+     *
+     * @return A CombatModel.
+     */
+    CombatModel getCombatModel();
 }

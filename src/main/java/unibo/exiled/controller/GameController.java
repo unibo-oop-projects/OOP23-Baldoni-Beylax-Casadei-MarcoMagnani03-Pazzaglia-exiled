@@ -27,6 +27,13 @@ public interface GameController {
     MapController getMapController();
 
     /**
+     * Gets the combat controller.
+     *
+     * @return The combat controller.
+     */
+    CombatController getCombatController();
+
+    /**
      * Checks if the game is over.
      *
      * @return True if the game is over, false otherwise.

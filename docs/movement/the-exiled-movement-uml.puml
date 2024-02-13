@@ -25,6 +25,10 @@ package unibo.exiled
   }
   
   package view {
+    package character{
+      class CharacterView{
+      }
+    }
     class GameView {
       
     }
@@ -45,8 +49,9 @@ package unibo.exiled
 
 }
 
-GameView *-- "1" GameKeyListener
+GameView *- "1" GameKeyListener
 GameView *-- "1" GameController
+GameView *-- "N" CharacterView
 GameControllerImpl *-- "1" CharacterController
 CharacterControllerImpl  *-- "1" CharacterModel
 
