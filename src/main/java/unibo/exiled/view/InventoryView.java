@@ -18,8 +18,11 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.io.Serial;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * The view panel of the player's inventory.
@@ -100,7 +103,10 @@ public final class InventoryView extends JPanel {
             emptyInventoryLabel.setVisible(true);
         } else {
             emptyInventoryLabel.setVisible(false);
-            for (final Map.Entry<String, Integer> entry : itemsList.entrySet()) {
+            List<Map.Entry<String, Integer>> sortedItems = itemsList.entrySet().stream()
+                .sorted(Comparator.comparing(entry -> gameController.getItemsController().getItemType(entry.getKey())))
+                .collect(Collectors.toList());
+            for (final Map.Entry<String, Integer> entry : sortedItems) {
                 final String itemName = entry.getKey();
                 final int quantity = entry.getValue();
                 final GameButton itemButton = createItemButton(itemName, quantity);
