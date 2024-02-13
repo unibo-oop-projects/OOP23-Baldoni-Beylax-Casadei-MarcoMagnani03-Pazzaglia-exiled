@@ -13,7 +13,7 @@ public record AdditiveAttributeImpl(double value) implements AdditiveAttribute {
     }
 
     @Override
-    public boolean isValue() {
+    public boolean isAdditive() {
         return true;
     }
 }

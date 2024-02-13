@@ -17,5 +17,5 @@ public interface Attribute {
      *
      * @return True if the attribute is a value, false otherwise.
      */
-    boolean isValue();
+    boolean isAdditive();
 }

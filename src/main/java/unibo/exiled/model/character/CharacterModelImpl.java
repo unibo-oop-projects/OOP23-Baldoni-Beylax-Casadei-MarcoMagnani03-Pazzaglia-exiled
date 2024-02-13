@@ -204,9 +204,9 @@ public final class CharacterModelImpl implements CharacterModel {
     @Override
     public double getPlayerAttributeOf(final AttributeIdentifier id) {
         final Attribute selectedAttribute = this.player.getAttributes().get(id);
-        if (selectedAttribute.isModifier() && selectedAttribute.isValue()) {
+        if (selectedAttribute.isModifier() && selectedAttribute.isAdditive()) {
             return ((CombinedAttribute) selectedAttribute).getEvaluated();
-        } else if (selectedAttribute.isValue()) {
+        } else if (selectedAttribute.isAdditive()) {
             return ((AdditiveAttribute) selectedAttribute).value();
         } else {
             return ((MultiplierAttribute) selectedAttribute).modifier();
