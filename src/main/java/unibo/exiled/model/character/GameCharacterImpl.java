@@ -44,9 +44,9 @@ public abstract class GameCharacterImpl implements GameCharacter {
      * @param moveSet    The MoveSet of the character, its moves.
      */
     protected GameCharacterImpl(final String name,
-                                final MoveSet moveSet,
-                                final ElementalType type,
-                                final Map<AttributeIdentifier, Attribute> attributes) {
+            final MoveSet moveSet,
+            final ElementalType type,
+            final Map<AttributeIdentifier, Attribute> attributes) {
         this.moveSet = moveSet;
         this.type = type;
         this.attributes = attributes;
@@ -117,8 +117,8 @@ public abstract class GameCharacterImpl implements GameCharacter {
      * @param value    The value to add or subtract.
      */
     private void modifyAttribute(final AttributeIdentifier id,
-                                 final double modifier,
-                                 final double value) {
+            final double modifier,
+            final double value) {
         final Map<AttributeIdentifier, Attribute> attributesCopy = new HashMap<>(this.attributes);
         final Attribute attributeToModify = this.attributes.get(id);
         if (attributeToModify instanceof CombinedAttribute conv) {
@@ -163,7 +163,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
     }
 
     @Override
-    public void addMagicMove(MagicMove newMove){
+    public final void addMagicMove(final MagicMove newMove) {
         this.moveSet.addMagicMove(newMove);
     }
 }

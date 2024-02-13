@@ -70,6 +70,11 @@ public interface GameCharacter {
      */
     ElementalType getType();
 
+    /**
+     * Adds a new magical move to the set.
+     *
+     * @param newMove The new magical move to be added.
+     */
     void addMagicMove(MagicMove newMove);
 
     /**

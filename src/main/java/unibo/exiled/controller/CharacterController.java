@@ -20,7 +20,8 @@ public interface CharacterController {
     List<String> getImagePathOfCharacter(String folderPath, String name);
 
     /**
-     * Moves the player in the specified direction and move all the enemies in the game.
+     * Moves the player in the specified direction and move all the enemies in the
+     * game.
      *
      * @param direction The direction in which the player should move.
      */
@@ -107,6 +108,7 @@ public interface CharacterController {
 
     /**
      * Returns the elemental type of a magic move.
+     * 
      * @param magicMoveName the magic move name
      * @return the magic of the magic move
      */
@@ -193,14 +195,17 @@ public interface CharacterController {
      * @param newMove the new move to be inserted in place of the old one.
      */
     void changeMove(String oldMove, String newMove);
-    
+
     /**
      * Getter of the player attack.
+     * 
      * @return the attack of the player.
      */
     double getPlayerAttack();
+
     /**
      * Getter of the player defense.
+     * 
      * @return the defense of the player.
      */
     double getPlayerDefense();
