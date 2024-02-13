@@ -2,6 +2,8 @@ package unibo.exiled.controller;
 
 import java.util.Optional;
 
+import javax.annotation.concurrent.Immutable;
+
 import unibo.exiled.model.combat.CombatStatus;
 import unibo.exiled.utilities.Position;
 import unibo.exiled.view.CombatView;
@@ -9,6 +11,7 @@ import unibo.exiled.view.CombatView;
 /**
  * Controller for managing the combat.
  */
+@Immutable
 public interface CombatController {
     /**
      * Initialize the combat controller.
@@ -37,6 +40,13 @@ public interface CombatController {
      * @return the enemy health cap.
      */
     double getEnemyHealthCap();
+
+    /**
+     * Returns the enemy class name.
+     * 
+     * @return the enemy class name.
+     */
+    String getEnemyClassName();
 
     /**
      * Returns a string describing the last move the enemy used.

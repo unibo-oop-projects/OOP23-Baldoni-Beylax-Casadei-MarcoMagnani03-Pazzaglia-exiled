@@ -78,6 +78,13 @@ public interface CombatModel {
     Set<MagicMove> getEnemyMoves();
 
     /**
+     * Returns the class name of the enemy.
+     * 
+     * @return the class name of the enemy.
+     */
+    String getEnemyClassName();
+
+    /**
      * Returns the combat position.
      *
      * @return the combat position.

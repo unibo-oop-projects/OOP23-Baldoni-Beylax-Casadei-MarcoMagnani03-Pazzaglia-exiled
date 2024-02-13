@@ -10,10 +10,10 @@ import unibo.exiled.utilities.Position;
  * The implementation of the combat.
  */
 public final class CombatImpl implements Combat {
-    private transient Player player;
-    private transient Enemy enemy;
-    private transient Position combatPosition;
-    private transient CombatStatus combatStatus;
+    private Player player;
+    private Enemy enemy;
+    private Position combatPosition;
+    private CombatStatus combatStatus;
 
     @Override
     public Position getCombatPosition() {

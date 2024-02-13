@@ -137,7 +137,7 @@ public final class CombatView extends JPanel {
                 enemyHealthBar.setForeground(Color.GREEN);
             }
             final GameLabel classLabel = new GameLabel(
-                    "Class: " + gameController.getCharacterController().getPlayerClassName());
+                    "Class: " + gameController.getCombatController().getEnemyClassName());
             gameStatusPanel.setBorder(BorderFactory.createEtchedBorder());
             gameStatusPanel.add(enemyHealthBar);
             gameStatusPanel.add(classLabel);
