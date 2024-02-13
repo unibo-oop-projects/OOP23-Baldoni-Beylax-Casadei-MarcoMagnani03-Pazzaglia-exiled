@@ -51,6 +51,7 @@ package unibo.exiled.model.character
 }
 
 CharacterModelImpl *-- "1" Player 
+PlayerImpl -|> GameCharacterImpl
 
 @enduml
 

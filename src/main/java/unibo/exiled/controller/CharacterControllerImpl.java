@@ -208,4 +208,14 @@ public final class CharacterControllerImpl implements CharacterController {
     public void changeMove(final String oldMove, final String newMove) {
         this.model.getPlayer().get().changeMove(Moves.getMoveByName(oldMove).get(), Moves.getMoveByName(newMove).get());
     }
+
+    @Override
+    public double getPlayerAttack() {
+        return this.model.getPlayerAttributeOf(AttributeIdentifier.ATTACK);
+    }
+
+    @Override
+    public double getPlayerDefense() {
+        return this.model.getPlayerAttributeOf(AttributeIdentifier.DEFENSE);
+    }
 }
