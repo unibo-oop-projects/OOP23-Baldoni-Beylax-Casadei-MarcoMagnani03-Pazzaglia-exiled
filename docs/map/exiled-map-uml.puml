@@ -1,0 +1,49 @@
+@startuml
+scale 0.60
+set separator none
+package unibo.exiled.model.map{
+    interface GameMap{
+        getSize() : int
+        getCellStates() : Map<Position,CellType>
+        getCornerPositionOfElement(CellType) : Position
+    }
+    class GameMapImpl implements GameMap{
+        - size : int
+        - cellCorners : Map<CellType, Position>(4)
+        -...
+        + getSize() : int
+        + getCellStates() : Map<Position,CellType>
+        + getCornerPositionOfElement(CellType)) : Position
+    }
+    note bottom : Gli angoli della mappa sono \n identificati da un CellType, \n perche' vi e' una macroarea \n per tipo elementale.
+    enum CellType{
+        PLAINS
+        SWAMP
+        VOLCANO
+        STORM
+        FOREST
+        ...
+    }
+    interface MapModel{
+        isInBoundaries() : boolean
+        getSize() : int
+        getCellType(Position) : CellType
+        getCornerOfType(CellType) : Position
+        isCornerOfMap(Position) : boolean
+        {method} ...
+    }
+    note top : Questo e' il model della mappa,\n quello che si mette in comunicazione \n con il controller per informare la view \n dei cambiamenti della mappa e come \n si posizionano le celle.
+    class MapModelImpl implements MapModel{
+        - map : GameMap
+        + isInBoundaries()
+        + getSize()
+        + getCellType()
+        + getCornerOfType()
+        + ...()
+    }
+}
+CellType <.. GameMap
+CellType o-- GameMapImpl
+CellType <.. MapModel
+GameMap *-- MapModelImpl
+@enduml
