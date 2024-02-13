@@ -29,7 +29,7 @@ final class TestMoves {
 
     @Test
     void testGetAllMagicMovesOfType() {
-        final Set<MagicMove> fireMoves = Moves.getAllMagicMovesOfType(ElementalType.FIRE);
+        final Set<MagicMove> fireMoves = Moves.getAllMagicMovesOfType(ElementalType.FIRE, 100);
         assertNotNull(fireMoves);
         assertFalse(fireMoves.isEmpty());
         assertTrue(fireMoves.stream().allMatch(move -> move.type() == ElementalType.FIRE));
@@ -37,16 +37,16 @@ final class TestMoves {
 
     @Test
     void testGetRandomMagicMoveByType() {
-        final Optional<MagicMove> fireMoveOptional = Moves.getRandomMagicMoveByType(ElementalType.FIRE);
+        final Optional<MagicMove> fireMoveOptional = Moves.getRandomMagicMoveByType(ElementalType.FIRE, 100);
         assertTrue(fireMoveOptional.isPresent());
         assertEquals(ElementalType.FIRE, fireMoveOptional.get().type());
-        final Optional<MagicMove> nonExistentMove = Moves.getRandomMagicMoveByType(null);
+        final Optional<MagicMove> nonExistentMove = Moves.getRandomMagicMoveByType(null, 100);
         assertEquals(Optional.empty(), nonExistentMove);
     }
 
     @Test
     void testGetTotallyRandomMove() {
-        final MagicMove randomMove = Moves.getTotallyRandomMove();
+        final MagicMove randomMove = Moves.getTotallyRandomMove(100);
         assertNotNull(randomMove);
         assertTrue(Moves.getAllMagicMoves().contains(randomMove));
     }

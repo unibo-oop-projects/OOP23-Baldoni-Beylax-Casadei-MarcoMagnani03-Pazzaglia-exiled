@@ -106,6 +106,24 @@ public final class ConstantsAndResourceLoader extends ClassLoader {
      * Modulate how much attack and defense attributes increments for each level up.
      */
     public static final float ATTRIBUTE_INCREMENT_MODULATOR = 50.0f;
+    /**
+     * Level required to acquire the base move.
+     */
+    public static final int LEVEL_BASE_MOVE = 1;
+    /**
+     * The minimum learning level required to acquire the first move.
+     */
+    public static final int MIN_LEARNING_LEVEL_FIRST_MOVE = 5;
+
+    /**
+     * The minimum learning level required to acquire the stronger move.
+     */
+    public static final int MIN_LEARNING_LEVEL_SECOND_MOVE = 10;
+
+    /**
+     * The minimum learning level required to acquire a boss move(strongest).
+     */
+    public static final int MIN_LEARNING_LEVEL_BOSS_MOVE = 20;
 
     private ConstantsAndResourceLoader() {
     }

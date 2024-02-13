@@ -29,13 +29,13 @@ final class TestMoveSet {
     @Test
     void testAddMagicMove() {
         final MoveSet moveSet = new MoveSetImpl();
-        final MagicMove fireMove = moveFactory.createFireMagicMove("Fire", "Powerful fire move", FIRE_DEFAULT);
+        final MagicMove fireMove = moveFactory.createFireMagicMove("Fire", "Powerful fire move", FIRE_DEFAULT, 100);
 
         assertEquals(0, moveSet.getMagicMoves().size());
 
-        final MagicMove boltMove = moveFactory.createBoltMagicMove("Bolt", "Electric shock", BOLT_DEFAULT);
-        final MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", WATER_DEFAULT);
-        final MagicMove grassMove = moveFactory.createGrassMagicMove("Grass", "Nature's force", GRASS_DEFAULT);
+        final MagicMove boltMove = moveFactory.createBoltMagicMove("Bolt", "Electric shock", BOLT_DEFAULT, 100);
+        final MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", WATER_DEFAULT, 100);
+        final MagicMove grassMove = moveFactory.createGrassMagicMove("Grass", "Nature's force", GRASS_DEFAULT, 100);
 
         moveSet.addMagicMove(boltMove);
         moveSet.addMagicMove(waterMove);
@@ -49,8 +49,8 @@ final class TestMoveSet {
     @Test
     void testChangeMoves() {
         final MoveSet moveSet = new MoveSetImpl();
-        final MagicMove fireMove = moveFactory.createFireMagicMove("Fire", "Powerful fire move", FIRE_DEFAULT);
-        final MagicMove boltMove = moveFactory.createBoltMagicMove("Bolt", "Electric shock", BOLT_DEFAULT);
+        final MagicMove fireMove = moveFactory.createFireMagicMove("Fire", "Powerful fire move", FIRE_DEFAULT, 100);
+        final MagicMove boltMove = moveFactory.createBoltMagicMove("Bolt", "Electric shock", BOLT_DEFAULT, 100);
 
         moveSet.addMagicMove(fireMove);
         assertTrue(moveSet.getMagicMoves().contains(fireMove));
@@ -59,7 +59,7 @@ final class TestMoveSet {
         assertFalse(moveSet.getMagicMoves().contains(fireMove));
         assertTrue(moveSet.getMagicMoves().contains(boltMove));
 
-        final MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", WATER_DEFAULT);
+        final MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", WATER_DEFAULT, 100);
         assertFalse(moveSet.changeMoves(waterMove, boltMove));
     }
 }

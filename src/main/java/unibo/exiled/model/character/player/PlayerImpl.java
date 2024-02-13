@@ -112,8 +112,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
             Optional<MagicMove> newMove;
 
             // If the player knows all moves of their type, learn a move of a different type
-            if (this.getMoveSet().getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(getType()))) {
-                newMove = Optional.of(Moves.getTotallyRandomMove());
+            if (this.getMoveSet().getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(getType(), this.level))) {
+                newMove = Optional.of(Moves.getTotallyRandomMove(this.level));
             } else {
                 newMove = getNewMove();
             }
@@ -127,9 +127,9 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     public Optional<MagicMove> getNewMove() {
         Optional<MagicMove> newMove;
         do {
-            newMove = Moves.getRandomMagicMoveByType(getType());
-            // If there are no moves of the specified type, choose a completely random move
-            newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove()) : newMove;
+            newMove = Moves.getRandomMagicMoveByType(getType(), this.level);
+            // If there are no moves of the specified type, choose a completely random move that the player can learn
+            newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove(this.level)) : newMove;
             // Continue searching until finding a move the player doesn't already know
         } while (this.getMoveSet().getMagicMoves().contains(newMove.get()));
         return newMove;

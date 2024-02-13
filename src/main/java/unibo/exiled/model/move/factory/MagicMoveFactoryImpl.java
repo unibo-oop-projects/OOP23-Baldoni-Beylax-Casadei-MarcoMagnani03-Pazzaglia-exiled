@@ -20,11 +20,13 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param name        The name of the Normal MagicMove.
      * @param description The description of the Normal MagicMove.
      * @param power       The power of the Normal MagicMove.
+     * @param levelToLearn the minimum level needed to learn the move
      * @return A Normal type MagicMove.
      */
     @Override
-    public MagicMove createNormalMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.NORMAL);
+    public MagicMove createNormalMagicMove(final String name, final String description, final double power,
+    final int levelToLearn) {
+        return new MagicMoveImpl(name, description, power, ElementalType.NORMAL, levelToLearn);
     }
 
     /**
@@ -33,11 +35,13 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param name        The name of the Fire MagicMove.
      * @param description The description of the Fire MagicMove.
      * @param power       The power of the Fire MagicMove.
+     * @param levelToLearn the minimum level needed to learn the move
      * @return A Fire type MagicMove.
      */
     @Override
-    public MagicMove createFireMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.FIRE);
+    public MagicMove createFireMagicMove(final String name, final String description, final double power,
+    final int levelToLearn) {
+        return new MagicMoveImpl(name, description, power, ElementalType.FIRE, levelToLearn);
     }
 
     /**
@@ -46,11 +50,13 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param name        The name of the Water MagicMove.
      * @param description The description of the Water MagicMove.
      * @param power       The power of the Water MagicMove.
+     * @param levelToLearn the minimum level needed to learn the move
      * @return A Water type MagicMove.
      */
     @Override
-    public MagicMove createWaterMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.WATER);
+    public MagicMove createWaterMagicMove(final String name, final String description, final double power,
+    final int levelToLearn) {
+        return new MagicMoveImpl(name, description, power, ElementalType.WATER, levelToLearn);
     }
 
     /**
@@ -59,11 +65,13 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param name        The name of the Bolt MagicMove.
      * @param description The description of the Bolt MagicMove.
      * @param power       The power of the Bolt MagicMove.
+     * @param levelToLearn the minimum level needed to learn the move
      * @return A Bolt type MagicMove.
      */
     @Override
-    public MagicMove createBoltMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.BOLT);
+    public MagicMove createBoltMagicMove(final String name, final String description, final double power,
+    final int levelToLearn) {
+        return new MagicMoveImpl(name, description, power, ElementalType.BOLT, levelToLearn);
     }
 
     /**
@@ -72,11 +80,13 @@ public class MagicMoveFactoryImpl implements MagicMoveFactory {
      * @param name        The name of the Grass MagicMove.
      * @param description The description of the Grass MagicMove.
      * @param power       The power of the Grass MagicMove.
+     * @param levelToLearn the minimum level needed to learn the move
      * @return A Grass type MagicMove.
      */
     @Override
-    public MagicMove createGrassMagicMove(final String name, final String description, final double power) {
-        return new MagicMoveImpl(name, description, power, ElementalType.GRASS);
+    public MagicMove createGrassMagicMove(final String name, final String description, final double power,
+    final int levelToLearn) {
+        return new MagicMoveImpl(name, description, power, ElementalType.GRASS, levelToLearn);
     }
 
 }

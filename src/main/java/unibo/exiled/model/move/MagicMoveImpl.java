@@ -9,6 +9,8 @@ import unibo.exiled.utilities.ElementalType;
  * @param description The description of the magic move.
  * @param power       The power of the magic move.
  * @param type        The elemental type of the magic move.
+ * @param minimumLevelToLearn The minimum level needed for the magicMove
  */
-public record MagicMoveImpl(String name, String description, double power, ElementalType type) implements MagicMove {
+public record MagicMoveImpl(String name, String description, double power, ElementalType type,
+int minimumLevelToLearn) implements MagicMove {
 }
