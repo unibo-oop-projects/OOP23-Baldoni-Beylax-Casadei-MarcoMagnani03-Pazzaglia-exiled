@@ -189,7 +189,8 @@ Qui presento uno schema UML che rappresenta come sono gestite le distinzioni tra
 
 \textbf{Problema:} Come gestire tutte le caratteristiche di gioco del giocatore o di un nemico in modo tale da non avere una quantità eccessiva di campi all'interno di una classe e in modo tale da gestire la scalabilità? E come identificare ciascun attributo esistente?\\
 \textbf{Soluzione:} È stato introdotto un enumeratore con tutti gli identificatori di attributi necessari al gioco, questo si chiama \textit{AttributeIdentifier} e contiene l'associazione di ciascun elemento dell'enumeratore al corrispettivo nome in stringa così da poter facilmente essere interpretato dal controller e successivamente la view.
-Per la generazione degli attributi di un \textit{GameCharacter} invece è stato utilizzato il pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}} attraverso l'interfaccia denominata \textit{AttributeFactory} e la sua implementazioe \textit{AttributeFactoryImpl} che creano una mappatura di tutti gli attributi necessari per ciascun \textit{GameCharacter}, così da poter diversificare gli attributi di ognuno senza aggiungere campi eccessivi alle classi.
+Per la generazione degli attributi di un \textit{GameCharacter} invece è stato utilizzato il pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}} attraverso l'interfaccia denominata \textit{AttributeFactory} e la sua implementazione \textit{AttributeFactoryImpl} che creano una mappatura di tutti gli attributi necessari per ciascun \textit{GameCharacter}, così da poter diversificare gli attributi di ognuno senza aggiungere campi eccessivi alle classi.\\
+In tal modo un \textit{GameCharacter} contiene al suo interno una mappatura tra \textit{AttributeIdentifier} e relativo \textit{Attribute} in modo tale da poter definire attraverso la factory gli attributi di ciascuno.\\ Segue uno schema UML della factory.
 
 \subsubsection{Piazzamento dei nemici sulla mappa : \textit{CharacterModel}}
 \textbf{Problema:} Mettere in relazione la mappa e i nemici attraverso un'unico concetto nel model.\\
@@ -414,6 +415,8 @@ Per muoversi sulla mappa a celle si usano i comandi:
 \end{itemize}
 \section{Inventario}
 Si può aprire l'inventario con \textit{E} e richiuderlo con \textit{ESC}
+\section{Menu}
+Si può aprire il menu di gioco utilizzando \textit{ESC} quando si visualizza la mappa, e richiuderlo in maniera analoga.
 
 \chapter{Esercitazioni di laboratorio}
 Elenco dei Permalink delle consegne nel forum studenti del modulo di laboratorio.
