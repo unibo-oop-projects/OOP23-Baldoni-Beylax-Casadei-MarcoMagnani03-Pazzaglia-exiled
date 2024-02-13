@@ -21,7 +21,7 @@ public interface MoveSet {
      * @param newMove The new magical move to replace the old move.
      * @return Return false if the old move is not found in the set.
      */
-    boolean changeMoves(MagicMove oldMove, MagicMove newMove);
+    boolean changeMove(MagicMove oldMove, MagicMove newMove);
 
     /**
      * Adds a new magical move to the set if the number of moves is below a specified limit.

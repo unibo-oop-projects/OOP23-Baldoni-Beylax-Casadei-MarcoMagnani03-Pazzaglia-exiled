@@ -351,6 +351,28 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 
 \subsection{Manuel Baldoni}
 
+\subsection{Elementi di design condivisi}
+In questa sezione verranno elencate parti di codice create con il contributo di tutti i membri del gruppo.\\
+\subsubsection{Mosse dei character}
+Una mossa è rappresentata attraverso l'interfaccia \textit{MagicMove}, implementata da \textit{MagicMoveImpl}, queste classi contengono lo schema da seguire per realizzare una mossa, ma di fatto queste vengono create attraverso il pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}} descritto dall'interfaccia \textit{MagicMoveFactory} e implementato da \textit{MagicMoveFactoryImpl}. \\ La creazione però non spiega come queste mosse vengano effettivamente collettivizzate per poterle utilizzare, in un contesto di battaglia, da un nemico o il giocatore, per questo entrano in gioco l'interfaccia \textit{MoveSet} e la relativa implementazione \textit{MoveSetImpl} che vengono contenuti all'interno della classe astratta \textit{GameCharacter}. Un insieme di mosse pre-create è presente nella classe di utility \textit{Moves} che fa uso della factory per crearsi e contenere delle mosse da assegnare ai nemici o al giocatore.\\
+
+\begin{figure}[H]
+	\centering
+	\input{character/moves/moves-uml.tex}
+	\caption{Schema UML di come sono gestite le mosse.}
+	\label{fig:Schema UML di come sono gestite le mosse.}
+\end{figure}
+
+\subsubsection{Elementi della View}
+Alcune parti di come vengono mostrati i componenti grafici dell'applicativo sono stati realizzati insieme, per esempio:
+\begin{itemize}
+	\item La classe \textit{GameView} spiegata sopra.
+	\item La classe \textit{PlayerClassView} che mostra la finestra di selezione del tipo elementale del giocatore all'inizio del gioco.
+	\item La classe \textit{GameGridView} che mostra la griglia.
+	\item Elementi grafici della View come i bottoni, delle label particolari che compongono l'interfaccia.
+\end{itemize}
+
+Tutta la realizzazione delle sprites dei nemici, del carattere giocante e degli oggetti resa possibile da applicazioni di terze parti come \textit{Gimp}.
 
 \chapter{Sviluppo}
 

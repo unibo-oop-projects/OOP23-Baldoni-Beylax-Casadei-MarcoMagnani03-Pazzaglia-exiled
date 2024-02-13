@@ -1,0 +1,76 @@
+@startuml
+scale 0.50
+set separator none
+package unibo.exiled.model.move
+{
+  interface MagicMove {
+    name() : String
+    description() : String
+    power() : double
+    type() : ElementalType
+    minimumLevelToLearn() : int
+  }
+
+  class MagicMoveImpl<<Record>> implements MagicMove {
+    + name() : String
+    + description() : String
+    + ...()
+  }
+
+  enum MoveNames{
+
+  }
+
+  class Moves {
+    - {static} MAGIC_MOVES : Set<MagicMove>
+    - {static} MOVE_FACTORY : MagicMoveFactory
+  }
+
+  interface MoveSet{
+    changeMove(oldMove,newMove) : void
+    addMagicMove(MagicMove) : void
+    getMagicMoves() : Set<MagicMove>
+  }
+
+  class MoveSetImpl implements MoveSet{
+     - magicMoves : Set<MagicMove>
+     + changeMove(oldMove, newMove) : void
+     +...()
+  }
+
+  package factory{
+    interface MagicMoveFactory{
+        createNormalMagicMove(...)
+        createBoltMagicMove(...)
+        createFireMagicMove(...)
+        ...()
+    }
+
+    class MagicMoveFactoryImpl implements MagicMoveFactory {
+        + createBoltMagicMove(...)
+        +createFireMagicMove(...)
+        ...()
+    }
+
+    interface MoveSetFactory{
+        defaultNormalMoveSet()
+        defaultFireMoveSet()
+        ...()
+        boltBossMoveSet()
+        ...()
+    }
+
+    class MoveSetFactoryImpl implements MoveSetFactory {
+        + defaultFireMoveSet() : MoveSet
+        + defaultNormalMoveSet() : MoveSet
+        +...()
+    }
+  }
+}
+MagicMove o-- MoveSet
+MagicMove <.. MagicMoveFactory
+MoveSet <... MoveSetFactory
+MagicMove o- Moves
+MoveNames <.. Moves
+MoveSetFactory <.. Moves
+@enduml

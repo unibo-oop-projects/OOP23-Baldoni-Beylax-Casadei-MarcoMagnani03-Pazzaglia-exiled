@@ -137,7 +137,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
 
     @Override
     public void changeMove(final MagicMove oldMove, final MagicMove newMove) {
-        this.getMoveSet().changeMoves(oldMove, newMove);
+        this.getMoveSet().changeMove(oldMove, newMove);
     }
 
     @Override
