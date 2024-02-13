@@ -19,33 +19,33 @@ public final class Moves {
 
     private static final Set<MagicMove> MAGIC_MOVES = Set.of(
             MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPACCIO.getName(),
-                    MoveNames.COLPACCIO.getDescription(), 5),
+                    MoveNames.COLPACCIO.getDescription(), 5, MoveNames.COLPACCIO.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createNormalMagicMove(MoveNames.COLPONE.getName(),
-                    MoveNames.COLPONE.getDescription(), 8),
+                    MoveNames.COLPONE.getDescription(), 8, MoveNames.COLPONE.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createFireMagicMove(MoveNames.FIREBALL.getName(),
-                    MoveNames.FIREBALL.getDescription(), 5),
+                    MoveNames.FIREBALL.getDescription(), 5, MoveNames.FIREBALL.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createGrassMagicMove(MoveNames.LEAFBLADE.getName(),
-                    MoveNames.LEAFBLADE.getDescription(), 5),
+                    MoveNames.LEAFBLADE.getDescription(), 5, MoveNames.LEAFBLADE.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createBoltMagicMove(MoveNames.LIGHTBULB.getName(),
-                    MoveNames.LIGHTBULB.getDescription(), 5),
+                    MoveNames.LIGHTBULB.getDescription(), 5, MoveNames.LIGHTBULB.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createWaterMagicMove(MoveNames.WATERPISTOL.getName(),
-                    MoveNames.WATERPISTOL.getDescription(), 5),
+                    MoveNames.WATERPISTOL.getDescription(), 5, MoveNames.WATERPISTOL.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createFireMagicMove(MoveNames.FLAMEWHIRL.getName(),
-                    MoveNames.FLAMEWHIRL.getDescription(), 10),
+                    MoveNames.FLAMEWHIRL.getDescription(), 10, MoveNames.FLAMEWHIRL.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createNormalMagicMove(MoveNames.QUICKSLASH.getName(),
-                    MoveNames.QUICKSLASH.getDescription(), 10),
+                    MoveNames.QUICKSLASH.getDescription(), 10, MoveNames.QUICKSLASH.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createGrassMagicMove(MoveNames.PETALSTORM.getName(),
-                    MoveNames.PETALSTORM.getDescription(), 10),
+                    MoveNames.PETALSTORM.getDescription(), 10, MoveNames.PETALSTORM.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createBoltMagicMove(MoveNames.THUNDERSTRIKE.getName(),
-                    MoveNames.THUNDERSTRIKE.getDescription(), 10),
+                    MoveNames.THUNDERSTRIKE.getDescription(), 10, MoveNames.THUNDERSTRIKE.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createWaterMagicMove(MoveNames.AQUAORB.getName(),
-                    MoveNames.AQUAORB.getDescription(), 10),
+                    MoveNames.AQUAORB.getDescription(), 10, MoveNames.AQUAORB.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createFireMagicMove(MoveNames.INFERNO.getName(),
-                    MoveNames.INFERNO.getDescription(), 50),
+                    MoveNames.INFERNO.getDescription(), 50, MoveNames.INFERNO.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createBoltMagicMove(MoveNames.THUNDERSTORM.getName(),
-                    MoveNames.THUNDERSTORM.getDescription(), 50),
+                    MoveNames.THUNDERSTORM.getDescription(), 50, MoveNames.THUNDERSTORM.getMinimumLevelToLearnTheMove()),
             MOVE_FACTORY.createBoltMagicMove(MoveNames.LOCOMOVOLT.getName(),
-                    MoveNames.LOCOMOVOLT.getDescription(), 80)
+                    MoveNames.LOCOMOVOLT.getDescription(), 50, MoveNames.LOCOMOVOLT.getMinimumLevelToLearnTheMove())
     );
 
     private Moves() {
@@ -74,11 +74,12 @@ public final class Moves {
      * Gets every move of the selected type.
      *
      * @param type The type of the moves to get.
+     * @param level 
      * @return An unmodifiable set of moves of the selected type.
      */
-    public static Set<MagicMove> getAllMagicMovesOfType(final ElementalType type) {
+    public static Set<MagicMove> getAllMagicMovesOfType(final ElementalType type, final int level) {
         return MAGIC_MOVES.stream()
-                .filter(magicMove -> magicMove.type() == type)
+                .filter(magicMove -> magicMove.type() == type && magicMove.minimumLevelToLearn() <= level)
                 .collect(Collectors.toUnmodifiableSet());
     }
 
@@ -86,13 +87,14 @@ public final class Moves {
      * Gets a random move of the selected type.
      *
      * @param type The type of the move to get.
+ * @param level 
      * @return An optional containing the random move of the selected
      * type if at least one is found, optional.Empty()
      * otherwise.
      */
-    public static Optional<MagicMove> getRandomMagicMoveByType(final ElementalType type) {
+    public static Optional<MagicMove> getRandomMagicMoveByType(final ElementalType type, final int level) {
         final List<MagicMove> movesOfType = MAGIC_MOVES.stream()
-                .filter(magicMove -> magicMove.type() == type)
+                .filter(magicMove -> magicMove.type() == type && magicMove.minimumLevelToLearn() <= level)
                 .toList();
 
         if (movesOfType.isEmpty()) {
@@ -103,10 +105,12 @@ public final class Moves {
 
     /**
      * Gets a random move.
+     * @param level 
      *
      * @return A random move of any type.
      */
-    public static MagicMove getTotallyRandomMove() {
-        return MAGIC_MOVES.stream().toList().get(RANDOM.nextInt(MAGIC_MOVES.size()));
+    public static MagicMove getTotallyRandomMove(final int level) {
+        return MAGIC_MOVES.stream().filter(magicMove -> magicMove.minimumLevelToLearn() <= level)
+        .toList().get(RANDOM.nextInt(MAGIC_MOVES.size()));
     }
 }

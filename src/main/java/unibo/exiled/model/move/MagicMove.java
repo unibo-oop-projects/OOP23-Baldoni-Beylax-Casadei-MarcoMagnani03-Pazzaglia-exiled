@@ -34,4 +34,11 @@ public interface MagicMove {
      * @return The elemental type of the magic move.
      */
     ElementalType type();
+
+    /**
+     * Gets the minimum level to learn the magic move.
+     *
+     * @return The minimum level needed to learn the move.
+     */
+    int minimumLevelToLearn();
 }
