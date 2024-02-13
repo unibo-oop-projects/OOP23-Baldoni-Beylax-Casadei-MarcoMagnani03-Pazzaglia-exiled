@@ -259,7 +259,7 @@ Questo approccio ha semplificato la gestione delle schermate di fine gioco, util
 	\label{fig:the-exiled-victory_gameover-uml}
 \end{figure}
 
-Il design pattern applicato alla parte di \textit{GameOverView} e \textit{GameVictoryView}, è il pattern comportamentale Strategy. Le due View rappresentano due strategie diverse per gestire la visualizzazione dell'esito del gioco (game over o vittoria). La classe \textit{GameView} utilizza queste strategie decidendo quale delle due visualizzare in base alle condizioni definite nei metodi \textit{isOver()} e \textit{isWon()} del \textit{GameController}. Utilizzando lo Strategy Pattern, è possibile cambiare dinamicamente il comportamento di \textit{GameView} sostituendo una strategia con un'altra senza modificare il suo codice.
+La classe \textit{GameView}, in conclusione, decide quale delle due View visualizzare in base alle condizioni definite nei metodi \textit{isOver()} e \textit{isWon()} del \textit{GameController}. 
 
 \subsection*{Marco Magnani}
 La parti del progetto in cui ho impiegato la maggior parte del tempo sono l'inventario del player, gli oggetti da cui esso è composto, la hud e la logica per l'aumento di livello del player.
@@ -339,8 +339,16 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 
 \begin{itemize}
 	\item \textbf{Espressioni Lambda}: Utilizzate nei bottoni che hanno \textit{ActionListener} nella \textit{GameOverView}.
+	
+	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/view/GameOverView.java#L68}
+	
 	\item \textbf{Optional}: Utilizzati per sostituire i \textit{null value}, usati nel \textit{CharacterModel}(metodo \textit{getPlayer()}) e anche per il passaggio della \textit{GameView} tra la differenti viste.
+	
+	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/model/character/player/PlayerImpl.java#L127}
+	
 	\item \textbf{Stream}: Utilizzati nei Controller per controllare che il \textit{Player} abbia vinto il gioco.
+	
+	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/controller/CharacterControllerImpl.java#L197}
 \end{itemize}
 
 \subsection*{Marco Magnani}
