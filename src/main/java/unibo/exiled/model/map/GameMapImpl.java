@@ -30,7 +30,8 @@ public final class GameMapImpl implements GameMap {
         if (size % 2 == 0) {
             this.size = size;
             this.cellStates = new HashMap<>();
-            this.cellCorners = new HashMap<>();
+            //The corners are always 4
+            this.cellCorners = new HashMap<>(4);
             final int startingSize = size / 2 - ConstantsAndResourceLoader.STARTING_SAFEZONE_SIZE;
             this.fillCells(startingSize);
         } else {
