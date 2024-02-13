@@ -350,6 +350,17 @@ Per quanto riguarda l'aumento delle statistiche ad ogni incremento di livello, h
 Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il giocatore di base apprende mosse della sua classe (ad esempio, mosse di tipo acqua se la classe è acqua). Se il giocatore conosce già tutte le mosse di quel tipo, imparerà casualmente una mossa di qualsiasi tipo. Questa scelta è stata fatta per rendere la gestione delle mosse più scalabile, in considerazione della possibilità di creare nuovi tipi elementali. Ad esempio, se venisse introdotto un tipo con una singola mossa, il giocatore comunque apprenderebbe nuove mosse.
 
 \subsection{Manuel Baldoni}
+\subsection{Elementi di design condivisi}
+In questa sezione verranno elencate parti di codice create con il contributo di tutti i membri del gruppo.\\
+\subsubsection{Mosse dei character}
+Una mossa è rappresentata attraverso l'interfaccia \textit{MagicMove}, implementata da \textit{MagicMoveImpl}, queste classi contengono lo schema da seguire per realizzare una mossa, ma di fatto queste vengono create attraverso il pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}} descritto dall'interfaccia \textit{MagicMoveFactory} e implementato da \textit{MagicMoveFactoryImpl}. \\ La creazione però non spiega come queste mosse vengano effettivamente collettivizzate per poterle utilizzare, in un contesto di battaglia, da un nemico o il giocatore, per questo entrano in gioco l'interfaccia \textit{MoveSet} e la relativa implementazione \textit{MoveSetImpl} che vengono contenuti all'interno della classe astratta \textit{GameCharacter}. Un insieme di mosse pre-create è presente nella classe di utility \textit{Moves} che fa uso della factory per crearsi e contenere delle mosse da assegnare ai nemici o al giocatore.\\
+
+\begin{figure}[H]
+	\centering
+	\input{character/moves/moves-uml.tex}
+	\caption{Schema UML di come sono gestite le mosse.}
+	\label{fig:Schema UML di come sono gestite le mosse.}
+\end{figure}
 
 
 \chapter{Sviluppo}

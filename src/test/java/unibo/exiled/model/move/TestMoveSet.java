@@ -55,11 +55,11 @@ final class TestMoveSet {
         moveSet.addMagicMove(fireMove);
         assertTrue(moveSet.getMagicMoves().contains(fireMove));
 
-        moveSet.changeMoves(fireMove, boltMove);
+        moveSet.changeMove(fireMove, boltMove);
         assertFalse(moveSet.getMagicMoves().contains(fireMove));
         assertTrue(moveSet.getMagicMoves().contains(boltMove));
 
         final MagicMove waterMove = moveFactory.createWaterMagicMove("Water", "Aqua attack", WATER_DEFAULT, 100);
-        assertFalse(moveSet.changeMoves(waterMove, boltMove));
+        assertFalse(moveSet.changeMove(waterMove, boltMove));
     }
 }

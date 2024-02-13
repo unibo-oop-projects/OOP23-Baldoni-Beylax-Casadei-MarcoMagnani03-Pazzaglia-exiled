@@ -26,7 +26,7 @@ public final class MoveSetImpl implements MoveSet {
     }
 
     @Override
-    public boolean changeMoves(final MagicMove oldMove, final MagicMove newMove) {
+    public boolean changeMove(final MagicMove oldMove, final MagicMove newMove) {
         if (magicMoves.contains(oldMove)) {
             magicMoves.remove(oldMove);
             magicMoves.add(newMove);
