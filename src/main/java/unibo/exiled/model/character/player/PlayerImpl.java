@@ -118,7 +118,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
                 newMove = getNewMove();
             }
 
-            this.getMoveSet().addMagicMove(newMove.get());
+            this.addMagicMove(newMove.get());
         }
     }
 

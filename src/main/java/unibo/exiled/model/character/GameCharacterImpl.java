@@ -7,6 +7,7 @@ import unibo.exiled.model.character.attributes.CombinedAttributeImpl;
 import unibo.exiled.model.character.attributes.AdditiveAttribute;
 import unibo.exiled.model.character.attributes.AdditiveAttributeImpl;
 import unibo.exiled.model.character.attributes.CombinedAttribute;
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.utilities.Direction;
 import unibo.exiled.utilities.ElementalType;
@@ -52,10 +53,6 @@ public abstract class GameCharacterImpl implements GameCharacter {
         this.name = name;
     }
 
-    //
-    //  GETTER
-    //
-
     @Override
     public final Position getPosition() {
         return this.position;
@@ -85,10 +82,6 @@ public abstract class GameCharacterImpl implements GameCharacter {
     public final Direction getLastDirection() {
         return this.lastDirection;
     }
-
-    //
-    //  SETTER
-    //
 
     @Override
     public final void setLastDirection(final Direction direction) {
@@ -139,10 +132,6 @@ public abstract class GameCharacterImpl implements GameCharacter {
         this.attributes = attributesCopy;
     }
 
-    //
-    //  OTHERS
-    //
-
     @Override
     public final void move(final Position position) {
         this.position = position;
@@ -171,5 +160,10 @@ public abstract class GameCharacterImpl implements GameCharacter {
     @Override
     public final MoveSet getMoveSet() {
         return MoveSets.copyOf(this.moveSet);
+    }
+
+    @Override
+    public void addMagicMove(MagicMove newMove){
+        this.moveSet.addMagicMove(newMove);
     }
 }

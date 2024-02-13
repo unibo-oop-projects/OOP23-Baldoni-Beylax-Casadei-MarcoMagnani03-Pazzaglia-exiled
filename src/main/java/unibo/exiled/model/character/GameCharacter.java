@@ -2,6 +2,7 @@ package unibo.exiled.model.character;
 
 import unibo.exiled.model.character.attributes.Attribute;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.utilities.Direction;
 import unibo.exiled.utilities.ElementalType;
@@ -13,11 +14,6 @@ import java.util.Map;
  * A character that can move.
  */
 public interface GameCharacter {
-
-    //
-    //  GETTER
-    //
-
     /**
      * Gets the MoveSet of the character to be used in a battle.
      *
@@ -74,9 +70,7 @@ public interface GameCharacter {
      */
     ElementalType getType();
 
-    //
-    //  SETTER
-    //
+    void addMagicMove(MagicMove newMove);
 
     /**
      * Sets the last direction of the character.
@@ -116,10 +110,6 @@ public interface GameCharacter {
      * @param value The amount by which the attribute value is decreased.
      */
     void decreaseAttributeValue(AttributeIdentifier id, double value);
-
-    //
-    //  OTHERS
-    //
 
     /**
      * Moves the character to the specified position.
