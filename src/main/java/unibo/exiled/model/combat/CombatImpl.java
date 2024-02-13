@@ -10,21 +10,10 @@ import unibo.exiled.utilities.Position;
  * The implementation of the combat.
  */
 public final class CombatImpl implements Combat {
-    private final Player player;
-    private final Enemy enemy;
+    private transient Player player;
+    private transient Enemy enemy;
     private transient Position combatPosition;
     private transient CombatStatus combatStatus;
-
-    /**
-     * The constructor of CombatImpl.
-     * 
-     * @param player the player.
-     * @param enemy  the enemy.
-     */
-    public CombatImpl(final Player player, final Enemy enemy) {
-        this.player = player;
-        this.enemy = enemy;
-    }
 
     @Override
     public Position getCombatPosition() {
@@ -32,8 +21,8 @@ public final class CombatImpl implements Combat {
     }
 
     @Override
-    public void setCombatPosition(final Position position) {
-        this.combatPosition = position;
+    public void setCombatPosition(final Position combatPosition) {
+        this.combatPosition = combatPosition;
     }
 
     @Override
@@ -52,7 +41,17 @@ public final class CombatImpl implements Combat {
     }
 
     @Override
+    public void setPlayer(final Optional<Player> player) {
+        this.player = player.get();
+    }
+
+    @Override
     public Optional<Enemy> getEnemy() {
         return Optional.of(this.enemy);
+    }
+
+    @Override
+    public void setEnemy(final Enemy enemy) {
+        this.enemy = enemy;
     }
 }

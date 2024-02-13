@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import javax.annotation.concurrent.Immutable;
 import javax.swing.Timer;
 
 import unibo.exiled.model.character.GameCharacter;
@@ -24,18 +23,16 @@ import unibo.exiled.view.CombatView;
 /**
  * Implementation of CombatController interface.
  */
-@Immutable
 public final class CombatControllerImpl implements CombatController {
-
     private static final Random RANDOM = new Random();
     private static final Integer CONSOLE_DISPLAY_TIME = 2000;
     private static final Integer IN_BETWEEN_ATTACKS_DELAY = 3000;
 
     private final CombatModel model;
-    private String lastMoveLabel;
-    private String attackerModifierLabel;
-    private String defenderModifierLabel;
-    private String moveDescription;
+    private transient String lastMoveLabel;
+    private transient String attackerModifierLabel;
+    private transient String defenderModifierLabel;
+    private transient String moveDescription;
 
     /**
      * Constructor of CombatControllerImpl.
@@ -48,8 +45,7 @@ public final class CombatControllerImpl implements CombatController {
 
     @Override
     public void initializeCombat(final Position combatPosition) {
-        this.model.createCombat(combatPosition);
-        this.model.setCombatStatus(CombatStatus.IDLE);
+        this.model.newCombat();
         this.setLastMoveLabel("");
         this.setAttackerModifierLabel("");
         this.setDefenderModifierLabel("");

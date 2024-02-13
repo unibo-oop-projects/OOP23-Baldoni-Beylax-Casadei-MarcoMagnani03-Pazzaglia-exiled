@@ -15,13 +15,11 @@ import javax.annotation.concurrent.Immutable;
  */
 @Immutable
 public interface CombatModel {
-
     /**
-     * Creates a new combat.
-     *
-     * @param position the position of the combat.
+     * Sets the player, the enemy and the combat position of the new combat.
+     * 
      */
-    void createCombat(Position position);
+    void newCombat();
 
     /**
      * Returns the player thas is fighting.

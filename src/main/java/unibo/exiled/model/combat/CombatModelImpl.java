@@ -3,14 +3,13 @@ package unibo.exiled.model.combat;
 import java.util.Optional;
 import java.util.Set;
 
-import unibo.exiled.model.character.GameCharacter;
+import javax.annotation.concurrent.Immutable;
+
 import unibo.exiled.model.character.enemy.Enemy;
 import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.utilities.Position;
-
-import javax.annotation.concurrent.Immutable;
 
 /**
  * The implementation of the combat model.
@@ -18,7 +17,7 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public final class CombatModelImpl implements CombatModel {
     private final GameModel model;
-    private Combat combat;
+    private final Combat combat;
 
     /**
      * The constructor of CombatModelImpl.
@@ -27,14 +26,19 @@ public final class CombatModelImpl implements CombatModel {
      */
     public CombatModelImpl(final GameModel model) {
         this.model = model;
+        this.combat = new CombatImpl();
     }
 
     @Override
-    public void createCombat(final Position combatPosition) {
+    public void newCombat() {
+        final Position combatPosition = this.model.getCharacterModel().getPlayerPosition();
         final Player player = this.model.getCharacterModel().getPlayer().get();
         final Enemy enemy = (Enemy) this.model.getCharacterModel().getCharacterFromPosition(combatPosition).get();
-        this.combat = new CombatImpl(player, enemy);
+
+        this.combat.setPlayer(Optional.of(player));
+        this.combat.setEnemy(enemy);
         this.combat.setCombatPosition(combatPosition);
+        this.setCombatStatus(CombatStatus.IDLE);
     }
 
     @Override

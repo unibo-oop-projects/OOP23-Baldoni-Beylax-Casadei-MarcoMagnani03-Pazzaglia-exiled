@@ -21,9 +21,9 @@ public interface Combat {
     /**
      * Sets the combat position.
      * 
-     * @param position the combat position.
+     * @param combatPosition the position.
      */
-    void setCombatPosition(Position position);
+    void setCombatPosition(Position combatPosition);
 
     /**
      * Gets the combat status.
@@ -47,9 +47,23 @@ public interface Combat {
     Optional<Player> getPlayer();
 
     /**
-     * Returns the enemy thas is fighiting.
+     * Sets the combat player.
      * 
-     * @return the enemy that is fighiting.
+     * @param player the player fighting.
+     */
+    void setPlayer(Optional<Player> player);
+
+    /**
+     * Returns the enemy fighiting.
+     * 
+     * @return the enemy fighiting.
      */
     Optional<Enemy> getEnemy();
+
+    /**
+     * Sets the enemy fighting.
+     * 
+     * @param enemy the enemy fighting.
+     */
+    void setEnemy(Enemy enemy);
 }

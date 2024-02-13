@@ -13,7 +13,6 @@ import unibo.exiled.model.item.utilities.ItemType;
 public final class ItemsModelImpl implements ItemsModel {
     private final GameModel model;
 
-
     /**
      * The constructor of the model of the Items.
      *

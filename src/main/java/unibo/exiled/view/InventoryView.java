@@ -103,7 +103,7 @@ public final class InventoryView extends JPanel {
             emptyInventoryLabel.setVisible(true);
         } else {
             emptyInventoryLabel.setVisible(false);
-            List<Map.Entry<String, Integer>> sortedItems = itemsList.entrySet().stream()
+            final List<Map.Entry<String, Integer>> sortedItems = itemsList.entrySet().stream()
                 .sorted(Comparator.comparing(entry -> gameController.getItemsController().getItemType(entry.getKey())))
                 .collect(Collectors.toList());
             for (final Map.Entry<String, Integer> entry : sortedItems) {
