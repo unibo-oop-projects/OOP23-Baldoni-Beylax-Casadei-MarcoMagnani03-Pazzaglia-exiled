@@ -1,0 +1,32 @@
+@startuml
+scale 0.7
+set separator none
+package unibo.exiled.model.character.attributes{
+    interface Attribute{
+        isAdditive()
+        isModifier()
+    }
+    interface AttributeFactory {
+        createPlayerAttributes() : Map<AttributeIdentifier, Attribute>
+        createGoblinAttributes() : Map<AttributeIdentifier, Attribute>
+        ...()
+    }
+    class AttributeFactoryImpl implements AttributeFactory{
+        - fromValues(health,\n healthModifier,\n attack,\n defense,\n healthCap) : Map<AttributeIdentifier,Attribute>
+        + createPlayerAttributes() : Map<AttributeIdentifier,Attribute>
+        + createGoblinAttributes() : Map<AttributeIdentifier, Attribute>
+        +...()
+    }
+    enum AttributeIdentifier {
+        + {field} ATTACK("Attack")
+        + {field} HEALTH("Health")
+        + {field} HEALTHCAP("Health Cap")
+        + {field} DEFENSE("Defense")
+        +getName() : String
+    }
+}
+Attribute <.. AttributeFactory
+AttributeIdentifier <.. AttributeFactory
+Attribute <.. AttributeFactoryImpl
+AttributeIdentifier <.. AttributeFactoryImpl
+@enduml
