@@ -193,5 +193,15 @@ public interface CharacterController {
      * @param newMove the new move to be inserted in place of the old one.
      */
     void changeMove(String oldMove, String newMove);
+    /**
+     * Getter of the player attack.
+     * @return the attack of the player.
+     */
+    double getPlayerAttack();
+    /**
+     * Getter of the player defense.
+     * @return the defense of the player.
+     */
+    double getPlayerDefense();
 
 }

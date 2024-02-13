@@ -28,9 +28,9 @@ public final class InventoryView extends JPanel {
     @Serial
     private static final long serialVersionUID = 2L;
 
-    private static final Color HEALING_ITEM_COLOR = new Color(140, 255, 140);
-    private static final Color POWER_UP_ITEM_COLOR = new Color(255, 140, 140);
-    private static final Color RESOURCE_ITEM_COLOR = new Color(100, 100, 100);
+    private static final Color HEALING_ITEM_COLOR = new Color(102, 204, 102);
+    private static final Color POWER_UP_ITEM_COLOR = new Color(255, 102, 102);
+    private static final Color RESOURCE_ITEM_COLOR = new Color(128, 128, 128);
     private static final int TOP_BOTTOM_MARGIN = 15;
     private static final int INVENTORY_BUTTON_MARGIN_LEFT_RIGHT = 20;
     private static final int INVENTORY_BUTTON_MARGIN_UP_BOTTOM = 45;
