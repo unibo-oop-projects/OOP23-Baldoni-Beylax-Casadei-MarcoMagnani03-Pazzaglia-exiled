@@ -123,7 +123,7 @@ public final class CombatControllerImpl implements CombatController {
      *         type.
      */
     private double getAttackModifierBasedOnType(final MagicMove move, final GameCharacter defender) {
-        final ElementalType moveType = move.type();
+        final ElementalType moveType = move.getType();
         final ElementalType defenderType = defender.getType();
         if (moveType.isStrongAgainst(defenderType)) {
             return ConstantsAndResourceLoader.ATTACK_MODIFIER_EFFECTIVE;
@@ -173,13 +173,13 @@ public final class CombatControllerImpl implements CombatController {
                 .findFirst()
                 .get();
 
-        final double baseDamage = move.power();
+        final double baseDamage = move.getPower();
         final double defenderDefenseModifier = ((MultiplierAttribute) defender.getAttributes()
                 .get(AttributeIdentifier.DEFENSE)).modifier();
         final double attackerAttackModifier = ((MultiplierAttribute) attacker.getAttributes()
                 .get(AttributeIdentifier.ATTACK))
                 .modifier();
-        final double moveTypeModifier = attacker.getType().equals(move.type())
+        final double moveTypeModifier = attacker.getType().equals(move.getType())
                 ? ConstantsAndResourceLoader.ATTACK_SAME_TYPE_OF_CLASS_MODIFIER
                 : ConstantsAndResourceLoader.NEUTRAL_MODIFIER;
         final double attackModifierBasedOnType = getAttackModifierBasedOnType(move, defender);
@@ -188,7 +188,7 @@ public final class CombatControllerImpl implements CombatController {
 
         this.setAttackerModifierLabel("Damage multiplier: " + String.format("%.2f", attackModifier));
         this.setDefenderModifierLabel("Defence multiplier: " + String.format("%.2f", defenderDefenseModifier));
-        this.setMoveDescription(move.description());
+        this.setMoveDescription(move.getDescription());
 
         // Decrease the health of the defender by the damage amount
         defender.decreaseAttributeValue(AttributeIdentifier.HEALTH, damage);

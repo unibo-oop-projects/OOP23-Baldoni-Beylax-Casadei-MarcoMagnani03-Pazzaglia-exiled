@@ -56,4 +56,32 @@ public interface MoveSetFactory {
      * @return A MoveSet for the Bolt Boss.
      */
     MoveSet boltBossMoves();
+
+    /**
+     * Creates the moves for the fire boss.
+     *
+     * @return A moveset with the moves of the fire boss.
+     */
+    MoveSet fireBossMoves();
+
+    /**
+     * Creates the moves for the water boss.
+     *
+     * @return A moveset with the moves of the water boss.
+     */
+    MoveSet waterBossMoves();
+
+    /**
+     * Creates the moves for the grass boss.
+     *
+     * @return A moveset with the moves of the grass boss.
+     */
+    MoveSet grassBossMoves();
+
+    /**
+     * Creates the moves for the magnetaldo bolt enemy.
+     *
+     * @return A moveset for the magnetaldo bolt enemy.
+     */
+    MoveSet magnetaldoMoveset();
 }

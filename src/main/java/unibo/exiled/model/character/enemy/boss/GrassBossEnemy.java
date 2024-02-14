@@ -18,7 +18,7 @@ public final class GrassBossEnemy extends BossEnemy {
      * @param name The name of the boss.
      */
     public GrassBossEnemy(final String name) {
-        super(name, new MoveSetFactoryImpl().defaultGrassMoveSet(), ElementalType.GRASS);
+        super(name, new MoveSetFactoryImpl().grassBossMoves(), ElementalType.GRASS);
     }
 
     @Override

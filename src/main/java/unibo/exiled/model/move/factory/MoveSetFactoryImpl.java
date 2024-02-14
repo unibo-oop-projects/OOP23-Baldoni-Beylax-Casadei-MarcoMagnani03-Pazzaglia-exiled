@@ -1,65 +1,81 @@
 package unibo.exiled.model.move.factory;
 
-import unibo.exiled.model.move.MoveNames;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.MoveSetImpl;
-import unibo.exiled.model.move.Moves;
+import unibo.exiled.model.move.MagicMove;
 
 /**
  * The implementation of a factory of MoveSets.
  */
 public final class MoveSetFactoryImpl implements MoveSetFactory {
+
+    /**
+     * Fills the moveSet with the required moves.
+     *
+     * @param moves The moves to add to the MoveSet.
+     * @return A MoveSet with the moves inserted into it.
+     */
+    private MoveSet fillMoveSet(final MagicMove... moves) {
+        final MoveSet moveSet = new MoveSetImpl();
+        for (final MagicMove move : moves) {
+            moveSet.addMagicMove(move);
+        }
+        return moveSet;
+    }
+
     @Override
     public MoveSet defaultNormalMoveSet() {
-        final MoveSet moveSet = new MoveSetImpl();
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.COLPACCIO.getName()).get());
-        return moveSet;
+        return this.fillMoveSet(MagicMove.COLPACCIO);
     }
 
     @Override
     public MoveSet defaultFireMoveSet() {
-        final MoveSet moveSet = new MoveSetImpl();
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.FIREBALL.getName()).get());
-        return moveSet;
+        return this.fillMoveSet(MagicMove.FIREBALL);
     }
 
     @Override
     public MoveSet defaultGrassMoveSet() {
-        final MoveSet moveSet = new MoveSetImpl();
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.LEAFBLADE.getName()).get());
-        return moveSet;
+        return this.fillMoveSet(MagicMove.LEAFBLADE);
     }
 
     @Override
     public MoveSet defaultBoltMoveSet() {
-        final MoveSet moveSet = new MoveSetImpl();
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.LIGHTBULB.getName()).get());
-        return moveSet;
+        return this.fillMoveSet(MagicMove.LIGHTBULB);
     }
 
     @Override
     public MoveSet defaultWaterMoveSet() {
-        final MoveSet moveSet = new MoveSetImpl();
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.WATERPISTOL.getName()).get());
-        return moveSet;
+        return this.fillMoveSet(MagicMove.WATERPISTOL);
     }
 
     @Override
     public MoveSet whirlerMoveset() {
-        final MoveSet moveSet = new MoveSetImpl();
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.FLAMEWHIRL.getName()).get());
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.FIREBALL.getName()).get());
-        return moveSet;
+        return this.fillMoveSet(MagicMove.FLAMEWHIRL, MagicMove.FIREBALL);
     }
 
     @Override
     public MoveSet boltBossMoves() {
-        final MoveSet moveSet = new MoveSetImpl();
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.THUNDERSTORM.getName()).get());
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.LOCOMOVOLT.getName()).get());
-        moveSet.addMagicMove(Moves.getMoveByName(MoveNames.THUNDERSTRIKE.getName()).get());
-        return moveSet;
+        return this.fillMoveSet(MagicMove.THUNDERSTORM, MagicMove.LOCOMOVOLT);
     }
 
+    @Override
+    public MoveSet fireBossMoves() {
+        return this.fillMoveSet(MagicMove.INFERNO);
+    }
+
+    @Override
+    public MoveSet waterBossMoves() {
+        return this.fillMoveSet(MagicMove.TSUNAMI);
+    }
+
+    @Override
+    public MoveSet grassBossMoves() {
+        return this.fillMoveSet(MagicMove.LEECHERS);
+    }
+
+    @Override
+    public MoveSet magnetaldoMoveset() {
+        return this.fillMoveSet(MagicMove.ZAP);
+    }
 
 }

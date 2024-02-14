@@ -75,4 +75,11 @@ public interface EnemyFactory {
      * @return An AquaShade enemy.
      */
     Enemy createAquaShade();
+
+    /**
+     * Creates a "Magnetaldo" enemy.
+     *
+     * @return An Enemy implementation of Mangnetaldo.
+     */
+    Enemy createMagnetaldo();
 }

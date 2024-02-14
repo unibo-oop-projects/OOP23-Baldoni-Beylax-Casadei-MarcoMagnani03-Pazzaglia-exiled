@@ -18,7 +18,7 @@ public final class WaterBossEnemy extends BossEnemy {
      * @param name The name of the boss.
      */
     public WaterBossEnemy(final String name) {
-        super(name, new MoveSetFactoryImpl().defaultWaterMoveSet(), ElementalType.WATER);
+        super(name, new MoveSetFactoryImpl().waterBossMoves(), ElementalType.WATER);
     }
 
     @Override

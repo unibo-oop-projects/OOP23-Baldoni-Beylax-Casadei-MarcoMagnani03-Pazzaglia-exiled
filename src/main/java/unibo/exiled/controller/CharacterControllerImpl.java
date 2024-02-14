@@ -4,6 +4,7 @@ import unibo.exiled.model.character.CharacterModel;
 import unibo.exiled.model.character.GameCharacter;
 import unibo.exiled.model.character.attributes.AttributeIdentifier;
 import unibo.exiled.model.character.enemy.boss.BossEnemy;
+import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.Moves;
 import unibo.exiled.utilities.Direction;
@@ -102,7 +103,7 @@ public final class CharacterControllerImpl implements CharacterController {
                 .filter(m -> m.name().equals(moveName))
                 .findFirst();
         if (move.isPresent()) {
-            return move.get().description();
+            return move.get().getDescription();
         } else {
             return "";
         }
@@ -114,7 +115,7 @@ public final class CharacterControllerImpl implements CharacterController {
                 .filter(m -> m.name().equals(moveName))
                 .findFirst();
         if (move.isPresent()) {
-            return move.get().power();
+            return move.get().getPower();
         } else {
             throw new IllegalArgumentException("The move doesn't exists");
         }
@@ -126,7 +127,7 @@ public final class CharacterControllerImpl implements CharacterController {
                 .filter(m -> m.name().equals(moveName))
                 .findFirst();
         if (move.isPresent()) {
-            return move.get().type();
+            return move.get().getType();
         } else {
             throw new IllegalArgumentException("The move doesn't exists");
         }
@@ -201,12 +202,12 @@ public final class CharacterControllerImpl implements CharacterController {
 
     @Override
     public String getNewMove() {
-        return this.model.getPlayer().get().getNewMove().get().name();
+        return this.model.getPlayer().flatMap(Player::getNewMove).get().name();
     }
 
     @Override
     public void changeMove(final String oldMove, final String newMove) {
-        this.model.getPlayer().get().changeMove(Moves.getMoveByName(oldMove).get(), Moves.getMoveByName(newMove).get());
+        this.model.getPlayer().get().changeMove(Moves.getMoveByName(oldMove), Moves.getMoveByName(newMove));
     }
 
     @Override

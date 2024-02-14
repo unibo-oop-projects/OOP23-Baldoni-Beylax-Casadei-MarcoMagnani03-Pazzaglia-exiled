@@ -18,8 +18,7 @@ public final class FireBossEnemy extends BossEnemy {
      * @param name The name of the boss.
      */
     public FireBossEnemy(final String name) {
-        //TODO: Change MoveSet to a dedicated one.
-        super(name, new MoveSetFactoryImpl().defaultFireMoveSet(), ElementalType.FIRE);
+        super(name, new MoveSetFactoryImpl().fireBossMoves(), ElementalType.FIRE);
     }
 
     @Override

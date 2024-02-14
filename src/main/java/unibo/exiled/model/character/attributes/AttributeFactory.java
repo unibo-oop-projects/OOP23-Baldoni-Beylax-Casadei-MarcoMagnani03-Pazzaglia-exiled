@@ -8,22 +8,22 @@ import java.util.Map;
 public interface AttributeFactory {
     /**
      * Creates the attributes of the player.
-     * 
+     *
      * @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createPlayerAttributes();
 
     /**
      * Creates the attributes of the goblin, the weakest enemy.
-     * 
-     *  @return A map of attributes with the overly specified values.
+     *
+     * @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createGoblinAttributes();
 
     /**
      * Creates the attributes of the brutus.
-     * 
-     *  @return A map of attributes with the overly specified values.
+     *
+     * @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createBrutusAttributes();
 
@@ -55,4 +55,11 @@ public interface AttributeFactory {
      * @return A map of attributes with the overly specified values.
      */
     Map<AttributeIdentifier, Attribute> createBossAttributes();
+
+    /**
+     * Creates the attributes of the Magnetaldo bolt enemy.
+     *
+     * @return The mapping of the attributes of Magnetaldo.
+     */
+    Map<AttributeIdentifier, Attribute> createMagnetaldoAttributes();
 }

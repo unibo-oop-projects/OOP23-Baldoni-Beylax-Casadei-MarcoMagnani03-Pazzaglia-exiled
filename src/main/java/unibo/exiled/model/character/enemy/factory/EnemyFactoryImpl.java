@@ -116,7 +116,11 @@ public final class EnemyFactoryImpl implements EnemyFactory {
             case AQUA_SHADE -> {
                 return this.createAquaShade();
             }
-            default -> throw new IllegalStateException("Enemy generation failed.");
+            case MAGNETALDO -> {
+                return this.createMagnetaldo();
+            }
+            default -> throw new IllegalStateException("Enemy generation failed."
+                    + "Please check that the enemy selection switch contains every enemy of the factory.");
         }
     }
 
@@ -143,12 +147,20 @@ public final class EnemyFactoryImpl implements EnemyFactory {
                 ElementalType.WATER, SelectableEnemies.AQUA_SHADE.droppedExperience);
     }
 
+    @Override
+    public Enemy createMagnetaldo() {
+        return createFromValues(SelectableEnemies.MAGNETALDO.name,
+                moveSetFactory.magnetaldoMoveset(), attributeFactory.createMagnetaldoAttributes(),
+                ElementalType.BOLT, SelectableEnemies.MAGNETALDO.droppedExperience);
+    }
+
     private enum SelectableEnemies {
         GOBLIN("Goblin", DROPPED_EXPERIENCE_BASE),
         BRUTUS("Brutus", DROPPED_EXPERIENCE_BASE * 2),
         WHIRLER("Whirler", DROPPED_EXPERIENCE_BASE * 2),
         AQUA_SHADE("Aquashade", DROPPED_EXPERIENCE_BASE * 2),
-        WAVE_BREAKER("Wavebreaker", DROPPED_EXPERIENCE_BASE);
+        WAVE_BREAKER("Wavebreaker", DROPPED_EXPERIENCE_BASE),
+        MAGNETALDO("Magnetaldo", DROPPED_EXPERIENCE_BASE * 2);
 
         private final int droppedExperience;
         private final String name;

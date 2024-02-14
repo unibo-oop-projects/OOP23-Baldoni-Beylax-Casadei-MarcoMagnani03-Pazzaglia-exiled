@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.model.character.attributes.AdditiveAttribute;
 import unibo.exiled.model.character.attributes.Attribute;
@@ -20,7 +21,6 @@ import unibo.exiled.model.character.player.Player;
 import unibo.exiled.model.character.player.PlayerImpl;
 import unibo.exiled.model.game.GameModel;
 import unibo.exiled.model.map.CellType;
-import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.model.move.Moves;
 import unibo.exiled.utilities.Direction;

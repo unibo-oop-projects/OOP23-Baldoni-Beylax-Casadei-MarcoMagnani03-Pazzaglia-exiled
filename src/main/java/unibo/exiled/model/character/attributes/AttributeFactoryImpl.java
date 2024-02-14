@@ -61,4 +61,9 @@ public final class AttributeFactoryImpl implements AttributeFactory {
     public Map<AttributeIdentifier, Attribute> createBossAttributes() {
         return fromValues(BASE_HEALTH * 10, 1, 1, 1, BASE_HEALTH * 10);
     }
+
+    @Override
+    public Map<AttributeIdentifier, Attribute> createMagnetaldoAttributes() {
+        return fromValues(BASE_HEALTH, 1, 1, 1, BASE_HEALTH);
+    }
 }
