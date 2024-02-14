@@ -11,7 +11,7 @@ public enum MagicMove {
      * A normal basic move.
      */
     COLPACCIO("Colpaccio", "Hits the enemy without much enthusiasm.",
-            ConstantsAndResourceLoader.LEVEL_BASE_MOVE, 500.0d, ElementalType.NORMAL),
+            ConstantsAndResourceLoader.LEVEL_BASE_MOVE, 5.0d, ElementalType.NORMAL),
     /**
      * A normal basic move.
      */

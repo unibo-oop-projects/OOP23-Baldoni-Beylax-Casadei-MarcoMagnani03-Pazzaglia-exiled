@@ -123,7 +123,7 @@ public final class ConstantsAndResourceLoader extends ClassLoader {
     /**
      * The minimum learning level required to acquire a boss move(strongest).
      */
-    public static final int MIN_LEARNING_LEVEL_BOSS_MOVE = 20;
+    public static final int MIN_LEARNING_LEVEL_BOSS_MOVE = 100;
 
     private ConstantsAndResourceLoader() {
     }

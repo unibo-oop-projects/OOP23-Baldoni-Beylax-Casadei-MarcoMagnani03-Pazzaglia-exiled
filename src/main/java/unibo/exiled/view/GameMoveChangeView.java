@@ -22,7 +22,7 @@ public final class GameMoveChangeView {
 
     /**
      * Constructs a GameMoveChangeView view.
-     * 
+     *
      * @param gameController the game controller associated with this view.
      */
     public GameMoveChangeView(final GameController gameController) {
@@ -53,17 +53,7 @@ public final class GameMoveChangeView {
         final JPanel buttonPanel = new JPanel(new FlowLayout());
 
         for (final String move : gameController.getCharacterController().getPlayerMoveSet()) {
-            final GameButton moveButton = new GameButton(move);
-
-            moveButton.addActionListener(e -> {
-                final String moveSelected = moveButton.getText();
-                final int dialogResult = JOptionPane.showConfirmDialog(null,
-                        "Would you like to change \'" + moveSelected + "\' into " + moveToLearn + "?", "Warning",
-                        JOptionPane.YES_NO_OPTION);
-                if (dialogResult == JOptionPane.YES_OPTION) {
-                    this.gameController.getCharacterController().changeMove(moveSelected, moveToLearn);
-                }
-            });
+            final GameButton moveButton = getGameButton(move, moveToLearn);
 
             buttonPanel.add(moveButton);
         }
@@ -82,6 +72,21 @@ public final class GameMoveChangeView {
         gameOverPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         this.mainFrame.getContentPane().add(gameOverPanel);
+    }
+
+    private GameButton getGameButton(final String move, final String moveToLearn) {
+        final GameButton moveButton = new GameButton(move);
+
+        moveButton.addActionListener(e -> {
+            final String moveSelected = moveButton.getText();
+            final int dialogResult = JOptionPane.showConfirmDialog(null,
+                    "Would you like to change '" + moveSelected + "' into " + moveToLearn + "?", "Warning",
+                    JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                this.gameController.getCharacterController().changeMove(moveSelected, moveToLearn);
+            }
+        });
+        return moveButton;
     }
 
     /**

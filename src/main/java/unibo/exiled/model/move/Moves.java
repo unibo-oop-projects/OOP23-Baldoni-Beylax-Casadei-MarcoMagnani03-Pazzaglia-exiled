@@ -82,7 +82,10 @@ public final class Moves {
      * @return A random move of any type.
      */
     public static MagicMove getTotallyRandomMove(final int level) {
-        return Arrays.stream(MagicMove.values()).filter(magicMove -> magicMove.getMinimumLevelToLearn() <= level)
-                .toList().get(RANDOM.nextInt(MagicMove.values().length));
+        final int bound = (int) Arrays.stream(MagicMove.values())
+                .filter(magicMove -> magicMove.getMinimumLevelToLearn() <= level).count();
+        return Arrays.stream(MagicMove.values())
+                .filter(magicMove -> magicMove.getMinimumLevelToLearn() <= level)
+                .toList().get(RANDOM.nextInt(bound));
     }
 }
