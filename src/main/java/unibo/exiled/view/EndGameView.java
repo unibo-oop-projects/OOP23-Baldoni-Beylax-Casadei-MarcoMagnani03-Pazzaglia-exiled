@@ -19,10 +19,10 @@ public final class EndGameView {
 
     // MVC Components (MC)
     private final JFrame mainFrame;
+    private final EndState state;
 
     // The buttons to exit the game.
     private final GameButton quitButton = new GameButton("Quit");
-    private final EndState state;
 
     /**
      * The constructor of the EndGameView view.
@@ -40,11 +40,11 @@ public final class EndGameView {
 
         this.state = state;
 
-        this.initializeHud();
+        this.initializeUI();
         this.initializeListeners();
     }
 
-    private void initializeHud() {
+    private void initializeUI() {
         final JPanel endGamePanel = new JPanel(new BorderLayout());
 
         final JLabel endGameLabel = new JLabel(state.getEndStateImage());

@@ -11,7 +11,7 @@ public enum EndState {
     /**
      * Represents the victory state.
      */
-    VICTORY("gamecompleted.png"),
+    VICTORY("victory.png"),
 
     /**
      * Represents the game over state.
