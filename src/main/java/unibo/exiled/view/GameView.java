@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
+import unibo.exiled.utilities.EndState;
 import unibo.exiled.utilities.Position;
 import unibo.exiled.controller.GameController;
 import unibo.exiled.controller.MenuControllerImpl;
@@ -28,8 +29,6 @@ public final class GameView {
     // Views
     private final CombatView combatView;
     private final InventoryView inventoryView;
-    private final GameOverView gameOverView;
-    private final GameVictoryView gameVictoryView;
     private final HudView hud;
     private final GameGridView grid;
 
@@ -82,8 +81,6 @@ public final class GameView {
         this.gameHudPanel.add(gameContainerPanel, BorderLayout.CENTER);
 
         this.inventoryView = new InventoryView(this.gameController, this);
-        this.gameOverView = new GameOverView();
-        this.gameVictoryView = new GameVictoryView();
 
         final String playerClass = this.gameController
                 .getCharacterController().getPlayerClassName().toLowerCase(Locale.ROOT);
@@ -138,10 +135,10 @@ public final class GameView {
      */
     public void draw() {
         if (this.gameController.isOver()) {
-            this.gameOverView.display();
+            new EndGameView(EndState.GAME_OVER).display();
             this.mainFrame.dispose();
         } else if (this.gameController.isWon()) {
-            this.gameVictoryView.display();
+            new EndGameView(EndState.VICTORY).display();
             this.mainFrame.dispose();
         }
 

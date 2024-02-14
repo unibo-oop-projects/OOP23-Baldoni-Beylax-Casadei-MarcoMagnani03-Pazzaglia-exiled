@@ -264,8 +264,6 @@ In particolare, ho utilizzato il \textit{CharacterModel} per definire il meccani
 E' stata realizzata una classe \textit{GameKeyListener} della View, dove ho gestito l'input dell'utente associando i movimenti alle direzioni corrispondenti ai tasti premuti (ad esempio, W per su, S per giù, A per sinistra e D per	destra). La \textit{GameView} rappresenta la schermata principale dov'è inserita la mappa e l'HUD che visualizza gli attributi principali del personaggio.
 Quando l'utente preme un tasto specifico sulla tastiera tra quelli elencati prima, all'interno della \textit{GameView}, il \textit{CharacterView} associato al giocatore si sposterà in una cella corrispondente. Di conseguenza, come precedentemente descritto, tutti i nemici, a meno che non siano vicini al giocatore, si sposteranno anch'essi, in una direzione scelta in modo pseudo-casuale.
 
-Inoltre, ho implementato la gestione della visibilità della mappa in base allo spostamento del giocatore. È stato definito un range di visibilità, in modo che l'utente possa vedere solo le celle all'interno di tale intervallo.
-
 \begin{figure}[H]
 	\centering
 	\include{movement/the-exiled-movement-uml.tex}
@@ -275,23 +273,27 @@ Inoltre, ho implementato la gestione della visibilità della mappa in base allo 
 
 Oltre ai \textit{KeyListener} di base per il movimento del giocatore, ho integrato la funzionalità che permette di utilizzare il tasto E per aprire l'inventario quando si è in gioco e il tasto ESC per aprire/chiudere il menu di gioco. Questa scelta è stata fatta per migliorare l'esperienza di gioco e rendere l'interfaccia più intuitiva e user-friendly, consentendo ai giocatori di navigare facilmente tra le diverse funzionalità senza forzare l'utilizzo del mouse.
 
+Inoltre, ho implementato la gestione della visibilità della mappa in base allo spostamento del giocatore. È stato definito un range di visibilità, in modo che l'utente possa vedere solo le celle adiacenti al giocatore all'interno di tale intervallo.
+
 Avendo separato la gestione del movimento e dell'ascolto dei \textit{KeyListener} in una classe dedicata, è stato adottato il design pattern Observer. Questo pattern ha consentito di definire un meccanismo di notifica personalizzato attraverso la classe \textit{GameKeyListener}, che funge da Observer. \textit{GameKeyListener} implementa l'interfaccia \textit{KeyListener} e si occupa di ricevere notifiche sugli eventi di pressione dei tasti. In questo modo, sono stato in grado di gestire dinamicamente il movimento delle entità di gioco in risposta all'input dell'utente.
 
 \subsubsection{Meccanismo di fine gioco}
-Il problema relativo al meccanismo di fine gioco riguardava l'interfacciamento e la  visualizzazione delle relativa schermate, a tal proposito mi sono occupato di gestire la conclusione del gioco attraverso due scenari distinti: la vittoria(tramite la \textit{GameVictoryView}) e la sconfitta(tramite \textit{GameOverView}).
+Il problema relativo al meccanismo di fine gioco riguardava l'interfacciamento e la  visualizzazione delle relativa schermate, a tal proposito mi sono occupato di gestire la conclusione del gioco attraverso due scenari distinti: la vittoria e la sconfitta).
 
 In entrambi gli esiti, ho realizzato la gestione di fine gioco attraverso il \textit{GameController}. 
 
-Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata la \textit{GameOverView} dedicata. Avendo un unico metodo per determinare la sconfitta del giocatore, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il game over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. 
+Utilizzando il metodo \textit{isOver()}, viene deciso quando il gioco è terminato e di conseguenza quando deve essere visualizzata l'immagine inerente al game over. Avendo un unico metodo per determinare la sconfitta del giocatore, ho potuto facilmente definire il suo criterio. Essendo un gioco centrato su un singolo giocatore principale, è stato naturale impostare il game over nel caso in cui la sua vita dovesse azzerarsi o scendere sotto lo zero, a seguito di un combattimento con un nemico. 
 
-Lo stesso principio si applica alla GameVictoryView, la quale rappresenta la schermata che compare quando il gioco è completato con successo. Questa View viene visualizzata quando il metodo \textit{isWon()} restituisce un valore che indica se il giocatore ha vinto il gioco. Per poter vincere il gioco, il personaggio deve riuscire a sconfiggere i Boss finali e quindi ad ottenere i quattro cristalli della redenzione.\\
+Lo stesso principio si applica alla vittoria, la quale rappresenta la schermata che compare quando il gioco è completato con successo. Questa viene visualizzata quando il metodo \textit{isWon()} restituisce un valore che indica se il giocatore ha vinto il gioco. Per poter vincere il gioco, il personaggio deve riuscire a sconfiggere i Boss finali e quindi ad ottenere i quattro cristalli della redenzione.\\
 
-La \textit{GameOverView} e la \textit{GameVictoryView} sono state integrate all'interno della \textit{GameView}, la schermata principale definita in precedenza. Oltre alle due View è anche contenuto il \textit{GameController}, che facilita il collegamento tra il Model e la View stessa. Grazie a questo Controller, è possibile determinare quando la schermata principale deve essere sostituita dalla quella di vincita o perdita del gioco.
+All'interno della \textit{GameView}, la principale vista definita in precedenza, è presente il metodo \textit{draw()}, dove viene controllato lo stato del gioco. In caso di vittoria, viene istanziata una vista chiamata \textit{EndGameView}, che rappresenta in modo generico la schermata di fine gioco. Se il gioco è stato vinto, la \textit{EndGameView} mostrerà l'immagine di successo, mentre in caso di sconfitta verrà visualizzata l'immagine relativa al game over. Questa gestione delle immagini avviene attraverso l'utilizzo dell'enumeratore \textit{EndState}, che permette di identificare lo stato di fine gioco.
+
+All'interno della \textit{GameView} è anche contenuto il \textit{GameController}, che facilita il collegamento tra il Model e la View stessa. Grazie a questo Controller, è possibile determinare quando la schermata principale deve essere sostituita dalla quella di vincita o perdita del gioco.
 
 \begin{figure}[H]
 	\centering
 	\include{victory_gameover/the-exiled-victory_gameover-uml.tex}
-	\caption{Schema UML del GameOver con relativa vista sulle View}
+	\caption{Schema UML dell'End Game con relativa vista sulle schermate}
 	\label{fig:the-exiled-victory_gameover-uml}
 \end{figure}
 

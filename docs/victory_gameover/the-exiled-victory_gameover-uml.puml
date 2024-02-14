@@ -1,34 +1,40 @@
 @startuml
-scale 0.7
-set separator none
-package unibo.exiled
-{
-  package view{
-    class GameView {
-      + draw()
-      + etc...()
-    }
-    
-    class GameOverView {
-      + display(): void
-    }
-    
-    class GameVictoryView {
-      + display(): void
-    }
-  }
-  package controller {
-    class GameController {
-      + isOver(): boolean
-      + isWon(): boolean
-      + etc...()
-    }
-  }
+scale 0.6
+package unibo.exiled{
 
+  package view {
+    class GameView {
+        + draw(): void
+        + etc...()
+    }
+    
+    class EndGameView {
+        + display(): void
+    }
+  }
+  
+  package controller{
+    class GameController {
+        + isOver(): boolean
+        + isWon(): boolean
+        + etc...()
+    }
+  }
+  
+  package utilities{
+    enum EndState {
+        VICTORY
+        GAME_OVER
+    }
+  }
 }
 
-GameView *-- "1" GameOverView 
-GameView *-- "1" GameVictoryView 
-GameView *-- "1" GameController
-@enduml
+GameView -|> EndGameView
 
+GameController o-- EndState
+
+GameController -- GameView
+
+EndGameView . EndState
+
+@enduml

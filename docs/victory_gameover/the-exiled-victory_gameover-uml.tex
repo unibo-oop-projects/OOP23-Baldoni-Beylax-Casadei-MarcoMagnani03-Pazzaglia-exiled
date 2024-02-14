@@ -5,71 +5,74 @@
 \definecolor{plantucolor0003}{RGB}{173,209,178}
 \definecolor{plantucolor0004}{RGB}{132,190,132}
 \definecolor{plantucolor0005}{RGB}{3,128,72}
-\scalebox{0.7}{
+\definecolor{plantucolor0006}{RGB}{235,147,127}
+\scalebox{0.6}{
 \begin{tikzpicture}[yscale=-1
 ,pstyle0/.style={color=black,line width=1.5pt}
 ,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=0.5pt}
 ,pstyle2/.style={color=plantucolor0002,fill=plantucolor0003,line width=1.0pt}
 ,pstyle3/.style={color=plantucolor0002,line width=0.5pt}
 ,pstyle4/.style={color=plantucolor0005,fill=plantucolor0004,line width=1.0pt}
-,pstyle5/.style={color=plantucolor0002,line width=1.0pt}
-,pstyle6/.style={color=plantucolor0002,fill=plantucolor0002,line width=1.0pt}
+,pstyle6/.style={color=plantucolor0002,line width=1.0pt}
 ]
-\draw[pstyle0] (8.5pt,6pt) -- (91.0027pt,6pt) arc(270:360:3.75pt)  -- (100.5027pt,29.7461pt) -- (600.5pt,29.7461pt) arc(270:360:2.5pt)  -- (603pt,367.5pt) arc(0:90:2.5pt)  -- (8.5pt,370pt) arc(90:180:2.5pt)  -- (6pt,8.5pt) arc(180:270:2.5pt) ;
-\draw[pstyle0] (6pt,29.7461pt) -- (100.5027pt,29.7461pt);
-\node at (10pt,8pt)[below right,color=black]{\textbf{unibo.exiled}};
-\draw[pstyle0] (32.5pt,50pt) -- (61.7519pt,50pt) arc(270:360:3.75pt)  -- (71.2519pt,73.7461pt) -- (378.5pt,73.7461pt) arc(270:360:2.5pt)  -- (381pt,326pt) arc(0:90:2.5pt)  -- (32.5pt,328.5pt) arc(90:180:2.5pt)  -- (30pt,52.5pt) arc(180:270:2.5pt) ;
-\draw[pstyle0] (30pt,73.7461pt) -- (71.2519pt,73.7461pt);
-\node at (34pt,52pt)[below right,color=black]{\textbf{view}};
-\draw[pstyle0] (407.5pt,193pt) -- (477.5pt,193pt) arc(270:360:3.75pt)  -- (487pt,216.7461pt) -- (576.5pt,216.7461pt) arc(270:360:2.5pt)  -- (579pt,343.5pt) arc(0:90:2.5pt)  -- (407.5pt,346pt) arc(90:180:2.5pt)  -- (405pt,195.5pt) arc(180:270:2.5pt) ;
-\draw[pstyle0] (405pt,216.7461pt) -- (487pt,216.7461pt);
-\node at (409pt,195pt)[below right,color=black]{\textbf{controller}};
-\draw[pstyle1] (239.5pt,91pt) arc (180:270:5pt) -- (244.5pt,86pt) -- (335.4806pt,86pt) arc (270:360:5pt) -- (340.4806pt,91pt) -- (340.4806pt,164.4922pt) arc (0:90:5pt) -- (335.4806pt,169.4922pt) -- (244.5pt,169.4922pt) arc (90:180:5pt) -- (239.5pt,164.4922pt) -- cycle;
-\draw[pstyle2] (254.5pt,102pt) ellipse (11pt and 11pt);
-\node at (254.5pt,102pt)[]{\textbf{\Large C}};
-\node at (268.5pt,93.127pt)[below right,color=black]{GameView};
-\draw[pstyle3] (240.5pt,118pt) -- (339.4806pt,118pt);
-\draw[pstyle3] (240.5pt,126pt) -- (339.4806pt,126pt);
-\draw[pstyle4] (250.5pt,140.373pt) ellipse (3pt and 3pt);
-\node at (259.5pt,130pt)[below right,color=black]{draw()};
-\draw[pstyle4] (250.5pt,158.1191pt) ellipse (3pt and 3pt);
-\node at (259.5pt,147.7461pt)[below right,color=black]{etc...()};
-\draw[pstyle1] (46pt,251.5pt) arc (180:270:5pt) -- (51pt,246.5pt) -- (174.6pt,246.5pt) arc (270:360:5pt) -- (179.6pt,251.5pt) -- (179.6pt,307.2461pt) arc (0:90:5pt) -- (174.6pt,312.2461pt) -- (51pt,312.2461pt) arc (90:180:5pt) -- (46pt,307.2461pt) -- cycle;
-\draw[pstyle2] (61pt,262.5pt) ellipse (11pt and 11pt);
-\node at (61pt,262.5pt)[]{\textbf{\Large C}};
-\node at (75pt,253.627pt)[below right,color=black]{GameOverView};
-\draw[pstyle3] (47pt,278.5pt) -- (178.6pt,278.5pt);
-\draw[pstyle3] (47pt,286.5pt) -- (178.6pt,286.5pt);
-\draw[pstyle4] (57pt,300.873pt) ellipse (3pt and 3pt);
-\node at (66pt,290.5pt)[below right,color=black]{display(): void};
-\draw[pstyle1] (215pt,251.5pt) arc (180:270:5pt) -- (220pt,246.5pt) -- (360.2615pt,246.5pt) arc (270:360:5pt) -- (365.2615pt,251.5pt) -- (365.2615pt,307.2461pt) arc (0:90:5pt) -- (360.2615pt,312.2461pt) -- (220pt,312.2461pt) arc (90:180:5pt) -- (215pt,307.2461pt) -- cycle;
-\draw[pstyle2] (230pt,262.5pt) ellipse (11pt and 11pt);
-\node at (230pt,262.5pt)[]{\textbf{\Large C}};
-\node at (244pt,253.627pt)[below right,color=black]{GameVictoryView};
-\draw[pstyle3] (216pt,278.5pt) -- (364.2615pt,278.5pt);
-\draw[pstyle3] (216pt,286.5pt) -- (364.2615pt,286.5pt);
-\draw[pstyle4] (226pt,300.873pt) ellipse (3pt and 3pt);
-\node at (235pt,290.5pt)[below right,color=black]{display(): void};
-\draw[pstyle1] (421.5pt,234pt) arc (180:270:5pt) -- (426.5pt,229pt) -- (557.0443pt,229pt) arc (270:360:5pt) -- (562.0443pt,234pt) -- (562.0443pt,325.2383pt) arc (0:90:5pt) -- (557.0443pt,330.2383pt) -- (426.5pt,330.2383pt) arc (90:180:5pt) -- (421.5pt,325.2383pt) -- cycle;
-\draw[pstyle2] (438.8423pt,245pt) ellipse (11pt and 11pt);
-\node at (438.8423pt,245pt)[]{\textbf{\Large C}};
-\node at (453.3628pt,236.127pt)[below right,color=black]{GameController};
-\draw[pstyle3] (422.5pt,261pt) -- (561.0443pt,261pt);
-\draw[pstyle3] (422.5pt,269pt) -- (561.0443pt,269pt);
-\draw[pstyle4] (432.5pt,283.373pt) ellipse (3pt and 3pt);
-\node at (441.5pt,273pt)[below right,color=black]{isOver(): boolean};
-\draw[pstyle4] (432.5pt,301.1191pt) ellipse (3pt and 3pt);
-\node at (441.5pt,290.7461pt)[below right,color=black]{isWon(): boolean};
-\draw[pstyle4] (432.5pt,318.8652pt) ellipse (3pt and 3pt);
-\node at (441.5pt,308.4922pt)[below right,color=black]{etc...()};
-\draw[pstyle5] (228.8339pt,162.5228pt) ..controls (214.9739pt,171.0028pt) and (210.56pt,174.6pt) .. (198pt,185pt) ..controls (176.04pt,203.19pt) and (154.46pt,227.02pt) .. (138.54pt,246.07pt);
-\draw[pstyle6] (239.07pt,156.26pt) -- (231.8644pt,155.9794pt) -- (228.8339pt,162.5228pt) -- (236.0395pt,162.8034pt) -- (239.07pt,156.26pt) -- cycle;
-\node at (135.9382pt,221.9856pt)[below right,color=black]{1};
-\draw[pstyle5] (290pt,181.09pt) ..controls (290pt,205.39pt) and (290pt,223.83pt) .. (290pt,246.43pt);
-\draw[pstyle6] (290pt,169.09pt) -- (286pt,175.09pt) -- (290pt,181.09pt) -- (294pt,175.09pt) -- (290pt,169.09pt) -- cycle;
-\node at (282.2718pt,222.0348pt)[below right,color=black]{1};
-\draw[pstyle5] (351.1084pt,164.66pt) ..controls (364.3984pt,172.93pt) and (368.36pt,175.82pt) .. (381pt,185pt) ..controls (399.56pt,198.47pt) and (418.95pt,214.18pt) .. (436.23pt,228.83pt);
-\draw[pstyle6] (340.92pt,158.32pt) -- (343.9009pt,164.8861pt) -- (351.1084pt,164.66pt) -- (348.1276pt,158.0938pt) -- (340.92pt,158.32pt) -- cycle;
-\node at (420.9413pt,204.5964pt)[below right,color=black]{1};
+\draw[pstyle0] (8.5pt,6pt) -- (47.4765pt,6pt) arc(270:360:3.75pt)  -- (56.9765pt,29.7461pt) -- (564.5pt,29.7461pt) arc(270:360:2.5pt)  -- (567pt,451.5pt) arc(0:90:2.5pt)  -- (8.5pt,454pt) arc(90:180:2.5pt)  -- (6pt,8.5pt) arc(180:270:2.5pt) ;
+\draw[pstyle0] (6pt,29.7461pt) -- (56.9765pt,29.7461pt);
+\node at (10pt,8pt)[below right,color=black]{\textbf{unibo}};
+\draw[pstyle0] (32.5pt,50pt) -- (73.1444pt,50pt) arc(270:360:3.75pt)  -- (82.6444pt,73.7461pt) -- (540.5pt,73.7461pt) arc(270:360:2.5pt)  -- (543pt,427.5pt) arc(0:90:2.5pt)  -- (32.5pt,430pt) arc(90:180:2.5pt)  -- (30pt,52.5pt) arc(180:270:2.5pt) ;
+\draw[pstyle0] (30pt,73.7461pt) -- (82.6444pt,73.7461pt);
+\node at (34pt,52pt)[below right,color=black]{\textbf{exiled}};
+\draw[pstyle0] (56.5pt,271pt) -- (85.7519pt,271pt) arc(270:360:3.75pt)  -- (95.2519pt,294.7461pt) -- (354.5pt,294.7461pt) arc(270:360:2.5pt)  -- (357pt,403.5pt) arc(0:90:2.5pt)  -- (56.5pt,406pt) arc(90:180:2.5pt)  -- (54pt,273.5pt) arc(180:270:2.5pt) ;
+\draw[pstyle0] (54pt,294.7461pt) -- (95.2519pt,294.7461pt);
+\node at (58pt,273pt)[below right,color=black]{\textbf{view}};
+\draw[pstyle0] (201.5pt,94pt) -- (271.5pt,94pt) arc(270:360:3.75pt)  -- (281pt,117.7461pt) -- (370.5pt,117.7461pt) arc(270:360:2.5pt)  -- (373pt,244.5pt) arc(0:90:2.5pt)  -- (201.5pt,247pt) arc(90:180:2.5pt)  -- (199pt,96.5pt) arc(180:270:2.5pt) ;
+\draw[pstyle0] (199pt,117.7461pt) -- (281pt,117.7461pt);
+\node at (203pt,96pt)[below right,color=black]{\textbf{controller}};
+\draw[pstyle0] (383.5pt,271pt) -- (438.8574pt,271pt) arc(270:360:3.75pt)  -- (448.3574pt,294.7461pt) -- (516.5pt,294.7461pt) arc(270:360:2.5pt)  -- (519pt,403.5pt) arc(0:90:2.5pt)  -- (383.5pt,406pt) arc(90:180:2.5pt)  -- (381pt,273.5pt) arc(180:270:2.5pt) ;
+\draw[pstyle0] (381pt,294.7461pt) -- (448.3574pt,294.7461pt);
+\node at (385pt,273pt)[below right,color=black]{\textbf{utilities}};
+\draw[pstyle1] (70pt,312pt) arc (180:270:5pt) -- (75pt,307pt) -- (172.6pt,307pt) arc (270:360:5pt) -- (177.6pt,312pt) -- (177.6pt,385.4922pt) arc (0:90:5pt) -- (172.6pt,390.4922pt) -- (75pt,390.4922pt) arc (90:180:5pt) -- (70pt,385.4922pt) -- cycle;
+\draw[pstyle2] (87.9787pt,323pt) ellipse (11pt and 11pt);
+\node at (87.9787pt,323pt)[]{\textbf{\Large C}};
+\node at (102.6406pt,314.127pt)[below right,color=black]{GameView};
+\draw[pstyle3] (71pt,339pt) -- (176.6pt,339pt);
+\draw[pstyle3] (71pt,347pt) -- (176.6pt,347pt);
+\draw[pstyle4] (81pt,361.373pt) ellipse (3pt and 3pt);
+\node at (90pt,351pt)[below right,color=black]{draw(): void};
+\draw[pstyle4] (81pt,379.1191pt) ellipse (3pt and 3pt);
+\node at (90pt,368.7461pt)[below right,color=black]{etc...()};
+\draw[pstyle1] (213.5pt,320.5pt) arc (180:270:5pt) -- (218.5pt,315.5pt) -- (335.9667pt,315.5pt) arc (270:360:5pt) -- (340.9667pt,320.5pt) -- (340.9667pt,376.2461pt) arc (0:90:5pt) -- (335.9667pt,381.2461pt) -- (218.5pt,381.2461pt) arc (90:180:5pt) -- (213.5pt,376.2461pt) -- cycle;
+\draw[pstyle2] (228.5pt,331.5pt) ellipse (11pt and 11pt);
+\node at (228.5pt,331.5pt)[]{\textbf{\Large C}};
+\node at (242.5pt,322.627pt)[below right,color=black]{EndGameView};
+\draw[pstyle3] (214.5pt,347.5pt) -- (339.9667pt,347.5pt);
+\draw[pstyle3] (214.5pt,355.5pt) -- (339.9667pt,355.5pt);
+\draw[pstyle4] (224.5pt,369.873pt) ellipse (3pt and 3pt);
+\node at (233.5pt,359.5pt)[below right,color=black]{display(): void};
+\draw[pstyle1] (215.5pt,135pt) arc (180:270:5pt) -- (220.5pt,130pt) -- (351.0443pt,130pt) arc (270:360:5pt) -- (356.0443pt,135pt) -- (356.0443pt,226.2383pt) arc (0:90:5pt) -- (351.0443pt,231.2383pt) -- (220.5pt,231.2383pt) arc (90:180:5pt) -- (215.5pt,226.2383pt) -- cycle;
+\draw[pstyle2] (232.8423pt,146pt) ellipse (11pt and 11pt);
+\node at (232.8423pt,146pt)[]{\textbf{\Large C}};
+\node at (247.3628pt,137.127pt)[below right,color=black]{GameController};
+\draw[pstyle3] (216.5pt,162pt) -- (355.0443pt,162pt);
+\draw[pstyle3] (216.5pt,170pt) -- (355.0443pt,170pt);
+\draw[pstyle4] (226.5pt,184.373pt) ellipse (3pt and 3pt);
+\node at (235.5pt,174pt)[below right,color=black]{isOver(): boolean};
+\draw[pstyle4] (226.5pt,202.1191pt) ellipse (3pt and 3pt);
+\node at (235.5pt,191.7461pt)[below right,color=black]{isWon(): boolean};
+\draw[pstyle4] (226.5pt,219.8652pt) ellipse (3pt and 3pt);
+\node at (235.5pt,209.4922pt)[below right,color=black]{etc...()};
+\draw[pstyle1] (397pt,312pt) arc (180:270:5pt) -- (402pt,307pt) -- (497.7171pt,307pt) arc (270:360:5pt) -- (502.7171pt,312pt) -- (502.7171pt,385.4922pt) arc (0:90:5pt) -- (497.7171pt,390.4922pt) -- (402pt,390.4922pt) arc (90:180:5pt) -- (397pt,385.4922pt) -- cycle;
+\draw[color=plantucolor0002,fill=plantucolor0006,line width=1.0pt] (418.5327pt,323pt) ellipse (11pt and 11pt);
+\node at (418.5327pt,323pt)[]{\textbf{\Large E}};
+\node at (433.9844pt,314.127pt)[below right,color=black]{EndState};
+\draw[pstyle3] (398pt,339pt) -- (501.7171pt,339pt);
+\node at (403pt,343pt)[below right,color=black]{VICTORY};
+\node at (403pt,360.7461pt)[below right,color=black]{GAME\_OVER};
+\draw[pstyle3] (398pt,382.4922pt) -- (501.7171pt,382.4922pt);
+\draw[pstyle6] (178.09pt,348.5pt) ..controls (189.81pt,348.5pt) and (183.53pt,348.5pt) .. (195.25pt,348.5pt);
+\draw[pstyle6] (213.25pt,348.5pt) -- (195.25pt,342.5pt) -- (195.25pt,354.5pt) -- (213.25pt,348.5pt) -- cycle;
+\draw[pstyle6] (343.6439pt,239.8464pt) ..controls (367.5139pt,264.0064pt) and (387.39pt,284.12pt) .. (409.92pt,306.93pt);
+\draw[pstyle6] (335.21pt,231.31pt) -- (336.5815pt,238.3895pt) -- (343.6439pt,239.8464pt) -- (342.2724pt,232.7669pt) -- (335.21pt,231.31pt) -- cycle;
+\draw[pstyle6] (228.78pt,231.28pt) ..controls (217.66pt,241.52pt) and (206.28pt,252.41pt) .. (196pt,263pt) ..controls (182.71pt,276.69pt) and (168.94pt,292.43pt) .. (157.03pt,306.59pt);
+\draw[color=plantucolor0002,line width=1.0pt,dash pattern=on 7.0pt off 7.0pt] (340.52pt,371.5pt) ..controls (359.34pt,374.36pt) and (378.16pt,373.71pt) .. (396.97pt,369.54pt);
 \end{tikzpicture}
 }
