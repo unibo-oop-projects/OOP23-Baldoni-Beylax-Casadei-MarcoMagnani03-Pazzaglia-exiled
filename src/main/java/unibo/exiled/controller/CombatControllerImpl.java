@@ -195,10 +195,6 @@ public final class CombatControllerImpl implements CombatController {
 
         final boolean hasAttackerWon = defender.getHealth() <= 0;
 
-        if (hasAttackerWon) {
-            this.model.setCombatStatus(CombatStatus.DEFEATED);
-        }
-
         if (isPlayerAttacking && hasAttackerWon) {
             // The player killed the enemy
             // Add experience drop from the enemy to the player
@@ -221,30 +217,39 @@ public final class CombatControllerImpl implements CombatController {
                         + ")");
 
         if (hasAttackerWon) {
-            combatView.draw();
-        } else {
-            final Timer attackTimer = getTimer(isPlayerAttacking, gameController, combatView);
-            attackTimer.start();
+            this.setLastMoveLabel(attacker.getName()
+                    + " defeated "
+                    + defender.getName());
+            this.setAttackerModifierLabel("");
+            this.setDefenderModifierLabel("");
+            this.setMoveDescription("");
         }
-    }
 
-    private Timer getTimer(final boolean isPlayerAttacking, final GameController gameController,
-            final CombatView combatView) {
         final Timer attackTimer = new Timer(CONSOLE_DISPLAY_TIME, evt -> {
             combatView.draw();
 
-            if (isPlayerAttacking) {
+            if (hasAttackerWon) {
+                this.model.setCombatStatus(CombatStatus.DEFEATED);
+
                 final Timer delayTimer = new Timer(IN_BETWEEN_ATTACKS_DELAY, e -> {
-                    // Enemy turn to attack
-                    this.attack(false, Optional.empty(), gameController, combatView);
-                    this.model.setCombatStatus(CombatStatus.IDLE);
+                    combatView.draw();
                 });
                 delayTimer.setRepeats(false);
                 delayTimer.start();
+            } else {
+                if (isPlayerAttacking) {
+                    final Timer delayTimer = new Timer(IN_BETWEEN_ATTACKS_DELAY, e -> {
+                        // Enemy turn to attack
+                        this.attack(false, Optional.empty(), gameController, combatView);
+                        this.model.setCombatStatus(CombatStatus.IDLE);
+                    });
+                    delayTimer.setRepeats(false);
+                    delayTimer.start();
+                }
             }
         });
         attackTimer.setRepeats(false);
-        return attackTimer;
+        attackTimer.start();
     }
 
     private static class ConsoleArea {

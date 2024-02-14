@@ -56,6 +56,7 @@ public final class CombatView extends JPanel {
             this.gameView.createHUD();
             this.gameView.updateInventory();
             this.gameView.hideCombat();
+            this.gameView.draw();
         } else {
             this.removeAll();
 
@@ -130,7 +131,7 @@ public final class CombatView extends JPanel {
             final double enemyHealth = gameController.getCombatController().getEnemyHealth();
             final double enemyHealthCap = gameController.getCombatController().getEnemyHealthCap();
             final GameLabel enemyHealthBar = new GameLabel(
-                    "Health: " + String.format("%.2f", enemyHealth) + " / "
+                    "Health: " + String.format("%.2f", enemyHealth < 0 ? 0 : enemyHealth) + " / "
                             + enemyHealthCap);
             if (enemyHealth <= (enemyHealthCap / 100)
                     * ConstantsAndResourceLoader.HEALTH_CRITICAL_PERCENTAGE) {
