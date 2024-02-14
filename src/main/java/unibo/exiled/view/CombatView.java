@@ -80,7 +80,7 @@ public final class CombatView extends JPanel {
                         .setEnabled(
                                 this.gameController.getCombatController()
                                         .getCombatStatus()
-                                        .equals(CombatStatus.IDLE));
+                                        .equals(CombatStatus.IDLE) && !this.gameController.getCombatController().getCombatStatus().equals(CombatStatus.DEFEATING));
                 moveSetPanel.add(moveButton);
                 moveButton.addActionListener(e -> {
                     gameController.getCombatController().attack(true, Optional.of(moveName),

@@ -223,6 +223,7 @@ public final class CombatControllerImpl implements CombatController {
             this.setAttackerModifierLabel("");
             this.setDefenderModifierLabel("");
             this.setMoveDescription("");
+            this.model.setCombatStatus(CombatStatus.DEFEATING);
         }
 
         final Timer attackTimer = new Timer(CONSOLE_DISPLAY_TIME, evt -> {
