@@ -298,7 +298,7 @@ All'interno della \textit{GameView} è anche contenuto il \textit{GameController
 \end{figure}
 
 \subsection{Marco Magnani}
-La parti del progetto in cui ho impiegato la maggior parte del tempo sono l'inventario del player, gli oggetti da cui esso è composto, la hud e la logica per l'aumento di livello del player.
+La parti del progetto in cui ho impiegato la maggior parte del tempo sono l'inventario del player, gli oggetti da cui esso è composto, la hud, la logica per l'aumento di livello del player e le mosse magiche.
 
 \subsubsection{Item e Inventory}
 
@@ -413,6 +413,8 @@ Tutta la realizzazione delle sprites dei nemici, del carattere giocante e degli 
 	\url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/item/utilities/ItemNames.java#L83C1-L84C55}
 	\item \textbf{Stream}: Nella \textit{ItemsModel} utilizzata per la conversione da \textit{Map\textless Item,Integer\textgreater} a \textit{Map\textless String,Integer\textgreater} ed anche per filtrare gli oggetti in base al nome, aggiunto nel GameModel commit con hash: 2e72b6911f473bfa3ee8685cd61f14ae8922f936\\
 	\url{https://github.com/luca-casadei/the-exiled/blob/71356cacbbef08c33f96d68802a33514823d3571/src/main/java/unibo/exiled/model/item/ItemsModelImpl.java#L28C1-L28C90}
+	\item \textbf{Stream}: In \textit{InventoryView} quando vengono aggiornati i bottoni contenenti gli item li ordino in modo da migliorarne la visualizzazione.
+	\url{https://github.com/luca-casadei/the-exiled/blob/b0f1e9a189dbf365a0413e7249402b7342fd88a7/src/main/java/unibo/exiled/view/InventoryView.java#L106C1-L108C47}
 \end{itemize}
 
 
