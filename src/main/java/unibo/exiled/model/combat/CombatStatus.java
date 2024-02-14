@@ -15,6 +15,10 @@ public enum CombatStatus {
     /**
      * Defeated status. Where the player or the enemy are defeated.
      */
-    DEFEATING,
-    DEFEATED
+    DEFEATED,
+    /**
+     * Defeating status. The attacker has defeated the defender but it's displaying
+     * this information.
+     */
+    DEFEATING
 }
