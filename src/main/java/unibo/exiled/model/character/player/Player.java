@@ -93,14 +93,4 @@ public interface Player extends GameCharacter {
      * @return an Optional containing the new magic move, or empty if no move is available.
      */
     Optional<MagicMove> getNewMove();
-
-    /**
-     * Changes a magic move from old to new.
-     *
-     * @param oldMove the old magic move to be replaced.
-     * @param newMove the new magic move to be inserted in place of the old one.
-     */
-    void changeMove(MagicMove oldMove, MagicMove newMove);
-
-
 }

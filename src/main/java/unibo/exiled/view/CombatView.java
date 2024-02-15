@@ -57,6 +57,12 @@ public final class CombatView extends JPanel {
             this.gameView.updateInventory();
             this.gameView.hideCombat();
             this.gameView.draw();
+
+            if (this.gameController.getCombatController().needsPlayerToChangeMove()) {
+                final GameMoveChangeView gameMoveChangeView = new GameMoveChangeView(
+                        this.gameController);
+                gameMoveChangeView.display();
+            }
         } else {
             this.removeAll();
 
@@ -81,7 +87,9 @@ public final class CombatView extends JPanel {
                                 this.gameController.getCombatController()
                                         .getCombatStatus()
                                         .equals(CombatStatus.IDLE)
-                                        && !this.gameController.getCombatController().getCombatStatus()
+                                        && !this.gameController
+                                                .getCombatController()
+                                                .getCombatStatus()
                                                 .equals(CombatStatus.DEFEATING));
                 moveSetPanel.add(moveButton);
                 moveButton.addActionListener(e -> {

@@ -27,8 +27,8 @@ import unibo.exiled.view.CombatView;
 @Immutable
 public final class CombatControllerImpl implements CombatController {
     private static final Random RANDOM = new Random();
-    private static final Integer CONSOLE_DISPLAY_TIME = 2000;
-    private static final Integer IN_BETWEEN_ATTACKS_DELAY = 3000;
+    private static final Integer CONSOLE_DISPLAY_TIME = 0;
+    private static final Integer IN_BETWEEN_ATTACKS_DELAY = 0;
 
     private final CombatModel model;
     private final ConsoleArea consoleArea;
@@ -145,6 +145,11 @@ public final class CombatControllerImpl implements CombatController {
             i++;
         }
         return moves.stream().findFirst().get().name();
+    }
+
+    @Override
+    public boolean needsPlayerToChangeMove() {
+        return this.model.needsPlayerToChangeMove();
     }
 
     @Override

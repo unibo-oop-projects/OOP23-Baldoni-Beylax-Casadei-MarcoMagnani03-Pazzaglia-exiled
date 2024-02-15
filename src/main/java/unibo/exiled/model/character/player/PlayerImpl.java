@@ -43,7 +43,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      *                               magical moves.
      */
     public PlayerImpl(final int experienceCap, final int attributeIncreaseBound,
-                      final int movesLearningInterval) {
+            final int movesLearningInterval) {
         super(ConstantsAndResourceLoader.PLAYER_NAME,
                 new MoveSetFactoryImpl().defaultNormalMoveSet(),
                 ElementalType.NORMAL,
@@ -68,7 +68,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     //
-    //  GETTER
+    // GETTER
     //
 
     @Override
@@ -92,7 +92,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     //
-    //  SETTER
+    // SETTER
     //
 
     @Override
@@ -108,7 +108,7 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      * Learns a new magical move based on the player's level and learning interval.
      */
     private void learnNewMove() {
-        if (level % movesLearningInterval == 0 && this.getMoveSet().getMagicMoves().size() <= this.maxMovesNumber) {
+        if (level % movesLearningInterval == 0) {
             Optional<MagicMove> newMove;
 
             // If the player knows all moves of their type, learn a move of a different type
@@ -118,26 +118,25 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
                 newMove = getNewMove();
             }
 
-            this.addMagicMove(newMove.get());
+            if (this.getMoveSet().getMagicMoves().size() >= this.maxMovesNumber) {
+                this.setExceedingMagicMove(newMove);
+            } else {
+                this.addMagicMove(newMove.get());
+            }
         }
     }
-
 
     @Override
     public Optional<MagicMove> getNewMove() {
         Optional<MagicMove> newMove;
         do {
             newMove = Moves.getRandomMagicMoveByType(getType(), this.level);
-            // If there are no moves of the specified type, choose a completely random move that the player can learn
+            // If there are no moves of the specified type, choose a completely random move
+            // that the player can learn
             newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove(this.level)) : newMove;
             // Continue searching until finding a move the player doesn't already know
         } while (this.getMoveSet().getMagicMoves().contains(newMove.get()));
         return newMove;
-    }
-
-    @Override
-    public void changeMove(final MagicMove oldMove, final MagicMove newMove) {
-        this.getMoveSet().changeMove(oldMove, newMove);
     }
 
     @Override

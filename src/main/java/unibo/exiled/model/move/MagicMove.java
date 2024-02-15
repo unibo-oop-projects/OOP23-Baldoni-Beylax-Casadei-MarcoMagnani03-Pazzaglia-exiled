@@ -1,5 +1,7 @@
 package unibo.exiled.model.move;
 
+import java.util.Locale;
+
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.utilities.ElementalType;
 
@@ -88,7 +90,8 @@ public enum MagicMove {
     LEECHERS("Leechers", "Some grassy tentacles that leech life out of the opponent.",
             ConstantsAndResourceLoader.MIN_LEARNING_LEVEL_BOSS_MOVE, 50.0d, ElementalType.GRASS),
     /**
-     * A wonderous water wave thrown at the opponent, breathing is almost impossible!
+     * A wonderous water wave thrown at the opponent, breathing is almost
+     * impossible!
      */
     TSUNAMI("Tsunami",
             "A humongous water wave thrown at the opponent, breathing is almost impossible!",
@@ -110,7 +113,7 @@ public enum MagicMove {
      * @param type                The ElementalType of the move.
      */
     MagicMove(final String name, final String description,
-              final int minimumLevelToLearn, final double power, final ElementalType type) {
+            final int minimumLevelToLearn, final double power, final ElementalType type) {
         this.name = name;
         this.description = description;
         this.minimumLevelToLearn = minimumLevelToLearn;
@@ -123,8 +126,8 @@ public enum MagicMove {
      *
      * @return The name of the move.
      */
-    public String getCapitalizedStringName() {
-        return this.name;
+    public String getUppercaseStringName() {
+        return this.name.toUpperCase(Locale.ROOT);
     }
 
     /**

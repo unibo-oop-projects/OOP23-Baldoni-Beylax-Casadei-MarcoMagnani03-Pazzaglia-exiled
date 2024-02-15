@@ -29,7 +29,7 @@ public final class Moves {
     public static MagicMove getMoveByName(final String name) {
         final AtomicReference<MagicMove> out = new AtomicReference<>();
         Arrays.stream(MagicMove.values())
-                .filter(move -> move.getCapitalizedStringName().equals(name)).findFirst().ifPresent(out::set);
+                .filter(move -> move.name().equals(name)).findFirst().ifPresent(out::set);
         return out.get();
     }
 

@@ -90,4 +90,9 @@ public final class CombatModelImpl implements CombatModel {
     public Position getCombatPosition() {
         return this.combat.getCombatPosition();
     }
+
+    @Override
+    public boolean needsPlayerToChangeMove() {
+        return this.combat.needsPlayerToChangeMove();
+    }
 }

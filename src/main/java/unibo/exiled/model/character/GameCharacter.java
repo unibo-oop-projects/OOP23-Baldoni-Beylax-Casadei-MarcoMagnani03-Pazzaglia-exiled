@@ -9,6 +9,7 @@ import unibo.exiled.utilities.ElementalType;
 import unibo.exiled.utilities.Position;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * A character that can move.
@@ -130,4 +131,25 @@ public interface GameCharacter {
      */
     boolean spriteIsMoving();
 
+    /**
+     * Changes a magic move from old to new.
+     *
+     * @param oldMove the old magic move to be replaced.
+     * @param newMove the new magic move to be inserted in place of the old one.
+     */
+    void changeMove(MagicMove oldMove, MagicMove newMove);
+
+    /**
+     * Sets the player move that didn't learn.
+     * 
+     * @param move the move he would have learned.
+     */
+    void setExceedingMagicMove(Optional<MagicMove> move);
+
+    /**
+     * Gets the player move that didn't learn because he reached the maximum move learned.
+     * 
+     * @return the exceeding magic move.
+     */
+    Optional<MagicMove> getExceedingMagicMove();
 }

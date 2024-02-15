@@ -249,6 +249,11 @@ public final class CharacterModelImpl implements CharacterModel {
     }
 
     @Override
+    public boolean needsPlayerToChangeMove() {
+        return player.getExceedingMagicMove().isPresent();
+    }
+
+    @Override
     public Optional<GameCharacter> getCharacterFromPosition(final Position pos) {
         if (enemyCollection.getEnemyFromPosition(pos).isPresent()) {
             return Optional.of(enemyCollection.getEnemyFromPosition(pos).get());

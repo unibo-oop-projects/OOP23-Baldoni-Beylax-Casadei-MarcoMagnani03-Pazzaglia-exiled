@@ -17,6 +17,7 @@ import unibo.exiled.utilities.Position;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * The implementation of a generic character.
@@ -34,6 +35,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
     private boolean isMoving = true;
     private Position position;
     private Direction lastDirection = Direction.SOUTH;
+    private Optional<MagicMove> exceedingMagicMove;
 
     /**
      * The constructor of the GameCharacter.
@@ -51,6 +53,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
         this.type = type;
         this.attributes = attributes;
         this.name = name;
+        this.exceedingMagicMove = Optional.empty();
     }
 
     @Override
@@ -165,5 +168,21 @@ public abstract class GameCharacterImpl implements GameCharacter {
     @Override
     public final void addMagicMove(final MagicMove newMove) {
         this.moveSet.addMagicMove(newMove);
+    }
+
+    @Override
+    public final void changeMove(final MagicMove oldMove, final MagicMove newMove) {
+        this.moveSet.changeMove(oldMove, newMove);
+        this.setExceedingMagicMove(Optional.empty());
+    }
+
+    @Override
+    public final Optional<MagicMove> getExceedingMagicMove() {
+        return this.exceedingMagicMove;
+    }
+
+    @Override
+    public final void setExceedingMagicMove(final Optional<MagicMove> move) {
+        this.exceedingMagicMove = move;
     }
 }

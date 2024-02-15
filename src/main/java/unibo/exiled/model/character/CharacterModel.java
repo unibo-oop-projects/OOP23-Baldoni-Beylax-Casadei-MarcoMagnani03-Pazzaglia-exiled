@@ -112,6 +112,14 @@ public interface CharacterModel {
     int getPlayerExperienceCap();
 
     /**
+     * Returns if the player has a move to learn, that couldn't learn because his move set was
+     * at max capacity.
+     * 
+     * @return if the player has a move to learn.
+     */
+    boolean needsPlayerToChangeMove();
+
+    /**
      * Adds experience to the player.
      *
      * @param amount the experience the player gained killing an enemy.

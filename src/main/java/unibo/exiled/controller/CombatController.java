@@ -84,6 +84,14 @@ public interface CombatController {
     CombatStatus getCombatStatus();
 
     /**
+     * Returns if the player has a move to learn, that couldn't learn because his move set was
+     * at max capacity.
+     * 
+     * @return if the player has a move to learn.
+     */
+    boolean needsPlayerToChangeMove();
+
+    /**
      * Permforms an attack routine.
      * 
      * @param isPlayerAttacking if the player is attacking.

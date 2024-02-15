@@ -15,6 +15,16 @@ public final class CombatImpl implements Combat {
     private Position combatPosition;
     private CombatStatus combatStatus;
 
+    /**
+     * Constructor for CombatImpl.
+     */
+    public CombatImpl() {
+        this.player = null;
+        this.enemy = null;
+        this.combatPosition = null;
+        this.combatStatus = combatStatus.IDLE;
+    }
+
     @Override
     public Position getCombatPosition() {
         return this.combatPosition;
@@ -43,6 +53,11 @@ public final class CombatImpl implements Combat {
     @Override
     public void setPlayer(final Optional<Player> player) {
         this.player = player.get();
+    }
+
+    @Override
+    public boolean needsPlayerToChangeMove() {
+        return this.player.getExceedingMagicMove().isPresent();
     }
 
     @Override

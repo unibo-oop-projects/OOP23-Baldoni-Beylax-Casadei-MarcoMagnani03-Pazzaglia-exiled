@@ -90,4 +90,12 @@ public interface CombatModel {
      * @return the combat position.
      */
     Position getCombatPosition();
+
+    /**
+     * Returns if the player has a move to learn, that couldn't learn because his move set was
+     * at max capacity.
+     * 
+     * @return if the player has a move to learn.
+     */
+    boolean needsPlayerToChangeMove();
 }
