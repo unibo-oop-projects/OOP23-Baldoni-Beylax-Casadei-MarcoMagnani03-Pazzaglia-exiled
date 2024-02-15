@@ -73,9 +73,4 @@ public final class MoveSetFactoryImpl implements MoveSetFactory {
         return this.fillMoveSet(MagicMove.LEECHERS);
     }
 
-    @Override
-    public MoveSet magnetaldoMoveset() {
-        return this.fillMoveSet(MagicMove.ZAP);
-    }
-
 }

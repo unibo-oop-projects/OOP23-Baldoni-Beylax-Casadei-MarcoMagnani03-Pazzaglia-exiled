@@ -77,11 +77,4 @@ public interface MoveSetFactory {
      * @return A moveset with the moves of the grass boss.
      */
     MoveSet grassBossMoves();
-
-    /**
-     * Creates the moves for the magnetaldo bolt enemy.
-     *
-     * @return A moveset for the magnetaldo bolt enemy.
-     */
-    MoveSet magnetaldoMoveset();
 }

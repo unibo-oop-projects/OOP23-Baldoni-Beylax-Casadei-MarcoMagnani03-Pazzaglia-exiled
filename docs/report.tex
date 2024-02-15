@@ -356,9 +356,13 @@ Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il gi
 \subsection{Manuel Baldoni}
 
 \subsection{Elementi di design condivisi}
-In questa sezione verranno elencate parti di codice create con il contributo di tutti i membri del gruppo.\\
+In questa sezione verranno elencate parti di codice create con il contributo di tutti i membri del gruppo.
+
 \subsubsection{Mosse dei character}
-Una mossa è rappresentata attraverso l'interfaccia \textit{MagicMove}, implementata da \textit{MagicMoveImpl}, queste classi contengono lo schema da seguire per realizzare una mossa, ma di fatto queste vengono create attraverso il pattern \href{https://refactoring.guru/design-patterns/factory-method}{\textit{Factory Method}} descritto dall'interfaccia \textit{MagicMoveFactory} e implementato da \textit{MagicMoveFactoryImpl}. \\ La creazione però non spiega come queste mosse vengano effettivamente collettivizzate per poterle utilizzare, in un contesto di battaglia, da un nemico o il giocatore, per questo entrano in gioco l'interfaccia \textit{MoveSet} e la relativa implementazione \textit{MoveSetImpl} che vengono contenuti all'interno della classe astratta \textit{GameCharacter}. Un insieme di mosse pre-create è presente nella classe di utility \textit{Moves} che fa uso della factory per crearsi e contenere delle mosse da assegnare ai nemici o al giocatore.\\
+Una mossa è presente all'interno di un'enumerazione denominata \textit{MagicMove}, quest'ultima contiene tutte le informazioni necessarie per rappresentare una mossa (nome, descrizione, potenza, tipo elementale etc\dots). Per utilizzare queste mosse però è necessario immagazzinarle in una qualche collezione per poter essere facilmente ottenibile dal giocatore o da un nemico, per questo è stato introdotto il concetto di interfaccia \textit{MoveSet} che ha tutti i metodi necessari per aggiungere, rimuovere e rimpiazzare le mosse di una collezione, che a sua volta viene implementata nella realizzazione della suddetta interfaccia, \textit{MoveSetImpl}.\\
+I \textit{MoveSet} dei diversi \textit{GameCharacter} sono generati attraverso l'uso del pattern \href{https://refactoring.guru/design-patterns/factory-method}{Factory Method} nell'interfaccia \textit{MoveSetFactory} implementata dalla classe \textit{MoveSetFactoryImpl} che contiene i metodi di creazione di MoveSet basilari di default o specifici (come quelli dei nemici o dei boss).\\
+
+Segue uno schema UML che rappresenta come vengono gestite le mosse.
 
 \begin{figure}[H]
 	\centering
@@ -381,9 +385,17 @@ Tutta la realizzazione delle sprites dei nemici, del carattere giocante e degli 
 \chapter{Sviluppo}
 
 \section{Testing automatizzato}
+Per realizzare test automatici è stata utilizzata la libreria \href{https://junit.org/junit5/}{JUnit 5} con l'ausilio della libreria di Mocking \href{https://github.com/mockito/mockito}{Mockito}. Per la copertura del codice dai test abbiamo fatto uso dello strumento di verifica \href{https://www.eclemma.org/jacoco/}{JaCoCo}, le classi che quindi sono state sottoposte a test automatizzati sono:
+\begin{itemize}
+	\item \textit{ItemFactoryImpl} $\longrightarrow$ 100\% della copertura.
+	\item \textit{MoveSetFactoryImpl} $\longrightarrow$ 100\% della copertura.
+	\item \textit{EnemyFactoryImpl} $\longrightarrow$ 95\% della copertura.
+	\item \textit{CellType, GameMapImpl, MapModelImpl} $\longrightarrow$ 95\% della copertura.
+\end{itemize}
 \section{Note di sviluppo}
 
 \subsection{Luca Casadei}
+Elencherò solamente un'occasione in cui si presentano queste parti di codice più avanzato, questo non impedisce che siano state usate anche in altre parti del progetto.
 \begin{itemize}
 	\item \textbf{Espressioni Lambda} e \textbf{Optional}: Utilizzati nella classe \textit{CharacterModel} nel metodo \textit{isCellEmpty} per verificare se una cella della mappa contiene qualcuno.\\
 	\url{https://github.com/luca-casadei/the-exiled/blob/9a97a74beb0dd351cf5b1f72e6dd4cbeed1acc43/src/main/java/unibo/exiled/model/character/CharacterModelImpl.java#L99-L100}
@@ -391,6 +403,8 @@ Tutta la realizzazione delle sprites dei nemici, del carattere giocante e degli 
 	\url{https://github.com/luca-casadei/the-exiled/blob/9a97a74beb0dd351cf5b1f72e6dd4cbeed1acc43/src/main/java/unibo/exiled/model/character/attributes/AdditiveAttributeImpl.java#L8}
 	\item \textbf{Libreria Mockito}: Usata per alcuni tests di JUnit, in particolare il test della classe \textit{CharacterControllerImpl}. Il permalink è relativo ad una piccola parte del codice dove viene usata questa libreria.\\
 	\url{https://github.com/luca-casadei/the-exiled/blob/506d8a5ed7be7028e52f6b9613cb84fc03198110/src/test/java/unibo/exiled/controller/TestCharacterControllerImpl.java#L49}
+	\item \textbf{\textit{AtomicReference}, \textit{Optional} e Stream}: Ho utilizzato \textit{AtomicReference\textlangle MagicMove\textrangle} per poter avere un riferimento modificabile in maniera atomica in un contesto in cui ho usato ifPresent() di optional per poter utilizzare gli stream. In questo caso mi è servito per poter ritornare il valore desiderato al metodo.
+	\url{https://github.com/luca-casadei/the-exiled/blob/4213b41b965a44db1f1a6ffffef8d3c11aab9434/src/main/java/unibo/exiled/model/move/Moves.java#L29-L34}
 \end{itemize}
 
 \subsection{Francesco Pazzaglia}
@@ -436,6 +450,7 @@ Il progetto è stato svolto con colleghi con cui ho avuto modo di collaborare gi
 \subsection{Manuel Baldoni}
 
 \section{Difficoltà incontrate e commenti per i docenti}
+Nessun commento o difficoltà da segnalare.
 
 \appendix
 \chapter{Guida utente}

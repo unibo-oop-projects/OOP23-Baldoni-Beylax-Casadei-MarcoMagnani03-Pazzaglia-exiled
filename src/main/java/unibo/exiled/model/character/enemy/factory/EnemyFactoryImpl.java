@@ -150,7 +150,7 @@ public final class EnemyFactoryImpl implements EnemyFactory {
     @Override
     public Enemy createMagnetaldo() {
         return createFromValues(SelectableEnemies.MAGNETALDO.name,
-                moveSetFactory.magnetaldoMoveset(), attributeFactory.createMagnetaldoAttributes(),
+                moveSetFactory.defaultBoltMoveSet(), attributeFactory.createMagnetaldoAttributes(),
                 ElementalType.BOLT, SelectableEnemies.MAGNETALDO.droppedExperience);
     }
 
