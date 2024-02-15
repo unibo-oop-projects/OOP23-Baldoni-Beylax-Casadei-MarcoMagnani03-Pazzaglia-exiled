@@ -123,7 +123,7 @@ public enum MagicMove {
      *
      * @return The name of the move.
      */
-    public String getName() {
+    public String getCapitalizedStringName() {
         return this.name;
     }
 

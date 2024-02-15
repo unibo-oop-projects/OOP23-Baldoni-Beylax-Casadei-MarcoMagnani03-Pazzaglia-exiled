@@ -386,12 +386,24 @@ Tutta la realizzazione delle sprites dei nemici, del carattere giocante e degli 
 
 \section{Testing automatizzato}
 Per realizzare test automatici è stata utilizzata la libreria \href{https://junit.org/junit5/}{JUnit 5} con l'ausilio della libreria di Mocking \href{https://github.com/mockito/mockito}{Mockito}. Per la copertura del codice dai test abbiamo fatto uso dello strumento di verifica \href{https://www.eclemma.org/jacoco/}{JaCoCo}, le classi che quindi sono state sottoposte a test automatizzati sono:
+
 \begin{itemize}
 	\item \textit{ItemFactoryImpl} $\longrightarrow$ 100\% della copertura.
 	\item \textit{MoveSetFactoryImpl} $\longrightarrow$ 100\% della copertura.
-	\item \textit{EnemyFactoryImpl} $\longrightarrow$ 95\% della copertura.
+	\item \textit{GameLauncher} che è il launcher del gioco: $\longrightarrow$ 100\% della copertura.
 	\item \textit{CellType, GameMapImpl, MapModelImpl} $\longrightarrow$ 95\% della copertura.
+	\item \textit{EnemyFactoryImpl} $\longrightarrow$ 95\% della copertura.
+	\item \textit{Command, MenuImpl, MenuModelImpl, MenuItem} $\longrightarrow$ 94\% della copertura.
+	\item ...
 \end{itemize}
+
+Qui verrà allegato il report di JaCoCo con le parti testate per brevità.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{jacoco-report.png}
+\end{figure}
+
 \section{Note di sviluppo}
 
 \subsection{Luca Casadei}

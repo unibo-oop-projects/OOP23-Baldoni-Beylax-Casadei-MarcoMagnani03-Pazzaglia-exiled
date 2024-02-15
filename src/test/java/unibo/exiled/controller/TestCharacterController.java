@@ -11,12 +11,14 @@ import unibo.exiled.model.character.enemy.EnemyCollection;
 import unibo.exiled.model.character.enemy.EnemyCollectionImpl;
 import unibo.exiled.model.character.enemy.boss.FireBossEnemy;
 import unibo.exiled.model.character.enemy.factory.EnemyFactoryImpl;
+import unibo.exiled.model.move.MagicMove;
 import unibo.exiled.utilities.ElementalType;
 import unibo.exiled.utilities.Position;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -141,6 +143,68 @@ class TestCharacterController {
         assertTrue(controller.checkWin());
         Mockito.when(mockedModel.getEnemies()).thenReturn(Optional.empty());
         assertTrue(controller.checkWin());
+    }
+
+    @Test
+    void testMagicMoveNames() {
+        final Set<MagicMove> fakeMoves = Set.of(
+                MagicMove.COLPACCIO,
+                MagicMove.COLPONE,
+                MagicMove.FIREBALL
+        );
+        Mockito.when(mockedModel.getMagicMoves()).thenReturn(fakeMoves);
+        assertTrue(List.of(
+                MagicMove.COLPACCIO.name(),
+                MagicMove.COLPONE.name(),
+                MagicMove.FIREBALL.name()
+        ).containsAll(controller.getMagicMoveNames()));
+    }
+
+    @Test
+    void testGetMagicMoveDescription() {
+        final Set<MagicMove> fakeMoves = Set.of(
+                MagicMove.COLPACCIO,
+                MagicMove.COLPONE,
+                MagicMove.FIREBALL
+        );
+        Mockito.when(mockedModel.getMagicMoves()).thenReturn(fakeMoves);
+        //Success
+        assertEquals(MagicMove.COLPONE.getDescription(),
+                controller.getMagicMoveDescription(MagicMove.COLPONE.name()));
+        //Failure
+        assertEquals("", controller.getMagicMoveDescription(MagicMove.FLAMEWHIRL.name()));
+    }
+
+    @Test
+    void testGetMagicMovePower() {
+        final Set<MagicMove> fakeMoves = Set.of(
+                MagicMove.COLPACCIO,
+                MagicMove.COLPONE,
+                MagicMove.FIREBALL
+        );
+        Mockito.when(mockedModel.getMagicMoves()).thenReturn(fakeMoves);
+        //Success
+        assertEquals(MagicMove.COLPONE.getPower(),
+                controller.getMagicMoveDamage(MagicMove.COLPONE.name()));
+        //Failure
+        assertThrows(IllegalArgumentException.class, () -> controller.getMagicMoveDamage(
+                MagicMove.FLAMEWHIRL.name()));
+    }
+
+    @Test
+    void testMagicMoveType() {
+        final Set<MagicMove> fakeMoves = Set.of(
+                MagicMove.COLPACCIO,
+                MagicMove.COLPONE,
+                MagicMove.FIREBALL
+        );
+        Mockito.when(mockedModel.getMagicMoves()).thenReturn(fakeMoves);
+        //Success
+        assertEquals(MagicMove.FIREBALL.getType(),
+                controller.getMagicMoveElementalType(MagicMove.FIREBALL.name()));
+        //Failure
+        assertThrows(IllegalArgumentException.class, () -> controller.getMagicMoveElementalType(
+                MagicMove.FLAMEWHIRL.name()));
     }
 
 }
