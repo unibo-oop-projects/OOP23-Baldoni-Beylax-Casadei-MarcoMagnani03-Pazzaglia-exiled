@@ -1,5 +1,5 @@
 @startuml
-scale 0.4
+scale 0.6
 class ItemContainer {
     -ITEMS: Set<Item>
     +getItemByName(name)
