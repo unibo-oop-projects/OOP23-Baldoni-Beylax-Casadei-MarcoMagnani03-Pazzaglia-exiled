@@ -62,4 +62,11 @@ public interface AttributeFactory {
      * @return The mapping of the attributes of Magnetaldo.
      */
     Map<AttributeIdentifier, Attribute> createMagnetaldoAttributes();
+
+    /**
+     * Creates the attributes of the enemy "Leafy".
+     *
+     * @return The mapping of the attributes of "Leafy".
+     */
+    Map<AttributeIdentifier, Attribute> createLeafyAttributes();
 }

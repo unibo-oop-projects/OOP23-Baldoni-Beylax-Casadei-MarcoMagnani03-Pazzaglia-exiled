@@ -90,12 +90,17 @@ public enum MagicMove {
     LEECHERS("Leechers", "Some grassy tentacles that leech life out of the opponent.",
             ConstantsAndResourceLoader.MIN_LEARNING_LEVEL_BOSS_MOVE, 50.0d, ElementalType.GRASS),
     /**
-     * A wonderous water wave thrown at the opponent, breathing is almost
+     * A humongous water wave thrown at the opponent, breathing is almost
      * impossible!
      */
     TSUNAMI("Tsunami",
             "A humongous water wave thrown at the opponent, breathing is almost impossible!",
-            ConstantsAndResourceLoader.MIN_LEARNING_LEVEL_BOSS_MOVE, 60.0d, ElementalType.WATER);
+            ConstantsAndResourceLoader.MIN_LEARNING_LEVEL_BOSS_MOVE, 60.0d, ElementalType.WATER),
+    /**
+     * Tries to strangle the opponent with a grass latch.
+     */
+    LEAFLATCH("Leaf Latch", "Tries to strangle the opponent with a grass latch.",
+            ConstantsAndResourceLoader.MIN_LEARNING_LEVEL_SECOND_MOVE, 10.0d, ElementalType.GRASS);
 
     private final String name;
     private final String description;
@@ -113,7 +118,7 @@ public enum MagicMove {
      * @param type                The ElementalType of the move.
      */
     MagicMove(final String name, final String description,
-            final int minimumLevelToLearn, final double power, final ElementalType type) {
+              final int minimumLevelToLearn, final double power, final ElementalType type) {
         this.name = name;
         this.description = description;
         this.minimumLevelToLearn = minimumLevelToLearn;

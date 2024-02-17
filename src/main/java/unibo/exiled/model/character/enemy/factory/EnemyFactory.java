@@ -82,4 +82,11 @@ public interface EnemyFactory {
      * @return An Enemy implementation of Mangnetaldo.
      */
     Enemy createMagnetaldo();
+
+    /**
+     * Creates a "Leafy" enemy.
+     *
+     * @return An Enemy implementation of Leafy
+     */
+    Enemy createLeafy();
 }

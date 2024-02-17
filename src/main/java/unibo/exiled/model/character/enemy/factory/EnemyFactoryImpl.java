@@ -119,6 +119,9 @@ public final class EnemyFactoryImpl implements EnemyFactory {
             case MAGNETALDO -> {
                 return this.createMagnetaldo();
             }
+            case LEAFY -> {
+                return this.createLeafy();
+            }
             default -> throw new IllegalStateException("Enemy generation failed."
                     + "Please check that the enemy selection switch contains every enemy of the factory.");
         }
@@ -154,8 +157,16 @@ public final class EnemyFactoryImpl implements EnemyFactory {
                 ElementalType.BOLT, SelectableEnemies.MAGNETALDO.droppedExperience);
     }
 
+    @Override
+    public Enemy createLeafy() {
+        return createFromValues(SelectableEnemies.LEAFY.name,
+                moveSetFactory.leafyMoveSet(), attributeFactory.createLeafyAttributes(),
+                ElementalType.GRASS, SelectableEnemies.LEAFY.droppedExperience);
+    }
+
     private enum SelectableEnemies {
         GOBLIN("Goblin", DROPPED_EXPERIENCE_BASE),
+        LEAFY("Leafy", DROPPED_EXPERIENCE_BASE * 2),
         BRUTUS("Brutus", DROPPED_EXPERIENCE_BASE * 2),
         WHIRLER("Whirler", DROPPED_EXPERIENCE_BASE * 2),
         AQUA_SHADE("Aquashade", DROPPED_EXPERIENCE_BASE * 2),

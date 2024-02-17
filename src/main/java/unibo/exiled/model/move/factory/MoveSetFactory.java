@@ -77,4 +77,11 @@ public interface MoveSetFactory {
      * @return A moveset with the moves of the grass boss.
      */
     MoveSet grassBossMoves();
+
+    /**
+     * Creates the MoveSet of "Leafy".
+     *
+     * @return The MoveSet of "Leafy".
+     */
+    MoveSet leafyMoveSet();
 }

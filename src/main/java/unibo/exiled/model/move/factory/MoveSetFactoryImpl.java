@@ -73,4 +73,9 @@ public final class MoveSetFactoryImpl implements MoveSetFactory {
         return this.fillMoveSet(MagicMove.LEECHERS);
     }
 
+    @Override
+    public MoveSet leafyMoveSet() {
+        return this.fillMoveSet(MagicMove.LEAFBLADE, MagicMove.LEAFLATCH);
+    }
+
 }
