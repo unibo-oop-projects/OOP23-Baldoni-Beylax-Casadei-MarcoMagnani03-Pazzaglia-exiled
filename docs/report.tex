@@ -49,24 +49,38 @@ L'applicazione è un gioco che presenta un personaggio controllato dal giocatore
 
 \section{Analisi e modello del dominio}
 
-All'inizio al giocatore viene chiesto di che tipo elementale sarà il personaggio da controllare, in base a questa scelta gli verrà quindi assegnata una mossa di base di quel tipo e avrà le mosse di quel tipo potenziate fino alla fine del gioco.\\
-Il giocatore può muoversi di una cella alla volta in una mappa a griglia in 4 direzioni (Nord, Est, Sud, Ovest) e una battaglia con i nemici (anch'essi di un certo tipo elementale) inizia quando la cella in cui è il giocatore combacia con quella di un nemico.\\
-Per affrontare un nemico in battaglia il giocatore ha a disposizione massimo 4 mosse (non per forza dello stesso tipo del giocatore). Il combattimento avviene a turni alternati, il primo è il giocatore, poi il nemico e così via finché uno dei due viene sconfitto, se è il giocatore, il gioco termina.\\
-Allo sconfiggere dei nemici viene conferita al giocatore una certa quantità di esperienza che serve ad aumentare di livello e un oggetto casuale, l'oggetto viene salvato nell'inventario del giocatore e potrà essere di diverso tipo, es. oggetto curativo(ripristina un tot di vita), booster di statistiche(per esempio aumenta l'attacco di un certo tipo di mosse) ecc.. L'aumento di livello comporta un incremento generale delle statistiche ovvero attacco, difesa e vita di un valore costante. Ogni 5 livelli verrà presentata al giocatore la possibilità di imparare una nuova mossa di un tipo casuale, se il giocatore ha già 4 mosse potrà decidere di scambiare quella nuova con una di quelle che conosce già. All'aumentare di livello sarà richiesta sempre più esperienza per passare a quello successivo.\\
-Ci sono diverse classi di nemico, alcuni più deboli e altri più forti, come i boss, che se sconfitti consegnano uno dei 4 oggetti necessari per concludere il gioco (i cristalli).\\
+\subsection{Inizio del gioco} \label{ss:iniziogioco}
+All'inizio al giocatore viene chiesto di che tipo elementale sarà il personaggio da controllare (vedi \textit{\nameref{ss:tipi}}), quando verrà posizionato sulla mappa gli verrà assegnata una mossa generica di tipo normale, quelle invece del suo stesso tipo potranno essere imparate in maniera automatica all'aumentare di livello.\\
 
-\subsection{Tipi elementali}
-I seguenti sono i tipi elementali presenti, ognuno è efficace rispetto ad un altro, quindi quando vengono usate mosse di un certo tipo che risulta essere efficace rispetto al tipo di un nemico, si avranno dei moltiplicatori del danno. Lo stesso vale per i nemici che usano mosse di un tipo efficace rispetto a quello scelto dal giocatore all'inizio.
-\\\\
-Ad esempio, nel seguente schema si vede che Fulmine è efficace contro Acqua.
+\subsection{Movimento}
+Il giocatore può muoversi di una cella alla volta in una mappa a griglia in 4 direzioni (Nord, Est, Sud, Ovest), mentre si muove il giocatore, si muovono sempre di cella in cella anche i nemici, che non seguono un pattern di movimento specifico ma seguono una direzione casuale, questo a meno che non sia presente il giocatore nel loro range di visibilità (Configurabile da costante), in tal caso seguiranno il giocatore.\\ Il movimento del giocatore è libero su tutta la mappa, mentre i nemici sono costretti a stare nella zona del loro stesso tipo e non ne potranno uscire anche se in fase di inseguimento del player.\\
 
+\subsection{Battaglia}
+Una battaglia inizia se il giocatore e un nemico si ritrovano nella stessa cella a seguito di un movimento. Per affrontare un nemico in battaglia il giocatore ha a disposizione massimo 4 mosse (non per forza dello stesso tipo del giocatore). Il combattimento avviene a turni alternati, il primo è il giocatore, poi il nemico e così via finché uno dei due viene sconfitto, se è il giocatore, il gioco termina.\\
+Allo sconfiggere dei nemici viene conferita al giocatore una certa quantità di esperienza (a seconda del nemico sconfitto) che serve ad aumentare di livello e vi è una certa probabilità che il nemico possa rilasciare un oggetto casuale (la probabilità maggiore è però quella di non ricevere nulla).
+
+\subsection{Oggetti} \label{ss:oggetti}
+Qualora venga rilasciato, l'oggetto verrà automaticamente messo nell'inventario del giocatore e potrà essere usato direttamente dalla mappa oppure in battaglia. Ci sono diversi tipi di oggetto, quelli utilizzabili dalla mappa generalmente sono oggetti di cura (rappresentati con il colore \colorbox{green}{verde}), altri possono essere oggetti che aumentano il danno del giocatore (colore \colorbox{red}{rosso}) oppure la difesa (colore \colorbox{cyan}{blu-azzurro}). Nessun nemico generico potrà rilasciare un \textit{Cristallo}, che è un oggetto esclusivo dei boss e serve per concludere il gioco.
+
+\subsection{Livello ed esperienza}
+L'aumento di livello comporta un incremento generale delle statistiche del giocatore, ovvero attacco, difesa e vita di un valore moltiplicativo o incrementale costante. Ogni $\mathit{n}$ livelli verrà presentata al giocatore la possibilità di imparare una nuova mossa, dove $\mathit{n}$ è una costante configurabile. se il giocatore ha già 4 mosse potrà decidere di scambiare quella nuova con una di quelle che conosce già. All'aumentare di livello sarà richiesta sempre più esperienza per passare a quello successivo.
+
+\subsection{Nemici}
+I nemici si dividono in nemici generici, ovvero quelli presenti sulla mappa con capacità di movimento, questi possono essere anche ripetuti e una volta sconfitti non ricompaiono. Ciascuno di questi ha un suo tipo elementale e quindi un'area della mappa a cui è confinato.
+Per vedere i possibili oggetti rilasciati dai nemici, vedi \textit{\nameref{ss:oggetti}}.\\
+I 4 boss sono posizionati agli angoli della mappa, e ciascuno di loro si trova nella parte di mappa che corrisponde al tipo elementale che rappresentano, i boss non hanno capacità di movimento e staranno in quella posizione finché non verranno sconfitti dal giocatore.
+
+\subsection{Elenco dei tipi elementali} \label{ss:tipi}
+I seguenti sono i tipi elementali presenti, ognuno è efficace rispetto ad un altro, quindi quando vengono usate mosse di un certo tipo risultante essere efficace rispetto al tipo di un nemico (non delle mosse che ha, proprio il tipo del nemico), si avranno dei moltiplicatori del danno. Lo stesso vale per i nemici che usano mosse di un tipo efficace rispetto a quello scelto dal giocatore all'inizio (la sua classe, vedi \textit{\nameref{ss:iniziogioco}}).
+\\
+Ad esempio, nel seguente schema si vede che Fulmine è efficace contro Acqua, Erba contro Fulmine etc\dots Se si capovolge la freccia si notano invece le debolezze di un tipo rispetto ad un altro.
 
 \begin{center}
 \begin{tabular}{ c c c }
-    Fulmine & $\rightarrow$ & Acqua \\
-    Erba & $\rightarrow$ & Fulmine \\
-    Acqua & $\rightarrow$ & Fuoco \\
-    Fuoco & $\rightarrow$ & Erba \\
+    Fulmine & $\longrightarrow$ & Acqua \\
+    Erba & $\longrightarrow$ & Fulmine \\
+    Acqua & $\longrightarrow$ & Fuoco \\
+    Fuoco & $\longrightarrow$ & Erba \\
 \end{tabular}
 \end{center}
 

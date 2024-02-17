@@ -1,49 +1,45 @@
 @startuml
-scale 0.5
-interface Player {
-	
-}
-interface Enemy {
-
-}
-interface Inventory {
-
-}
-interface Item {
-
-}
-interface MagicMove {
-}
-interface Battle {
-	+start()
-	+end()
-}
-enum ElementalType {
-
-}
-interface TypeTable {
-	
-}
-interface MoveSet {
-
-}
-interface Attributes {
-	+getHealth()
-	+getAttackModifier()
+scale 0.45
+set separator none
+package unibo.exiled.model{
+    package character{
+        interface GameCharacter{}
+        interface Player implements GameCharacter{}
+        interface Enemy implements GameCharacter{}
+        interface Attribute{}
+    }
+    package item{
+        interface Item{}
+        interface Inventory{}
+    }
+    package combat{
+        interface Combat{}
+    }
+    package move{
+        enum MagicMove{}
+        interface MoveSet{}
+    }
+    package map{
+        interface GameMap{}
+        enum CellType
+        class Position<<Record>>{}
+    }
+    enum ElementalType{}
 }
 
-Player *-- ElementalType
-Enemy *-- ElementalType
-Battle *-- Enemy
-Battle *-- Player
-TypeTable o-- ElementalType
-Inventory o-- Item
+
+
+
 Player *-- Inventory
-Player *-- MoveSet
-MagicMove *-- ElementalType
-Enemy *-- MoveSet
+GameCharacter o-- Attribute
+Inventory o-- Item
+Combat o-- GameCharacter
 MoveSet o-- MagicMove
-Player *-- Attributes
-Enemy *-- Attributes
-
+GameCharacter *- MoveSet
+ElementalType <.. MagicMove
+GameCharacter *-- ElementalType : Classe del \n character.
+GameMap o-- CellType
+GameMap o-- Position
+GameCharacter *-- Position
+Combat *-- Position
 @enduml

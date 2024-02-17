@@ -22,7 +22,7 @@ public final class CombatImpl implements Combat {
         this.player = null;
         this.enemy = null;
         this.combatPosition = null;
-        this.combatStatus = combatStatus.IDLE;
+        this.combatStatus = CombatStatus.IDLE;
     }
 
     @Override

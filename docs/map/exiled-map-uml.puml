@@ -15,7 +15,7 @@ package unibo.exiled.model.map{
         + getCellStates() : Map<Position,CellType>
         + getCornerPositionOfElement(CellType)) : Position
     }
-    note bottom : Gli angoli della mappa sono \n identificati da un CellType, \n perche' vi e' una macroarea \n per tipo elementale.
+    note left : Gli angoli della mappa sono \n identificati da un CellType, \n perche' vi e' una macroarea \n per tipo elementale.
     enum CellType{
         PLAINS
         SWAMP
@@ -43,7 +43,7 @@ package unibo.exiled.model.map{
     }
 }
 CellType <.. GameMap
-CellType o-- GameMapImpl
+GameMapImpl o-- CellType
 CellType <.. MapModel
 GameMap *-- MapModelImpl
 @enduml

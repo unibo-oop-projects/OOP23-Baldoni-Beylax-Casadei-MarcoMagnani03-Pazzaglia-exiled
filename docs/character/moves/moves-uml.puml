@@ -49,6 +49,6 @@ package unibo.exiled.model.move
         }
     }
 }
-MoveSet <. MoveSetFactory
-MagicMove o-- MoveSet
+MoveSet <.. MoveSetFactory
+MoveSet o- MagicMove
 @enduml

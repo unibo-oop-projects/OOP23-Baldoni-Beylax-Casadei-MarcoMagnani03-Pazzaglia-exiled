@@ -15,7 +15,7 @@ package unibo.exiled.model.enemy{
         getEnemies() : Collection<Enemy>
         getEnemyFromPosition(Position) : Enemy
     }
-    note top : Questa interfacca e iterabile, \n quindi si possono scorrere i \n nemici in un foreach.
+    note right : Questa interfacca e iterabile, \n quindi si possono scorrere i \n nemici in un foreach.
     class EnemyCollectionImpl {
         - enemies : Collection<Enemy>
         + addEnemy() : void
@@ -26,5 +26,5 @@ package unibo.exiled.model.enemy{
 Iterable <|-- EnemyCollection
 EnemyCollection <|.. EnemyCollectionImpl
 Enemy <.. EnemyCollection
-Enemy o-- EnemyCollectionImpl
+EnemyCollectionImpl o-- Enemy
 @enduml
