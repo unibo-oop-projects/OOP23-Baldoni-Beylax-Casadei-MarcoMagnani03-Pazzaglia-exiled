@@ -1,0 +1,41 @@
+@startuml MenuUml
+scale 0.4
+
+enum Command{
+    - NEW_GAME("new_game")
+    - CLOSE_MENU("close_menu")
+    - QUIT("quit")
+    + getCommandString() : String
+}
+
+class MenuItem {
+    - itemCommand
+    - itemText
+    + getItemText() : String
+    + setItemText(final String text): void
+    + getItemCommand() : Command
+}
+
+interface Menu {
+    + addMenuItem(MenuItem menuItem) : void
+    + getMenuItems() : List<MenuItem>
+}
+
+interface MenuModel {
+    + getNewGameMenu() : Menu
+    + getInGameMenu() : Menu
+}
+
+class MenuImpl implements Menu{
+
+}
+
+class MenuModelImpl Implements MenuModel{
+
+}
+
+Command --* MenuItem
+MenuItem --* MenuImpl
+MenuImpl --* MenuModelImpl
+
+@enduml

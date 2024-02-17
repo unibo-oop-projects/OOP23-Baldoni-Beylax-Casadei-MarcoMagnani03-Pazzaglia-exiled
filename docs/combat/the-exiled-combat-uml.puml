@@ -1,0 +1,68 @@
+@startuml CombatUml
+scale 0.4
+
+interface Combat {
+    +getCombatPosition() : Position
+    +getCombatStatus() : CombatStatus
+    +getPlayer() : Optional<Player>
+    +needsPlayerToChangeMove() : boolean
+    +getEnemy() : Optional<Enemy>
+    + ...setters ()
+}
+
+interface CombatModel {
+    +newCombat() : void
+    +getEnemyName() : String
+    +getEnemyHealth() : double
+    +getEnemyHealthCap() : double
+    +getEnemyMoves() : Set<MagicMove>
+    +getEnemyClassName() : String
+    +getCombatPosition() : Position
+    +needsPlayerToChangeMove() : boolean
+    + ... Combat wrappers ()
+}
+
+enum CombatStatus {
+    +IDLE
+    +ATTACKING
+    +DEFEATED
+    +DEFEATING
+}
+
+interface CombatController {
+    +attack() : void
+    + ... ()
+}
+
+class CombatImpl implements Combat{
+
+}
+
+class CombatModelImpl implements CombatModel {
+
+}
+
+class CombatControllerImpl implements CombatController{
+
+}
+
+interface Player{
+
+}
+
+interface Enemy {
+
+}
+
+class CharacterControllerImpl{
+
+}
+
+CombatImpl *-- CombatStatus
+Combat --* CombatModelImpl
+CombatModel --* CombatControllerImpl 
+Player --* CombatImpl
+Enemy --* CombatImpl
+CombatController --* CharacterControllerImpl
+@enduml
+

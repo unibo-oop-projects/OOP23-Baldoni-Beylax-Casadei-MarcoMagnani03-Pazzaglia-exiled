@@ -140,7 +140,7 @@ In conclusione, anche rimpiazzando totalmente il framework di Swing per la view 
 \section{Design dettagliato}
 \subsection{Luca Casadei}
 Personalmente mi sono occupato di parte della realizzazione delle mosse, della realizzazione di parte dell'entità \textit{GameCharacter}, della realizzazione dei nemici e della loro distribuzione sulla mappa in base al tipo, della creazione della mappa e relativa suddivisione in aree, della creazione ed assegnazione degli attributi dei \textit{GameCharacter}. Per ciascuno di questi elementi del model è stato realizzato un controller apposito per poter utilizzare il pattern MVC.
-\subsubsection{Entità "Nemico"}
+\subsubsection{Entità "Nemico"} \label{ss:enemy}
 \textbf{Problema:} Definire il concetto di nemico e come omologarlo al giocatore per evitare ripetizioni di codice (DRY).
 Questa difficoltà è riassumibile nel dover suddividere i nemici in comuni e boss finali, divisi ciascuno in base al proprio "tipo elementale" e con la propria quantità di esperienza rilasciata alla sconfitta. Ogni nemico deve inoltre avere un set di mosse personalizzato che varia anch'esso in base al tipo.\\
 \textbf{Soluzione:} La soluzione adottata è stata quella di estendere un concetto di \textit{GameCharacter}, che contenesse tutte le informazioni e le azioni condivise tra giocatore e nemici, e successivamente effettuare la relativa divisione costruendo due interfacce diverse, una per il giocatore e una per il nemico. Per quest'ultimo è stata realizzata un'apposita interfaccia implementata da una classe astratta, che poi verrà utilizzata attraverso un pattern creazionale descritto successivamente per generare e distribuire i nemici sulla mappa. I nemici vengono infine divisi ulteriormente in generici e boss.
@@ -243,7 +243,7 @@ La parte che mette in interazione sia i nemici che il player e il controller è 
 \subsection{Francesco Pazzaglia}
 La mia parte di progetto si concentra sull'implementazione dettagliata del giocatore, comprendendo la definizione delle sue caratteristiche quali attributi(la vita, l'esperienza, la relativa classe...) e le sue meccaniche in gioco. Mi sono anche occupato della gestione del movimento del giocatore e delle altre entità (i nemici) all'interno della mappa di gioco. Infine, ho implementato la gestione delle condizioni di chiusura del gioco(vittoria e game over), che includevano la definizione delle regole e dei possibili eventi che portavano al termine del gioco, nonché la gestione delle rispettive schermate.
 
-\subsubsection{Player}
+\subsubsection{Player} \label{ss:player}
 Nella parte inerente al giocatore, il problema principale consisteva nell'identificare e gestire in modo efficiente le caratteristiche comuni con i nemici, al fine di evitare ripetizioni e mantenere il codice conciso. 
 Pertanto, in collaborazione con \textit{Luca Casadei}, responsabile della parte relativa ai nemici, abbiamo deciso di introdurre nel Model un'interfaccia denominata \textit{GameCharacter}. Questa interfaccia contiene i metodi principali che definiscono le caratteristiche fondamentali comuni a tutte le entità nel gioco, come la vita, la posizione, il movimento e gli attributi.
 In aggiunta all'interfaccia, è stata implementata la classe astratta \textit{GameCharacterImpl}, che concretizza l'interfaccia \textit{GameCharacter}. Questa classe è stata progettata in modo che il giocatore possa estenderla e acquisire le caratteristiche comuni menzionate in precedenza. Questa architettura ci ha consentito di gestire in modo efficiente le proprietà condivise tra il giocatore e i nemici, garantendo una maggiore coerenza e facilità di estensione del codice senza ripetizioni.
@@ -361,13 +361,47 @@ L'utilizzo di questo pattern è stato pensato per rendere il progetto aperto a f
 Passando all'HUD (head-up display), quest'ultimo mostra le informazioni di base del giocatore sia sulla pagina principale che durante gli scontri con i nemici. Queste informazioni includono la vita, il livello, la classe e l'esperienza del giocatore. Ho gestito l'HUD come una classe di visualizzazione separata e indipendente, la quale può essere resa visibile e aggiornata quando necessario.
 
 Dal momento che l'HUD è sempre visibile, anche durante i combattimenti, una problematica è stata quella di mantenere costantemente aggiornate le statistiche del giocatore in base ai suoi cambiamenti di stato, come la diminuzione della vita o l'aumento di livello. Per risolvere questo problema, ho optato per un'implementazione simile ad un \textit{Observer}. Ogni volta che il modello del giocatore subisce una modifica, ad esempio quando la vita diminuisce, l'HUD viene notificato attraverso il metodo initialize dei cambiamenti, consentendogli di aggiornare la visualizzazione dell'HUD di conseguenza.
-\subsubsection{Levelling}
+\subsubsection{Levelling} \label{ss:leveling}
 Infine, ho gestito il processo di aumento di livello del giocatore, che coinvolge la logica di incremento del livello raggiungendo una certa quantità di esperienza. Ho implementato anche il calcolo dell'esperienza necessaria per il prossimo livello, l'aumento delle statistiche ad ogni livello e la logica secondo cui il giocatore apprende nuove mosse ad intervalli specifici.
 Per quanto riguarda l'aumento delle statistiche ad ogni incremento di livello, ho scelto di utilizzare un approccio randomizzato al fine di rendere il gioco meno monotono.
 
 Per la logica delle nuove mosse apprese, ho adottato uno schema specifico: il giocatore di base apprende mosse della sua classe (ad esempio, mosse di tipo acqua se la classe è acqua). Se il giocatore conosce già tutte le mosse di quel tipo, imparerà casualmente una mossa di qualsiasi tipo. Questa scelta è stata fatta per rendere la gestione delle mosse più scalabile, in considerazione della possibilità di creare nuovi tipi elementali. Ad esempio, se venisse introdotto un tipo con una singola mossa, il giocatore comunque apprenderebbe nuove mosse.
 
 \subsection{Manuel Baldoni}
+All'interno del progetto mi sono occupato principalmente della realizzazione del combattimento e del menu di gioco. Ho contribuito alla realizzazione di alcuni metodi del Character e delle mosse e della gestione del toggle dei pannelli all'interno della view del gioco. Ho implementato la gestione del cambio della mossa del player al level up in collaborazione con Fracesco Pazzaglia.
+
+\subsubsection{Combat}
+Nella gestione del combattimento ci sono state principalmente due sfide: oggettificazione del concetto di combattimento, gestione del timing di attacco.
+Per quanto riguarda la prima sfida, la difficoltà stava nel fatto che il combattimento di fatto non è un oggetto simile agli altri. Il combattimento al suo interno ha il \textit{\nameref{ss:player}}, che è sempre lo stesso e un \textit{\nameref{ss:enemy}}, che varia in ogni combattimento. Proprio perché un combattimento è un concetto astratto va inizializzato ogni volta che il player incontra un nemico, tramite il metodo initializeCombat nel CombatController.
+Per quanto riguarda la seconda sfida, l'obiettivo era quello di avere un'interfaccia e un comportamento simile a quella del gioco \textit{Pokemon}. Nel quale una volta che il player ha effettuato la sua mossa il nemico aspetta qualche istante prima di effettuare la sua e vi è inoltre, una descrizione di quello che avviene durante la battaglia.
+Per avere questo comportamento ho utilizzato il design pattern \href{https://refactoring.guru/design-patterns/state}{State} in combinazione con l'oggetto \href{https://docs.oracle.com/javase/8/docs/api/javax/swing/Timer.html}{Timer} di Java Swing. Quando il giocatore effettua una mossa viene cambiato immediatamente lo stato del combattimento, viene effettuata la routine di attacco e vengono modificate le proprietà necessarie. Tuttavia l'aggiornamento della view viene effettuato in un secondo momento. Come anche il conseguente attacco del nemico, che viene appunto \textit{triggerato} in un secondo momento.
+Nella view del combattimento c'è una sezione apposita alla descrizione di cosa sta succedendo.\\
+\textbf{Stati del combattimento:}
+\begin{itemize}
+	\item \textit{IDLE}: Lo stato iniziale del combattimento. In questo stato all'inizio viene mostrato nella sezione di descrizione una stringa di questo tipo "---------" successivamente viene mostrata l'ultima mossa effettuata dal nemico;
+	\item \textit{ATTACKING}: In questo stato viene mostrata la stringa (nome attaccante) attacking...;
+	\item \textit{DEFEATING}: Questo stato consente di fa visualizzare al player se è stato sconfitto o se ha sconfitto il nemico;
+	\item \textit{DEFEATED}: Nello stato defeated viene effettuata la routine di sconfitta del player o del nemico.
+\end{itemize}
+\begin{figure}[H]
+	\centering
+	\input{combat/the-exiled-combat-uml.tex}
+	\caption{Schema UML del Combat}
+	\label{fig:the-exiled-combat-uml}
+\end{figure}
+
+\subsubsection{Menu}
+La difficoltà maggiore nell'implementazione del menu è stata la gestione di diversi menu. Infatti all'interno del gioco sono presenti più menu, ognuno con i suoi pulsanti. I pulsanti posso variare per ogni menu. Per risolvere questo problema ho utilizzato il design pattern \href{https://refactoring.guru/design-patterns/command}{Command}. Quando viene creato un nuovo menu esso può avere dei bottoni con dei comandi prestabiliti e finiti. Questi comandi vengono poi gestiti dal listener.
+Nel gioco sono implementati due menu principali: NewGameMenu e InGameMenu.
+\begin{figure}[H]
+	\centering
+	\input{menu/the-exiled-menu-uml.tex}
+	\caption{Schema UML del Menu}
+	\label{fig:the-exiled-menu-uml}
+\end{figure}
+
+\subsubsection{ChangeMove}
+Il giocatore al \textit{\nameref{ss:leveling}}, impara una mossa se il livello è un multiplo di 5. Nel caso in cui il numero di mosse del player sia maggiore di 4, l'utente può scegliere se imparare una nuova mossa (sostituendola con una del suo move set) oppure no. Ho creato un campo flag nel combat che mi permette di verificare se il player deve imparare una nuova mossa oppure no. Quando vengono soddisfatte le condizione il flag si attiva e viene mostrata la \textit{GameChangeMoveView}. Alla decisione del player il flag viene disattivato. Il cambio della mossa e la generazione della mossa sono metodi del player.
 
 \subsection{Elementi di design condivisi}
 In questa sezione verranno elencate parti di codice create con il contributo di tutti i membri del gruppo.
@@ -459,6 +493,15 @@ Elencherò solamente un'occasione in cui si presentano queste parti di codice pi
 
 
 \subsection{Manuel Baldoni}
+\begin{itemize}
+	\item \textbf{Stream}: Utilizzato nel metodo \textit{getEnemyRandomMoveName}. Per avere il nome di una mossa randomica.\\ \url{https://github.com/luca-casadei/OOP23-the-exiled/blob/2607859d3adef7b5c23090199e0807cd852fc256/src/main/java/unibo/exiled/controller/CombatControllerImpl.java#L137C5-L148C6}
+	\item \textbf{Stream}: Utilizzato nel metodo \textit{attack}. Per trovare la mossa effettuata dall'attaccante dal suo moveset.\\ \url{https://github.com/luca-casadei/OOP23-the-exiled/blob/2607859d3adef7b5c23090199e0807cd852fc256/src/main/java/unibo/exiled/controller/CombatControllerImpl.java#L156C2-L259C6}
+	\item \textbf{Optional ed Espressioni Lambda}: Utilizzate per le verificare la presenza dell'item droppato dal nemico e per aggiungerlo all'inventario.
+	\url{https://github.com/luca-casadei/OOP23-the-exiled/blob/2607859d3adef7b5c23090199e0807cd852fc256/src/main/java/unibo/exiled/controller/CombatControllerImpl.java#L203C9-L214C10}
+	\item \textbf{Espressione Lambda}: Utilizzata per gestire il listener del comando del menu.
+	\url{https://github.com/luca-casadei/OOP23-the-exiled/blob/2607859d3adef7b5c23090199e0807cd852fc256/src/main/java/unibo/exiled/view/MenuView.java#L67C9-L91C12}
+	\url{https://github.com/luca-casadei/OOP23-the-exiled/blob/2607859d3adef7b5c23090199e0807cd852fc256/src/main/java/unibo/exiled/view/CombatView.java#L95C17-L99C20}
+\end{itemize}
 
 \chapter{Commenti finali}
 
@@ -473,7 +516,9 @@ Nonostante le parti complesse del progetto e il fatto di sviluppare un progetto 
 
 \subsection{Marco Magnani}
 Il progetto è stato svolto con colleghi con cui ho avuto modo di collaborare già in precedenza alle superiori, quindi sapevo già prima cosa aspettarmi. La centralità della collaborazione e della discussione di idee è stata una costante durante lo sviluppo di questo progetto. Nel complesso, ritengo che il nostro lavoro sia stato soddisfacente, e in particolare, credo di aver gestito una buona parte del progetto sfruttando le competenze acquisite durante le lezioni.
+
 \subsection{Manuel Baldoni}
+Credo che tutti i componenti del gruppo siano individualmente molto preparati a livello di competenze di sviluppo e credo che siamo riusciti a collaborare in maniera efficace. Personalmente credo di aver svolto la mia parte di progetto in maniera efficace ed efficiente. Il mio contributo nelle altri parti del progetto sicuramente non è stato nel volume degli altri componenti del gruppo, tuttavia penso che alcuni miei interventi siano stati fondamentali per la realizzazione del progetto.
 
 \section{Difficoltà incontrate e commenti per i docenti}
 Nessun commento o difficoltà da segnalare.
