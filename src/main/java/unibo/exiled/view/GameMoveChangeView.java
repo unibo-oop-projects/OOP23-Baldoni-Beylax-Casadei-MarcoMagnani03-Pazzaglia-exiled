@@ -1,6 +1,7 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
+import unibo.exiled.model.move.MoveSet;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 
@@ -44,7 +45,7 @@ public final class GameMoveChangeView {
      * Initializes the user interface of the GameMoveChangeView view.
      */
     private void initializeUI() {
-        final String moveToLearn = gameController.getCharacterController().getNewMove();
+        final String moveToLearn = gameController.getCharacterController().getPlayerExceedingMoveName();
 
         final JPanel gameOverPanel = new JPanel(new BorderLayout());
         final JLabel gameOverLabel = new GameLabel(
