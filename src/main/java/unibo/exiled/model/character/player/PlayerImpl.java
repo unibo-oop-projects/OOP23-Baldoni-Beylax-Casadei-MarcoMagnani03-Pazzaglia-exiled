@@ -57,7 +57,11 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         this.maxMovesNumber = ConstantsAndResourceLoader.PLAYER_MOVES_NUMBER;
     }
 
-    // This method is used for testing purposes only.
+    /**
+     * Initializes the player starting inventory.
+     * 
+     * @return The starting inventory of the player.
+     */
     private Inventory initializeInventory() {
         final Inventory inventory = new InventoryImpl();
         final Item healingItem = ItemsContainer.getRandomItemByType(ItemType.HEALTH).get();
