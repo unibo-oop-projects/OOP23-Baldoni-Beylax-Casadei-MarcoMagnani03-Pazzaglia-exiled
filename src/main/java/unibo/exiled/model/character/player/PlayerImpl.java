@@ -20,10 +20,11 @@ import unibo.exiled.model.item.utilities.ItemType;
 import unibo.exiled.model.item.UsableItem;
 
 /**
- * This class represent the implementation of the player in the game.
+ * This class represents the implementation of the player in the game.
  */
 public final class PlayerImpl extends GameCharacterImpl implements Player {
     private static final Random RANDOM = new Random();
+    private static final int NEW_MOVE_TRY = 50;
     private final int attributeIncBound;
     private final Inventory inventory;
     private final int movesLearningInterval;
@@ -44,10 +45,8 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      */
     public PlayerImpl(final int experienceCap, final int attributeIncreaseBound,
             final int movesLearningInterval) {
-        super(ConstantsAndResourceLoader.PLAYER_NAME,
-                new MoveSetFactoryImpl().defaultNormalMoveSet(),
-                ElementalType.NORMAL,
-                new AttributeFactoryImpl().createPlayerAttributes());
+        super(ConstantsAndResourceLoader.PLAYER_NAME, new MoveSetFactoryImpl().defaultNormalMoveSet(),
+                ElementalType.NORMAL, new AttributeFactoryImpl().createPlayerAttributes());
         this.inventory = initializeInventory();
         this.expCap = experienceCap;
         this.currentExp = 0;
@@ -64,16 +63,12 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
      */
     private Inventory initializeInventory() {
         final Inventory inventory = new InventoryImpl();
-        final Item healingItem = ItemsContainer.getRandomItemByType(ItemType.HEALTH).get();
-        inventory.addItem(healingItem);
-        final Item powerUpItem = ItemsContainer.getRandomItemByType(ItemType.POWERUP).get();
-        inventory.addItem(powerUpItem);
+        inventory.addItem(ItemsContainer.getRandomItemByType(ItemType.HEALTH).orElseThrow());
+        inventory.addItem(ItemsContainer.getRandomItemByType(ItemType.POWERUP).orElseThrow());
         return inventory;
     }
 
-    //
-    // GETTER
-    //
+    //GETTER
 
     @Override
     public int getLevel() {
@@ -95,33 +90,28 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         return Inventories.copyOf(this.inventory);
     }
 
-    //
-    // SETTER
-    //
+    //SETTER
 
     @Override
     public void setPlayerClass(final ElementalType playerClassChoice) {
         this.setType(playerClassChoice);
     }
 
-    //
-    // OTHERS
-    //
+    //OTHERS
 
-    /**
-     * Learns a new magical move based on the player's level and learning interval.
-     */
     private void learnNewMove() {
-        if (level % movesLearningInterval == 0) {
-            Optional<MagicMove> newMove;
+        if (shouldLearnNewMove()) {
+            final Optional<MagicMove> newMove = getNewMove();
+            addNewMoveToPlayer(newMove);
+        }
+    }
 
-            // If the player knows all moves of their type, learn a move of a different type
-            if (this.getMoveSet().getMagicMoves().containsAll(Moves.getAllMagicMovesOfType(getType(), this.level))) {
-                newMove = Optional.of(Moves.getTotallyRandomMove(this.level));
-            } else {
-                newMove = getNewMove();
-            }
+    private boolean shouldLearnNewMove() {
+        return this.level % movesLearningInterval == 0;
+    }
 
+    private void addNewMoveToPlayer(final Optional<MagicMove> newMove) {
+        if (newMove.isPresent()) {
             if (this.getMoveSet().getMagicMoves().size() >= this.maxMovesNumber) {
                 this.setExceedingMagicMove(newMove);
             } else {
@@ -132,15 +122,27 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
 
     @Override
     public Optional<MagicMove> getNewMove() {
-        Optional<MagicMove> newMove;
-        do {
-            newMove = Moves.getRandomMagicMoveByType(getType(), this.level);
-            // If there are no moves of the specified type, choose a completely random move
-            // that the player can learn
-            newMove = newMove.isEmpty() ? Optional.of(Moves.getTotallyRandomMove(this.level)) : newMove;
-            // Continue searching until finding a move the player doesn't already know
-        } while (this.getMoveSet().getMagicMoves().contains(newMove.get()));
-        return newMove;
+        int maxAttempts = NEW_MOVE_TRY;
+        while (maxAttempts > 0) {
+            final Optional<MagicMove> newMove = Moves.getRandomMagicMoveByType(getType(), this.level);
+
+            if (!this.getMoveSet().getMagicMoves().contains(newMove.get())) {
+                return newMove;
+            }
+
+            maxAttempts--;
+        }
+        maxAttempts = NEW_MOVE_TRY;
+        while (maxAttempts > 0) {
+            final Optional<MagicMove> newMove = Optional.of(Moves.getTotallyRandomMove(this.level));
+
+            if (!this.getMoveSet().getMagicMoves().contains(newMove.get())) {
+                return newMove;
+            }
+
+            maxAttempts--;
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -160,16 +162,6 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     }
 
     /**
-     * Calculates and returns the experience points required for the next level.
-     *
-     * @return The experience points needed for the next level.
-     */
-    private int calculateNextLevelExperience() {
-        return (int) (this.expCap + this.expCap
-                * ConstantsAndResourceLoader.LEVEL_MODIFIER);
-    }
-
-    /**
      * Handles the player's level up, updating attributes and learning a new
      * MagicMove.
      */
@@ -179,6 +171,10 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
         this.expCap = calculateNextLevelExperience();
         learnNewMove();
         boostAttributes();
+    }
+
+    private int calculateNextLevelExperience() {
+        return (int) (this.expCap + this.expCap * ConstantsAndResourceLoader.LEVEL_MODIFIER);
     }
 
     /**
@@ -202,5 +198,4 @@ public final class PlayerImpl extends GameCharacterImpl implements Player {
     public void addItemToInventory(final Item item) {
         this.inventory.addItem(item);
     }
-
 }
