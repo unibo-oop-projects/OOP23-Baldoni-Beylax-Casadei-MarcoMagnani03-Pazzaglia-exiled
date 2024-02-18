@@ -25,7 +25,7 @@ public final class MoveSetFactoryImpl implements MoveSetFactory {
 
     @Override
     public MoveSet defaultNormalMoveSet() {
-        return this.fillMoveSet(MagicMove.COLPACCIO);
+        return this.fillMoveSet(MagicMove.TACKLE);
     }
 
     @Override

@@ -237,9 +237,7 @@ public final class CombatControllerImpl implements CombatController {
             if (hasAttackerWon) {
                 this.model.setCombatStatus(CombatStatus.DEFEATED);
 
-                final Timer delayTimer = new Timer(IN_BETWEEN_ATTACKS_DELAY, e -> {
-                    combatView.draw();
-                });
+                final Timer delayTimer = new Timer(IN_BETWEEN_ATTACKS_DELAY, e -> combatView.draw());
                 delayTimer.setRepeats(false);
                 delayTimer.start();
             } else {

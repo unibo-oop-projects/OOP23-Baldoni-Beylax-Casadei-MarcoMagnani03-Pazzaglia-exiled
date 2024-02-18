@@ -148,14 +148,14 @@ class TestCharacterController {
     @Test
     void testMagicMoveNames() {
         final Set<MagicMove> fakeMoves = Set.of(
-                MagicMove.COLPACCIO,
-                MagicMove.COLPONE,
+                MagicMove.TACKLE,
+                MagicMove.HEADBUTT,
                 MagicMove.FIREBALL
         );
         Mockito.when(mockedModel.getMagicMoves()).thenReturn(fakeMoves);
         assertTrue(List.of(
-                MagicMove.COLPACCIO.name(),
-                MagicMove.COLPONE.name(),
+                MagicMove.TACKLE.name(),
+                MagicMove.HEADBUTT.name(),
                 MagicMove.FIREBALL.name()
         ).containsAll(controller.getMagicMoveNames()));
     }
@@ -163,14 +163,14 @@ class TestCharacterController {
     @Test
     void testGetMagicMoveDescription() {
         final Set<MagicMove> fakeMoves = Set.of(
-                MagicMove.COLPACCIO,
-                MagicMove.COLPONE,
+                MagicMove.TACKLE,
+                MagicMove.HEADBUTT,
                 MagicMove.FIREBALL
         );
         Mockito.when(mockedModel.getMagicMoves()).thenReturn(fakeMoves);
         //Success
-        assertEquals(MagicMove.COLPONE.getDescription(),
-                controller.getMagicMoveDescription(MagicMove.COLPONE.name()));
+        assertEquals(MagicMove.HEADBUTT.getDescription(),
+                controller.getMagicMoveDescription(MagicMove.HEADBUTT.name()));
         //Failure
         assertEquals("", controller.getMagicMoveDescription(MagicMove.FLAMEWHIRL.name()));
     }
@@ -178,14 +178,14 @@ class TestCharacterController {
     @Test
     void testGetMagicMovePower() {
         final Set<MagicMove> fakeMoves = Set.of(
-                MagicMove.COLPACCIO,
-                MagicMove.COLPONE,
+                MagicMove.TACKLE,
+                MagicMove.HEADBUTT,
                 MagicMove.FIREBALL
         );
         Mockito.when(mockedModel.getMagicMoves()).thenReturn(fakeMoves);
         //Success
-        assertEquals(MagicMove.COLPONE.getPower(),
-                controller.getMagicMoveDamage(MagicMove.COLPONE.name()));
+        assertEquals(MagicMove.HEADBUTT.getPower(),
+                controller.getMagicMoveDamage(MagicMove.HEADBUTT.name()));
         //Failure
         assertThrows(IllegalArgumentException.class, () -> controller.getMagicMoveDamage(
                 MagicMove.FLAMEWHIRL.name()));
@@ -194,8 +194,8 @@ class TestCharacterController {
     @Test
     void testMagicMoveType() {
         final Set<MagicMove> fakeMoves = Set.of(
-                MagicMove.COLPACCIO,
-                MagicMove.COLPONE,
+                MagicMove.TACKLE,
+                MagicMove.HEADBUTT,
                 MagicMove.FIREBALL
         );
         Mockito.when(mockedModel.getMagicMoves()).thenReturn(fakeMoves);
