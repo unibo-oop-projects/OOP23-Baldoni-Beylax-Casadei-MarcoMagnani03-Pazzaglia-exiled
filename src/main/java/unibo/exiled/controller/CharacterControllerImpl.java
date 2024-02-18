@@ -219,4 +219,9 @@ public final class CharacterControllerImpl implements CharacterController {
     public double getPlayerDefense() {
         return this.model.getPlayerAttributeOf(AttributeIdentifier.DEFENSE);
     }
+
+    @Override
+    public String getPlayerExceedingMoveName() {
+        return this.model.getPlayer().get().getExceedingMagicMove().get().name();
+    }
 }

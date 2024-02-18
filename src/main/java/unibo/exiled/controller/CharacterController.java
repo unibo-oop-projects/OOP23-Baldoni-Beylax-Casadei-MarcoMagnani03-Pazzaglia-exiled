@@ -210,4 +210,10 @@ public interface CharacterController {
      */
     double getPlayerDefense();
 
+    /**
+     * Return the player exceeding move.
+     * 
+     * @return the player exceeding move.
+     */
+    String getPlayerExceedingMoveName();
 }
