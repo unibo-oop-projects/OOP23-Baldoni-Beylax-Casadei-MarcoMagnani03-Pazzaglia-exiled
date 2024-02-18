@@ -21,7 +21,7 @@ public final class EndGameView {
     private final JFrame mainFrame;
     private final EndState state;
 
-    // The buttons to exit the game.
+    // The button to quit the game.
     private final GameButton quitButton = new GameButton("Quit");
 
     /**
