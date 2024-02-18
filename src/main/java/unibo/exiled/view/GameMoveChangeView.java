@@ -1,18 +1,20 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.GameController;
-import unibo.exiled.model.move.MoveSet;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.view.items.GameButton;
 import unibo.exiled.view.items.GameLabel;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.BorderLayout;
 import javax.swing.WindowConstants;
+
 
 /**
  * This class represents the GameMoveChangeView view.
@@ -47,10 +49,14 @@ public final class GameMoveChangeView {
     private void initializeUI() {
         final String moveToLearn = gameController.getCharacterController().getPlayerExceedingMoveName();
 
-        final JPanel gameOverPanel = new JPanel(new BorderLayout());
-        final JLabel gameOverLabel = new GameLabel(
+        final JPanel gameMoveChangePanel = new JPanel(new BorderLayout());
+        final JLabel gameMoveChangeImage = new JLabel(new ImageIcon(
+                ClassLoader.getSystemResource(ConstantsAndResourceLoader.IMAGES_PATH + "/interface/changemove.png")));
+        gameMoveChangePanel.add(gameMoveChangeImage, BorderLayout.NORTH);
+
+        final JLabel gameMoveChangeLabel = new GameLabel(
                 "Change a move from your MoveSet or refuse to learn the " + moveToLearn + " move.");
-        gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
+        gameMoveChangePanel.add(gameMoveChangeLabel, BorderLayout.CENTER);
 
         final JPanel buttonPanel = new JPanel(new FlowLayout());
 
@@ -71,9 +77,9 @@ public final class GameMoveChangeView {
             }
         });
 
-        gameOverPanel.add(buttonPanel, BorderLayout.SOUTH);
+        gameMoveChangePanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        this.mainFrame.getContentPane().add(gameOverPanel);
+        this.mainFrame.getContentPane().add(gameMoveChangePanel);
     }
 
     private GameButton getGameButton(final String move, final String moveToLearn) {
