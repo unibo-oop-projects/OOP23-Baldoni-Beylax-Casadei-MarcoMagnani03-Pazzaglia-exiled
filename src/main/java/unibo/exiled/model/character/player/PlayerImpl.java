@@ -24,7 +24,7 @@ import unibo.exiled.model.item.UsableItem;
  */
 public final class PlayerImpl extends GameCharacterImpl implements Player {
     private static final Random RANDOM = new Random();
-    private static final int NEW_MOVE_TRY = 10;
+    private static final int NEW_MOVE_TRY = 50;
     private final int attributeIncBound;
     private final Inventory inventory;
     private final int movesLearningInterval;
