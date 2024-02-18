@@ -471,15 +471,21 @@ Elencherò solamente un'occasione in cui si presentano queste parti di codice pi
 
 \begin{itemize}
 	\item \textbf{Espressioni Lambda}: Utilizzate per le \textit{ActionListener} dei JButton in \textit{EndGameView}. \\
+	(Commit hash: cd059e5644230a791df2c09c787618c38d8383e7) \\
 	\url{https://github.com/luca-casadei/the-exiled/blob/a59eb1a55ef30e4a8236a7833d634999110a64a6/src/main/java/unibo/exiled/view/EndGameView.java#L62}
 	
-	\item \textbf{Optional}: Utilizzati nel \textit{Player}(metodo \textit{getNewMove()}) per la generazione di una nuova mossa. \\
-	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/model/character/player/PlayerImpl.java#L127}
+	\item \textbf{Optional}: Utilizzati in \textit{NewGameView}, \textit{GameView} e \textit{MenuView} per evitare l'utilizzo di \textit{null} nel passaggio di parametri delle View.\\
+	(Commit hash: ff875623f1167e0d13a2eb4ddd349d13e46523b6) \\
+	\url{https://github.com/luca-casadei/OOP23-the-exiled/blob/cf21d9c06eb9c5d18cb5b742c33f043e4b45e39d/src/main/java/unibo/exiled/view/NewGameView.java#L29}\\
+	\url{https://github.com/luca-casadei/OOP23-the-exiled/blob/cf21d9c06eb9c5d18cb5b742c33f043e4b45e39d/src/main/java/unibo/exiled/view/GameView.java#L92} \\
+	\url{https://github.com/luca-casadei/OOP23-the-exiled/blob/cf21d9c06eb9c5d18cb5b742c33f043e4b45e39d/src/main/java/unibo/exiled/view/MenuView.java#L38}
 	
 	\item \textbf{Stream}: Utilizzati nei Controller per controllare che il \textit{Player} abbia vinto il gioco. \\
+	(Commit hash: 7922ad177ce45d6b2c71743f39dcc260b7c44c0b)\\
 	\url{https://github.com/luca-casadei/the-exiled/blob/b5d735949ba7e010ffae414b746d4d7f464148ba/src/main/java/unibo/exiled/controller/CharacterControllerImpl.java#L197}
 	
 	\item \textbf{Font}: Utilizzato nella classe \textit{FontManager} per poter cambiare il font-style del gioco inserendo un font personalizzato. \\
+	(Commit hash: d21a30943434d99d77836f6705f9c5b0a9b9438c) \\ 
 	\url{https://github.com/luca-casadei/OOP23-the-exiled/blob/884364614a6dbfb22a62d7c36e7baecd75401f6a/src/main/java/unibo/exiled/utilities/FontManager.java#L12} \\
 	Ho preso spunto dalla documentazione Oracle: \\ \url{https://docs.oracle.com/javase/tutorial/2d/text/fonts.html}.
 \end{itemize}
