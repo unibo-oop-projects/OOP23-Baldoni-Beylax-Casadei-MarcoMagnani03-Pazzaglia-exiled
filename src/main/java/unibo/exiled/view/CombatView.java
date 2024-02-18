@@ -60,7 +60,9 @@ public final class CombatView extends JPanel {
 
             if (this.gameController.getCombatController().needsPlayerToChangeMove()) {
                 final GameMoveChangeView gameMoveChangeView = new GameMoveChangeView(
-                        this.gameController);
+                        this.gameController,
+                        this.gameView
+                );
                 gameMoveChangeView.display();
             }
         } else {

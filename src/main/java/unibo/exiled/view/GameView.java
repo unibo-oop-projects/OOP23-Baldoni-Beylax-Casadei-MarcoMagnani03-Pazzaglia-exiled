@@ -1,6 +1,5 @@
 package unibo.exiled.view;
 
-import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -58,7 +57,7 @@ public final class GameView {
         this.mainFrame = new JFrame();
         this.mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.mainFrame.setTitle("The Exiled");
+        this.mainFrame.setTitle(ConstantsAndResourceLoader.GAME_NAME);
         this.mainFrame.setLocationByPlatform(true);
         this.mainFrame.setFocusable(true);
 
@@ -251,9 +250,9 @@ public final class GameView {
     }
 
     /**
-     * Close the main frame.
+     * Hides the frame.
      */
-    public void close() {
-        mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
+    public void hide() {
+        this.mainFrame.setVisible(false);
     }
 }

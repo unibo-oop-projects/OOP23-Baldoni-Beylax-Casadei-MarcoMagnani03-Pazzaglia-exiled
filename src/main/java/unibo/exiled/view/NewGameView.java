@@ -1,6 +1,7 @@
 package unibo.exiled.view;
 
 import unibo.exiled.controller.MenuControllerImpl;
+import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.utilities.FontManager;
 
 import javax.swing.JFrame;
@@ -22,7 +23,7 @@ public final class NewGameView {
         final JFrame mainFrame = new JFrame();
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mainFrame.setTitle("The Exiled");
+        mainFrame.setTitle(ConstantsAndResourceLoader.GAME_NAME);
         mainFrame.setLocationByPlatform(true);
         mainFrame.setFocusable(true);
         mainFrame.setLayout(new BorderLayout());

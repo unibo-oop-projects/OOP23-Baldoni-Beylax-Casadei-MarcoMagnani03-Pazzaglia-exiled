@@ -9,6 +9,10 @@ import java.net.URL;
 @Immutable
 public final class ConstantsAndResourceLoader extends ClassLoader {
     /**
+     * The name of the game.
+     */
+    public static final String GAME_NAME = "The Exiled";
+    /**
      * The main folder of the player.
      */
     public static final String PLAYER_PATH = "/player";

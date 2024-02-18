@@ -1,4 +1,5 @@
 package unibo.exiled.model.move;
+
 import unibo.exiled.utilities.ConstantsAndResourceLoader;
 import unibo.exiled.utilities.ElementalType;
 
@@ -16,6 +17,11 @@ public enum MagicMove {
      */
     HEADBUTT("Hits the enemy with own head a bit more enthusiasm.",
             ConstantsAndResourceLoader.MIN_LEARNING_LEVEL_FIRST_MOVE, 8.0d, ElementalType.NORMAL),
+    /**
+     * A normal basic move.
+     */
+    BODY_SLAM("Slams the enemy with its own body.",
+            ConstantsAndResourceLoader.MIN_LEARNING_LEVEL_SECOND_MOVE, 10.0d, ElementalType.NORMAL),
     /**
      * A fire basic move.
      */

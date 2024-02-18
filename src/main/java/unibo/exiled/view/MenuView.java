@@ -61,7 +61,7 @@ public final class MenuView extends JPanel {
         this.add(buttonListPanel, BorderLayout.CENTER);
     }
 
-    private static GameButton getGameButton(final Optional<GameView> gameView, final MenuItem menuItem) {
+    private GameButton getGameButton(final Optional<GameView> gameView, final MenuItem menuItem) {
         final GameButton gameButton = new GameButton(menuItem.getItemText());
         gameButton.setActionCommand(menuItem.getItemCommand().getCommandString());
         gameButton.addActionListener(e -> {
@@ -76,7 +76,7 @@ public final class MenuView extends JPanel {
             } else if (e.getActionCommand().equals(Command.CLOSE_MENU.getCommandString())) {
                 gameView.ifPresent(GameView::hideMenu);
             } else if (e.getActionCommand().equals(Command.QUIT.getCommandString())) {
-                final int dialogResult = JOptionPane.showConfirmDialog(null,
+                final int dialogResult = JOptionPane.showConfirmDialog(this,
                         "Would you like to quit the game?", "Warning",
                         JOptionPane.YES_NO_OPTION);
 

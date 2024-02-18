@@ -1,6 +1,7 @@
 package unibo.exiled.view.items;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import unibo.exiled.utilities.FontManager;
 
@@ -25,7 +26,17 @@ public class GameLabel extends JLabel {
      * @param text The text to insert in the label.
      */
     public GameLabel(final String text) {
-        super(text);
+        this(text, SwingConstants.LEFT);
+    }
+
+    /**
+     * The overload of the constructor of the new label.
+     *
+     * @param text      The text to insert in the label.
+     * @param alignment The alignment of the internal text.
+     */
+    public GameLabel(final String text, final int alignment) {
+        super(text, alignment);
         setLabelStyle();
     }
 
